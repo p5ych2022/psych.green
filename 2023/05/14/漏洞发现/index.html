@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>漏洞发现 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="操作系统探针(工具)Goby漏洞扫描工具，官网下载，扫描ip、域名的漏洞。 可视化图形界面，缺点就是漏洞库不太长，扫出来的漏洞有遗漏。 Nmap分为两种，一种是利用默认的nse插件扫描(就是加参数的那种)Nmap --script&#x3D;vuln，还有就是调用第三方库探针Nmap vulscan&#x2F;vulners&#96;。参考：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;shwang&#x2F;p&#x2F;1262">
+<meta property="og:type" content="article">
+<meta property="og:title" content="漏洞发现">
+<meta property="og:url" content="http://example.com/2023/05/14/%E6%BC%8F%E6%B4%9E%E5%8F%91%E7%8E%B0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="操作系统探针(工具)Goby漏洞扫描工具，官网下载，扫描ip、域名的漏洞。 可视化图形界面，缺点就是漏洞库不太长，扫出来的漏洞有遗漏。 Nmap分为两种，一种是利用默认的nse插件扫描(就是加参数的那种)Nmap --script&#x3D;vuln，还有就是调用第三方库探针Nmap vulscan&#x2F;vulners&#96;。参考：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;shwang&#x2F;p&#x2F;1262">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://124.70.36.100/wp-content/uploads/2023/05/image-20230502031241100-639x1024.png">
+<meta property="og:image" content="http://124.70.36.100/wp-content/uploads/2023/05/image-20230502031340476.png">
+<meta property="og:image" content="http://124.70.36.100/wp-content/uploads/2023/05/image-20230502031241100-1-639x1024.png">
+<meta property="og:image" content="http://124.70.36.100/wp-content/uploads/2023/05/image-20230502031340476-1.png">
+<meta property="og:image" content="http://124.70.36.100/wp-content/uploads/2023/05/image-20230502031509504.png">
+<meta property="og:image" content="http://124.70.36.100/wp-content/uploads/2023/05/image-20230502031532647.png">
+<meta property="og:image" content="http://124.70.36.100/wp-content/uploads/2023/05/image-20230502031558288.png">
+<meta property="og:image" content="http://124.70.36.100/wp-content/uploads/2023/05/image-20230502031638619.png">
+<meta property="og:image" content="http://124.70.36.100/wp-content/uploads/2023/05/image-20230502031706954.png">
+<meta property="og:image" content="http://124.70.36.100/wp-content/uploads/2023/05/image-20230502031731798.png">
+<meta property="article:published_time" content="2023-05-14T05:07:48.000Z">
+<meta property="article:modified_time" content="2023-08-16T11:57:09.795Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="渗透">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://124.70.36.100/wp-content/uploads/2023/05/image-20230502031241100-639x1024.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-漏洞发现" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/05/14/%E6%BC%8F%E6%B4%9E%E5%8F%91%E7%8E%B0/" class="article-date">
+  <time class="dt-published" datetime="2023-05-14T05:07:48.000Z" itemprop="datePublished">2023-05-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/web/">web</a>►<a class="article-category-link" href="/categories/web/%E6%B8%97%E9%80%8F/">渗透</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      漏洞发现
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><h3 id="探针-工具"><a href="#探针-工具" class="headerlink" title="探针(工具)"></a>探针(工具)</h3><h6 id="Goby"><a href="#Goby" class="headerlink" title="Goby"></a>Goby</h6><p>漏洞扫描工具，官网下载，扫描ip、域名的漏洞。</p>
+<p>可视化图形界面，缺点就是漏洞库不太长，扫出来的漏洞有遗漏。</p>
+<h6 id="Nmap"><a href="#Nmap" class="headerlink" title="Nmap"></a>Nmap</h6><p>分为两种，一种是利用默认的nse插件扫描(就是加参数的那种)<code>Nmap --script=vuln，还有就是调用第三方库探针</code>Nmap vulscan&#x2F;vulners`。参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/shwang/p/12623669.html">https://www.cnblogs.com/shwang/p/12623669.html</a> 下载之后放到script目录下面，和内置插件放一起。</p>
+<h6 id="Nessus-推荐"><a href="#Nessus-推荐" class="headerlink" title="Nessus(推荐)"></a>Nessus(推荐)</h6><p>可视化网站界面，需要先开启网站服务，配置好了时候开始扫描。这个漏洞扫描工具相对来说是扫描最全面的，扫出来的漏洞也最多。</p>
+<p>这是属于稍微大型一点的漏扫，不建议私下使用，太容易被发现。</p>
+<p>安装的时候看看文档，一定要管理员运行系统。</p>
+<h6 id="OpenVAS"><a href="#OpenVAS" class="headerlink" title="OpenVAS"></a>OpenVAS</h6><h6 id="Nexpose"><a href="#Nexpose" class="headerlink" title="Nexpose"></a>Nexpose</h6><h3 id="漏洞类型"><a href="#漏洞类型" class="headerlink" title="漏洞类型"></a>漏洞类型</h3><h6 id="远程执行"><a href="#远程执行" class="headerlink" title="远程执行"></a>远程执行</h6><h6 id="权限提升"><a href="#权限提升" class="headerlink" title="权限提升"></a>权限提升</h6><h6 id="缓冲区溢出"><a href="#缓冲区溢出" class="headerlink" title="缓冲区溢出"></a>缓冲区溢出</h6><p>…</p>
+<h3 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h3><h5 id="工具框架"><a href="#工具框架" class="headerlink" title="工具框架"></a>工具框架</h5><h6 id="Matasploit"><a href="#Matasploit" class="headerlink" title="Matasploit"></a>Matasploit</h6><p>命令行敲入<code>msfconsole</code></p>
+<p>进入msf</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> search ...(搜索漏洞编号)</span><br><span class="line"> use ...(加详细漏洞名称)</span><br><span class="line"> show options  ...(显示需要的条件host，port等等)</span><br><span class="line"> run/exploit</span><br></pre></td></tr></table></figure>
+
+<h6 id="Searchsploit"><a href="#Searchsploit" class="headerlink" title="Searchsploit"></a>Searchsploit</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> 直接searchsploit  加关键字，搜索</span><br></pre></td></tr></table></figure>
+
+<h6 id="企业单位内部产品"><a href="#企业单位内部产品" class="headerlink" title="企业单位内部产品"></a>企业单位内部产品</h6><p>…</p>
+<h5 id="单点EXP"><a href="#单点EXP" class="headerlink" title="单点EXP"></a>单点EXP</h5><h6 id="cnvd"><a href="#cnvd" class="headerlink" title="cnvd"></a>cnvd</h6><p>国家信息安全漏洞共享平台</p>
+<h6 id="seebug"><a href="#seebug" class="headerlink" title="seebug"></a>seebug</h6><h6 id="1337day"><a href="#1337day" class="headerlink" title="1337day"></a>1337day</h6><h6 id="exploit-db-com"><a href="#exploit-db-com" class="headerlink" title="exploit-db.com"></a>exploit-db.com</h6><h6 id="Packetstorm-Security"><a href="#Packetstorm-Security" class="headerlink" title="Packetstorm Security"></a>Packetstorm Security</h6><h2 id="web应用"><a href="#web应用" class="headerlink" title="web应用"></a>web应用</h2><h3 id="已知cms"><a href="#已知cms" class="headerlink" title="已知cms"></a>已知cms</h3><p>比如常见的dedecms，discus，Wordpress等源码结构，这种一般采用非框架类开发，但也有山部分采用的是框架类开发，针对此类型源码程序的安全监测，我们要利用公开的漏洞进行测试，如不存在用白盒代码审计自行挖掘。</p>
+<p>怎么挖掘cms？</p>
+<blockquote>
+<p>看看<strong>robots.txt</strong></p>
+<p>看看返回数据包</p>
+<p>cms扫描工具</p>
+<p>敏感文件目录去搜，这个站看不到东西也可以记住文件目录格式去fofa上搜同样的站去看</p>
+</blockquote>
+<p><strong>有一个目录:<code>/data/admin/ver.txt</code>可以查看网站更新时间</strong></p>
+<ul>
+<li>单点exp平台去搜&#x2F;谷歌&#x2F;必应&#x2F;百度去搜</li>
+<li>cms漏洞扫描工具框架：cmsscan，wpscan，joomscan，drupalscan【很多框架，cms都有专门的漏扫工具】</li>
+<li>代码审计…</li>
+</ul>
+<h3 id="开发框架"><a href="#开发框架" class="headerlink" title="开发框架"></a>开发框架</h3><p>如常见的thinkPHP，spring，flask等开发的源码程序，这种源码程序正常的安全测试思路：先获取对应的开发框架信息（名字，版本），通过公开的框架类安全问题进行测试，如不存在可采用白盒代码审计自行挖掘。</p>
+<ul>
+<li>php<ul>
+<li>Yii</li>
+<li>Laravel</li>
+<li>thinkphp</li>
+</ul>
+</li>
+<li>java<ul>
+<li>Shiro</li>
+<li>struts</li>
+<li>spring</li>
+<li>Maven</li>
+</ul>
+</li>
+<li>python<ul>
+<li>flask</li>
+<li>Django</li>
+<li>Tornado</li>
+</ul>
+</li>
+</ul>
+<h3 id="未知cms"><a href="#未知cms" class="headerlink" title="未知cms"></a>未知cms</h3><p>如常见的企业或个人的 内部程序源码，也可以是某cms二次开发的源码结构，针对此类的程序源码测试思路：能识别二次开发就按已知cms思路进行，不能群定二次开发的话可以采用常规综合类扫描工具或脚本进行探针，也可以采用人工探针(功能点，参数，盲猜)，同样可以白盒代码审计。</p>
+<h3 id="实战：某外挂站的渗透"><a href="#实战：某外挂站的渗透" class="headerlink" title="实战：某外挂站的渗透"></a>实战：某外挂站的渗透</h3><h6 id="首先信息搜集cms"><a href="#首先信息搜集cms" class="headerlink" title="首先信息搜集cms"></a>首先信息搜集cms</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> www.668jq.com/robotx.txt              #查看到网站的cms</span><br><span class="line"> www.668jq.com/data/admin/ver.txt      #查看到网站最后更新时间，发现是18年，一般就找18年之后的该cms的漏洞，之前的漏洞一般都被修复。找了下发现没什么可以利用的漏洞。</span><br></pre></td></tr></table></figure>
+
+<h6 id="尝试弱口令"><a href="#尝试弱口令" class="headerlink" title="尝试弱口令"></a>尝试弱口令</h6><p>输入默认后台路径，没找到。</p>
+<p>尝试爆破后台路径。</p>
+<p>网上搜索下尝试找找然后找到了。。</p>
+<h6 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h6><p>nmap -sV [<a href="www.668jq.com">www.668jq.com</a></p>
+<p>然后发现了888端口和8888端口—&gt;我们想到—-&gt;可能有<strong>宝塔</strong></p>
+<p>弄了一下发现还是没有</p>
+<h6 id="找找源码备份文件"><a href="#找找源码备份文件" class="headerlink" title="找找源码备份文件"></a>找找源码备份文件</h6><p>然后找到数据库备份文件，找到账密。结果连接不上，原因是宝塔一些配置信息，不支持外连</p>
+<p>然后继续找，找到源码备份文件里面有之前的备份文件，里面有之前的一个数据库备份文件，用哪个账密连接一下，成功。进入数据库之后找到后台账密，成功！</p>
+<h2 id="APP应用"><a href="#APP应用" class="headerlink" title="APP应用"></a>APP应用</h2><h6 id="思路说明"><a href="#思路说明" class="headerlink" title="思路说明"></a>思路说明</h6><p>反编译提取URL或者抓包获取url，进行web应用测试。如果不存在或走其他协议的情况下，需要采用网络接口抓包进行数据获取，转至其他协议安全测试</p>
+<h3 id="抓包"><a href="#抓包" class="headerlink" title="抓包"></a>抓包</h3><p>先用一个APP模拟器模拟手机。【小迪用的逍遥模拟器】</p>
+<h6 id="http-https协议"><a href="#http-https协议" class="headerlink" title="http&#x2F;https协议"></a>http&#x2F;https协议</h6><ul>
+<li>burpsuit【需要提前配置，要https也要抓】</li>
+<li>Charies</li>
+<li>Fiddler</li>
+<li>抓包精灵</li>
+</ul>
+<p>抓到网站域名ip端口之后去电脑端访问，如果访问不起就说明他的user-agent有限制，只能手机APP访问，所以我们需要改一下网站访问的请求包，具体参考手机访问的时候的请求包来改。甚至可以直接复制过去改了。注意如果还需要用漏扫工具，就需要先在漏扫工具里面设置一下，修改http头，再来扫。</p>
+<h6 id="其他协议"><a href="#其他协议" class="headerlink" title="其他协议"></a>其他协议</h6><p>wireshark</p>
+<h3 id="逆向"><a href="#逆向" class="headerlink" title="逆向"></a>逆向</h3><ul>
+<li>一键提取APK涉及url利用【漏了个大洞】，输入apk文件，就能直接把apk涉及的url输出APK文件，就是软件安装之前下载的那个安装包—&gt;后缀会带.apk</li>
+<li>反编译重写代码端编译测试</li>
+</ul>
+<h2 id="API接口服务-dd"><a href="#API接口服务-dd" class="headerlink" title="API接口服务(dd)"></a>API接口服务(dd)</h2><p>根据前期信息搜集针对目标端口服务类探针后进行的安全测试，主要涉及攻击方法是：口令安全，web类漏洞，版本漏洞等，其中产生的危害可大可小，属于端口服务&#x2F;第三方服务类安全测试面。一般在已知应用无思路的情况下选用的安全测试方案。</p>
+<p><a href="#">api接口测试</a></p>
+<h6 id="API接口-webservice-restful-api"><a href="#API接口-webservice-restful-api" class="headerlink" title="API接口-webservice restful api"></a>API接口-webservice restful api</h6><p>根据自身的功能方向决定，安全测试目标需要有api接口调用才能进行此类渗透，主要涉及的安全问题有：自身安全，配合web，业务逻辑等。</p>
+<h2 id="其他测试"><a href="#其他测试" class="headerlink" title="其他测试"></a>其他测试</h2><h5 id="端口测试"><a href="#端口测试" class="headerlink" title="端口测试"></a>端口测试</h5><h6 id="web服务类"><a href="#web服务类" class="headerlink" title="web服务类"></a>web服务类</h6><p><img src="http://124.70.36.100/wp-content/uploads/2023/05/image-20230502031241100-639x1024.png"></p>
+<p><img src="http://124.70.36.100/wp-content/uploads/2023/05/image-20230502031340476.png"></p>
+<p><img src="http://124.70.36.100/wp-content/uploads/2023/05/image-20230502031241100-1-639x1024.png"></p>
+<p><img src="http://124.70.36.100/wp-content/uploads/2023/05/image-20230502031340476-1.png"></p>
+<h6 id="数据库类"><a href="#数据库类" class="headerlink" title="数据库类"></a>数据库类</h6><p><img src="http://124.70.36.100/wp-content/uploads/2023/05/image-20230502031509504.png"></p>
+<h6 id="大数据类"><a href="#大数据类" class="headerlink" title="大数据类"></a>大数据类</h6><p><img src="http://124.70.36.100/wp-content/uploads/2023/05/image-20230502031532647.png"></p>
+<h6 id="文件共享"><a href="#文件共享" class="headerlink" title="文件共享"></a>文件共享</h6><p><img src="http://124.70.36.100/wp-content/uploads/2023/05/image-20230502031558288.png"></p>
+<h6 id="远程访问"><a href="#远程访问" class="headerlink" title="远程访问"></a>远程访问</h6><p><img src="http://124.70.36.100/wp-content/uploads/2023/05/image-20230502031638619.png"></p>
+<h6 id="邮件服务"><a href="#邮件服务" class="headerlink" title="邮件服务"></a>邮件服务</h6><p><img src="http://124.70.36.100/wp-content/uploads/2023/05/image-20230502031706954.png"></p>
+<h6 id="其他服务"><a href="#其他服务" class="headerlink" title="其他服务"></a>其他服务</h6><p><img src="http://124.70.36.100/wp-content/uploads/2023/05/image-20230502031731798.png"></p>
+<h5 id="域名发现"><a href="#域名发现" class="headerlink" title="域名发现"></a>域名发现</h5><h6 id="注册人"><a href="#注册人" class="headerlink" title="注册人"></a>注册人</h6><p>同一个注册人注册的不同的几个域名很有可能是用于同一个东西，同一个业务，说不定ip在同一网段。</p>
+<h6 id="域名登记"><a href="#域名登记" class="headerlink" title="域名登记"></a>域名登记</h6><p>注册人可能在统一个域名注册了好几个后缀。.com,.cn,.com.cn等等</p>
+<h6 id="特有信息"><a href="#特有信息" class="headerlink" title="特有信息"></a>特有信息</h6><p>如一些网站名字，公司名字，域名关键字等等都可以搜索。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/05/14/%E6%BC%8F%E6%B4%9E%E5%8F%91%E7%8E%B0/" data-id="clldp748d003ocwgga3jf1ouk" data-title="漏洞发现" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B8%97%E9%80%8F/" rel="tag">渗透</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/05/14/237/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Untitled Post - 4
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/05/14/%E6%B8%97%E9%80%8F%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">渗透前期准备</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/e6-96-87-e5-ad-a6/">%e6%96%87%e5%ad%a6</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/e6-96-87-e5-ad-a6/%E8%AF%97/">诗</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/e6-96-87-e5-ad-a6/%E9%9A%8F%E7%AC%94/">随笔</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/uncategorized/">uncategorized</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/web/CTF/">CTF</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/web%E5%9F%BA%E7%A1%80/">web基础</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/%E6%B8%97%E9%80%8F/">渗透</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%91%84%E5%BD%B1/">摄影</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%96%87%E5%AD%A6/">文学</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BE%E5%86%85/">课内</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTF/" rel="tag">CTF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/" rel="tag">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/" rel="tag">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web%E5%9F%BA%E7%A1%80/" rel="tag">web基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%91%84%E5%BD%B1/" rel="tag">摄影</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B8%97%E9%80%8F/" rel="tag">渗透</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3/" rel="tag">离散</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%97/" rel="tag">诗</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BE%E5%86%85/" rel="tag">课内</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94/" rel="tag">随笔</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CTF/" style="font-size: 18.33px;">CTF</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/php/" style="font-size: 10px;">php</a> <a href="/tags/python/" style="font-size: 11.67px;">python</a> <a href="/tags/web/" style="font-size: 20px;">web</a> <a href="/tags/web%E5%9F%BA%E7%A1%80/" style="font-size: 16.67px;">web基础</a> <a href="/tags/%E6%91%84%E5%BD%B1/" style="font-size: 13.33px;">摄影</a> <a href="/tags/%E6%B8%97%E9%80%8F/" style="font-size: 13.33px;">渗透</a> <a href="/tags/%E7%A6%BB%E6%95%A3/" style="font-size: 10px;">离散</a> <a href="/tags/%E8%AF%97/" style="font-size: 10px;">诗</a> <a href="/tags/%E8%AF%BE%E5%86%85/" style="font-size: 10px;">课内</a> <a href="/tags/%E9%9A%8F%E7%AC%94/" style="font-size: 15px;">随笔</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/08/16/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/25/docker/">Docker</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/24/%E5%B7%85%E5%B3%B0%E6%9E%81%E5%AE%A22023-web-hellosql-wp/">巅峰极客2023-web-hellosql-wp</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">搭建博客</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/11/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">PHP反序列化</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

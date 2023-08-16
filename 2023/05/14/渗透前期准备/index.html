@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>渗透前期准备 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="搭建安全拓展域名与ip通过域名和ip地址访问的时候，有些网站设置的根目录不一样。 一般ip访问的时候根目录会更低一级，所以应该能扫描出更多的东西。比如有些网站会有备份文件会放在域名根目录同一级，正好就是ip访问的那一级，正好能扫描出来。 总之，我们目录扫描的时候尽量扫ip。 访问者权限在我们访问一个网站的时候，发现有些网页我们没有权限访问，那我们访问者的权限是什么呢？在iis中，有一个来宾账户的用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="渗透前期准备">
+<meta property="og:url" content="http://example.com/2023/05/14/%E6%B8%97%E9%80%8F%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="搭建安全拓展域名与ip通过域名和ip地址访问的时候，有些网站设置的根目录不一样。 一般ip访问的时候根目录会更低一级，所以应该能扫描出更多的东西。比如有些网站会有备份文件会放在域名根目录同一级，正好就是ip访问的那一级，正好能扫描出来。 总之，我们目录扫描的时候尽量扫ip。 访问者权限在我们访问一个网站的时候，发现有些网页我们没有权限访问，那我们访问者的权限是什么呢？在iis中，有一个来宾账户的用">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://124.70.36.100/wp-content/uploads/2023/05/image-20230422034858396.png">
+<meta property="article:published_time" content="2023-05-14T05:05:36.000Z">
+<meta property="article:modified_time" content="2023-08-16T11:57:09.794Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="渗透">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://124.70.36.100/wp-content/uploads/2023/05/image-20230422034858396.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-渗透前期准备" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/05/14/%E6%B8%97%E9%80%8F%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87/" class="article-date">
+  <time class="dt-published" datetime="2023-05-14T05:05:36.000Z" itemprop="datePublished">2023-05-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/web/">web</a>►<a class="article-category-link" href="/categories/web/%E6%B8%97%E9%80%8F/">渗透</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      渗透前期准备
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="搭建安全拓展"><a href="#搭建安全拓展" class="headerlink" title="搭建安全拓展"></a>搭建安全拓展</h3><h6 id="域名与ip"><a href="#域名与ip" class="headerlink" title="域名与ip"></a>域名与ip</h6><p>通过域名和ip地址访问的时候，有些网站设置的根目录不一样。</p>
+<p>一般ip访问的时候根目录会更低一级，所以应该能扫描出更多的东西。比如有些网站会有备份文件会放在域名根目录同一级，正好就是ip访问的那一级，正好能扫描出来。</p>
+<p>总之，我们目录扫描的时候尽量扫ip。</p>
+<h6 id="访问者权限"><a href="#访问者权限" class="headerlink" title="访问者权限"></a>访问者权限</h6><p>在我们访问一个网站的时候，发现有些网页我们没有权限访问，那我们访问者的权限是什么呢？在iis中，有一个<strong>来宾账户</strong>的用户组，这就是我们普通人去访问网站的权限。</p>
+<h3 id="web源码拓展"><a href="#web源码拓展" class="headerlink" title="web源码拓展"></a>web源码拓展</h3><h6 id="框架-cms搜集"><a href="#框架-cms搜集" class="headerlink" title="框架,cms搜集"></a>框架,cms搜集</h6><p>关注应用分类及脚本估摸出可能存在的漏洞(其中框架类除外)，在获取源码后可进行本地安全测试或代码审计，也可以分析其目录工作原理(数据库备份，bak文件等)，未获取到的源码采用各种方法想办法获取！</p>
+<ul>
+<li>社交，论坛，门户，第三方，博客等不同的代码机制对应漏洞</li>
+<li>开源，为开源问题，框架非框架问题，关于cms识别问题及后续等</li>
+<li>关于源码获取的相关途径：搜索，淘宝咸鱼，第三方源码站，各种行业对应</li>
+<li>cms查找：特殊文件数据包，网站一些信息透露，第三方库字典跑</li>
+</ul>
+<h3 id="系统及数据库等"><a href="#系统及数据库等" class="headerlink" title="系统及数据库等"></a>系统及数据库等</h3><h6 id="判断操作系统"><a href="#判断操作系统" class="headerlink" title="判断操作系统"></a>判断操作系统</h6><ul>
+<li>有网站：在url上面小写改大写，如果回显正常就说明Windows，否则linux。这俩个一个不区分大写一个区分大写。</li>
+<li>只有一个ip地址：nmap扫描</li>
+<li>通过TTL值来判断主机的操作系统(不推荐)【ping的时候就会返回TTL值】</li>
+</ul>
+<h6 id="判断数据库"><a href="#判断数据库" class="headerlink" title="判断数据库"></a>判断数据库</h6><ul>
+<li>有网站的：一般不同的脚本语言对应有不同的常见搭配数据库ASP + AccessPHP + mysqlaspx + mssqljsp + mssql&#x2F;oraclepython + mangoDB&#x2F;mysql 并且有些数据库也之和某种操作系统有兼容，比如mysql不能再linux上</li>
+<li>查看端口开放：<strong>关系型数据库</strong>MYSQL 3306SQLserver 1433Oracle 1521<strong>Nosql数据库</strong>MongoDB 27017Redis 6379memcache 11211</li>
+</ul>
+<h6 id="加密编码算法"><a href="#加密编码算法" class="headerlink" title="加密编码算法"></a>加密编码算法</h6><p>前言：在渗透测试中，常见的密码等敏感信息会采用加密处理，其中作为安全测试人员必须要了解常见的加密方式，才能为后续的安全测试做好准备。</p>
+<ul>
+<li>常见加密编码等算法解析MD5，SHA，ASC(ascii)，进制，时间戳，URL，BASE家族，Unescape，AES，DES</li>
+<li>常见加密形式算法解析直接加密，带salt，带密码，带偏移，带位数，带模式，带干扰，自定义组合</li>
+<li>常见解密方式(针对)枚举，自定义逆行算法，可逆向</li>
+<li>了解常规加密算法的特性长度位数，字符规律，代码分析，搜索获取</li>
+</ul>
+<h3 id="信息搜集"><a href="#信息搜集" class="headerlink" title="信息搜集"></a>信息搜集</h3><h6 id="无CDN搜集思路"><a href="#无CDN搜集思路" class="headerlink" title="无CDN搜集思路"></a>无CDN搜集思路</h6><ul>
+<li>程序源码<ul>
+<li>内部&#x2F;未知CMS</li>
+<li>开源CMS</li>
+</ul>
+</li>
+<li>其他<ul>
+<li>操作系统</li>
+<li>搭建平台</li>
+<li>数据库类型</li>
+</ul>
+</li>
+<li>站点搭建<ul>
+<li>目录站点</li>
+<li>端口站点</li>
+<li>子域名站点</li>
+<li>旁注&#x2F;C段站点</li>
+<li>类似域名站点</li>
+</ul>
+</li>
+<li>防护应用WAF<ul>
+<li>安全狗</li>
+<li>宝塔</li>
+<li>云盾</li>
+<li>安骑士</li>
+</ul>
+</li>
+</ul>
+<h6 id="站点搭建分析"><a href="#站点搭建分析" class="headerlink" title="站点搭建分析"></a>站点搭建分析</h6><ul>
+<li>目录型站点一个网站，他的子目录有一个点开时候发现是全新的一个系统或者cms啥的。可能这是在两个目录下的两个程序或者网站。两边任意一边有漏洞就两边都打了。</li>
+<li>端口类站点有的网站默认80，加80端口就是跳转的主页，如果加8080说不定就跳后台或者其他什么地方去了</li>
+<li>子域名站点有一些网站有子域名，然后他的子域名和主域名不是同一个ip地址但是是同网段，就涉及到内网渗透了。Google搜索site：xxx.com就能找到子域名。子域名主域名两套cms也是有可能的。</li>
+<li>类似域名站点xxx.com,xxx.cn两个网站，后缀不一样，但有可能是同一个公司的不同网站，说不定是同一个ip或者ip网段。</li>
+<li>旁注&#x2F;C段站点旁注：同服务器不同站点。攻击思路：通过攻击旁注站点来攻击目标站点。C段：不同服务器(同网段)不同站点。攻击思路：攻击C段服务器，然后内网渗透测试可以用工具查旁注C段。</li>
+<li>搭建软件特征站点主要看网站搭建者的搭建习惯。在server那个地方，写的路径版本号很全的一般都是用的搭建平台。而且，同一种搭建平台一般server是一样的，不同的搭建平台之间又是不一样的。常见的就是PHPstudy或者宝塔。。比如我们知道了是PHPstudy搭建的，一般根目录下就会有一个PHPmyadmin，有默认账密。。思路：根据PHPstudy特有的server，我们去shodan或者fofa上面搜，搜到了之后一个一个试试有没有PHPmyadmin，试出来了就默认账密或者弱口令爆破一下。</li>
+</ul>
+<h6 id="waf初步"><a href="#waf初步" class="headerlink" title="waf初步"></a>waf初步</h6><ul>
+<li>waf识别<ul>
+<li>wafw00f是一个waf识别工具，在github上有源码的，比较推荐。</li>
+<li>wafw00f-shodan(X-Powered-By:WAF),部分有waf的网站返回的数据包里会有这样的特征</li>
+</ul>
+</li>
+<li>waf的意义</li>
+</ul>
+<blockquote>
+<p>如果对方有waf就不要直接开扫，可能会拉黑ip地址</p>
+</blockquote>
+<h6 id="信息搜集思路"><a href="#信息搜集思路" class="headerlink" title="信息搜集思路"></a>信息搜集思路</h6><p>目前主要涉及到的就是web站点信息搜集，当然也存在那种只有ip，放在浏览器中打不开站点貌似没有web服务的情况。</p>
+<p><img src="http://124.70.36.100/wp-content/uploads/2023/05/image-20230422034858396.png"></p>
+<p>主要的思路就是上面这张图。</p>
+<p>首先三大黑暗搜索引擎：shodan，zoomeye，fofa是主要的信息搜集工具</p>
+<ul>
+<li>把ip放进黑暗引擎去搜端口和服务或者域名啥的。</li>
+<li>也可以用nmap去搜</li>
+<li>拿到一些端口之后找一些比较不同的回显，或者比较敏感的服务，比如如果看到frp就直接试试用自己的服务器去尝试frp对方的服务器连接。然后记录敏感服务，端口，版本</li>
+<li>这个时候如果进到一些后台了就去弱口令扫</li>
+<li>然后端口差不多就利用完了，现在开始看域名</li>
+<li>去搜索一些子域名站点，直接Google搜索，site:域名。搜索到一些子域名，或者直接搜索，搜域名，关键字之类的找找子域名</li>
+<li>也可以通过ip反差域名，网上搜索第三方工具</li>
+<li>然后旁站查询，C段查询等等，还有备案号，查询该公司历史备案号，也有可能是旁站之类的。查到类似的站 了就按照第一步流程继续搞，拓宽信息搜集数据。</li>
+<li>关于备案信息，可以使用站长工具这个第三方工具查询。点开某网站的域名备案信息，同一个备案号下可能备案了好几个站，都是同一个人搭建的，可能有形似点。</li>
+</ul>
+<h6 id="python爬虫下载exp和ctcms"><a href="#python爬虫下载exp和ctcms" class="headerlink" title="python爬虫下载exp和ctcms"></a>python爬虫下载exp和ctcms</h6><p>用网上一段python代码把github上一些最新的exp和ctcms这个cms下载下来</p>
+<h6 id="其他信息搜集"><a href="#其他信息搜集" class="headerlink" title="其他信息搜集"></a>其他信息搜集</h6><ul>
+<li>黑暗引擎实现域名端口等收集</li>
+<li>全自动域名手机枚举优秀脚本使用</li>
+<li>src目标中的信息搜集全覆盖</li>
+<li>利用其他第三方借口获取更多信息</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/05/14/%E6%B8%97%E9%80%8F%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87/" data-id="clldp748c003hcwgg773i3km5" data-title="渗透前期准备" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B8%97%E9%80%8F/" rel="tag">渗透</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/05/14/%E6%BC%8F%E6%B4%9E%E5%8F%91%E7%8E%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          漏洞发现
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/05/14/218/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Untitled Post - 3</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/e6-96-87-e5-ad-a6/">%e6%96%87%e5%ad%a6</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/e6-96-87-e5-ad-a6/%E8%AF%97/">诗</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/e6-96-87-e5-ad-a6/%E9%9A%8F%E7%AC%94/">随笔</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/uncategorized/">uncategorized</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/web/CTF/">CTF</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/web%E5%9F%BA%E7%A1%80/">web基础</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/%E6%B8%97%E9%80%8F/">渗透</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%91%84%E5%BD%B1/">摄影</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%96%87%E5%AD%A6/">文学</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BE%E5%86%85/">课内</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTF/" rel="tag">CTF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/" rel="tag">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/" rel="tag">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web%E5%9F%BA%E7%A1%80/" rel="tag">web基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%91%84%E5%BD%B1/" rel="tag">摄影</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B8%97%E9%80%8F/" rel="tag">渗透</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3/" rel="tag">离散</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%97/" rel="tag">诗</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BE%E5%86%85/" rel="tag">课内</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94/" rel="tag">随笔</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CTF/" style="font-size: 18.33px;">CTF</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/php/" style="font-size: 10px;">php</a> <a href="/tags/python/" style="font-size: 11.67px;">python</a> <a href="/tags/web/" style="font-size: 20px;">web</a> <a href="/tags/web%E5%9F%BA%E7%A1%80/" style="font-size: 16.67px;">web基础</a> <a href="/tags/%E6%91%84%E5%BD%B1/" style="font-size: 13.33px;">摄影</a> <a href="/tags/%E6%B8%97%E9%80%8F/" style="font-size: 13.33px;">渗透</a> <a href="/tags/%E7%A6%BB%E6%95%A3/" style="font-size: 10px;">离散</a> <a href="/tags/%E8%AF%97/" style="font-size: 10px;">诗</a> <a href="/tags/%E8%AF%BE%E5%86%85/" style="font-size: 10px;">课内</a> <a href="/tags/%E9%9A%8F%E7%AC%94/" style="font-size: 15px;">随笔</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/08/16/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/25/docker/">Docker</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/24/%E5%B7%85%E5%B3%B0%E6%9E%81%E5%AE%A22023-web-hellosql-wp/">巅峰极客2023-web-hellosql-wp</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">搭建博客</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/11/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">PHP反序列化</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
