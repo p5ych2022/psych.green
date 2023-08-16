@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang=en>
+<html>
 <head>
-    <!-- so meta -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="linux介绍Linux，全称GNU&#x2F;Linux，是一种免费使用和自由传播的类UNIX操作系统，其内核由林纳斯·本纳第克特·托瓦兹于1991年10月5日首次发布，它主要受到Minix和Unix思想的启发，是一个基于POSIX的多用户、多任务、支持多线程和多CPU的操作系统。它能运行主要的Unix工具软件、应用程序和网络协议。它支持32位和64位硬件。Linux继承了Unix以网络为核心的">
+  <meta charset="utf-8">
+  
+  
+  <title>linux | psych&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="linux介绍Linux，全称GNU&#x2F;Linux，是一种免费使用和自由传播的类UNIX操作系统，其内核由林纳斯·本纳第克特·托瓦兹于1991年10月5日首次发布，它主要受到Minix和Unix思想的启发，是一个基于POSIX的多用户、多任务、支持多线程和多CPU的操作系统。它能运行主要的Unix工具软件、应用程序和网络协议。它支持32位和64位硬件。Linux继承了Unix以网络为核心的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="linux">
 <meta property="og:url" content="http://example.com/2023/05/14/linux/index.html">
@@ -48,158 +48,95 @@
 <meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221020073839666-1024x719.png">
+  
+    <link rel="alternate" href="/atom.xml" title="psych's blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
     
-    
-      
-        
-          <link rel="shortcut icon" href="/images/favicon.ico">
-        
-      
-      
-        
-          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
-        
-      
-      
-        
-          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-        
-      
-    
-    <!-- title -->
-    <title>linux</title>
-    <!-- async scripts -->
-    <!-- Google Analytics -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
 
-
-    <!-- Umami Analytics -->
-
-
-    <!-- styles -->
-    
+  
+  
 <link rel="stylesheet" href="/css/style.css">
 
-    <!-- persian styles -->
+  
     
-    <!-- rss -->
-    
-    
-	<!-- mathjax -->
-	
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
 <meta name="generator" content="Hexo 6.3.0"></head>
 
-<body class="max-width mx-auto px3 ltr">
-    
-      <div id="header-post">
-  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
-  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
-  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
-  <span id="menu">
-    <span id="nav">
-      <ul>
-        <!--
-       --><li><a href="/">Home</a></li><!--
-     --><!--
-       --><li><a href="/about/">About</a></li><!--
-     --><!--
-       --><li><a href="/archives/">Writing</a></li><!--
-     --><!--
-       --><li><a href="/tags/">tags</a></li><!--
-     --><!--
-       --><li><a href="/categories/">categories</a></li><!--
-     --><!--
-       --><li><a href="/search/">Search</a></li><!--
-     -->
-      </ul>
-    </span>
-    <br/>
-    <span id="actions">
-      <ul>
-        
-        <li><a class="icon" aria-label="Previous post" href="/2023/05/14/xml/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
-        
-        
-        <li><a class="icon" aria-label="Next post" href="/2023/05/14/php/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
-        
-        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
-        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
-      </ul>
-      <span id="i-prev" class="info" style="display:none;">Previous post</span>
-      <span id="i-next" class="info" style="display:none;">Next post</span>
-      <span id="i-top" class="info" style="display:none;">Back to top</span>
-      <span id="i-share" class="info" style="display:none;">Share post</span>
-    </span>
-    <br/>
-    <div id="share" style="display: none">
-      <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/05/14/linux/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/05/14/linux/&text=linux"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/05/14/linux/&title=linux"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/05/14/linux/&is_video=false&description=linux"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=linux&body=Check out this article: http://example.com/2023/05/14/linux/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/05/14/linux/&title=linux"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/05/14/linux/&title=linux"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/05/14/linux/&title=linux"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/05/14/linux/&title=linux"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/05/14/linux/&name=linux&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/05/14/linux/&t=linux"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
-</ul>
-
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">psych&#39;s blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">psych</a>
+        </h2>
+      
     </div>
-    
-    
-      <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#linux%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">linux介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84"><span class="toc-number">2.</span> <span class="toc-text">文件系统的层次结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95%E8%A7%A3%E6%9E%90"><span class="toc-number">3.</span> <span class="toc-text">目录解析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6"><span class="toc-number">3.1.</span> <span class="toc-text">文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B9%E7%9B%AE%E5%BD%95%E4%B8%8B%E6%89%80%E6%9C%89%E7%9B%AE%E5%BD%95"><span class="toc-number">3.2.</span> <span class="toc-text">根目录下所有目录</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#bin"><span class="toc-number">3.2.0.1.</span> <span class="toc-text">&#x2F;bin</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#sbin"><span class="toc-number">3.2.0.2.</span> <span class="toc-text">&#x2F;sbin</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#etc"><span class="toc-number">3.2.0.3.</span> <span class="toc-text">&#x2F;etc ***</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#home"><span class="toc-number">3.2.0.4.</span> <span class="toc-text">&#x2F;home</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#lib"><span class="toc-number">3.2.0.5.</span> <span class="toc-text">&#x2F;lib</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#lost-found"><span class="toc-number">3.2.0.6.</span> <span class="toc-text">&#x2F;lost+found</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#media"><span class="toc-number">3.2.0.7.</span> <span class="toc-text">&#x2F;media</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#mnt"><span class="toc-number">3.2.0.8.</span> <span class="toc-text">&#x2F;mnt</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#opt"><span class="toc-number">3.2.0.9.</span> <span class="toc-text">&#x2F;opt ***</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#proc"><span class="toc-number">3.2.0.10.</span> <span class="toc-text">&#x2F;proc</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#root"><span class="toc-number">3.2.0.11.</span> <span class="toc-text">&#x2F;root</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#selinux"><span class="toc-number">3.2.0.12.</span> <span class="toc-text">&#x2F;selinux</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#srv"><span class="toc-number">3.2.0.13.</span> <span class="toc-text">&#x2F;srv</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#sys"><span class="toc-number">3.2.0.14.</span> <span class="toc-text">&#x2F;sys</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#tmp"><span class="toc-number">3.2.0.15.</span> <span class="toc-text">&#x2F;tmp</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#usr"><span class="toc-number">3.2.0.16.</span> <span class="toc-text">&#x2F;usr</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#usr-bin"><span class="toc-number">3.2.0.16.1.</span> <span class="toc-text">&#x2F;usr&#x2F;bin</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#usr-sbin"><span class="toc-number">3.2.0.16.2.</span> <span class="toc-text">&#x2F;usr&#x2F;sbin</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#usr-src"><span class="toc-number">3.2.0.16.3.</span> <span class="toc-text">&#x2F;usr&#x2F;src</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#var"><span class="toc-number">3.2.0.17.</span> <span class="toc-text">&#x2F;var ***</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E8%A6%81%E7%9B%AE%E5%BD%95"><span class="toc-number">3.3.</span> <span class="toc-text">重要目录</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#proc-1"><span class="toc-number">3.3.1.</span> <span class="toc-text">&#x2F;proc</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">3.3.1.1.</span> <span class="toc-text">文件系统</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%90%84%E7%A7%8D%E7%9B%AE%E5%BD%95"><span class="toc-number">3.3.1.2.</span> <span class="toc-text">各种目录</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#proc-cmdline"><span class="toc-number">3.3.1.2.1.</span> <span class="toc-text">&#x2F;proc&#x2F;cmdline</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#proc-N-environ"><span class="toc-number">3.3.1.2.2.</span> <span class="toc-text">&#x2F;proc&#x2F;N&#x2F;environ</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#proc-N-exe"><span class="toc-number">3.3.1.2.3.</span> <span class="toc-text">&#x2F;proc&#x2F;N&#x2F;exe</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#proc-maps"><span class="toc-number">3.3.1.2.4.</span> <span class="toc-text">&#x2F;proc&#x2F;maps</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#proc-N-fd"><span class="toc-number">3.3.1.2.5.</span> <span class="toc-text">&#x2F;proc&#x2F;N&#x2F;fd</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#proc-cpuinfo"><span class="toc-number">3.3.1.2.6.</span> <span class="toc-text">&#x2F;proc&#x2F;cpuinfo</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#proc-modules"><span class="toc-number">3.3.1.2.7.</span> <span class="toc-text">&#x2F;proc&#x2F;modules</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#proc-fb"><span class="toc-number">3.3.1.2.8.</span> <span class="toc-text">&#x2F;proc&#x2F;fb</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#proc-stat"><span class="toc-number">3.3.1.2.9.</span> <span class="toc-text">&#x2F;proc&#x2F;stat</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#proc-N-cwd"><span class="toc-number">3.3.1.2.10.</span> <span class="toc-text">&#x2F;proc&#x2F;N&#x2F;cwd</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#etc-1"><span class="toc-number">3.3.2.</span> <span class="toc-text">&#x2F;etc</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#etc-passwd"><span class="toc-number">3.3.2.0.1.</span> <span class="toc-text">&#x2F;etc&#x2F;passwd</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#etc-shells"><span class="toc-number">3.3.2.0.2.</span> <span class="toc-text">&#x2F;etc&#x2F;shells</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#etc-group"><span class="toc-number">3.3.2.0.3.</span> <span class="toc-text">&#x2F;etc&#x2F;group</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#etc-fstab"><span class="toc-number">3.3.2.0.4.</span> <span class="toc-text">&#x2F;etc&#x2F;fstab</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#etc-rc-d"><span class="toc-number">3.3.2.0.5.</span> <span class="toc-text">&#x2F;etc&#x2F;rc.d</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#etc-init-d"><span class="toc-number">3.3.2.0.6.</span> <span class="toc-text">&#x2F;etc&#x2F;init.d</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#etc-shadow"><span class="toc-number">3.3.2.0.7.</span> <span class="toc-text">&#x2F;etc&#x2F;shadow</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#etc-hosts"><span class="toc-number">3.3.2.0.8.</span> <span class="toc-text">&#x2F;etc&#x2F;hosts</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#web%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%87%8D%E8%A6%81%E6%96%87%E4%BB%B6"><span class="toc-number">3.3.3.</span> <span class="toc-text">web服务器重要文件</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#apache"><span class="toc-number">3.3.3.0.1.</span> <span class="toc-text">apache</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#nginx%EF%BC%88dd%EF%BC%89"><span class="toc-number">3.3.3.0.2.</span> <span class="toc-text">nginx（dd）</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4"><span class="toc-number">4.</span> <span class="toc-text">命令</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4"><span class="toc-number">4.0.0.1.</span> <span class="toc-text">常见命令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E7%94%A8%E6%88%B7"><span class="toc-number">4.0.0.2.</span> <span class="toc-text">查看当前用户</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8Bip%E7%AD%89%E4%BF%A1%E6%81%AF"><span class="toc-number">4.0.0.3.</span> <span class="toc-text">查看ip等信息</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%98%BE%E7%A4%BA%E5%BD%93%E5%89%8D%E4%BD%8D%E7%BD%AE%E8%B7%AF%E5%BE%84"><span class="toc-number">4.0.0.4.</span> <span class="toc-text">显示当前位置路径</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#find"><span class="toc-number">4.0.0.5.</span> <span class="toc-text">find</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF%EF%BC%88-%EF%BC%89"><span class="toc-number">4.0.0.6.</span> <span class="toc-text">系统信息（*）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A7%A3%E5%8E%8B%E7%BC%A9%E5%91%BD%E4%BB%A4"><span class="toc-number">4.0.0.7.</span> <span class="toc-text">解压缩命令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1-dd"><span class="toc-number">4.0.0.8.</span> <span class="toc-text">计划任务(dd)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#vim%E7%BC%96%E8%BE%91"><span class="toc-number">4.0.0.9.</span> <span class="toc-text">vim编辑</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-number">5.</span> <span class="toc-text">重定向</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E5%AE%9A%E5%90%91-HTTP-%E7%8A%B6%E6%80%81%E7%A0%81"><span class="toc-number">5.1.</span> <span class="toc-text">重定向 HTTP 状态码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#linux%E4%B8%AD%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-number">5.2.</span> <span class="toc-text">linux中重定向</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-number">5.2.0.1.</span> <span class="toc-text">输入重定向</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-number">5.2.0.2.</span> <span class="toc-text">输出重定向</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%89%B9%E6%AE%8A%E6%96%87%E4%BB%B6%EF%BC%9A-dev-tcp-dd"><span class="toc-number">5.2.0.3.</span> <span class="toc-text">特殊文件： &#x2F;dev&#x2F;tcp(dd)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%A1%E9%81%93%E7%AC%A6"><span class="toc-number">5.3.</span> <span class="toc-text">管道符</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E8%BF%9E%E6%8E%A5%E7%AC%A6"><span class="toc-number">5.3.0.1.</span> <span class="toc-text">命令连接符</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AE%A1%E9%81%93%E7%AC%A6-%E8%AF%A6%E8%A7%A3"><span class="toc-number">5.3.0.2.</span> <span class="toc-text">管道符 详解</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%BD%9C%E7%94%A8"><span class="toc-number">5.3.0.2.1.</span> <span class="toc-text">作用</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%94%A8%E6%B3%95"><span class="toc-number">5.3.0.2.2.</span> <span class="toc-text">用法</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
       </div>
-    
-  </span>
-</div>
+    </div>
+  </div>
+</header>
 
+      <div class="outer">
+        <section id="main"><article id="post-linux" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/05/14/linux/" class="article-date">
+  <time class="dt-published" datetime="2023-05-14T04:42:33.000Z" itemprop="datePublished">2023-05-14</time>
+</a>
     
-    <div class="content index py4 ">
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/web/">web</a>►<a class="article-category-link" href="/categories/web/web%E5%9F%BA%E7%A1%80/">web基础</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
         
-        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
-  <header>
-    
-    <h1 class="posttitle p-name" itemprop="name headline">
-        linux
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      linux
     </h1>
-
-
-
-    <div class="meta">
-      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <span class="p-name" itemprop="name">psych</span>
-      </span>
-      
-    <div class="postdate">
-      
-        <time datetime="2023-05-14T04:42:33.000Z" class="dt-published" itemprop="datePublished">2023-05-14</time>
-        
-      
-    </div>
-
-
-      
-    <div class="article-category">
-        <i class="fa-solid fa-archive"></i>
-        <a class="category-link" href="/categories/web/">web</a> › <a class="category-link" href="/categories/web/web%E5%9F%BA%E7%A1%80/">web基础</a>
-    </div>
-
-
-      
-    <div class="article-tag">
-        <i class="fa-solid fa-tag"></i>
-        <a class="p-category" href="/tags/linux/" rel="tag">linux</a>
-    </div>
-
-
-    </div>
-  </header>
   
 
-  <div class="content e-content" itemprop="articleBody">
-    <h2 id="linux介绍"><a href="#linux介绍" class="headerlink" title="linux介绍"></a>linux介绍</h2><p>Linux，全称GNU&#x2F;Linux，是一种<strong>免费</strong>使用和自由传播的<strong>类UNIX操作系统</strong>，其内核由林纳斯·本纳第克特·托瓦兹于1991年10月5日首次发布，它主要受到Minix和Unix思想的启发，是一个基于POSIX的多用户、多任务、支持多线程和多CPU的操作系统。它能运行主要的Unix工具软件、应用程序和网络协议。它支持32位和64位硬件。Linux继承了Unix以网络为核心的设计思想，是一个性能稳定的多用户网络操作系统。Linux有上百种不同的发行版，如基于社区开发的debian、archlinux，和基于商业开发的Red Hat Enterprise Linux、SUSE、Oracle Linux等。</p>
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="linux介绍"><a href="#linux介绍" class="headerlink" title="linux介绍"></a>linux介绍</h2><p>Linux，全称GNU&#x2F;Linux，是一种<strong>免费</strong>使用和自由传播的<strong>类UNIX操作系统</strong>，其内核由林纳斯·本纳第克特·托瓦兹于1991年10月5日首次发布，它主要受到Minix和Unix思想的启发，是一个基于POSIX的多用户、多任务、支持多线程和多CPU的操作系统。它能运行主要的Unix工具软件、应用程序和网络协议。它支持32位和64位硬件。Linux继承了Unix以网络为核心的设计思想，是一个性能稳定的多用户网络操作系统。Linux有上百种不同的发行版，如基于社区开发的debian、archlinux，和基于商业开发的Red Hat Enterprise Linux、SUSE、Oracle Linux等。</p>
 <p>主要用于服务器端，嵌入式开发（占用内存少）</p>
 <h2 id="文件系统的层次结构"><a href="#文件系统的层次结构" class="headerlink" title="文件系统的层次结构"></a>文件系统的层次结构</h2><p>文件系统的最顶层是由根目录开始的，系统使用“**&#x2F;<strong>”来表示</strong>根目录**，在根目录之下的既可以是目录，也可以是文件，而每一个目录中又可以包含（子）目录或文件。如此反复就可以构成一个庞大的文件系统。</p>
 <p>为了避免诸多Linux发行版使用各部相同的文件系统结构，Linux基金会发布了<strong>FHS</strong>标准，多数Linux发行版系统都遵循这一标准。</p>
@@ -566,150 +503,157 @@
 <p>这个命令的功能是，查询带有关键字 pycharm 的进程。会一条一条列出。</p>
 <p>但不是所有的命令都能搭配管道符：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> 例如cat、sort、uniq、grep等命令均支持管道符，是因为这些命令均可从标准输入中读取要处理的文本（即从标准输入中读取参数）；而对于部分命令，例如rm、kill等命令则不支持从标准输入中读取参数，只支持从命令行中读取参数（即rm命令后面必须指定删除的文件或者目录，kill命令后面必须要指定杀死的进程号等）</span><br><span class="line"> 那什么样的命令支持管道，什么样的命令不支持管道呢？</span><br><span class="line"> 一般情况下，处理文本的命令，例如sort、uniq、grep、awk、sed等命令均支持管道；像rm、ls这类的不是处理文本的命令均不支持管道</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/05/14/linux/" data-id="clle2aj55000legggej5o7il6" data-title="linux" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/" rel="tag">linux</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/05/14/xml/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          XML
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/05/14/php/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">PHP</div>
+    </a>
+  
+</nav>
+
+  
 </article>
 
 
-
+</section>
         
-          <div id="footer-post-container">
-  <div id="footer-post">
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/web/CTF/">CTF</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/web%E5%9F%BA%E7%A1%80/">web基础</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/%E6%B8%97%E9%80%8F/">渗透</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%91%84%E5%BD%B1/">摄影</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%96%87%E5%AD%A6/">文学</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%96%87%E5%AD%A6/%E8%AF%97/">诗</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%96%87%E5%AD%A6/%E9%9A%8F%E7%AC%94/">随笔</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BE%E5%86%85/">课内</a></li></ul>
+    </div>
+  </div>
 
-    <div id="nav-footer" style="display: none">
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTF/" rel="tag">CTF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/" rel="tag">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/" rel="tag">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web%E5%9F%BA%E7%A1%80/" rel="tag">web基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%91%84%E5%BD%B1/" rel="tag">摄影</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B8%97%E9%80%8F/" rel="tag">渗透</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3/" rel="tag">离散</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%97/" rel="tag">诗</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BE%E5%86%85/" rel="tag">课内</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94/" rel="tag">随笔</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CTF/" style="font-size: 18.33px;">CTF</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/php/" style="font-size: 10px;">php</a> <a href="/tags/python/" style="font-size: 11.67px;">python</a> <a href="/tags/web/" style="font-size: 20px;">web</a> <a href="/tags/web%E5%9F%BA%E7%A1%80/" style="font-size: 16.67px;">web基础</a> <a href="/tags/%E6%91%84%E5%BD%B1/" style="font-size: 13.33px;">摄影</a> <a href="/tags/%E6%B8%97%E9%80%8F/" style="font-size: 13.33px;">渗透</a> <a href="/tags/%E7%A6%BB%E6%95%A3/" style="font-size: 10px;">离散</a> <a href="/tags/%E8%AF%97/" style="font-size: 10px;">诗</a> <a href="/tags/%E8%AF%BE%E5%86%85/" style="font-size: 10px;">课内</a> <a href="/tags/%E9%9A%8F%E7%AC%94/" style="font-size: 15px;">随笔</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
       <ul>
         
-          <li><a href="/">Home</a></li>
+          <li>
+            <a href="/2023/07/25/docker/">Docker</a>
+          </li>
         
-          <li><a href="/about/">About</a></li>
+          <li>
+            <a href="/2023/07/24/%E5%B7%85%E5%B3%B0%E6%9E%81%E5%AE%A22023-web-hellosql-wp/">巅峰极客2023-web-hellosql-wp</a>
+          </li>
         
-          <li><a href="/archives/">Writing</a></li>
+          <li>
+            <a href="/2023/07/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">搭建博客</a>
+          </li>
         
-          <li><a href="/tags/">tags</a></li>
+          <li>
+            <a href="/2023/07/11/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">PHP反序列化</a>
+          </li>
         
-          <li><a href="/categories/">categories</a></li>
-        
-          <li><a href="/search/">Search</a></li>
+          <li>
+            <a href="/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/">第五届安洵杯-2022-web-writeup</a>
+          </li>
         
       </ul>
     </div>
+  </div>
 
-    
-    
-      <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#linux%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">linux介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84"><span class="toc-number">2.</span> <span class="toc-text">文件系统的层次结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95%E8%A7%A3%E6%9E%90"><span class="toc-number">3.</span> <span class="toc-text">目录解析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6"><span class="toc-number">3.1.</span> <span class="toc-text">文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B9%E7%9B%AE%E5%BD%95%E4%B8%8B%E6%89%80%E6%9C%89%E7%9B%AE%E5%BD%95"><span class="toc-number">3.2.</span> <span class="toc-text">根目录下所有目录</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#bin"><span class="toc-number">3.2.0.1.</span> <span class="toc-text">&#x2F;bin</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#sbin"><span class="toc-number">3.2.0.2.</span> <span class="toc-text">&#x2F;sbin</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#etc"><span class="toc-number">3.2.0.3.</span> <span class="toc-text">&#x2F;etc ***</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#home"><span class="toc-number">3.2.0.4.</span> <span class="toc-text">&#x2F;home</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#lib"><span class="toc-number">3.2.0.5.</span> <span class="toc-text">&#x2F;lib</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#lost-found"><span class="toc-number">3.2.0.6.</span> <span class="toc-text">&#x2F;lost+found</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#media"><span class="toc-number">3.2.0.7.</span> <span class="toc-text">&#x2F;media</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#mnt"><span class="toc-number">3.2.0.8.</span> <span class="toc-text">&#x2F;mnt</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#opt"><span class="toc-number">3.2.0.9.</span> <span class="toc-text">&#x2F;opt ***</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#proc"><span class="toc-number">3.2.0.10.</span> <span class="toc-text">&#x2F;proc</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#root"><span class="toc-number">3.2.0.11.</span> <span class="toc-text">&#x2F;root</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#selinux"><span class="toc-number">3.2.0.12.</span> <span class="toc-text">&#x2F;selinux</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#srv"><span class="toc-number">3.2.0.13.</span> <span class="toc-text">&#x2F;srv</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#sys"><span class="toc-number">3.2.0.14.</span> <span class="toc-text">&#x2F;sys</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#tmp"><span class="toc-number">3.2.0.15.</span> <span class="toc-text">&#x2F;tmp</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#usr"><span class="toc-number">3.2.0.16.</span> <span class="toc-text">&#x2F;usr</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#usr-bin"><span class="toc-number">3.2.0.16.1.</span> <span class="toc-text">&#x2F;usr&#x2F;bin</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#usr-sbin"><span class="toc-number">3.2.0.16.2.</span> <span class="toc-text">&#x2F;usr&#x2F;sbin</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#usr-src"><span class="toc-number">3.2.0.16.3.</span> <span class="toc-text">&#x2F;usr&#x2F;src</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#var"><span class="toc-number">3.2.0.17.</span> <span class="toc-text">&#x2F;var ***</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E8%A6%81%E7%9B%AE%E5%BD%95"><span class="toc-number">3.3.</span> <span class="toc-text">重要目录</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#proc-1"><span class="toc-number">3.3.1.</span> <span class="toc-text">&#x2F;proc</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">3.3.1.1.</span> <span class="toc-text">文件系统</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%90%84%E7%A7%8D%E7%9B%AE%E5%BD%95"><span class="toc-number">3.3.1.2.</span> <span class="toc-text">各种目录</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#proc-cmdline"><span class="toc-number">3.3.1.2.1.</span> <span class="toc-text">&#x2F;proc&#x2F;cmdline</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#proc-N-environ"><span class="toc-number">3.3.1.2.2.</span> <span class="toc-text">&#x2F;proc&#x2F;N&#x2F;environ</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#proc-N-exe"><span class="toc-number">3.3.1.2.3.</span> <span class="toc-text">&#x2F;proc&#x2F;N&#x2F;exe</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#proc-maps"><span class="toc-number">3.3.1.2.4.</span> <span class="toc-text">&#x2F;proc&#x2F;maps</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#proc-N-fd"><span class="toc-number">3.3.1.2.5.</span> <span class="toc-text">&#x2F;proc&#x2F;N&#x2F;fd</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#proc-cpuinfo"><span class="toc-number">3.3.1.2.6.</span> <span class="toc-text">&#x2F;proc&#x2F;cpuinfo</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#proc-modules"><span class="toc-number">3.3.1.2.7.</span> <span class="toc-text">&#x2F;proc&#x2F;modules</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#proc-fb"><span class="toc-number">3.3.1.2.8.</span> <span class="toc-text">&#x2F;proc&#x2F;fb</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#proc-stat"><span class="toc-number">3.3.1.2.9.</span> <span class="toc-text">&#x2F;proc&#x2F;stat</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#proc-N-cwd"><span class="toc-number">3.3.1.2.10.</span> <span class="toc-text">&#x2F;proc&#x2F;N&#x2F;cwd</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#etc-1"><span class="toc-number">3.3.2.</span> <span class="toc-text">&#x2F;etc</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#etc-passwd"><span class="toc-number">3.3.2.0.1.</span> <span class="toc-text">&#x2F;etc&#x2F;passwd</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#etc-shells"><span class="toc-number">3.3.2.0.2.</span> <span class="toc-text">&#x2F;etc&#x2F;shells</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#etc-group"><span class="toc-number">3.3.2.0.3.</span> <span class="toc-text">&#x2F;etc&#x2F;group</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#etc-fstab"><span class="toc-number">3.3.2.0.4.</span> <span class="toc-text">&#x2F;etc&#x2F;fstab</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#etc-rc-d"><span class="toc-number">3.3.2.0.5.</span> <span class="toc-text">&#x2F;etc&#x2F;rc.d</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#etc-init-d"><span class="toc-number">3.3.2.0.6.</span> <span class="toc-text">&#x2F;etc&#x2F;init.d</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#etc-shadow"><span class="toc-number">3.3.2.0.7.</span> <span class="toc-text">&#x2F;etc&#x2F;shadow</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#etc-hosts"><span class="toc-number">3.3.2.0.8.</span> <span class="toc-text">&#x2F;etc&#x2F;hosts</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#web%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%87%8D%E8%A6%81%E6%96%87%E4%BB%B6"><span class="toc-number">3.3.3.</span> <span class="toc-text">web服务器重要文件</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#apache"><span class="toc-number">3.3.3.0.1.</span> <span class="toc-text">apache</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#nginx%EF%BC%88dd%EF%BC%89"><span class="toc-number">3.3.3.0.2.</span> <span class="toc-text">nginx（dd）</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4"><span class="toc-number">4.</span> <span class="toc-text">命令</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4"><span class="toc-number">4.0.0.1.</span> <span class="toc-text">常见命令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E7%94%A8%E6%88%B7"><span class="toc-number">4.0.0.2.</span> <span class="toc-text">查看当前用户</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8Bip%E7%AD%89%E4%BF%A1%E6%81%AF"><span class="toc-number">4.0.0.3.</span> <span class="toc-text">查看ip等信息</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%98%BE%E7%A4%BA%E5%BD%93%E5%89%8D%E4%BD%8D%E7%BD%AE%E8%B7%AF%E5%BE%84"><span class="toc-number">4.0.0.4.</span> <span class="toc-text">显示当前位置路径</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#find"><span class="toc-number">4.0.0.5.</span> <span class="toc-text">find</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF%EF%BC%88-%EF%BC%89"><span class="toc-number">4.0.0.6.</span> <span class="toc-text">系统信息（*）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A7%A3%E5%8E%8B%E7%BC%A9%E5%91%BD%E4%BB%A4"><span class="toc-number">4.0.0.7.</span> <span class="toc-text">解压缩命令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1-dd"><span class="toc-number">4.0.0.8.</span> <span class="toc-text">计划任务(dd)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#vim%E7%BC%96%E8%BE%91"><span class="toc-number">4.0.0.9.</span> <span class="toc-text">vim编辑</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-number">5.</span> <span class="toc-text">重定向</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E5%AE%9A%E5%90%91-HTTP-%E7%8A%B6%E6%80%81%E7%A0%81"><span class="toc-number">5.1.</span> <span class="toc-text">重定向 HTTP 状态码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#linux%E4%B8%AD%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-number">5.2.</span> <span class="toc-text">linux中重定向</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-number">5.2.0.1.</span> <span class="toc-text">输入重定向</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-number">5.2.0.2.</span> <span class="toc-text">输出重定向</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%89%B9%E6%AE%8A%E6%96%87%E4%BB%B6%EF%BC%9A-dev-tcp-dd"><span class="toc-number">5.2.0.3.</span> <span class="toc-text">特殊文件： &#x2F;dev&#x2F;tcp(dd)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%A1%E9%81%93%E7%AC%A6"><span class="toc-number">5.3.</span> <span class="toc-text">管道符</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E8%BF%9E%E6%8E%A5%E7%AC%A6"><span class="toc-number">5.3.0.1.</span> <span class="toc-text">命令连接符</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AE%A1%E9%81%93%E7%AC%A6-%E8%AF%A6%E8%A7%A3"><span class="toc-number">5.3.0.2.</span> <span class="toc-text">管道符 详解</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%BD%9C%E7%94%A8"><span class="toc-number">5.3.0.2.1.</span> <span class="toc-text">作用</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%94%A8%E6%B3%95"><span class="toc-number">5.3.0.2.2.</span> <span class="toc-text">用法</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+  
+</aside>
+        
       </div>
-    
-
-    <div id="share-footer" style="display: none">
-      <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/05/14/linux/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/05/14/linux/&text=linux"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/05/14/linux/&title=linux"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/05/14/linux/&is_video=false&description=linux"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=linux&body=Check out this article: http://example.com/2023/05/14/linux/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/05/14/linux/&title=linux"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/05/14/linux/&title=linux"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/05/14/linux/&title=linux"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/05/14/linux/&title=linux"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/05/14/linux/&name=linux&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/05/14/linux/&t=linux"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
-</ul>
-
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 psych<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
-
-    <div id="actions-footer">
-        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
-        
-          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
-        
-        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
-        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
-    </div>
-
-  </div>
-</div>
-
-        
-        <footer id="footer">
-  <div class="footer-left">
-    Copyright &copy;
-    
-    
-    2016-2023
-    psych
-  </div>
-  <div class="footer-right">
-    <nav>
-      <ul>
-        <!--
-       --><li><a href="/">Home</a></li><!--
-     --><!--
-       --><li><a href="/about/">About</a></li><!--
-     --><!--
-       --><li><a href="/archives/">Writing</a></li><!--
-     --><!--
-       --><li><a href="/tags/">tags</a></li><!--
-     --><!--
-       --><li><a href="/categories/">categories</a></li><!--
-     --><!--
-       --><li><a href="/search/">Search</a></li><!--
-     -->
-      </ul>
-    </nav>
   </div>
 </footer>
+
     </div>
-    <!-- styles -->
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
 
 
-
-  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
-
-
-    <!-- jquery -->
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+<script src="/js/jquery-3.6.4.min.js"></script>
 
 
-
-
-<!-- clipboard -->
 
   
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
-  
-  <script type="text/javascript">
-  $(function() {
-    // copy-btn HTML
-    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
-    btn += '<i class="fa-regular fa-clone"></i>';
-    btn += '</span>';
-    // mount it!
-    $(".highlight table").before(btn);
-    var clip = new ClipboardJS('.btn-copy', {
-      text: function(trigger) {
-        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
-      }
-    });
-    clip.on('success', function(e) {
-      e.trigger.setAttribute('aria-label', "Copied!");
-      e.clearSelection();
-    })
-  })
-  </script>
+<script src="/fancybox/jquery.fancybox.min.js"></script>
 
 
-<script src="/js/main.js"></script>
 
-<!-- search -->
 
-<!-- Baidu Analytics -->
+<script src="/js/script.js"></script>
 
-<!-- Cloudflare Analytics -->
 
-<!-- Disqus Comments -->
 
-<!-- utterances Comments -->
 
+
+  </div>
 </body>
 </html>
