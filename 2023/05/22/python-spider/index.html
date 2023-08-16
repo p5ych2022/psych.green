@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang=en>
 <head>
-  <meta charset="utf-8">
-  
-  
-  <title>python spider | psych&#39;s blog</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="爬虫：通过编写程序来获取互联网上的资源 初始爬虫爬虫入门要求：用程序模拟浏览器，输入一个网址，从该网址中获取到资源或者内容 1234567891011 # 1.爬虫获取百度页面信息from urllib.request import urlopenurl &#x3D; &amp;#x27;http:&#x2F;&#x2F;www.baidu.com&amp;#x27;resp &#x3D; urlopen(url)# print(resp.read()">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="爬虫：通过编写程序来获取互联网上的资源 初始爬虫爬虫入门要求：用程序模拟浏览器，输入一个网址，从该网址中获取到资源或者内容 1234567891011 # 1.爬虫获取百度页面信息from urllib.request import urlopenurl &#x3D; &amp;#x27;http:&#x2F;&#x2F;www.baidu.com&amp;#x27;resp &#x3D; urlopen(url)# print(resp.read()">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python spider">
 <meta property="og:url" content="http://example.com/2023/05/22/python-spider/index.html">
@@ -29,95 +29,158 @@
 <meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230107061032489-1024x253.png">
-  
-    <link rel="alternate" href="/atom.xml" title="psych's blog" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
     
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>python spider</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
 
-  
-  
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
 <link rel="stylesheet" href="/css/style.css">
 
-  
+    <!-- persian styles -->
     
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
-  
-  
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
 <meta name="generator" content="Hexo 6.3.0"></head>
 
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">psych&#39;s blog</a>
-      </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">psych</a>
-        </h2>
-      
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">tags</a></li><!--
+     --><!--
+       --><li><a href="/categories/">categories</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2023/06/02/ciscn-2023-web-%E9%83%A8%E5%88%86writeup/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2023/05/18/%E7%AE%97%E4%BA%86%E5%90%97/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/05/22/python-spider/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/05/22/python-spider/&text=python spider"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/05/22/python-spider/&title=python spider"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/05/22/python-spider/&is_video=false&description=python spider"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=python spider&body=Check out this article: http://example.com/2023/05/22/python-spider/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/05/22/python-spider/&title=python spider"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/05/22/python-spider/&title=python spider"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/05/22/python-spider/&title=python spider"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/05/22/python-spider/&title=python spider"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/05/22/python-spider/&name=python spider&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/05/22/python-spider/&t=python spider"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
     </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-        
-          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
-        
-        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E7%88%AC%E8%99%AB"><span class="toc-number">1.</span> <span class="toc-text">初始爬虫</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8"><span class="toc-number">1.1.</span> <span class="toc-text">爬虫入门</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#web%E8%AF%B7%E6%B1%82%E8%BF%87%E7%A8%8B%E5%89%96%E6%9E%90"><span class="toc-number">1.2.</span> <span class="toc-text">web请求过程剖析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#http%E5%8D%8F%E8%AE%AE"><span class="toc-number">1.3.</span> <span class="toc-text">http协议</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#requests%E5%85%A5%E9%97%A8"><span class="toc-number">1.4.</span> <span class="toc-text">requests入门</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%88%AC%E5%8F%96%E7%99%BE%E5%BA%A6%E7%BF%BB%E8%AF%91%E6%95%B0%E6%8D%AE"><span class="toc-number">1.5.</span> <span class="toc-text">爬取百度翻译数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A1%A5%EF%BC%9A%E7%BC%96%E7%A0%81%E4%B8%8E%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99"><span class="toc-number">1.6.</span> <span class="toc-text">补：编码与文件读写</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E8%A7%A3-%E6%9E%90%E6%A6%82%E8%BF%B0"><span class="toc-number">2.</span> <span class="toc-text">数据解 析概述</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#re%E8%A7%A3%E6%9E%90"><span class="toc-number">2.1.</span> <span class="toc-text">re解析</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Regular-Expression-re"><span class="toc-number">2.1.1.</span> <span class="toc-text">Regular Expression(re)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#re%E6%A8%A1%E5%9D%97"><span class="toc-number">2.1.2.</span> <span class="toc-text">re模块</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#re%E6%A8%A1%E5%9D%97%E5%AE%9E%E6%88%98"><span class="toc-number">2.1.3.</span> <span class="toc-text">re模块实战</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%88%AC%E5%8F%96%E8%B1%86%E7%93%A3%E6%8E%92%E8%A1%8C%E6%A6%9Ctop250"><span class="toc-number">2.1.3.1.</span> <span class="toc-text">爬取豆瓣排行榜top250</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%88%AC%E5%8F%96%E7%94%B5%E5%BD%B1%E5%A4%A9%E5%A0%82%E4%BF%A1%E6%81%AF"><span class="toc-number">2.1.3.2.</span> <span class="toc-text">爬取电影天堂信息</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#bs4%E8%A7%A3%E6%9E%90"><span class="toc-number">2.2.</span> <span class="toc-text">bs4解析</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BB%83%E4%B9%A0"><span class="toc-number">2.2.1.</span> <span class="toc-text">练习</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8C%97%E4%BA%AC%E6%96%B0%E5%8F%91%E5%9C%B0%E7%88%AC%E5%8F%96%E8%8F%9C%E4%BB%B7"><span class="toc-number">2.2.1.1.</span> <span class="toc-text">北京新发地爬取菜价</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%BC%98%E7%BE%8E%E7%BE%8E%E5%9B%BE%E5%BA%93%E5%9B%BE%E7%89%87"><span class="toc-number">2.2.1.2.</span> <span class="toc-text">优美美图库图片</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#xpath%E8%A7%A3%E6%9E%90"><span class="toc-number">2.3.</span> <span class="toc-text">xpath解析</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80"><span class="toc-number">2.3.0.1.</span> <span class="toc-text">基础</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%AE%9E%E6%88%98"><span class="toc-number">2.3.0.2.</span> <span class="toc-text">实战</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Requests-%E8%BF%9B%E9%98%B6"><span class="toc-number"></span> <span class="toc-text">Requests 进阶</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%84%E7%90%86cookie"><span class="toc-number">1.</span> <span class="toc-text">处理cookie</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%B2%E7%9B%97%E9%93%BE"><span class="toc-number">2.</span> <span class="toc-text">防盗链</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%9B%97%E9%93%BE"><span class="toc-number">2.0.1.</span> <span class="toc-text">盗链</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%98%B2%E7%9B%97%E9%93%BE%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-number">2.0.2.</span> <span class="toc-text">防盗链的工作原理</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%90%86"><span class="toc-number">3.</span> <span class="toc-text">代理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%BC%E5%90%88%E8%AE%AD%E7%BB%83%EF%BC%88wyy%EF%BC%89"><span class="toc-number">4.</span> <span class="toc-text">综合训练（wyy）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%88%AC%E5%8F%96%E7%BD%91%E6%98%93%E4%BA%91%E7%83%AD%E8%AF%84"><span class="toc-number">4.0.1.</span> <span class="toc-text">爬取网易云热评</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%90%E9%AB%98%E7%88%AC%E8%99%AB%E6%95%88%E7%8E%87"><span class="toc-number"></span> <span class="toc-text">提高爬虫效率</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="toc-number">0.1.</span> <span class="toc-text">多线程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E8%BF%9B%E7%A8%8B"><span class="toc-number">0.2.</span> <span class="toc-text">多进程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%92%8C%E8%BF%9B%E7%A8%8B%E6%B1%A0"><span class="toc-number">0.3.</span> <span class="toc-text">线程池和进程池</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%8F%E7%A8%8B"><span class="toc-number">0.4.</span> <span class="toc-text">协程</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%98%BB%E5%A1%9E%E7%8A%B6%E6%80%81"><span class="toc-number">0.4.0.1.</span> <span class="toc-text">阻塞状态</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8D%8F%E7%A8%8B-1"><span class="toc-number">0.4.0.2.</span> <span class="toc-text">协程</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%A4%9A%E4%BB%BB%E5%8A%A1%E5%BC%82%E6%AD%A5%E5%8D%8F%E7%A8%8B"><span class="toc-number">0.4.0.3.</span> <span class="toc-text">多任务异步协程</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%82%E6%AD%A5http%E8%AF%B7%E6%B1%82aiohttp%E6%A8%A1%E5%9D%97"><span class="toc-number">0.5.</span> <span class="toc-text">异步http请求aiohttp模块</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%8A%93%E5%8F%96%E7%99%BE%E5%BA%A6%E5%B0%8F%E8%AF%B4-dd"><span class="toc-number">0.5.1.</span> <span class="toc-text">抓取百度小说(dd)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%8A%93%E5%8F%96%E8%A7%86%E9%A2%91%E7%BD%91%E7%AB%99-dd"><span class="toc-number">0.5.2.</span> <span class="toc-text">抓取视频网站(dd)</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#selenium"><span class="toc-number"></span> <span class="toc-text">_selenium</span></a>
       </div>
-    </div>
-  </div>
-</header>
+    
+  </span>
+</div>
 
-      <div class="outer">
-        <section id="main"><article id="post-python-spider" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/05/22/python-spider/" class="article-date">
-  <time class="dt-published" datetime="2023-05-22T14:33:09.000Z" itemprop="datePublished">2023-05-22</time>
-</a>
     
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/web/">web</a>►<a class="article-category-link" href="/categories/web/web%E5%9F%BA%E7%A1%80/">web基础</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <div class="content index py4 ">
         
-  
-    <h1 class="p-name article-title" itemprop="headline name">
-      python spider
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        python spider
     </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">psych</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-05-22T14:33:09.000Z" class="dt-published" itemprop="datePublished">2023-05-22</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/web/">web</a> › <a class="category-link" href="/categories/web/web%E5%9F%BA%E7%A1%80/">web基础</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/python/" rel="tag">python</a>
+    </div>
+
+
+    </div>
+  </header>
   
 
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>爬虫：通过编写程序来获取互联网上的资源</p>
+  <div class="content e-content" itemprop="articleBody">
+    <p>爬虫：通过编写程序来获取互联网上的资源</p>
 <h3 id="初始爬虫"><a href="#初始爬虫" class="headerlink" title="初始爬虫"></a>初始爬虫</h3><h4 id="爬虫入门"><a href="#爬虫入门" class="headerlink" title="爬虫入门"></a>爬虫入门</h4><p>要求：用程序模拟浏览器，输入一个网址，从该网址中获取到资源或者内容</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> # 1.爬虫获取百度页面信息</span><br><span class="line">from urllib.request import urlopen</span><br><span class="line"></span><br><span class="line">url = &#x27;http://www.baidu.com&#x27;</span><br><span class="line">resp = urlopen(url)</span><br><span class="line"></span><br><span class="line"># print(resp.read().decode(&quot;utf-8&quot;))</span><br><span class="line"></span><br><span class="line">with open(&#x27;mybaidu.html&#x27;, mode=&#x27;w&#x27;, encoding=&#x27;utf-8&#x27;) as f:      #加上 encoding=&#x27;utf-8&#x27;，以utf-8写入文件，否则默认gbk(windows默认gbk)写入，就会乱码</span><br><span class="line">    f.write(resp.read().decode(&quot;utf-8&quot;))    # 获取网页源代码</span><br><span class="line">print(&#x27;ok!&#x27;)</span><br></pre></td></tr></table></figure>
 
@@ -377,157 +440,150 @@
 
 <p>完整代码：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"># 窗口切换</span><br><span class="line">from selenium.webdriver import Firefox</span><br><span class="line">from selenium.webdriver.common.by import By</span><br><span class="line">import time</span><br><span class="line">from selenium.webdriver.common.keys import Keys</span><br><span class="line"></span><br><span class="line">web = Firefox()</span><br><span class="line"></span><br><span class="line">web.get(&#x27;https://www.lagou.com&#x27;)</span><br><span class="line">web.find_element(By.XPATH, r&#x27;//*[@id=&quot;cboxClose&quot;]&#x27;).click()</span><br><span class="line">time.sleep(1)</span><br><span class="line">web.find_element(By.XPATH, r&#x27;//*[@id=&quot;search_input&quot;]&#x27;).send_keys(&#x27;python&#x27;, Keys.ENTER)</span><br><span class="line">time.sleep(2)</span><br><span class="line">web.find_element(By.XPATH, r&#x27;/html/body/div/div[2]/div/div[3]/div[3]/div/div[1]/div[1]/div[1]/div[1]/div[1]/a&#x27;).click()</span><br><span class="line"># 此时已经进入一个新页面      #变成登录页面了。。。  </span><br><span class="line"># 如何进入到新窗口中进行提取</span><br><span class="line"># 注意，在selenium的眼中，新窗口是不会自动切换的</span><br><span class="line">web.switch_to.window(web.window_handles[-1])   # window_handles就是浏览器上面那个窗口</span><br><span class="line"># 在新窗口中提取内容。。。</span><br><span class="line"></span><br><span class="line"># 关闭子窗口</span><br><span class="line">web.close()</span><br><span class="line">#返回到原来的窗口</span><br><span class="line">web.switch_to.window(web.window_handles[0])</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/05/22/python-spider/" data-id="clle2aj5g002hegggdhmv7gkz" data-title="python spider" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li></ul>
-
-    </footer>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2023/06/02/ciscn-2023-web-%E9%83%A8%E5%88%86writeup/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          ciscn-2023-web-部分writeup
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2023/05/18/%E7%AE%97%E4%BA%86%E5%90%97/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">算了吗</div>
-    </a>
-  
-</nav>
-
-  
 </article>
 
 
-</section>
+
         
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/web/CTF/">CTF</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/web%E5%9F%BA%E7%A1%80/">web基础</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/%E6%B8%97%E9%80%8F/">渗透</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%91%84%E5%BD%B1/">摄影</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%96%87%E5%AD%A6/">文学</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%96%87%E5%AD%A6/%E8%AF%97/">诗</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%96%87%E5%AD%A6/%E9%9A%8F%E7%AC%94/">随笔</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BE%E5%86%85/">课内</a></li></ul>
-    </div>
-  </div>
+          <div id="footer-post-container">
+  <div id="footer-post">
 
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTF/" rel="tag">CTF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/" rel="tag">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/" rel="tag">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web%E5%9F%BA%E7%A1%80/" rel="tag">web基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%91%84%E5%BD%B1/" rel="tag">摄影</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B8%97%E9%80%8F/" rel="tag">渗透</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3/" rel="tag">离散</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%97/" rel="tag">诗</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BE%E5%86%85/" rel="tag">课内</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94/" rel="tag">随笔</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/CTF/" style="font-size: 18.33px;">CTF</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/php/" style="font-size: 10px;">php</a> <a href="/tags/python/" style="font-size: 11.67px;">python</a> <a href="/tags/web/" style="font-size: 20px;">web</a> <a href="/tags/web%E5%9F%BA%E7%A1%80/" style="font-size: 16.67px;">web基础</a> <a href="/tags/%E6%91%84%E5%BD%B1/" style="font-size: 13.33px;">摄影</a> <a href="/tags/%E6%B8%97%E9%80%8F/" style="font-size: 13.33px;">渗透</a> <a href="/tags/%E7%A6%BB%E6%95%A3/" style="font-size: 10px;">离散</a> <a href="/tags/%E8%AF%97/" style="font-size: 10px;">诗</a> <a href="/tags/%E8%AF%BE%E5%86%85/" style="font-size: 10px;">课内</a> <a href="/tags/%E9%9A%8F%E7%AC%94/" style="font-size: 15px;">随笔</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
+    <div id="nav-footer" style="display: none">
       <ul>
         
-          <li>
-            <a href="/2023/07/25/docker/">Docker</a>
-          </li>
+          <li><a href="/">Home</a></li>
         
-          <li>
-            <a href="/2023/07/24/%E5%B7%85%E5%B3%B0%E6%9E%81%E5%AE%A22023-web-hellosql-wp/">巅峰极客2023-web-hellosql-wp</a>
-          </li>
+          <li><a href="/about/">About</a></li>
         
-          <li>
-            <a href="/2023/07/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">搭建博客</a>
-          </li>
+          <li><a href="/archives/">Writing</a></li>
         
-          <li>
-            <a href="/2023/07/11/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">PHP反序列化</a>
-          </li>
+          <li><a href="/tags/">tags</a></li>
         
-          <li>
-            <a href="/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/">第五届安洵杯-2022-web-writeup</a>
-          </li>
+          <li><a href="/categories/">categories</a></li>
+        
+          <li><a href="/search/">Search</a></li>
         
       </ul>
     </div>
-  </div>
 
-  
-</aside>
-        
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E7%88%AC%E8%99%AB"><span class="toc-number">1.</span> <span class="toc-text">初始爬虫</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8"><span class="toc-number">1.1.</span> <span class="toc-text">爬虫入门</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#web%E8%AF%B7%E6%B1%82%E8%BF%87%E7%A8%8B%E5%89%96%E6%9E%90"><span class="toc-number">1.2.</span> <span class="toc-text">web请求过程剖析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#http%E5%8D%8F%E8%AE%AE"><span class="toc-number">1.3.</span> <span class="toc-text">http协议</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#requests%E5%85%A5%E9%97%A8"><span class="toc-number">1.4.</span> <span class="toc-text">requests入门</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%88%AC%E5%8F%96%E7%99%BE%E5%BA%A6%E7%BF%BB%E8%AF%91%E6%95%B0%E6%8D%AE"><span class="toc-number">1.5.</span> <span class="toc-text">爬取百度翻译数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A1%A5%EF%BC%9A%E7%BC%96%E7%A0%81%E4%B8%8E%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99"><span class="toc-number">1.6.</span> <span class="toc-text">补：编码与文件读写</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E8%A7%A3-%E6%9E%90%E6%A6%82%E8%BF%B0"><span class="toc-number">2.</span> <span class="toc-text">数据解 析概述</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#re%E8%A7%A3%E6%9E%90"><span class="toc-number">2.1.</span> <span class="toc-text">re解析</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Regular-Expression-re"><span class="toc-number">2.1.1.</span> <span class="toc-text">Regular Expression(re)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#re%E6%A8%A1%E5%9D%97"><span class="toc-number">2.1.2.</span> <span class="toc-text">re模块</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#re%E6%A8%A1%E5%9D%97%E5%AE%9E%E6%88%98"><span class="toc-number">2.1.3.</span> <span class="toc-text">re模块实战</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%88%AC%E5%8F%96%E8%B1%86%E7%93%A3%E6%8E%92%E8%A1%8C%E6%A6%9Ctop250"><span class="toc-number">2.1.3.1.</span> <span class="toc-text">爬取豆瓣排行榜top250</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%88%AC%E5%8F%96%E7%94%B5%E5%BD%B1%E5%A4%A9%E5%A0%82%E4%BF%A1%E6%81%AF"><span class="toc-number">2.1.3.2.</span> <span class="toc-text">爬取电影天堂信息</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#bs4%E8%A7%A3%E6%9E%90"><span class="toc-number">2.2.</span> <span class="toc-text">bs4解析</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BB%83%E4%B9%A0"><span class="toc-number">2.2.1.</span> <span class="toc-text">练习</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8C%97%E4%BA%AC%E6%96%B0%E5%8F%91%E5%9C%B0%E7%88%AC%E5%8F%96%E8%8F%9C%E4%BB%B7"><span class="toc-number">2.2.1.1.</span> <span class="toc-text">北京新发地爬取菜价</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%BC%98%E7%BE%8E%E7%BE%8E%E5%9B%BE%E5%BA%93%E5%9B%BE%E7%89%87"><span class="toc-number">2.2.1.2.</span> <span class="toc-text">优美美图库图片</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#xpath%E8%A7%A3%E6%9E%90"><span class="toc-number">2.3.</span> <span class="toc-text">xpath解析</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80"><span class="toc-number">2.3.0.1.</span> <span class="toc-text">基础</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%AE%9E%E6%88%98"><span class="toc-number">2.3.0.2.</span> <span class="toc-text">实战</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Requests-%E8%BF%9B%E9%98%B6"><span class="toc-number"></span> <span class="toc-text">Requests 进阶</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%84%E7%90%86cookie"><span class="toc-number">1.</span> <span class="toc-text">处理cookie</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%B2%E7%9B%97%E9%93%BE"><span class="toc-number">2.</span> <span class="toc-text">防盗链</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%9B%97%E9%93%BE"><span class="toc-number">2.0.1.</span> <span class="toc-text">盗链</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%98%B2%E7%9B%97%E9%93%BE%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-number">2.0.2.</span> <span class="toc-text">防盗链的工作原理</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%90%86"><span class="toc-number">3.</span> <span class="toc-text">代理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%BC%E5%90%88%E8%AE%AD%E7%BB%83%EF%BC%88wyy%EF%BC%89"><span class="toc-number">4.</span> <span class="toc-text">综合训练（wyy）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%88%AC%E5%8F%96%E7%BD%91%E6%98%93%E4%BA%91%E7%83%AD%E8%AF%84"><span class="toc-number">4.0.1.</span> <span class="toc-text">爬取网易云热评</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%90%E9%AB%98%E7%88%AC%E8%99%AB%E6%95%88%E7%8E%87"><span class="toc-number"></span> <span class="toc-text">提高爬虫效率</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="toc-number">0.1.</span> <span class="toc-text">多线程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E8%BF%9B%E7%A8%8B"><span class="toc-number">0.2.</span> <span class="toc-text">多进程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%92%8C%E8%BF%9B%E7%A8%8B%E6%B1%A0"><span class="toc-number">0.3.</span> <span class="toc-text">线程池和进程池</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%8F%E7%A8%8B"><span class="toc-number">0.4.</span> <span class="toc-text">协程</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%98%BB%E5%A1%9E%E7%8A%B6%E6%80%81"><span class="toc-number">0.4.0.1.</span> <span class="toc-text">阻塞状态</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8D%8F%E7%A8%8B-1"><span class="toc-number">0.4.0.2.</span> <span class="toc-text">协程</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%A4%9A%E4%BB%BB%E5%8A%A1%E5%BC%82%E6%AD%A5%E5%8D%8F%E7%A8%8B"><span class="toc-number">0.4.0.3.</span> <span class="toc-text">多任务异步协程</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%82%E6%AD%A5http%E8%AF%B7%E6%B1%82aiohttp%E6%A8%A1%E5%9D%97"><span class="toc-number">0.5.</span> <span class="toc-text">异步http请求aiohttp模块</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%8A%93%E5%8F%96%E7%99%BE%E5%BA%A6%E5%B0%8F%E8%AF%B4-dd"><span class="toc-number">0.5.1.</span> <span class="toc-text">抓取百度小说(dd)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%8A%93%E5%8F%96%E8%A7%86%E9%A2%91%E7%BD%91%E7%AB%99-dd"><span class="toc-number">0.5.2.</span> <span class="toc-text">抓取视频网站(dd)</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#selenium"><span class="toc-number"></span> <span class="toc-text">_selenium</span></a>
       </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2023 psych<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
     
 
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/05/22/python-spider/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/05/22/python-spider/&text=python spider"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/05/22/python-spider/&title=python spider"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/05/22/python-spider/&is_video=false&description=python spider"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=python spider&body=Check out this article: http://example.com/2023/05/22/python-spider/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/05/22/python-spider/&title=python spider"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/05/22/python-spider/&title=python spider"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/05/22/python-spider/&title=python spider"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/05/22/python-spider/&title=python spider"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/05/22/python-spider/&name=python spider&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/05/22/python-spider/&t=python spider"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
 
-<script src="/js/jquery-3.6.4.min.js"></script>
+    </div>
 
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
 
   </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2023
+    psych
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">tags</a></li><!--
+     --><!--
+       --><li><a href="/categories/">categories</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
 </body>
 </html>
