@@ -10,7 +10,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="SQL注入">
 <meta property="og:url" content="http://example.com/2023/05/14/sql%E6%B3%A8%E5%85%A5/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="psych&#39;s blog">
 <meta property="og:description" content="原理在权限验证通过的情况下，将用户的输入数据与sql请求拼接，动态的构造sql语句，并在无任何审查的 情况下直接操作数据库。 发现注入点 GET POST Cookie http头 request  测试1.字符型123456789 1.经典方法 id&#x3D;1   #正常 id&#x3D;1&amp;#x27;  #异常或为空 id&#x3D;1&amp;#x27; and &amp;#x27;1&amp;#x27;&#x3D;&amp;#x27;1  #正常 id&#x3D;1">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230508143729585.png">
@@ -29,7 +29,7 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/513e42f930d1c33a6ddf76a9cd950a8c-1024x315.png">
 <meta property="article:published_time" content="2023-05-14T07:41:09.000Z">
 <meta property="article:modified_time" content="2023-08-16T15:24:48.122Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="psych">
 <meta property="article:tag" content="CTF">
 <meta property="article:tag" content="web">
 <meta name="twitter:card" content="summary">
@@ -155,7 +155,7 @@
 
     <div class="meta">
       <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <span class="p-name" itemprop="name">John Doe</span>
+        <span class="p-name" itemprop="name">psych</span>
       </span>
       
     <div class="postdate">
@@ -758,33 +758,48 @@
 
         
         <footer id="footer">
-  <div class="footer-left">
-    Copyright &copy;
-    
-    
-    2016-2023
-    John Doe
-  </div>
-  <div class="footer-right">
-    <nav>
-      <ul>
-        <!--
-       --><li><a href="/">Home</a></li><!--
-     --><!--
-       --><li><a href="/about/">About</a></li><!--
-     --><!--
-       --><li><a href="/archives/">Writing</a></li><!--
-     --><!--
-       --><li><a href="/tags/">tags</a></li><!--
-     --><!--
-       --><li><a href="/categories/">categories</a></li><!--
-     --><!--
-       --><li><a href="/search/">Search</a></li><!--
-     -->
-      </ul>
-    </nav>
-  </div>
+      <div class="footer-left">
+        Copyright &copy;
+        
+        
+        2016-2023
+        psych
+      </div>
+      <div class="footer-right">
+        <nav>
+          <ul>
+            <!--
+          --><li><a href="/">Home</a></li><!--
+        --><!--
+          --><li><a href="/about/">About</a></li><!--
+        --><!--
+          --><li><a href="/archives/">Writing</a></li><!--
+        --><!--
+          --><li><a href="/tags/">tags</a></li><!--
+        --><!--
+          --><li><a href="/categories/">categories</a></li><!--
+        --><!--
+          --><li><a href="/search/">Search</a></li><!--
+        -->
+          </ul>
+          <ul>
+            
+              <!-- 不蒜子统计 -->
+              <span id="busuanzi_container_site_pv">
+                  本站总访问量<span id="busuanzi_value_site_pv"></span>次
+              </span>
+              <span class="post-meta-divider">|</span>
+              <span id="busuanzi_container_site_uv" style='display:none'>
+                      本站访客数<span id="busuanzi_value_site_uv"></span>人
+              </span>
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            
+          </ul>
+        </nav>
+      </div>
+      
 </footer>
+
 
     </div>
     <!-- styles -->
