@@ -1,115 +1,180 @@
 <!DOCTYPE html>
-<html>
+<html lang=en>
 <head>
-  <meta charset="utf-8">
-  
-  
-  <title>PHP反序列化 | Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="基础知识PHP反序列化原理序列化其实就是将数据转化成一种可逆的数据结构，自然，逆向的过程就叫做反序列化。那么为什么要反序列化呢？可以说，序列化就是将对象转换为可以传输，储存的数据。  为什么反序列化？1.存储需求 “所有php里面的值都可以使用函数serialize()来返回一个包含字节流的字符串来表示。序列化一个对象将会保存对象的所有变量，但是不会保存对象的方法，只会保存类的名字。” 在程序执">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="基础知识PHP反序列化原理序列化其实就是将数据转化成一种可逆的数据结构，自然，逆向的过程就叫做反序列化。那么为什么要反序列化呢？可以说，序列化就是将对象转换为可以传输，储存的数据。  为什么反序列化？1.存储需求 “所有php里面的值都可以使用函数serialize()来返回一个包含字节流的字符串来表示。序列化一个对象将会保存对象的所有变量，但是不会保存对象的方法，只会保存类的名字。” 在程序执">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PHP反序列化">
 <meta property="og:url" content="http://example.com/2023/07/11/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="基础知识PHP反序列化原理序列化其实就是将数据转化成一种可逆的数据结构，自然，逆向的过程就叫做反序列化。那么为什么要反序列化呢？可以说，序列化就是将对象转换为可以传输，储存的数据。  为什么反序列化？1.存储需求 “所有php里面的值都可以使用函数serialize()来返回一个包含字节流的字符串来表示。序列化一个对象将会保存对象的所有变量，但是不会保存对象的方法，只会保存类的名字。” 在程序执">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://psych.green/wp-content/uploads/2023/07/ad500678d3ce94923a94ed61e1ef9154-1024x322.png">
-<meta property="og:image" content="http://psych.green/wp-content/uploads/2023/07/1df47fdfc6f64b5fb692ddeed8f49580-1024x473.png">
-<meta property="og:image" content="http://psych.green/wp-content/uploads/2023/07/image-20230711232450819-1024x309.png">
-<meta property="og:image" content="http://psych.green/wp-content/uploads/2023/07/image-20221201175904124-2-1024x227.png">
-<meta property="og:image" content="http://psych.green/wp-content/uploads/2023/07/image-20221201175845894-2-1024x91.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/ad500678d3ce94923a94ed61e1ef9154-1024x322.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/1df47fdfc6f64b5fb692ddeed8f49580-1024x473.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230711232450819-1024x309.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221201175904124-2-1024x227.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221201175845894-2-1024x91.png">
 <meta property="article:published_time" content="2023-07-11T15:42:45.000Z">
-<meta property="article:modified_time" content="2023-08-16T11:57:09.828Z">
+<meta property="article:modified_time" content="2023-08-16T15:10:58.056Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="web">
 <meta property="article:tag" content="web基础">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://psych.green/wp-content/uploads/2023/07/ad500678d3ce94923a94ed61e1ef9154-1024x322.png">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/ad500678d3ce94923a94ed61e1ef9154-1024x322.png">
     
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>PHP反序列化</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
 
-  
-  
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
 <link rel="stylesheet" href="/css/style.css">
 
-  
+    <!-- persian styles -->
     
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
-  
-  
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
 <meta name="generator" content="Hexo 6.3.0"></head>
 
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
-      
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2023/07/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/07/11/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/07/11/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/&text=PHP反序列化"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/07/11/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/&title=PHP反序列化"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/07/11/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/&is_video=false&description=PHP反序列化"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=PHP反序列化&body=Check out this article: http://example.com/2023/07/11/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/07/11/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/&title=PHP反序列化"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/07/11/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/&title=PHP反序列化"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/07/11/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/&title=PHP反序列化"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/07/11/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/&title=PHP反序列化"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/07/11/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/&name=PHP反序列化&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/07/11/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/&t=PHP反序列化"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
     </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-        
-          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
-        
-        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-number">1.</span> <span class="toc-text">基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%8E%9F%E7%90%86"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">PHP反序列化原理</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%EF%BC%9F"><span class="toc-number">1.0.0.1.1.</span> <span class="toc-text">为什么反序列化？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0%E5%92%8C%E6%96%B9%E6%B3%95"><span class="toc-number">1.0.0.1.2.</span> <span class="toc-text">基本函数和方法</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E5%92%8C%E5%B1%9E%E6%80%A7"><span class="toc-number">1.0.0.1.3.</span> <span class="toc-text">方法和属性</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CTF%E5%BA%94%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text">CTF应用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E6%8A%80%E5%B7%A7"><span class="toc-number">2.0.1.</span> <span class="toc-text">基础技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#wakeup%E7%BB%95%E8%BF%87"><span class="toc-number">2.0.1.1.</span> <span class="toc-text">__wakeup绕过</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">2.0.1.1.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B"><span class="toc-number">2.0.1.1.2.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BB%95%E8%BF%87%E9%83%A8%E5%88%86%E6%AD%A3%E5%88%99"><span class="toc-number">2.0.1.2.</span> <span class="toc-text">绕过部分正则</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E5%BC%95%E7%94%A8%E7%BB%95%E8%BF%87"><span class="toc-number">2.0.1.3.</span> <span class="toc-text">利用引用绕过</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E7%BB%95%E8%BF%87%E5%AD%97%E7%AC%A6%E7%9A%84%E8%BF%87%E6%BB%A4"><span class="toc-number">2.0.1.4.</span> <span class="toc-text">十六进制绕过字符的过滤</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%80%83%E9%80%B8"><span class="toc-number">2.0.2.</span> <span class="toc-text">PHP反序列化字符串逃逸</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%BF%87%E6%BB%A4%E5%90%8E%E5%AD%97%E7%AC%A6%E5%8F%98%E5%A4%9A"><span class="toc-number">2.0.2.0.1.</span> <span class="toc-text">过滤后字符变多</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%BF%87%E6%BB%A4%E5%90%8E%E5%AD%97%E7%AC%A6%E5%8F%98%E5%B0%91"><span class="toc-number">2.0.2.0.2.</span> <span class="toc-text">过滤后字符变少</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pop%E9%93%BE%E7%9A%84%E5%88%A9%E7%94%A8"><span class="toc-number">2.0.3.</span> <span class="toc-text">pop链的利用</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E4%B8%80"><span class="toc-number">2.0.3.1.</span> <span class="toc-text">题目一</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE"><span class="toc-number">2.0.3.1.1.</span> <span class="toc-text">题目</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%88%86%E6%9E%90"><span class="toc-number">2.0.3.1.2.</span> <span class="toc-text">分析</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%80%BB%E4%BD%93%E6%80%9D%E8%B7%AF%EF%BC%9A"><span class="toc-number">2.0.3.1.3.</span> <span class="toc-text">总体思路：</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%AD%94%E6%A1%88%EF%BC%88%E6%8A%84%EF%BC%89"><span class="toc-number">2.0.3.1.4.</span> <span class="toc-text">答案（抄）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#phar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-number">2.0.4.</span> <span class="toc-text">phar反序列化</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80"><span class="toc-number">2.0.4.1.</span> <span class="toc-text">基础</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#Phar%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F"><span class="toc-number">2.0.4.1.1.</span> <span class="toc-text">Phar文件格式</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%94%9F%E6%88%90Phar%E6%96%87%E4%BB%B6"><span class="toc-number">2.0.4.1.2.</span> <span class="toc-text">生成Phar文件</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#php%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB-phar%E4%BC%AA%E5%8D%8F%E8%AE%AE"><span class="toc-number">2.0.4.1.3.</span> <span class="toc-text">php文件上传+文件包含(phar伪协议)</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9C%A8%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%AD%E7%9A%84%E5%88%A9%E7%94%A8"><span class="toc-number">2.0.4.2.</span> <span class="toc-text">在反序列化中的利用</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%89%8D%E6%8F%90%E5%87%BD%E6%95%B0"><span class="toc-number">2.0.4.2.1.</span> <span class="toc-text">前提函数</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%88%A9%E7%94%A8"><span class="toc-number">2.0.4.2.2.</span> <span class="toc-text">利用</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B%E7%BB%95%E8%BF%87"><span class="toc-number">2.0.4.3.</span> <span class="toc-text">一些绕过</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%A4%B4%E6%A3%80%E6%B5%8B"><span class="toc-number">2.0.4.3.1.</span> <span class="toc-text">文件头检测</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#phar%E6%96%87%E4%BB%B6%E5%BC%80%E5%A4%B4"><span class="toc-number">2.0.4.3.2.</span> <span class="toc-text">phar文件开头</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E4%B8%80-1"><span class="toc-number">2.0.4.4.</span> <span class="toc-text">题目一</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%BA%90%E7%A0%81"><span class="toc-number">2.0.4.4.1.</span> <span class="toc-text">源码</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%88%86%E6%9E%90-1"><span class="toc-number">2.0.4.4.2.</span> <span class="toc-text">分析</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#payload"><span class="toc-number">2.0.4.4.3.</span> <span class="toc-text">payload</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E4%BA%8C"><span class="toc-number">2.0.4.5.</span> <span class="toc-text">题目二</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%BA%90%E7%A0%81-1"><span class="toc-number">2.0.4.5.1.</span> <span class="toc-text">源码</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%88%86%E6%9E%90-2"><span class="toc-number">2.0.4.5.2.</span> <span class="toc-text">分析</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-number">2.0.4.5.3.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#payload-1"><span class="toc-number">2.0.4.5.4.</span> <span class="toc-text">payload</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PHP-session%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-number">2.0.5.</span> <span class="toc-text">PHP-session反序列化</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-1"><span class="toc-number">2.0.5.1.</span> <span class="toc-text">原理</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#session"><span class="toc-number">2.0.5.1.1.</span> <span class="toc-text">session</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#session-start"><span class="toc-number">2.0.5.1.2.</span> <span class="toc-text">session_start()</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%B5%81%E7%A8%8B"><span class="toc-number">2.0.5.1.3.</span> <span class="toc-text">流程</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#PHP-session-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%9C%BA%E5%88%B6"><span class="toc-number">2.0.5.1.4.</span> <span class="toc-text">PHP session 反序列化机制</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E5%99%A8-%E5%BC%95%E6%93%8E"><span class="toc-number">2.0.5.1.5.</span> <span class="toc-text">处理器(引擎)</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%A9%E7%94%A8-1"><span class="toc-number">2.0.5.2.</span> <span class="toc-text">利用</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PHP%E5%8E%9F%E7%94%9F%E7%B1%BB%E7%9A%84%E5%88%A9%E7%94%A8"><span class="toc-number">2.0.6.</span> <span class="toc-text">PHP原生类的利用</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E6%96%B9%E5%90%91"><span class="toc-number">2.0.6.1.</span> <span class="toc-text">利用方向</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8E%9F%E7%94%9F%E7%B1%BB%E6%A6%82%E5%BF%B5"><span class="toc-number">2.0.6.2.</span> <span class="toc-text">原生类概念</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#XSS-By-Error-Exception"><span class="toc-number">2.0.6.3.</span> <span class="toc-text">XSS By Error&#x2F;Exception</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6"><span class="toc-number">2.0.6.3.1.</span> <span class="toc-text">条件</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-2"><span class="toc-number">2.0.6.3.2.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#demo"><span class="toc-number">2.0.6.3.3.</span> <span class="toc-text">demo</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#SSRF-By-SoapClient"><span class="toc-number">2.0.6.4.</span> <span class="toc-text">SSRF By SoapClient</span></a></li></ol></li></ol></li></ol></li></ol>
       </div>
-    </div>
-  </div>
-</header>
+    
+  </span>
+</div>
 
-      <div class="outer">
-        <section id="main"><article id="post-php反序列化" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/07/11/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="article-date">
-  <time class="dt-published" datetime="2023-07-11T15:42:45.000Z" itemprop="datePublished">2023-07-11</time>
-</a>
     
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/web/">web</a>►<a class="article-category-link" href="/categories/web/web%E5%9F%BA%E7%A1%80/">web基础</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <div class="content index py4 ">
         
-  
-    <h1 class="p-name article-title" itemprop="headline name">
-      PHP反序列化
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        PHP反序列化
     </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">John Doe</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-07-11T15:42:45.000Z" class="dt-published" itemprop="datePublished">2023-07-11</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/web/">web</a> › <a class="category-link" href="/categories/web/web%E5%9F%BA%E7%A1%80/">web基础</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/web/" rel="tag">web</a>, <a class="p-category" href="/tags/web%E5%9F%BA%E7%A1%80/" rel="tag">web基础</a>
+    </div>
+
+
+    </div>
+  </header>
   
 
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <hr>
+  <div class="content e-content" itemprop="articleBody">
+    <hr>
 <h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><h5 id="PHP反序列化原理"><a href="#PHP反序列化原理" class="headerlink" title="PHP反序列化原理"></a>PHP反序列化原理</h5><p>序列化其实就是将数据转化成一种可逆的数据结构，自然，逆向的过程就叫做反序列化。那么为什么要反序列化呢？可以说，序列化就是将对象转换为可以传输，储存的数据。</p>
 <hr>
 <h6 id="为什么反序列化？"><a href="#为什么反序列化？" class="headerlink" title="为什么反序列化？"></a>为什么反序列化？</h6><p>1.<strong>存储需求</strong></p>
@@ -352,7 +417,7 @@
 <h5 id="在反序列化中的利用"><a href="#在反序列化中的利用" class="headerlink" title="在反序列化中的利用"></a>在反序列化中的利用</h5><p><code>我们一般利用反序列漏洞，一般都是借助unserialize()函数，不过随着人们安全的意识的提高这种漏洞利用越来越来难了，但是在今年8月份的Blackhat2018大会上，来自Secarma的安全研究员Sam Thomas讲述了一种攻击PHP应用的新方式，利用这种方法可以在不使用unserialize()函数的情况下触发PHP反序列化漏洞。漏洞触发是利用Phar:// 伪协议读取phar文件时，会反序列化meta-data储存的信息。</code></p>
 <p>即，在题目背景中没有反序列化函数而有文件上传的入口时，可以考虑通过Phar伪协议来进行自自动的反序列化。</p>
 <h6 id="前提函数"><a href="#前提函数" class="headerlink" title="前提函数"></a>前提函数</h6><p><code>php一大部分的文件系统函数在通过</code>phar:&#x2F;&#x2F;<code>伪协议解析phar文件时，都会将meta-data进行反序列化，测试后受影响的函数如下</code></p>
-<p><img src="http://psych.green/wp-content/uploads/2023/07/ad500678d3ce94923a94ed61e1ef9154-1024x322.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/ad500678d3ce94923a94ed61e1ef9154-1024x322.png"></p>
 <h6 id="利用"><a href="#利用" class="headerlink" title="利用"></a>利用</h6><p>demo：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line">     class TestObject &#123;</span><br><span class="line">     &#125;</span><br><span class="line">     $phar = new Phar(&quot;phar.phar&quot;); //后缀名必须为phar</span><br><span class="line">     $phar-&gt;startBuffering();</span><br><span class="line">     $phar-&gt;setStub(&quot;&lt;?php __HALT_COMPILER(); ?&gt;&quot;); //设置stub</span><br><span class="line">     $o = new TestObject();</span><br><span class="line">     $o -&gt; data=&#x27;hu3sky&#x27;;</span><br><span class="line">     $phar-&gt;setMetadata($o); //将自定义的meta-data存入manifest</span><br><span class="line">     $phar-&gt;addFromString(&quot;test.txt&quot;, &quot;test&quot;); //添加要压缩的文件</span><br><span class="line">     //签名自动计算</span><br><span class="line">     $phar-&gt;stopBuffering();</span><br><span class="line"> ?&gt;</span><br></pre></td></tr></table></figure>
 
@@ -444,7 +509,7 @@
 <p>成功得到base64之后的flag值</p>
 <hr>
 <h4 id="PHP-session反序列化"><a href="#PHP-session反序列化" class="headerlink" title="PHP-session反序列化"></a>PHP-session反序列化</h4><h5 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h5><h6 id="session"><a href="#session" class="headerlink" title="session"></a>session</h6><p>首先看一个很简单的图片理解session</p>
-<p><img src="http://psych.green/wp-content/uploads/2023/07/1df47fdfc6f64b5fb692ddeed8f49580-1024x473.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/1df47fdfc6f64b5fb692ddeed8f49580-1024x473.png"></p>
 <p>简单来说，session的设置就是把不同的客户端的信息打包存储在不同的文件中，然后用cookie里面的sessionID来指代不同的session文件从【这里这个session文件又可以涉及到其他漏洞，比如利用session文件来进行文件包含利用等等】</p>
 <p>具体的实例应用：比如一个网站的登录验证，如果用户登录成功了，就存储一个session，并且一天之内不会过期，那么用户这一天之内都可以利用session直接登录而不用重复输入账密验证</p>
 <h6 id="session-start"><a href="#session-start" class="headerlink" title="session_start()"></a>session_start()</h6><ul>
@@ -477,7 +542,7 @@
 <li><strong>php:存储方式是，键名+竖线+经过serialize()函数序列处理的值</strong></li>
 <li><strong>php_serialize(php&gt;5.5.4):存储方式是，经过serialize()函数序列化处理的值</strong></li>
 </ul>
-<p><img src="http://psych.green/wp-content/uploads/2023/07/image-20230711232450819-1024x309.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230711232450819-1024x309.png"></p>
 <p>在PHP中默认使用的是PHP引擎，如果要修改为其他的引擎，只需要添加代码<code>ini_set(&#39;session.serialize_handler&#39;, &#39;需要设置的引擎&#39;);</code></p>
 <blockquote>
 <p>PHP中session本身的序列化<strong>机制</strong>是没有问题的 问题出在了如果在序列化和反序列化时选择的<strong>处理器不同</strong>，就会带来安全问题 当使用php引擎的时候，php引擎会以作为作为key和value的分隔符，对value多进行一次反序列化，达到我们触发反序列化的目的</p>
@@ -492,8 +557,8 @@
 <p>传进去的 a 在s1.php中进行序列化，引擎是php_serialize，</p>
 <p>所以最后存储的内容是：</p>
 <p><code>a:1:&#123;s:6:&quot;spoock&quot;;s:48:&quot;O:5:&quot;lemon&quot;:1:&#123;s:2:&quot;hi&quot;;s:14:&quot;echo &quot;spoock&quot;;&quot;;&#125;&quot; &#125;</code></p>
-<p><img src="http://psych.green/wp-content/uploads/2023/07/image-20221201175904124-2-1024x227.png"></p>
-<p><img src="http://psych.green/wp-content/uploads/2023/07/image-20221201175845894-2-1024x91.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221201175904124-2-1024x227.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221201175845894-2-1024x91.png"></p>
 <p>然而，在s2.php中，我们读取数据却选择的php，此时读取的内容就是：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> Array</span><br><span class="line"> (</span><br><span class="line">     [a:1:&#123;s:6:&quot;spoock&quot;;s:48:&quot;] =&gt; __PHP_Incomplete_Class Object</span><br><span class="line">         (</span><br><span class="line">             [__PHP_Incomplete_Class_Name] =&gt; lemon</span><br><span class="line">             [hi] =&gt; echo &quot;spoock&quot;;</span><br><span class="line">         )</span><br><span class="line"> ​</span><br><span class="line">     [spoock] =&gt; O:5:&quot;lemon&quot;:1:&#123;s:2:&quot;hi&quot;;s:14:&quot;echo &quot;spoock&quot;;&quot;;&#125;</span><br><span class="line"> )</span><br></pre></td></tr></table></figure>
 
@@ -566,157 +631,147 @@
 <li>最后，我们第三次传参，用我们POC里面自己设置的cookie（<code>PHPSESSID=tcjr6nadpk3md7jbgioa6elfk4</code>）去访问这个页面，<code>var_dump($_SESSION);</code> 会将 <code>PHPSESSID=tcjr6nadpk3md7jbgioa6elfk4</code> 的这个session内容输出出来，即可得到flag</li>
 </ul>
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/07/11/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" data-id="clldrqku60017fkgght3jao9l" data-title="PHP反序列化" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/" rel="tag">web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web%E5%9F%BA%E7%A1%80/" rel="tag">web基础</a></li></ul>
-
-    </footer>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2023/07/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          搭建博客
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">第五届安洵杯-2022-web-writeup</div>
-    </a>
-  
-</nav>
-
-  
 </article>
 
 
-</section>
+
         
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/web/CTF/">CTF</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/web%E5%9F%BA%E7%A1%80/">web基础</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/%E6%B8%97%E9%80%8F/">渗透</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%91%84%E5%BD%B1/">摄影</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%96%87%E5%AD%A6/">文学</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%96%87%E5%AD%A6/%E8%AF%97/">诗</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%96%87%E5%AD%A6/%E9%9A%8F%E7%AC%94/">随笔</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BE%E5%86%85/">课内</a></li></ul>
-    </div>
-  </div>
+          <div id="footer-post-container">
+  <div id="footer-post">
 
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTF/" rel="tag">CTF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/" rel="tag">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/" rel="tag">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web%E5%9F%BA%E7%A1%80/" rel="tag">web基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%91%84%E5%BD%B1/" rel="tag">摄影</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B8%97%E9%80%8F/" rel="tag">渗透</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3/" rel="tag">离散</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%97/" rel="tag">诗</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BE%E5%86%85/" rel="tag">课内</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94/" rel="tag">随笔</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/CTF/" style="font-size: 18.33px;">CTF</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/php/" style="font-size: 10px;">php</a> <a href="/tags/python/" style="font-size: 11.67px;">python</a> <a href="/tags/web/" style="font-size: 20px;">web</a> <a href="/tags/web%E5%9F%BA%E7%A1%80/" style="font-size: 16.67px;">web基础</a> <a href="/tags/%E6%91%84%E5%BD%B1/" style="font-size: 13.33px;">摄影</a> <a href="/tags/%E6%B8%97%E9%80%8F/" style="font-size: 13.33px;">渗透</a> <a href="/tags/%E7%A6%BB%E6%95%A3/" style="font-size: 10px;">离散</a> <a href="/tags/%E8%AF%97/" style="font-size: 10px;">诗</a> <a href="/tags/%E8%AF%BE%E5%86%85/" style="font-size: 10px;">课内</a> <a href="/tags/%E9%9A%8F%E7%AC%94/" style="font-size: 15px;">随笔</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
+    <div id="nav-footer" style="display: none">
       <ul>
         
-          <li>
-            <a href="/2023/08/16/hello-world/">Hello World</a>
-          </li>
+          <li><a href="/">Home</a></li>
         
-          <li>
-            <a href="/2023/07/25/docker/">Docker</a>
-          </li>
+          <li><a href="/about/">About</a></li>
         
-          <li>
-            <a href="/2023/07/24/%E5%B7%85%E5%B3%B0%E6%9E%81%E5%AE%A22023-web-hellosql-wp/">巅峰极客2023-web-hellosql-wp</a>
-          </li>
+          <li><a href="/archives/">Writing</a></li>
         
-          <li>
-            <a href="/2023/07/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">搭建博客</a>
-          </li>
+          <li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li>
         
-          <li>
-            <a href="/2023/07/11/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">PHP反序列化</a>
-          </li>
+          <li><a href="/search/">Search</a></li>
         
       </ul>
     </div>
-  </div>
 
-  
-</aside>
-        
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-number">1.</span> <span class="toc-text">基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%8E%9F%E7%90%86"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">PHP反序列化原理</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%EF%BC%9F"><span class="toc-number">1.0.0.1.1.</span> <span class="toc-text">为什么反序列化？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0%E5%92%8C%E6%96%B9%E6%B3%95"><span class="toc-number">1.0.0.1.2.</span> <span class="toc-text">基本函数和方法</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E5%92%8C%E5%B1%9E%E6%80%A7"><span class="toc-number">1.0.0.1.3.</span> <span class="toc-text">方法和属性</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CTF%E5%BA%94%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text">CTF应用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E6%8A%80%E5%B7%A7"><span class="toc-number">2.0.1.</span> <span class="toc-text">基础技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#wakeup%E7%BB%95%E8%BF%87"><span class="toc-number">2.0.1.1.</span> <span class="toc-text">__wakeup绕过</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">2.0.1.1.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B"><span class="toc-number">2.0.1.1.2.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BB%95%E8%BF%87%E9%83%A8%E5%88%86%E6%AD%A3%E5%88%99"><span class="toc-number">2.0.1.2.</span> <span class="toc-text">绕过部分正则</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E5%BC%95%E7%94%A8%E7%BB%95%E8%BF%87"><span class="toc-number">2.0.1.3.</span> <span class="toc-text">利用引用绕过</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E7%BB%95%E8%BF%87%E5%AD%97%E7%AC%A6%E7%9A%84%E8%BF%87%E6%BB%A4"><span class="toc-number">2.0.1.4.</span> <span class="toc-text">十六进制绕过字符的过滤</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%80%83%E9%80%B8"><span class="toc-number">2.0.2.</span> <span class="toc-text">PHP反序列化字符串逃逸</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%BF%87%E6%BB%A4%E5%90%8E%E5%AD%97%E7%AC%A6%E5%8F%98%E5%A4%9A"><span class="toc-number">2.0.2.0.1.</span> <span class="toc-text">过滤后字符变多</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%BF%87%E6%BB%A4%E5%90%8E%E5%AD%97%E7%AC%A6%E5%8F%98%E5%B0%91"><span class="toc-number">2.0.2.0.2.</span> <span class="toc-text">过滤后字符变少</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pop%E9%93%BE%E7%9A%84%E5%88%A9%E7%94%A8"><span class="toc-number">2.0.3.</span> <span class="toc-text">pop链的利用</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E4%B8%80"><span class="toc-number">2.0.3.1.</span> <span class="toc-text">题目一</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE"><span class="toc-number">2.0.3.1.1.</span> <span class="toc-text">题目</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%88%86%E6%9E%90"><span class="toc-number">2.0.3.1.2.</span> <span class="toc-text">分析</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%80%BB%E4%BD%93%E6%80%9D%E8%B7%AF%EF%BC%9A"><span class="toc-number">2.0.3.1.3.</span> <span class="toc-text">总体思路：</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%AD%94%E6%A1%88%EF%BC%88%E6%8A%84%EF%BC%89"><span class="toc-number">2.0.3.1.4.</span> <span class="toc-text">答案（抄）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#phar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-number">2.0.4.</span> <span class="toc-text">phar反序列化</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80"><span class="toc-number">2.0.4.1.</span> <span class="toc-text">基础</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#Phar%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F"><span class="toc-number">2.0.4.1.1.</span> <span class="toc-text">Phar文件格式</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%94%9F%E6%88%90Phar%E6%96%87%E4%BB%B6"><span class="toc-number">2.0.4.1.2.</span> <span class="toc-text">生成Phar文件</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#php%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB-phar%E4%BC%AA%E5%8D%8F%E8%AE%AE"><span class="toc-number">2.0.4.1.3.</span> <span class="toc-text">php文件上传+文件包含(phar伪协议)</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9C%A8%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%AD%E7%9A%84%E5%88%A9%E7%94%A8"><span class="toc-number">2.0.4.2.</span> <span class="toc-text">在反序列化中的利用</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%89%8D%E6%8F%90%E5%87%BD%E6%95%B0"><span class="toc-number">2.0.4.2.1.</span> <span class="toc-text">前提函数</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%88%A9%E7%94%A8"><span class="toc-number">2.0.4.2.2.</span> <span class="toc-text">利用</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B%E7%BB%95%E8%BF%87"><span class="toc-number">2.0.4.3.</span> <span class="toc-text">一些绕过</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%A4%B4%E6%A3%80%E6%B5%8B"><span class="toc-number">2.0.4.3.1.</span> <span class="toc-text">文件头检测</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#phar%E6%96%87%E4%BB%B6%E5%BC%80%E5%A4%B4"><span class="toc-number">2.0.4.3.2.</span> <span class="toc-text">phar文件开头</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E4%B8%80-1"><span class="toc-number">2.0.4.4.</span> <span class="toc-text">题目一</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%BA%90%E7%A0%81"><span class="toc-number">2.0.4.4.1.</span> <span class="toc-text">源码</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%88%86%E6%9E%90-1"><span class="toc-number">2.0.4.4.2.</span> <span class="toc-text">分析</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#payload"><span class="toc-number">2.0.4.4.3.</span> <span class="toc-text">payload</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E4%BA%8C"><span class="toc-number">2.0.4.5.</span> <span class="toc-text">题目二</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%BA%90%E7%A0%81-1"><span class="toc-number">2.0.4.5.1.</span> <span class="toc-text">源码</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%88%86%E6%9E%90-2"><span class="toc-number">2.0.4.5.2.</span> <span class="toc-text">分析</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-number">2.0.4.5.3.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#payload-1"><span class="toc-number">2.0.4.5.4.</span> <span class="toc-text">payload</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PHP-session%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-number">2.0.5.</span> <span class="toc-text">PHP-session反序列化</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-1"><span class="toc-number">2.0.5.1.</span> <span class="toc-text">原理</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#session"><span class="toc-number">2.0.5.1.1.</span> <span class="toc-text">session</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#session-start"><span class="toc-number">2.0.5.1.2.</span> <span class="toc-text">session_start()</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%B5%81%E7%A8%8B"><span class="toc-number">2.0.5.1.3.</span> <span class="toc-text">流程</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#PHP-session-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%9C%BA%E5%88%B6"><span class="toc-number">2.0.5.1.4.</span> <span class="toc-text">PHP session 反序列化机制</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E5%99%A8-%E5%BC%95%E6%93%8E"><span class="toc-number">2.0.5.1.5.</span> <span class="toc-text">处理器(引擎)</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%A9%E7%94%A8-1"><span class="toc-number">2.0.5.2.</span> <span class="toc-text">利用</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PHP%E5%8E%9F%E7%94%9F%E7%B1%BB%E7%9A%84%E5%88%A9%E7%94%A8"><span class="toc-number">2.0.6.</span> <span class="toc-text">PHP原生类的利用</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E6%96%B9%E5%90%91"><span class="toc-number">2.0.6.1.</span> <span class="toc-text">利用方向</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8E%9F%E7%94%9F%E7%B1%BB%E6%A6%82%E5%BF%B5"><span class="toc-number">2.0.6.2.</span> <span class="toc-text">原生类概念</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#XSS-By-Error-Exception"><span class="toc-number">2.0.6.3.</span> <span class="toc-text">XSS By Error&#x2F;Exception</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6"><span class="toc-number">2.0.6.3.1.</span> <span class="toc-text">条件</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-2"><span class="toc-number">2.0.6.3.2.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#demo"><span class="toc-number">2.0.6.3.3.</span> <span class="toc-text">demo</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#SSRF-By-SoapClient"><span class="toc-number">2.0.6.4.</span> <span class="toc-text">SSRF By SoapClient</span></a></li></ol></li></ol></li></ol></li></ol>
       </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2023 John Doe<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/07/11/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/07/11/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/&text=PHP反序列化"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/07/11/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/&title=PHP反序列化"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/07/11/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/&is_video=false&description=PHP反序列化"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=PHP反序列化&body=Check out this article: http://example.com/2023/07/11/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/07/11/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/&title=PHP反序列化"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/07/11/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/&title=PHP反序列化"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/07/11/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/&title=PHP反序列化"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/07/11/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/&title=PHP反序列化"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/07/11/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/&name=PHP反序列化&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/07/11/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/&t=PHP反序列化"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
     </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2023
+    John Doe
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
   </div>
 </footer>
 
     </div>
-    <nav id="mobile-nav">
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
   
-    <a href="/" class="mobile-nav-link">Home</a>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
   
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
 
 
-<script src="/js/jquery-3.6.4.min.js"></script>
+<script src="/js/main.js"></script>
 
+<!-- search -->
 
+<!-- Baidu Analytics -->
 
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
+<!-- Cloudflare Analytics -->
 
+<!-- Disqus Comments -->
 
+<!-- utterances Comments -->
 
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
 </body>
 </html>

@@ -1,115 +1,180 @@
 <!DOCTYPE html>
-<html>
+<html lang=en>
 <head>
-  <meta charset="utf-8">
-  
-  
-  <title>第五届安洵杯-2022-web-writeup | Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="题目：  Babyphp(2022安洵杯) Babyweb(2023安洵杯春季赛)   Babyphp(2022安洵杯)官方wp：https:&#x2F;&#x2F;bbs.kanxue.com&#x2F;thread-275369.htm BabyPHP知识点：session反序列化（pop链）-&gt;soap(ssrf+crlf)-&gt;call_user_func激活soap类 参考博客1 参考博客2 题目源码： 1">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="题目：  Babyphp(2022安洵杯) Babyweb(2023安洵杯春季赛)   Babyphp(2022安洵杯)官方wp：https:&#x2F;&#x2F;bbs.kanxue.com&#x2F;thread-275369.htm BabyPHP知识点：session反序列化（pop链）-&gt;soap(ssrf+crlf)-&gt;call_user_func激活soap类 参考博客1 参考博客2 题目源码： 1">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第五届安洵杯-2022-web-writeup">
 <meta property="og:url" content="http://example.com/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="题目：  Babyphp(2022安洵杯) Babyweb(2023安洵杯春季赛)   Babyphp(2022安洵杯)官方wp：https:&#x2F;&#x2F;bbs.kanxue.com&#x2F;thread-275369.htm BabyPHP知识点：session反序列化（pop链）-&gt;soap(ssrf+crlf)-&gt;call_user_func激活soap类 参考博客1 参考博客2 题目源码： 1">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://psych.green/wp-content/uploads/2023/07/image-20230707013038305-1024x357.png">
-<meta property="og:image" content="http://psych.green/wp-content/uploads/2023/07/image-20221201175904124-1-1024x227.png">
-<meta property="og:image" content="http://psych.green/wp-content/uploads/2023/07/image-20221201175845894-1-1024x91.png">
-<meta property="og:image" content="http://psych.green/wp-content/uploads/2023/07/image-20230308203346357.png">
-<meta property="og:image" content="http://psych.green/wp-content/uploads/2023/07/image-20230309075600961.png">
-<meta property="og:image" content="http://psych.green/wp-content/uploads/2023/07/image-20230309085711588-1024x196.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230707013038305-1024x357.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221201175904124-1-1024x227.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221201175845894-1-1024x91.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230308203346357.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230309075600961.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230309085711588-1024x196.png">
 <meta property="article:published_time" content="2023-07-06T10:12:22.000Z">
-<meta property="article:modified_time" content="2023-08-16T11:57:09.826Z">
+<meta property="article:modified_time" content="2023-08-16T15:14:39.925Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="CTF">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://psych.green/wp-content/uploads/2023/07/image-20230707013038305-1024x357.png">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230707013038305-1024x357.png">
     
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>第五届安洵杯-2022-web-writeup</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
 
-  
-  
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
 <link rel="stylesheet" href="/css/style.css">
 
-  
+    <!-- persian styles -->
     
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
-  
-  
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
 <meta name="generator" content="Hexo 6.3.0"></head>
 
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
-      
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2023/07/11/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2023/07/01/%E5%BC%BA%E7%BD%91%E6%8B%9F%E6%80%81-2022-web-%E9%83%A8%E5%88%86wp%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/&text=第五届安洵杯-2022-web-writeup"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/&title=第五届安洵杯-2022-web-writeup"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/&is_video=false&description=第五届安洵杯-2022-web-writeup"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=第五届安洵杯-2022-web-writeup&body=Check out this article: http://example.com/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/&title=第五届安洵杯-2022-web-writeup"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/&title=第五届安洵杯-2022-web-writeup"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/&title=第五届安洵杯-2022-web-writeup"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/&title=第五届安洵杯-2022-web-writeup"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/&name=第五届安洵杯-2022-web-writeup&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/&t=第五届安洵杯-2022-web-writeup"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
     </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-        
-          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
-        
-        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Babyphp-2022%E5%AE%89%E6%B4%B5%E6%9D%AF"><span class="toc-number">1.</span> <span class="toc-text">Babyphp(2022安洵杯)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BabyPHP"><span class="toc-number">2.</span> <span class="toc-text">BabyPHP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#pop%E9%93%BE"><span class="toc-number">2.1.</span> <span class="toc-text">pop链</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#pop%E9%93%BE-1"><span class="toc-number">2.1.1.</span> <span class="toc-text">pop链</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E9%80%A0exp"><span class="toc-number">2.1.2.</span> <span class="toc-text">构造exp</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#session%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-number">2.2.</span> <span class="toc-text">session反序列化</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%88%86%E6%9E%90"><span class="toc-number">2.2.0.0.1.</span> <span class="toc-text">分析</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%8A%84%EF%BC%9Ahurrison%E4%BD%AC%E7%9A%84wp"><span class="toc-number">2.2.0.0.2.</span> <span class="toc-text">抄：hurrison佬的wp</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%AE%98%E6%96%B9wp"><span class="toc-number">2.2.0.0.3.</span> <span class="toc-text">官方wp</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A5%E5%85%85"><span class="toc-number">2.3.</span> <span class="toc-text">补充</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#session-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%9C%BA%E5%88%B6"><span class="toc-number">2.3.0.1.</span> <span class="toc-text">session 反序列化机制</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%BA%E5%88%B6"><span class="toc-number">2.3.0.2.</span> <span class="toc-text">机制</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%BB%98%E8%AE%A4%E6%9C%BA%E5%88%B6"><span class="toc-number">2.3.0.2.1.</span> <span class="toc-text">默认机制</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E8%87%AA%E5%AE%9A%E4%B9%89session%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6"><span class="toc-number">2.3.0.2.2.</span> <span class="toc-text">用户自定义session处理机制</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BC%95%E6%93%8E"><span class="toc-number">2.3.0.3.</span> <span class="toc-text">引擎</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%AE%9E%E4%BE%8B"><span class="toc-number">2.3.0.4.</span> <span class="toc-text">漏洞实例</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#PHP%E5%8E%9F%E7%94%9F%E7%B1%BB%E7%9A%84%E5%88%A9%E7%94%A8"><span class="toc-number">2.3.0.5.</span> <span class="toc-text">PHP原生类的利用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#CRLF%E6%94%BB%E5%87%BB"><span class="toc-number">2.3.0.6.</span> <span class="toc-text">CRLF攻击</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Babyweb-2023%E5%AE%89%E6%B4%B5%E6%9D%AF%E6%98%A5%E5%AD%A3%E8%B5%9B"><span class="toc-number">3.</span> <span class="toc-text">Babyweb(2023安洵杯春季赛)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PHP1-0"><span class="toc-number">3.1.</span> <span class="toc-text">PHP1.0</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%BA%90%E7%A0%81"><span class="toc-number">3.1.0.1.</span> <span class="toc-text">源码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-number">3.1.0.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.1.0.3.</span> <span class="toc-text">代码实现</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PHP2-0"><span class="toc-number">3.2.</span> <span class="toc-text">PHP2.0</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%BA%90%E7%A0%81-1"><span class="toc-number">3.2.0.1.</span> <span class="toc-text">源码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#LD-PRELOAD"><span class="toc-number">3.2.0.2.</span> <span class="toc-text">LD_PRELOAD</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E6%B3%A8%E5%85%A5"><span class="toc-number">3.2.0.3.</span> <span class="toc-text">环境变量注入</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%80%E7%BB%88payload"><span class="toc-number">3.2.0.4.</span> <span class="toc-text">最终payload</span></a></li></ol></li></ol></li></ol></li></ol>
       </div>
-    </div>
-  </div>
-</header>
+    
+  </span>
+</div>
 
-      <div class="outer">
-        <section id="main"><article id="post-第五届安洵杯-2022-web-writeup" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/" class="article-date">
-  <time class="dt-published" datetime="2023-07-06T10:12:22.000Z" itemprop="datePublished">2023-07-06</time>
-</a>
     
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/web/">web</a>►<a class="article-category-link" href="/categories/web/CTF/">CTF</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <div class="content index py4 ">
         
-  
-    <h1 class="p-name article-title" itemprop="headline name">
-      第五届安洵杯-2022-web-writeup
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        第五届安洵杯-2022-web-writeup
     </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">John Doe</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-07-06T10:12:22.000Z" class="dt-published" itemprop="datePublished">2023-07-06</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/web/">web</a> › <a class="category-link" href="/categories/web/CTF/">CTF</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/CTF/" rel="tag">CTF</a>
+    </div>
+
+
+    </div>
+  </header>
   
 
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>题目：</p>
+  <div class="content e-content" itemprop="articleBody">
+    <p>题目：</p>
 <ul>
 <li>Babyphp(2022安洵杯)</li>
 <li>Babyweb(2023安洵杯春季赛)</li>
@@ -172,7 +237,7 @@
 
 <p>通过 <code>var_dump($_SESSION);</code> 拿到 sessionid 设置后再访问，拿到flag文件名 <code>f1111llllllaagg</code></p>
 <p>另解：<code>new DirextoryIterator(&#39;glod://f*&#39;)</code></p>
-<p><img src="http://psych.green/wp-content/uploads/2023/07/image-20230707013038305-1024x357.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230707013038305-1024x357.png"></p>
 <p>再利用SplFileObject读flag</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$a = new SoapClient(null, array(&#x27;location&#x27; =&gt; &#x27;http://127.0.0.1/flag.php?a=SplFileObject&amp;b=/f1111llllllaagg&#x27;, &#x27;uri&#x27; =&gt; &#x27;http://127.0.0.1/&#x27;));</span><br><span class="line">$b = serialize($a);</span><br><span class="line">echo $b;</span><br></pre></td></tr></table></figure>
 
@@ -236,8 +301,8 @@
 <p>传进去的 a 在s1.php中进行序列化，引擎是php_serialize，</p>
 <p>所以最后存储的内容是：</p>
 <p><code>a:1:&#123;s:6:&quot;spoock&quot;;s:48:&quot;O:5:&quot;lemon&quot;:1:&#123;s:2:&quot;hi&quot;;s:14:&quot;echo &quot;spoock&quot;;&quot;;&#125;&quot; &#125;</code></p>
-<p><img src="http://psych.green/wp-content/uploads/2023/07/image-20221201175904124-1-1024x227.png"></p>
-<p><img src="http://psych.green/wp-content/uploads/2023/07/image-20221201175845894-1-1024x91.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221201175904124-1-1024x227.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221201175845894-1-1024x91.png"></p>
 <p>然而，在us2.php中，我们读取数据却选择的php，此时读取的内容就是：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Array</span><br><span class="line">(</span><br><span class="line">    [a:1:&#123;s:6:&quot;spoock&quot;;s:48:&quot;] =&gt; __PHP_Incomplete_Class Object</span><br><span class="line">        (</span><br><span class="line">            [__PHP_Incomplete_Class_Name] =&gt; lemon</span><br><span class="line">            [hi] =&gt; echo &quot;spoock&quot;;</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    [spoock] =&gt; O:5:&quot;lemon&quot;:1:&#123;s:2:&quot;hi&quot;;s:14:&quot;echo &quot;spoock&quot;;&quot;;&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 
@@ -257,7 +322,7 @@
 <p>因此可以通过<strong>控制soapaction的参数</strong>，在SOAPAction处注入恶意的<strong>换行</strong>，这样一来我们POST提交的header就是可控的，我们就可以通过注入来执行我们想要执行的操作了。</p>
 <hr>
 <h2 id="Babyweb-2023安洵杯春季赛"><a href="#Babyweb-2023安洵杯春季赛" class="headerlink" title="Babyweb(2023安洵杯春季赛)"></a>Babyweb(2023安洵杯春季赛)</h2><p>两个PHP</p>
-<h3 id="PHP1-0"><a href="#PHP1-0" class="headerlink" title="PHP1.0"></a>PHP1.0</h3><h5 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h5><p><img src="http://psych.green/wp-content/uploads/2023/07/image-20230308203346357.png"></p>
+<h3 id="PHP1-0"><a href="#PHP1-0" class="headerlink" title="PHP1.0"></a>PHP1.0</h3><h5 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h5><p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230308203346357.png"></p>
 <h5 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h5><p>需要post一个heizi，作为变量a</p>
 <p>a的前五项是aikun</p>
 <p>a的最后十项是xiaojijiao</p>
@@ -291,14 +356,14 @@
 <p>因此我们能利用LD_PRELOAD劫持并<strong>执行任意代码</strong>。但遗憾的是，这里没有上传点，我们压根就不可能整个LD_PRELOAD&#x3D;&#x2F;var&#x2F;www&#x2F;html&#x2F;uploads&#x2F;hj.jpg上去。这就是如今的问题所在，怎么在<strong>没有给上传接口</strong>的情况下get shell。</p>
 <h5 id="环境变量注入"><a href="#环境变量注入" class="headerlink" title="环境变量注入"></a>环境变量注入</h5><p><a target="_blank" rel="noopener" href="https://www.ctfiot.com/26843.html">https://www.ctfiot.com/26843.html</a></p>
 <p>在大佬的博客中看了半天没看懂，只能说羡慕Linux内核玩家。最后抄个结论：</p>
-<p><img src="http://psych.green/wp-content/uploads/2023/07/image-20230309075600961.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230309075600961.png"></p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/ziyunfei/p/4828767.html">bash从环境变量中导入函数</a></p>
 <p>省流：</p>
 <ul>
 <li>Bash 把满足 “BASH_FUNC_函数名%%＝(){ 函数体}格式的环境变量作为函数源码解析并导入</li>
 <li>然而，本文所讲的表现仅适用于 Bash 4.3.30 及之后的版本，之前的 Bash 版本在导出函数时不会给函数名加上 BASH_FUNC_ 前缀和 %% 后缀，在导入时也不会识别前缀后缀，只要看到 ＝ 右边是 “() {“ 这四个字符，就按函数导入</li>
 </ul>
-<p><img src="http://psych.green/wp-content/uploads/2023/07/image-20230309085711588-1024x196.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230309085711588-1024x196.png"></p>
 <p>而这个题还没有那么简单，</p>
 <blockquote>
 <p>只不过和4.4以下的有一处差异：**Bash 4.4下FUNCDEF_SUFFIX等于%%，而这个4.2的补丁中FUNCDEF_SUFFIX等于()**。</p>
@@ -309,157 +374,147 @@
 <p>最后执行了id，现在的问题是执行找到flag并输出。</p>
 <p>原题目还加上了一些黑名单，cat和flag都被限制，就用字符串拼接绕过，因为内部是PHP代码，PHP字符串可以拼接。</p>
 <h5 id="最终payload"><a href="#最终payload" class="headerlink" title="最终payload"></a>最终payload</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> env[BASH_FUNC_echo()]=()%20&#123;%20c=ca;d=t;a=fl;b=ag;$c$d%20/$a$b;%20&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/" data-id="clldrqkuj003ufkgg47ex8705" data-title="第五届安洵杯-2022-web-writeup" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/" rel="tag">CTF</a></li></ul>
-
-    </footer>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2023/07/11/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          PHP反序列化
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2023/07/01/%E5%BC%BA%E7%BD%91%E6%8B%9F%E6%80%81-2022-web-%E9%83%A8%E5%88%86wp%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">强网拟态-2022-web-部分wp(未完待续)</div>
-    </a>
-  
-</nav>
-
-  
 </article>
 
 
-</section>
+
         
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/web/CTF/">CTF</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/web%E5%9F%BA%E7%A1%80/">web基础</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/%E6%B8%97%E9%80%8F/">渗透</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%91%84%E5%BD%B1/">摄影</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%96%87%E5%AD%A6/">文学</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%96%87%E5%AD%A6/%E8%AF%97/">诗</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%96%87%E5%AD%A6/%E9%9A%8F%E7%AC%94/">随笔</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BE%E5%86%85/">课内</a></li></ul>
-    </div>
-  </div>
+          <div id="footer-post-container">
+  <div id="footer-post">
 
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTF/" rel="tag">CTF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/" rel="tag">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/" rel="tag">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web%E5%9F%BA%E7%A1%80/" rel="tag">web基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%91%84%E5%BD%B1/" rel="tag">摄影</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B8%97%E9%80%8F/" rel="tag">渗透</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3/" rel="tag">离散</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%97/" rel="tag">诗</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BE%E5%86%85/" rel="tag">课内</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94/" rel="tag">随笔</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/CTF/" style="font-size: 18.33px;">CTF</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/php/" style="font-size: 10px;">php</a> <a href="/tags/python/" style="font-size: 11.67px;">python</a> <a href="/tags/web/" style="font-size: 20px;">web</a> <a href="/tags/web%E5%9F%BA%E7%A1%80/" style="font-size: 16.67px;">web基础</a> <a href="/tags/%E6%91%84%E5%BD%B1/" style="font-size: 13.33px;">摄影</a> <a href="/tags/%E6%B8%97%E9%80%8F/" style="font-size: 13.33px;">渗透</a> <a href="/tags/%E7%A6%BB%E6%95%A3/" style="font-size: 10px;">离散</a> <a href="/tags/%E8%AF%97/" style="font-size: 10px;">诗</a> <a href="/tags/%E8%AF%BE%E5%86%85/" style="font-size: 10px;">课内</a> <a href="/tags/%E9%9A%8F%E7%AC%94/" style="font-size: 15px;">随笔</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
+    <div id="nav-footer" style="display: none">
       <ul>
         
-          <li>
-            <a href="/2023/08/16/hello-world/">Hello World</a>
-          </li>
+          <li><a href="/">Home</a></li>
         
-          <li>
-            <a href="/2023/07/25/docker/">Docker</a>
-          </li>
+          <li><a href="/about/">About</a></li>
         
-          <li>
-            <a href="/2023/07/24/%E5%B7%85%E5%B3%B0%E6%9E%81%E5%AE%A22023-web-hellosql-wp/">巅峰极客2023-web-hellosql-wp</a>
-          </li>
+          <li><a href="/archives/">Writing</a></li>
         
-          <li>
-            <a href="/2023/07/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">搭建博客</a>
-          </li>
+          <li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li>
         
-          <li>
-            <a href="/2023/07/11/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">PHP反序列化</a>
-          </li>
+          <li><a href="/search/">Search</a></li>
         
       </ul>
     </div>
-  </div>
 
-  
-</aside>
-        
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Babyphp-2022%E5%AE%89%E6%B4%B5%E6%9D%AF"><span class="toc-number">1.</span> <span class="toc-text">Babyphp(2022安洵杯)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BabyPHP"><span class="toc-number">2.</span> <span class="toc-text">BabyPHP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#pop%E9%93%BE"><span class="toc-number">2.1.</span> <span class="toc-text">pop链</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#pop%E9%93%BE-1"><span class="toc-number">2.1.1.</span> <span class="toc-text">pop链</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E9%80%A0exp"><span class="toc-number">2.1.2.</span> <span class="toc-text">构造exp</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#session%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-number">2.2.</span> <span class="toc-text">session反序列化</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%88%86%E6%9E%90"><span class="toc-number">2.2.0.0.1.</span> <span class="toc-text">分析</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%8A%84%EF%BC%9Ahurrison%E4%BD%AC%E7%9A%84wp"><span class="toc-number">2.2.0.0.2.</span> <span class="toc-text">抄：hurrison佬的wp</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%AE%98%E6%96%B9wp"><span class="toc-number">2.2.0.0.3.</span> <span class="toc-text">官方wp</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A5%E5%85%85"><span class="toc-number">2.3.</span> <span class="toc-text">补充</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#session-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%9C%BA%E5%88%B6"><span class="toc-number">2.3.0.1.</span> <span class="toc-text">session 反序列化机制</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%BA%E5%88%B6"><span class="toc-number">2.3.0.2.</span> <span class="toc-text">机制</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%BB%98%E8%AE%A4%E6%9C%BA%E5%88%B6"><span class="toc-number">2.3.0.2.1.</span> <span class="toc-text">默认机制</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E8%87%AA%E5%AE%9A%E4%B9%89session%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6"><span class="toc-number">2.3.0.2.2.</span> <span class="toc-text">用户自定义session处理机制</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BC%95%E6%93%8E"><span class="toc-number">2.3.0.3.</span> <span class="toc-text">引擎</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%AE%9E%E4%BE%8B"><span class="toc-number">2.3.0.4.</span> <span class="toc-text">漏洞实例</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#PHP%E5%8E%9F%E7%94%9F%E7%B1%BB%E7%9A%84%E5%88%A9%E7%94%A8"><span class="toc-number">2.3.0.5.</span> <span class="toc-text">PHP原生类的利用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#CRLF%E6%94%BB%E5%87%BB"><span class="toc-number">2.3.0.6.</span> <span class="toc-text">CRLF攻击</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Babyweb-2023%E5%AE%89%E6%B4%B5%E6%9D%AF%E6%98%A5%E5%AD%A3%E8%B5%9B"><span class="toc-number">3.</span> <span class="toc-text">Babyweb(2023安洵杯春季赛)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PHP1-0"><span class="toc-number">3.1.</span> <span class="toc-text">PHP1.0</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%BA%90%E7%A0%81"><span class="toc-number">3.1.0.1.</span> <span class="toc-text">源码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-number">3.1.0.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.1.0.3.</span> <span class="toc-text">代码实现</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PHP2-0"><span class="toc-number">3.2.</span> <span class="toc-text">PHP2.0</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%BA%90%E7%A0%81-1"><span class="toc-number">3.2.0.1.</span> <span class="toc-text">源码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#LD-PRELOAD"><span class="toc-number">3.2.0.2.</span> <span class="toc-text">LD_PRELOAD</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E6%B3%A8%E5%85%A5"><span class="toc-number">3.2.0.3.</span> <span class="toc-text">环境变量注入</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%80%E7%BB%88payload"><span class="toc-number">3.2.0.4.</span> <span class="toc-text">最终payload</span></a></li></ol></li></ol></li></ol></li></ol>
       </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2023 John Doe<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/&text=第五届安洵杯-2022-web-writeup"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/&title=第五届安洵杯-2022-web-writeup"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/&is_video=false&description=第五届安洵杯-2022-web-writeup"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=第五届安洵杯-2022-web-writeup&body=Check out this article: http://example.com/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/&title=第五届安洵杯-2022-web-writeup"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/&title=第五届安洵杯-2022-web-writeup"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/&title=第五届安洵杯-2022-web-writeup"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/&title=第五届安洵杯-2022-web-writeup"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/&name=第五届安洵杯-2022-web-writeup&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/&t=第五届安洵杯-2022-web-writeup"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
     </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2023
+    John Doe
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
   </div>
 </footer>
 
     </div>
-    <nav id="mobile-nav">
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
   
-    <a href="/" class="mobile-nav-link">Home</a>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
   
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
 
 
-<script src="/js/jquery-3.6.4.min.js"></script>
+<script src="/js/main.js"></script>
 
+<!-- search -->
 
+<!-- Baidu Analytics -->
 
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
+<!-- Cloudflare Analytics -->
 
+<!-- Disqus Comments -->
 
+<!-- utterances Comments -->
 
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
 </body>
 </html>
