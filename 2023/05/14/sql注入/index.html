@@ -9,7 +9,7 @@
     <meta name="description" content="原理在权限验证通过的情况下，将用户的输入数据与sql请求拼接，动态的构造sql语句，并在无任何审查的 情况下直接操作数据库。 发现注入点 GET POST Cookie http头 request  测试1.字符型123456789 1.经典方法 id&#x3D;1   #正常 id&#x3D;1&amp;#x27;  #异常或为空 id&#x3D;1&amp;#x27; and &amp;#x27;1&amp;#x27;&#x3D;&amp;#x27;1  #正常 id&#x3D;1">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SQL注入">
-<meta property="og:url" content="http://example.com/2023/05/14/sql%E6%B3%A8%E5%85%A5/index.html">
+<meta property="og:url" content="http://p5ych2022.github.io/2023/05/14/sql%E6%B3%A8%E5%85%A5/index.html">
 <meta property="og:site_name" content="psych&#39;s blog">
 <meta property="og:description" content="原理在权限验证通过的情况下，将用户的输入数据与sql请求拼接，动态的构造sql语句，并在无任何审查的 情况下直接操作数据库。 发现注入点 GET POST Cookie http头 request  测试1.字符型123456789 1.经典方法 id&#x3D;1   #正常 id&#x3D;1&amp;#x27;  #异常或为空 id&#x3D;1&amp;#x27; and &amp;#x27;1&amp;#x27;&#x3D;&amp;#x27;1  #正常 id&#x3D;1">
 <meta property="og:locale" content="en_US">
@@ -118,17 +118,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/05/14/sql%E6%B3%A8%E5%85%A5/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/05/14/sql%E6%B3%A8%E5%85%A5/&text=SQL注入"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/05/14/sql%E6%B3%A8%E5%85%A5/&title=SQL注入"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/05/14/sql%E6%B3%A8%E5%85%A5/&is_video=false&description=SQL注入"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=SQL注入&body=Check out this article: http://example.com/2023/05/14/sql%E6%B3%A8%E5%85%A5/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/05/14/sql%E6%B3%A8%E5%85%A5/&title=SQL注入"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/05/14/sql%E6%B3%A8%E5%85%A5/&title=SQL注入"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/05/14/sql%E6%B3%A8%E5%85%A5/&title=SQL注入"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/05/14/sql%E6%B3%A8%E5%85%A5/&title=SQL注入"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/05/14/sql%E6%B3%A8%E5%85%A5/&name=SQL注入&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/05/14/sql%E6%B3%A8%E5%85%A5/&t=SQL注入"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2023/05/14/sql%E6%B3%A8%E5%85%A5/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2023/05/14/sql%E6%B3%A8%E5%85%A5/&text=SQL注入"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2023/05/14/sql%E6%B3%A8%E5%85%A5/&title=SQL注入"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2023/05/14/sql%E6%B3%A8%E5%85%A5/&is_video=false&description=SQL注入"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=SQL注入&body=Check out this article: http://p5ych2022.github.io/2023/05/14/sql%E6%B3%A8%E5%85%A5/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2023/05/14/sql%E6%B3%A8%E5%85%A5/&title=SQL注入"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2023/05/14/sql%E6%B3%A8%E5%85%A5/&title=SQL注入"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2023/05/14/sql%E6%B3%A8%E5%85%A5/&title=SQL注入"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2023/05/14/sql%E6%B3%A8%E5%85%A5/&title=SQL注入"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2023/05/14/sql%E6%B3%A8%E5%85%A5/&name=SQL注入&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2023/05/14/sql%E6%B3%A8%E5%85%A5/&t=SQL注入"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -729,17 +729,17 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/05/14/sql%E6%B3%A8%E5%85%A5/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/05/14/sql%E6%B3%A8%E5%85%A5/&text=SQL注入"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/05/14/sql%E6%B3%A8%E5%85%A5/&title=SQL注入"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/05/14/sql%E6%B3%A8%E5%85%A5/&is_video=false&description=SQL注入"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=SQL注入&body=Check out this article: http://example.com/2023/05/14/sql%E6%B3%A8%E5%85%A5/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/05/14/sql%E6%B3%A8%E5%85%A5/&title=SQL注入"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/05/14/sql%E6%B3%A8%E5%85%A5/&title=SQL注入"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/05/14/sql%E6%B3%A8%E5%85%A5/&title=SQL注入"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/05/14/sql%E6%B3%A8%E5%85%A5/&title=SQL注入"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/05/14/sql%E6%B3%A8%E5%85%A5/&name=SQL注入&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/05/14/sql%E6%B3%A8%E5%85%A5/&t=SQL注入"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2023/05/14/sql%E6%B3%A8%E5%85%A5/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2023/05/14/sql%E6%B3%A8%E5%85%A5/&text=SQL注入"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2023/05/14/sql%E6%B3%A8%E5%85%A5/&title=SQL注入"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2023/05/14/sql%E6%B3%A8%E5%85%A5/&is_video=false&description=SQL注入"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=SQL注入&body=Check out this article: http://p5ych2022.github.io/2023/05/14/sql%E6%B3%A8%E5%85%A5/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2023/05/14/sql%E6%B3%A8%E5%85%A5/&title=SQL注入"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2023/05/14/sql%E6%B3%A8%E5%85%A5/&title=SQL注入"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2023/05/14/sql%E6%B3%A8%E5%85%A5/&title=SQL注入"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2023/05/14/sql%E6%B3%A8%E5%85%A5/&title=SQL注入"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2023/05/14/sql%E6%B3%A8%E5%85%A5/&name=SQL注入&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2023/05/14/sql%E6%B3%A8%E5%85%A5/&t=SQL注入"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
