@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="题目来源NSSCTF-2023-misc-gift_in_qrcode(revenge) 考点getrandbits(8) python伪随机数 爆破脚本的编写 题目内容main.py 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NSSCTF-2023-gift_in_qrcode(revenge)">
+<meta property="og:url" content="http://p5ych2022.github.io/2023/08/29/nssctf-2023-%E9%83%A8%E5%88%86writeup/index.html">
+<meta property="og:site_name" content="psych&#39;s blog">
+<meta property="og:description" content="题目来源NSSCTF-2023-misc-gift_in_qrcode(revenge) 考点getrandbits(8) python伪随机数 爆破脚本的编写 题目内容main.py 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-08-28T17:36:20.000Z">
+<meta property="article:modified_time" content="2024-01-10T13:51:10.530Z">
+<meta property="article:author" content="psych">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="web">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>NSSCTF-2023-gift_in_qrcode(revenge)</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Article</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2023/09/03/node-js/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2023/08/29/nepctf-2023-web%E9%83%A8%E5%88%86writeup/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2023/08/29/nssctf-2023-%E9%83%A8%E5%88%86writeup/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2023/08/29/nssctf-2023-%E9%83%A8%E5%88%86writeup/&text=NSSCTF-2023-gift_in_qrcode(revenge)"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2023/08/29/nssctf-2023-%E9%83%A8%E5%88%86writeup/&title=NSSCTF-2023-gift_in_qrcode(revenge)"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2023/08/29/nssctf-2023-%E9%83%A8%E5%88%86writeup/&is_video=false&description=NSSCTF-2023-gift_in_qrcode(revenge)"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=NSSCTF-2023-gift_in_qrcode(revenge)&body=Check out this article: http://p5ych2022.github.io/2023/08/29/nssctf-2023-%E9%83%A8%E5%88%86writeup/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2023/08/29/nssctf-2023-%E9%83%A8%E5%88%86writeup/&title=NSSCTF-2023-gift_in_qrcode(revenge)"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2023/08/29/nssctf-2023-%E9%83%A8%E5%88%86writeup/&title=NSSCTF-2023-gift_in_qrcode(revenge)"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2023/08/29/nssctf-2023-%E9%83%A8%E5%88%86writeup/&title=NSSCTF-2023-gift_in_qrcode(revenge)"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2023/08/29/nssctf-2023-%E9%83%A8%E5%88%86writeup/&title=NSSCTF-2023-gift_in_qrcode(revenge)"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2023/08/29/nssctf-2023-%E9%83%A8%E5%88%86writeup/&name=NSSCTF-2023-gift_in_qrcode(revenge)&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2023/08/29/nssctf-2023-%E9%83%A8%E5%88%86writeup/&t=NSSCTF-2023-gift_in_qrcode(revenge)"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%9D%A5%E6%BA%90"><span class="toc-number">1.</span> <span class="toc-text">题目来源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%80%83%E7%82%B9"><span class="toc-number">2.</span> <span class="toc-text">考点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E5%86%85%E5%AE%B9"><span class="toc-number">3.</span> <span class="toc-text">题目内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E6%9E%90"><span class="toc-number">4.</span> <span class="toc-text">分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E7%AD%94"><span class="toc-number">5.</span> <span class="toc-text">解答</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        NSSCTF-2023-gift_in_qrcode(revenge)
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">psych</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-08-28T17:36:20.000Z" class="dt-published" itemprop="datePublished">2023-08-29</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/web/">web</a> › <a class="category-link" href="/categories/web/CTF/">CTF</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/CTF/" rel="tag">CTF</a>, <a class="p-category" href="/tags/web/" rel="tag">web</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="题目来源"><a href="#题目来源" class="headerlink" title="题目来源"></a>题目来源</h2><p>NSSCTF-2023-misc-gift_in_qrcode(revenge)</p>
+<h2 id="考点"><a href="#考点" class="headerlink" title="考点"></a>考点</h2><p>getrandbits(8) python伪随机数 爆破脚本的编写</p>
+<h2 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a>题目内容</h2><p>main.py</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">import qrcode</span><br><span class="line">from PIL import Image</span><br><span class="line">from random import randrange, getrandbits, seed</span><br><span class="line">import os</span><br><span class="line">import base64</span><br><span class="line"></span><br><span class="line">flag = os.getenv(&quot;FLAG&quot;)</span><br><span class="line">if flag == None:</span><br><span class="line">    flag = &quot;flag&#123;test&#125;&quot;</span><br><span class="line"></span><br><span class="line">secret_seed = randrange(1, 1000)</span><br><span class="line">seed(secret_seed)</span><br><span class="line">reveal = []</span><br><span class="line">for i in range(20):</span><br><span class="line">    reveal.append(str(getrandbits(8)))</span><br><span class="line">target = getrandbits(8)</span><br><span class="line">reveal = &quot;,&quot;.join(reveal)</span><br><span class="line"></span><br><span class="line">img_qrcode = qrcode.make(reveal)</span><br><span class="line">img_qrcode = img_qrcode.crop((35, 35, img_qrcode.size[0] - 35, img_qrcode.size[1] - 35))</span><br><span class="line"></span><br><span class="line">offset, delta, rate = 50, 3, 5</span><br><span class="line">img_qrcode = img_qrcode.resize(</span><br><span class="line">    (int(img_qrcode.size[0] / rate), int(img_qrcode.size[1] / rate)), Image.LANCZOS</span><br><span class="line">)</span><br><span class="line">img_out = Image.new(&quot;RGB&quot;, img_qrcode.size)</span><br><span class="line">for y in range(img_qrcode.size[1]):</span><br><span class="line">    for x in range(img_qrcode.size[0]):</span><br><span class="line">        pixel_qrcode = img_qrcode.getpixel((x, y))</span><br><span class="line">        if pixel_qrcode == 255:</span><br><span class="line">            img_out.putpixel(</span><br><span class="line">                (x, y),</span><br><span class="line">                (</span><br><span class="line">                    randrange(offset, offset + delta),</span><br><span class="line">                    randrange(offset, offset + delta),</span><br><span class="line">                    randrange(offset, offset + delta),</span><br><span class="line">                ),</span><br><span class="line">            )</span><br><span class="line">        else:</span><br><span class="line">            img_out.putpixel(</span><br><span class="line">                (x, y),</span><br><span class="line">                (</span><br><span class="line">                    randrange(offset - delta, offset),</span><br><span class="line">                    randrange(offset - delta, offset),</span><br><span class="line">                    randrange(offset - delta, offset),</span><br><span class="line">                ),</span><br><span class="line">            )</span><br><span class="line"></span><br><span class="line">img_out.save(&quot;qrcode.png&quot;)</span><br><span class="line">with open(&quot;qrcode.png&quot;, &quot;rb&quot;) as f:</span><br><span class="line">    data = f.read()</span><br><span class="line">print(&quot;This my gift:&quot;)</span><br><span class="line">print(base64.b64encode(data).decode(), &quot;\\n&quot;)</span><br><span class="line"></span><br><span class="line">ans = input(&quot;What&#x27;s your answer:&quot;)</span><br><span class="line">if ans == str(target):</span><br><span class="line">    print(flag)</span><br><span class="line">else:</span><br><span class="line">    print(&quot;No no no!&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>nc连上去，会给一长串的base64数据，然后要求输入answer。</p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><ul>
+<li>首先是生成reveal的地方，还有target[也就是我们最后要求的answer] <code>secret_seed = randrange(1, 1000) seed(secret_seed) reveal = [] for i in range(20): reveal.append(str(getrandbits(8))) target = getrandbits(8) reveal = &quot;,&quot;.join(reveal)</code></li>
+<li>先用getrandbits(8)生成了20个数字，放到reveal里面了，然后又生成了target，所以我们的思路就是利用伪随机数的原理，通过那20个数去爆破第21位</li>
+<li>而题目后面的内容就是把这20个数据的信息生成一个二维码再把信息的base64编码输出给我们，所以还需要一个脚本把这个二维码还原出来。</li>
+</ul>
+<h2 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h2><p>首先是二维码的还原</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line"># -*- coding:utf-8 -*-</span><br><span class="line"># auther:youzhi</span><br><span class="line"># time:2023/8/27</span><br><span class="line">import base64</span><br><span class="line">from PIL import Image</span><br><span class="line"></span><br><span class="line">base64_encoded_data = &quot;&quot;&quot;</span><br><span class="line">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</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line"># 解码base64数据</span><br><span class="line">decoded_data = base64.b64decode(base64_encoded_data)</span><br><span class="line"></span><br><span class="line"># 将解码后的数据写入PNG文件</span><br><span class="line">with open(&quot;restored_qrcode.png&quot;, &quot;wb&quot;) as f:</span><br><span class="line">    f.write(decoded_data)</span><br><span class="line"></span><br><span class="line"># 打开恢复后的QR码图像</span><br><span class="line">restored_qrcode = Image.open(&quot;restored_qrcode.png&quot;)</span><br><span class="line">restored_qrcode.show()</span><br></pre></td></tr></table></figure>
+
+<p>生成的二维码直接扫描就得到数据，接下来就是考虑编写脚本爆破。</p>
+<p>思路就是：把已知的20个数值传上去，然后用循环开始执行随机生成seed和getrandbits(8)，当找到匹配的结果之后就继续下一位，直到20个数值全部匹配成功，就说明找到了那个序列，就直接再执行一次输出第21位的值。</p>
+<p>脚本</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line"># -*- coding:utf-8 -*-</span><br><span class="line"># auther:youzhi</span><br><span class="line"># time:2023/8/28</span><br><span class="line">from random import seed, getrandbits</span><br><span class="line"></span><br><span class="line"># 已知的 20 个数值</span><br><span class="line">known_values = [78,122,161,126,38,94,156,23,65,190,167,204,205,160,124,45,170,60,107,148]</span><br><span class="line"></span><br><span class="line"># 待爆破的目标值</span><br><span class="line">target = None</span><br><span class="line"></span><br><span class="line"># 尝试不同的种子和随机数生成，直到找到匹配的结果</span><br><span class="line">for secret_seed in range(1, 1000):</span><br><span class="line">    seed(secret_seed)  # 设置种子</span><br><span class="line">    for _ in range(20):</span><br><span class="line">        generated_value = getrandbits(8)</span><br><span class="line">        if generated_value != known_values[_]:</span><br><span class="line">            break</span><br><span class="line">    else:</span><br><span class="line">        # 找到合适的种子和随机数生成方式</span><br><span class="line">        target = getrandbits(8)</span><br><span class="line">        break</span><br><span class="line"></span><br><span class="line"># 输出结果</span><br><span class="line">if target is not None:</span><br><span class="line">    print(&quot;Found target:&quot;, target)</span><br><span class="line">else:</span><br><span class="line">    print(&quot;Target not found&quot;)</span><br></pre></td></tr></table></figure>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Article</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%9D%A5%E6%BA%90"><span class="toc-number">1.</span> <span class="toc-text">题目来源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%80%83%E7%82%B9"><span class="toc-number">2.</span> <span class="toc-text">考点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E5%86%85%E5%AE%B9"><span class="toc-number">3.</span> <span class="toc-text">题目内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E6%9E%90"><span class="toc-number">4.</span> <span class="toc-text">分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E7%AD%94"><span class="toc-number">5.</span> <span class="toc-text">解答</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2023/08/29/nssctf-2023-%E9%83%A8%E5%88%86writeup/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2023/08/29/nssctf-2023-%E9%83%A8%E5%88%86writeup/&text=NSSCTF-2023-gift_in_qrcode(revenge)"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2023/08/29/nssctf-2023-%E9%83%A8%E5%88%86writeup/&title=NSSCTF-2023-gift_in_qrcode(revenge)"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2023/08/29/nssctf-2023-%E9%83%A8%E5%88%86writeup/&is_video=false&description=NSSCTF-2023-gift_in_qrcode(revenge)"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=NSSCTF-2023-gift_in_qrcode(revenge)&body=Check out this article: http://p5ych2022.github.io/2023/08/29/nssctf-2023-%E9%83%A8%E5%88%86writeup/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2023/08/29/nssctf-2023-%E9%83%A8%E5%88%86writeup/&title=NSSCTF-2023-gift_in_qrcode(revenge)"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2023/08/29/nssctf-2023-%E9%83%A8%E5%88%86writeup/&title=NSSCTF-2023-gift_in_qrcode(revenge)"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2023/08/29/nssctf-2023-%E9%83%A8%E5%88%86writeup/&title=NSSCTF-2023-gift_in_qrcode(revenge)"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2023/08/29/nssctf-2023-%E9%83%A8%E5%88%86writeup/&title=NSSCTF-2023-gift_in_qrcode(revenge)"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2023/08/29/nssctf-2023-%E9%83%A8%E5%88%86writeup/&name=NSSCTF-2023-gift_in_qrcode(revenge)&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2023/08/29/nssctf-2023-%E9%83%A8%E5%88%86writeup/&t=NSSCTF-2023-gift_in_qrcode(revenge)"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2022-2024
+    psych
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Article</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

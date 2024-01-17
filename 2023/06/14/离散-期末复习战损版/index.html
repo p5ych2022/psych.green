@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="第一章_集合论 集合的基本概念集合：集合通常是由指定范围内满足给定条件的所有对象聚集在一起构成的。 元素：指定范围内的每个对象称为这个集合的元素。将语句&quot;ａ是集合Ａ中的元素&quot;或&quot;ａ属于Ａ&quot;记为 ａ∈Ａ 基数：将集合中元素的个数称为集合的基数。记为 Ａ。由此把集合分为有限集和无限集  集合的表示 列举法 例如 A&#x3D;{0,1,2,3};B&#x3D;{">
+<meta property="og:type" content="article">
+<meta property="og:title" content="离散_期末复习[战损版]">
+<meta property="og:url" content="http://p5ych2022.github.io/2023/06/14/%E7%A6%BB%E6%95%A3-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E6%88%98%E6%8D%9F%E7%89%88/index.html">
+<meta property="og:site_name" content="psych&#39;s blog">
+<meta property="og:description" content="第一章_集合论 集合的基本概念集合：集合通常是由指定范围内满足给定条件的所有对象聚集在一起构成的。 元素：指定范围内的每个对象称为这个集合的元素。将语句&quot;ａ是集合Ａ中的元素&quot;或&quot;ａ属于Ａ&quot;记为 ａ∈Ａ 基数：将集合中元素的个数称为集合的基数。记为 Ａ。由此把集合分为有限集和无限集  集合的表示 列举法 例如 A&#x3D;{0,1,2,3};B&#x3D;{">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230511151559216-1024x735.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230511153549306.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230511155222204.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230511160827870.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230511160901329-1024x483.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230614000438923-1024x286.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230614000511057-1024x193.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230511163353840.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230511171540705.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230511171545675.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230511170525473-1024x283.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230511181436055.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230511181447825.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230515110347794.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230607184151184-1024x240.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230607185138322-1024x411.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230614000615736-1024x109.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230607214719154.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230607214930918.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230607214941287.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230607215109808-1024x604.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230607215920531-1024x221.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230607220640742-1024x144.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230614000640593-1024x155.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230607221527437-1024x217.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230614000705497-1024x93.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230607235615560.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230607235642026.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608000512066-1024x381.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230609172049815-1024x309.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230609172112678-1024x326.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230609173101772-1024x572.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230609173626678-1024x153.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230609173651637-1024x266.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230609174538092.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608184416367-1024x568.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608185332879-1024x178.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608191416444-1024x260.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608192457742.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608192559519.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608194012367-1024x171.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608194023330-1024x203.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608194941633-1024x267.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608195040171.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608195839525-1024x232.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608200043478-1024x923.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608202756936-1024x495.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608202904939-1024x321.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608213908630-1024x929.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608213940614-1024x717.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608215318864-1024x319.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608215643992-1024x199.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608215716080-1024x203.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608215851736.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608220110560-1024x400.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608220452745-1024x200.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608220653423-1024x189.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608220713879-1024x143.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608221222771.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608221753959-1024x154.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608222759452.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608222823137.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608222838426-1024x173.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608223020462-1024x108.png">
+<meta property="article:published_time" content="2023-06-13T16:28:52.000Z">
+<meta property="article:modified_time" content="2023-12-21T19:42:10.139Z">
+<meta property="article:author" content="psych">
+<meta property="article:tag" content="课内">
+<meta property="article:tag" content="离散">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230511151559216-1024x735.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>离散_期末复习[战损版]</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Article</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2023/06/15/%E8%AF%8D%E4%B8%8D%E8%BE%BE%E6%84%8F/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2023/06/06/%E8%A6%81%E7%AA%92%E6%81%AF%E4%BA%86%EF%BC%8C%E4%BD%86%E6%98%AF%E6%83%B3%E7%86%AC%E8%BF%87%E5%8E%BB/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2023/06/14/%E7%A6%BB%E6%95%A3-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E6%88%98%E6%8D%9F%E7%89%88/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2023/06/14/%E7%A6%BB%E6%95%A3-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E6%88%98%E6%8D%9F%E7%89%88/&text=离散_期末复习[战损版]"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2023/06/14/%E7%A6%BB%E6%95%A3-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E6%88%98%E6%8D%9F%E7%89%88/&title=离散_期末复习[战损版]"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2023/06/14/%E7%A6%BB%E6%95%A3-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E6%88%98%E6%8D%9F%E7%89%88/&is_video=false&description=离散_期末复习[战损版]"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=离散_期末复习[战损版]&body=Check out this article: http://p5ych2022.github.io/2023/06/14/%E7%A6%BB%E6%95%A3-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E6%88%98%E6%8D%9F%E7%89%88/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2023/06/14/%E7%A6%BB%E6%95%A3-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E6%88%98%E6%8D%9F%E7%89%88/&title=离散_期末复习[战损版]"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2023/06/14/%E7%A6%BB%E6%95%A3-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E6%88%98%E6%8D%9F%E7%89%88/&title=离散_期末复习[战损版]"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2023/06/14/%E7%A6%BB%E6%95%A3-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E6%88%98%E6%8D%9F%E7%89%88/&title=离散_期末复习[战损版]"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2023/06/14/%E7%A6%BB%E6%95%A3-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E6%88%98%E6%8D%9F%E7%89%88/&title=离散_期末复习[战损版]"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2023/06/14/%E7%A6%BB%E6%95%A3-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E6%88%98%E6%8D%9F%E7%89%88/&name=离散_期末复习[战损版]&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2023/06/14/%E7%A6%BB%E6%95%A3-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E6%88%98%E6%8D%9F%E7%89%88/&t=离散_期末复习[战损版]"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-%E9%9B%86%E5%90%88%E8%AE%BA"><span class="toc-number">1.</span> <span class="toc-text">第一章_集合论</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%9B%86%E5%90%88%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">集合的基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%9B%86%E5%90%88%E7%9A%84%E8%A1%A8%E7%A4%BA"><span class="toc-number">1.0.0.1.1.</span> <span class="toc-text">集合的表示</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%9B%86%E5%90%88%E4%B8%8E%E9%9B%86%E5%90%88%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">1.0.0.1.2.</span> <span class="toc-text">集合与集合的关系</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%87%A0%E4%B8%AA%E7%89%B9%E6%AE%8A%E9%9B%86%E5%90%88"><span class="toc-number">1.0.0.1.3.</span> <span class="toc-text">几个特殊集合</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%9B%86%E5%90%88%E7%9A%84%E8%BF%90%E7%AE%97"><span class="toc-number">1.0.0.2.</span> <span class="toc-text">集合的运算</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%97%A0%E9%99%90%E9%9B%86"><span class="toc-number">1.0.0.3.</span> <span class="toc-text">无限集</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%8E%E9%9B%86%E5%90%88%E7%9B%B8%E5%85%B3%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-number">1.0.0.4.</span> <span class="toc-text">与集合相关的应用</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E5%91%BD%E9%A2%98%E9%80%BB%E8%BE%91"><span class="toc-number">2.</span> <span class="toc-text">第二章_命题逻辑</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%91%BD%E9%A2%98%E4%B8%8E%E5%91%BD%E9%A2%98%E8%81%94%E7%BB%93%E8%AF%8D"><span class="toc-number">2.0.0.1.</span> <span class="toc-text">命题与命题联结词</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%91%BD%E9%A2%98"><span class="toc-number">2.0.0.1.1.</span> <span class="toc-text">命题</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%91%BD%E9%A2%98%E8%81%94%E7%BB%93%E8%AF%8D"><span class="toc-number">2.0.0.1.2.</span> <span class="toc-text">命题联结词</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E7%9A%84%E5%91%BD%E9%A2%98%E7%AC%A6%E5%8F%B7%E5%8C%96"><span class="toc-number">2.0.0.1.3.</span> <span class="toc-text">自然语言的命题符号化</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-number">2.0.0.1.4.</span> <span class="toc-text">优先级</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%91%BD%E9%A2%98%E5%85%AC%E5%BC%8F%EF%BC%8C%E8%A7%A3%E9%87%8A%E4%B8%8E%E7%9C%9F%E5%80%BC%E8%A1%A8"><span class="toc-number">2.0.0.2.</span> <span class="toc-text">命题公式，解释与真值表</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%91%BD%E9%A2%98%E5%85%AC%E5%BC%8F"><span class="toc-number">2.0.0.2.1.</span> <span class="toc-text">命题公式</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%91%BD%E9%A2%98%E5%85%AC%E5%BC%8F%E7%9A%84%E8%A7%A3%E9%87%8A%E4%B8%8E%E7%9C%9F%E5%80%BC%E8%A1%A8"><span class="toc-number">2.0.0.2.2.</span> <span class="toc-text">命题公式的解释与真值表</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%91%BD%E9%A2%98%E5%85%AC%E5%BC%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%AD%89%E4%BB%B7%E5%AE%9A%E5%BE%8B"><span class="toc-number">2.0.0.2.3.</span> <span class="toc-text">命题公式的基本等价定律</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%8C%83%E5%BC%8F"><span class="toc-number">2.0.0.3.</span> <span class="toc-text">范式</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%81%94%E7%BB%93%E8%AF%8D%E7%9A%84%E5%AE%8C%E5%A4%87%E9%9B%86"><span class="toc-number">2.0.0.3.1.</span> <span class="toc-text">联结词的完备集</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%9E%90%E5%8F%96%E8%8C%83%E5%BC%8F%E5%92%8C%E5%92%8C%E5%8F%96%E8%8C%83%E5%BC%8F"><span class="toc-number">2.0.0.3.2.</span> <span class="toc-text">析取范式和和取范式</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%B8%BB%E5%90%88%E5%8F%96%E8%8C%83%E5%BC%8F%E5%92%8C%E4%B8%BB%E6%9E%90%E5%8F%96%E8%8C%83%E5%BC%8F"><span class="toc-number">2.0.0.3.3.</span> <span class="toc-text">主合取范式和主析取范式</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%91%BD%E9%A2%98%E9%80%BB%E8%BE%91%E7%9A%84%E6%8E%A8%E7%90%86%E7%90%86%E8%AE%BA"><span class="toc-number">2.0.0.4.</span> <span class="toc-text">命题逻辑的推理理论</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">2.0.0.4.1.</span> <span class="toc-text">基本概念</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%88%A4%E5%88%AB%E6%96%B9%E6%B3%95"><span class="toc-number">2.0.0.4.2.</span> <span class="toc-text">判别方法</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%91%BD%E9%A2%98%E9%80%BB%E8%BE%91%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-number">2.0.0.5.</span> <span class="toc-text">命题逻辑的应用</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%91%BD%E9%A2%98%E8%81%94%E7%BB%93%E8%AF%8D%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-number">2.0.0.5.1.</span> <span class="toc-text">命题联结词的应用</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%91%BD%E9%A2%98%E5%85%AC%E5%BC%8F%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-number">2.0.0.5.2.</span> <span class="toc-text">命题公式的应用</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-%E8%B0%93%E8%AF%8D%E9%80%BB%E8%BE%91"><span class="toc-number">3.</span> <span class="toc-text">第三章_谓词逻辑</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E7%9A%84%E8%B0%93%E8%AF%8D%E7%AC%A6%E5%8F%B7%E5%8C%96"><span class="toc-number">3.0.0.1.</span> <span class="toc-text">自然语言的谓词符号化</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%B0%93%E8%AF%8D"><span class="toc-number">3.0.0.1.1.</span> <span class="toc-text">谓词</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%87%8F%E8%AF%8D"><span class="toc-number">3.0.0.1.2.</span> <span class="toc-text">量词</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%B0%93%E8%AF%8D%E5%85%AC%E5%BC%8F%E5%92%8C%E8%A7%A3%E9%87%8A"><span class="toc-number">3.0.0.2.</span> <span class="toc-text">谓词公式和解释</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%87%AA%E7%94%B1%E5%8F%98%E5%85%83%E5%92%8C%E7%BA%A6%E6%9D%9F%E5%8F%98%E5%85%83"><span class="toc-number">3.0.0.2.1.</span> <span class="toc-text">自由变元和约束变元</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%B0%93%E8%AF%8D%E5%85%AC%E5%BC%8F%E7%9A%84%E8%A7%A3%E9%87%8A"><span class="toc-number">3.0.0.2.2.</span> <span class="toc-text">谓词公式的解释</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%B0%93%E8%AF%8D%E5%85%AC%E5%BC%8F%E7%9A%84%E6%A0%87%E5%87%86%E5%9E%8B%E2%80%94%E2%80%94%E5%89%8D%E6%9D%9F%E8%8C%83%E5%BC%8F"><span class="toc-number">3.0.0.3.</span> <span class="toc-text">谓词公式的标准型——前束范式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%B0%93%E8%AF%8D%E9%80%BB%E8%BE%91%E7%9A%84%E6%8E%A8%E7%90%86%E7%90%86%E8%AE%BA"><span class="toc-number">3.0.0.4.</span> <span class="toc-text">谓词逻辑的推理理论</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%B0%93%E8%AF%8D%E5%85%AC%E5%BC%8F%E7%9A%84%E6%A0%87%E5%87%86%E5%9E%8B%E2%80%94%E2%80%94%E5%89%8D%E6%9D%9F%E8%8C%83%E5%BC%8F-1"><span class="toc-number">3.0.0.5.</span> <span class="toc-text">谓词公式的标准型——前束范式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%B0%93%E8%AF%8D%E9%80%BB%E8%BE%91%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-number">3.0.0.6.</span> <span class="toc-text">谓词逻辑的应用</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%8E%A8%E7%90%86%E8%A7%84%E5%88%99"><span class="toc-number">3.0.0.6.1.</span> <span class="toc-text">推理规则</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%8E%A8%E7%90%86%E5%AE%9A%E5%BE%8B"><span class="toc-number">3.0.0.6.2.</span> <span class="toc-text">推理定律</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E4%BA%8C%E5%85%83%E5%85%B3%E7%B3%BB"><span class="toc-number">4.</span> <span class="toc-text">第四章_二元关系</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BA%8C%E5%85%83%E5%85%B3%E7%B3%BB%E5%8F%8A%E5%85%B6%E8%A1%A8%E7%A4%BA"><span class="toc-number">4.0.0.1.</span> <span class="toc-text">二元关系及其表示</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%AC%9B%E5%8D%A1%E5%B0%94%E7%A7%AF%E7%9A%84%E8%BF%90%E7%AE%97"><span class="toc-number">4.0.0.1.1.</span> <span class="toc-text">笛卡尔积的运算</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E7%AB%A0-%E5%9B%BE"><span class="toc-number">5.</span> <span class="toc-text">第六章_图</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9B%BE%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">5.0.0.1.</span> <span class="toc-text">图的基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%9B%BE%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-number">5.0.0.1.1.</span> <span class="toc-text">图的定义</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%9B%BE%E7%9A%84%E8%A1%A8%E7%A4%BA"><span class="toc-number">5.0.0.1.2.</span> <span class="toc-text">图的表示</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%9B%BE%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="toc-number">5.0.0.1.3.</span> <span class="toc-text">图的操作</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%82%BB%E6%8E%A5%E7%82%B9%E4%B8%8E%E9%82%BB%E6%8E%A5%E8%BE%B9"><span class="toc-number">5.0.0.1.4.</span> <span class="toc-text">邻接点与邻接边</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%9B%BE%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-number">5.0.0.1.5.</span> <span class="toc-text">*图的分类</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%AD%90%E5%9B%BE%E4%B8%8E%E8%A1%A5%E5%9B%BE"><span class="toc-number">5.0.0.1.6.</span> <span class="toc-text">子图与补图</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%8F%A1%E6%89%8B%E5%AE%9A%E7%90%86"><span class="toc-number">5.0.0.2.</span> <span class="toc-text">握手定理</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%AE%9A%E7%90%866-1%EF%BC%88%E6%8F%A1%E6%89%8B%E5%AE%9A%E7%90%86%EF%BC%89"><span class="toc-number">5.0.0.2.1.</span> <span class="toc-text">定理6.1（握手定理）</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9B%BE%E7%9A%84%E5%90%8C%E6%9E%84"><span class="toc-number">5.0.0.3.</span> <span class="toc-text">图的同构</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%80%9A%E8%B7%AF%E4%B8%8E%E5%9B%9E%E8%B7%AF"><span class="toc-number">5.0.0.4.</span> <span class="toc-text">通路与回路</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%80%9A%E8%B7%AF%E4%B8%8E%E5%9B%9E%E8%B7%AF%E7%9A%84%E8%AE%A1%E7%AE%97"><span class="toc-number">5.0.0.4.1.</span> <span class="toc-text">通路与回路的计算</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8F%AF%E8%BE%BE%E4%B8%8E%E8%B7%9D%E7%A6%BB"><span class="toc-number">5.0.0.4.2.</span> <span class="toc-text">可达与距离</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9B%BE%E7%9A%84%E8%BF%9E%E9%80%9A%E6%80%A7"><span class="toc-number">5.0.0.5.</span> <span class="toc-text">图的连通性</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%97%A0%E5%90%91%E5%9B%BE%E7%9A%84%E8%BF%9E%E9%80%9A%E6%80%A7"><span class="toc-number">5.0.0.5.1.</span> <span class="toc-text">无向图的连通性</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%9C%89%E5%90%91%E5%9B%BE%E7%9A%84%E8%BF%9E%E9%80%9A%E6%80%A7"><span class="toc-number">5.0.0.5.2.</span> <span class="toc-text">有向图的连通性</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%BF%9E%E9%80%9A%E6%80%A7%E7%9A%84%E5%88%A4%E6%96%AD"><span class="toc-number">5.0.0.5.3.</span> <span class="toc-text">连通性的判断</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%83%E7%AB%A0-%E7%89%B9%E6%AE%8A%E5%9B%BE"><span class="toc-number">6.</span> <span class="toc-text">第七章_特殊图</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A0%91"><span class="toc-number">6.0.0.1.</span> <span class="toc-text">树</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%AE%9A%E7%90%867-1"><span class="toc-number">6.0.0.1.1.</span> <span class="toc-text">定理7.1</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E6%A0%91%E5%8F%8A%E7%AE%97%E6%B3%95"><span class="toc-number">6.0.0.1.2.</span> <span class="toc-text">生成树及算法</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91"><span class="toc-number">6.0.0.1.3.</span> <span class="toc-text">最小生成树</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A0%B9%E6%95%B0"><span class="toc-number">6.0.0.2.</span> <span class="toc-text">根数</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%A0%B9%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86"><span class="toc-number">6.0.0.2.1.</span> <span class="toc-text">根树的遍历</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%9C%80%E4%BC%98%E6%A0%91%E4%B8%8E%E5%93%88%E5%A4%AB%E6%9B%BC%E7%AE%97%E6%B3%95"><span class="toc-number">6.0.0.2.2.</span> <span class="toc-text">最优树与哈夫曼算法</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%93%88%E5%A4%AB%E6%9B%BC%E7%AE%97%E6%B3%95"><span class="toc-number">6.0.0.2.3.</span> <span class="toc-text">哈夫曼算法</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%AC%A7%E6%8B%89%E5%9B%BE"><span class="toc-number">6.0.0.3.</span> <span class="toc-text">欧拉图</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%AC%A7%E6%8B%89%E5%9B%BE%E7%9A%84%E5%88%A4%E5%AE%9A"><span class="toc-number">6.0.0.3.1.</span> <span class="toc-text">欧拉图的判定</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%93%88%E5%AF%86%E9%A1%BF%E5%9B%BE"><span class="toc-number">6.0.0.4.</span> <span class="toc-text">哈密顿图</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%93%88%E5%AF%86%E9%A1%BF%E5%9B%BE%E7%9A%84%E5%88%A4%E5%AE%9A"><span class="toc-number">6.0.0.4.1.</span> <span class="toc-text">哈密顿图的判定</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%81%B6%E5%9B%BE"><span class="toc-number">6.0.0.5.</span> <span class="toc-text">偶图</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%81%B6%E5%9B%BE-1"><span class="toc-number">6.0.0.5.1.</span> <span class="toc-text">偶图</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8C%B9%E9%85%8D"><span class="toc-number">6.0.0.5.2.</span> <span class="toc-text">匹配</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8C%B9%E9%85%8D%E5%AD%98%E5%9C%A8%E6%80%A7%E9%97%AE%E9%A2%98"><span class="toc-number">6.0.0.5.3.</span> <span class="toc-text">匹配存在性问题</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B9%B3%E9%9D%A2%E5%9B%BE"><span class="toc-number">6.0.0.6.</span> <span class="toc-text">平面图</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%B9%B3%E9%9D%A2%E5%9B%BE%E7%9A%84%E5%88%A4%E6%96%AD%E2%80%94%E2%80%94%E8%A7%82%E5%AF%9F"><span class="toc-number">6.0.0.6.1.</span> <span class="toc-text">平面图的判断——观察</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%AC%A7%E6%8B%89%E5%85%AC%E5%BC%8F"><span class="toc-number">6.0.0.6.2.</span> <span class="toc-text">欧拉公式</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%AC%A7%E6%8B%89%E5%85%AC%E5%BC%8F-1"><span class="toc-number">6.0.0.6.3.</span> <span class="toc-text">欧拉公式</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%8E%A8%E8%AE%BA1"><span class="toc-number">6.0.0.6.4.</span> <span class="toc-text">推论1</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%8E%A8%E8%AE%BA2"><span class="toc-number">6.0.0.6.5.</span> <span class="toc-text">推论2</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%BA%93%E6%8B%89%E6%89%98%E5%A4%AB%E6%96%AF%E5%9F%BA%E5%AE%9A%E7%90%86"><span class="toc-number">6.0.0.6.6.</span> <span class="toc-text">库拉托夫斯基定理</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        离散_期末复习[战损版]
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">psych</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-06-13T16:28:52.000Z" class="dt-published" itemprop="datePublished">2023-06-14</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/%E8%AF%BE%E5%86%85/">课内</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/%E7%A6%BB%E6%95%A3/" rel="tag">离散</a>, <a class="p-category" href="/tags/%E8%AF%BE%E5%86%85/" rel="tag">课内</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="第一章-集合论"><a href="#第一章-集合论" class="headerlink" title="第一章_集合论"></a>第一章_集合论</h2><p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230511151559216-1024x735.png"></p>
+<h5 id="集合的基本概念"><a href="#集合的基本概念" class="headerlink" title="集合的基本概念"></a>集合的基本概念</h5><p><strong>集合</strong>：集合通常是由指定范围内满足给定条件的所有对象聚集在一起构成的。</p>
+<p><strong>元素</strong>：指定范围内的每个对象称为这个集合的元素。<code>将语句&quot;ａ是集合Ａ中的元素&quot;或&quot;ａ属于Ａ&quot;记为 ａ∈Ａ</code></p>
+<p><strong>基数</strong>：将集合中元素的个数称为集合的基数。记为 Ａ。由此把集合分为有限集和无限集</p>
+<hr>
+<h6 id="集合的表示"><a href="#集合的表示" class="headerlink" title="集合的表示"></a>集合的表示</h6><ul>
+<li><p>列举法 例如 A&#x3D;{0,1,2,3};B&#x3D;{0,1,4,9,···,n^2,···}。</p>
+</li>
+<li><p>描述法 记为{xP(x)}   -&gt;x是代表元，P(x)表示x具有性质P<br> 例如   A&#x3D;{xx是’psych’中的所有字母}</p>
+</li>
+<li><p><strong>归纳法</strong>归纳法是通过归纳定义集合的方法，其定义主要有三部分组成：</p>
+<ul>
+<li>第一部分：基础，支出某些最基本的元素属于某集合。</li>
+<li>第二部分：归纳，指出有基本元素造出新元素的方法。</li>
+<li>第三部分：极小性，指出改集合的界限</li>
+</ul>
+<p> 例如，集合A按照如下方式定义：<br> (1)0和1都是A中的元素<br> (2)如果a,b是A中的元素，则ab，ba也是A中的元素<br> (3)有限次使用(1),(2)后所得到的的字符串都是A中的元素<br>  显然-&gt;0,1,00,101等都是A中的元素</p>
+</li>
+<li><p>递归指定集合法 例如：设a(0) &#x3D; 1;a(i+1)&#x3D;3a(i);定义S&#x3D;{a(0),a(1),a(2),…,}&#x3D;{a(k)k∈N}</p>
+</li>
+<li><p>文氏图法:利用平面上的点表示集合中的元素</p>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230511153549306.png"></p>
+<hr>
+<h6 id="集合与集合的关系"><a href="#集合与集合的关系" class="headerlink" title="集合与集合的关系"></a>集合与集合的关系</h6><p>集合中的元素是无序且互异的。</p>
+<p><strong>集合相等</strong>：A和B中的元素完全相同，则A和B这两个集合相等，记为 Ａ ＝ Ｂ。</p>
+<p><strong>子集</strong>：如果B中的每个元素都是A中的元素，则称B是A的子集，也称B被A<strong>包含</strong>(A包含B)，记作<code>Ｂ⊆Ａ</code>.特别的如果B≠A，则A真包含B，即B是A的真子集，记作 <code>Ｂ⊂Ａ</code></p>
+<hr>
+<h6 id="几个特殊集合"><a href="#几个特殊集合" class="headerlink" title="几个特殊集合"></a>几个特殊集合</h6><p><strong>空集</strong>：不含任何元素的集合称为空集，记作⌀。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> 空集可以表示为： ⌀=&#123;xx≠x&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>空集是客观存在的。例如 <code>Ａ＝&#123;ｘｘ∈Ｒ且x^２&lt;０&#125;</code> 就是一个空集</p>
+</blockquote>
+<ul>
+<li>空集是一切集合的子集</li>
+<li>空集是绝对唯一的</li>
+</ul>
+<p>**全集(论集)**：在一个相对固定的范围内，包含此范围内的所有元素的集合，称为全集或者论集。用U或E表示</p>
+<ul>
+<li>全集是相对唯一的。</li>
+</ul>
+<p><strong>集族</strong>：以集合为元素的集合称为集族</p>
+<p><strong>幂集</strong>：设A为任意集合，称A的所有不同子集构成的集合为A的幂集，记作<code>P(A)</code>或 2^Ａ,即 P(A)＝{xx⊆A}。幂集是一个集族</p>
+<blockquote>
+<p>给定一个有限集，作出如下规定：</p>
+<ul>
+<li>称含有n个元素的集合为n元集</li>
+<li>若A为n元集，则称A的含有ｍ个(０≤ｍ≤ｎ)元素的子集为它的 ｍ 元子集。</li>
+</ul>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230511155222204.png"></p>
+<hr>
+<h5 id="集合的运算"><a href="#集合的运算" class="headerlink" title="集合的运算"></a>集合的运算</h5><p>总的来说，集合的元素有以下这几种基本运算：并运算，交运算，差运算，补运算，对称差运算</p>
+<ul>
+<li>Ａ∪Ｂ -&gt; 取A与B的并集，为<strong>并运算</strong>，符号为<code>∪</code></li>
+<li>Ａ∩Ｂ -&gt; 取A与B的交集，为<strong>交运算</strong>，符号为<code>∩</code></li>
+<li>Ａ-Ｂ -&gt; 取A与B的差集，为<strong>差运算</strong>，符号为<code>-</code>特别的如果A&#x3D;U，即A是全集是，A-B又称为集合B的补集，运算为<strong>补运算</strong>。</li>
+<li>Ａ⊕Ｂ&#x3D;(Ａ-Ｂ)∪(Ｂ-Ａ) -&gt;取A中除开B的部分加上B中除开A的部分，为<strong>对称差运算</strong>，符号为<code>⊕</code> 文氏图为：</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230511160827870.png"></p>
+<p>一些运算公式：（看看得了）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230511160901329-1024x483.png"></p>
+<h5 id="无限集"><a href="#无限集" class="headerlink" title="无限集"></a>无限集</h5><p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230614000438923-1024x286.png"></p>
+<h5 id="与集合相关的应用"><a href="#与集合相关的应用" class="headerlink" title="与集合相关的应用"></a>与集合相关的应用</h5><p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230614000511057-1024x193.png"></p>
+<hr>
+<h2 id="第二章-命题逻辑"><a href="#第二章-命题逻辑" class="headerlink" title="第二章_命题逻辑"></a>第二章_命题逻辑</h2><p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230511163353840.png"></p>
+<hr>
+<h5 id="命题与命题联结词"><a href="#命题与命题联结词" class="headerlink" title="命题与命题联结词"></a>命题与命题联结词</h5><h6 id="命题"><a href="#命题" class="headerlink" title="命题"></a>命题</h6><p>定义：能够判断真假的陈述句称为命题。称’真’和’假’为命题的真值，用’T’(1)和’F’(0)表示。</p>
+<p>判断：一个语句是命题，当且仅当它是陈述句且有明确的真值。</p>
+<h6 id="命题联结词"><a href="#命题联结词" class="headerlink" title="命题联结词"></a>命题联结词</h6><p><strong>原子命题</strong>：不能再分解为更简单命题的命题，称为原子命题。</p>
+<p><strong>命题联结词</strong>：像“或者”这种联结命题的关键词，称为命题联结词。</p>
+<p><strong>复合命题</strong>：有命题联结词联结原子命题而形成的命题称为复合命题</p>
+<p>最常见的语句间的关系主要有一下5种：</p>
+<ul>
+<li>表示<strong>否定</strong>关系的:’不’，’非’，’否’… –&gt;否定联结词</li>
+<li>表示<strong>并列</strong>关系的:’并且’，’和’，’即…，又…’ –&gt;合取联结词</li>
+<li>表示<strong>选择</strong>关系的:’…或者…’，’…或…’ –&gt;析取联结词</li>
+<li>表示<strong>条件</strong>关系的:’如果…，则…’，’如果…，那么…’ –&gt;蕴含联结词</li>
+<li>表示<strong>等价</strong>关系的:’…当且仅当…’ –&gt;等价联结词</li>
+</ul>
+<h6 id="自然语言的命题符号化"><a href="#自然语言的命题符号化" class="headerlink" title="自然语言的命题符号化"></a>自然语言的命题符号化</h6><p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230511171540705.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230511171545675.png"></p>
+<p><strong>真值表</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230511170525473-1024x283.png"></p>
+<blockquote>
+<p>蕴含： 100,其他全部为1</p>
+<p>等价： 相同为真，不同为假</p>
+</blockquote>
+<h6 id="优先级"><a href="#优先级" class="headerlink" title="优先级"></a>优先级</h6><p>所有五个联接词的优先顺序为：否定，合取，析取，蕴涵，等价；</p>
+<hr>
+<h5 id="命题公式，解释与真值表"><a href="#命题公式，解释与真值表" class="headerlink" title="命题公式，解释与真值表"></a>命题公式，解释与真值表</h5><h6 id="命题公式"><a href="#命题公式" class="headerlink" title="命题公式"></a>命题公式</h6><p>原子命题又被称作<strong>命题常量</strong>或<strong>常值命题</strong>，而其他P,Q,R等通常(真值可变)被称为<strong>命题变量</strong>或<strong>命题变元</strong>。命题公式诸如<code>¬ (Ｐ∧Ｑ)→¬ Ｒ</code> 又被称为 P, Q 和R的真值函数。常被记为Ｇ(Ｐ,Ｑ,Ｒ)</p>
+<h6 id="命题公式的解释与真值表"><a href="#命题公式的解释与真值表" class="headerlink" title="命题公式的解释与真值表"></a>命题公式的解释与真值表</h6><p>我们进行如下定义：</p>
+<ul>
+<li>公式G的真值全为’真’，则称公式G为<strong>永真公式(重言式)</strong></li>
+<li>公式G的真值全为’假’，则称公式G为<strong>永假公式(矛盾式)</strong></li>
+<li>公式G的真值至少存在一个为’真’，则称公式G为<strong>可满足公式</strong></li>
+</ul>
+<p>如果题目要求_判断公式的类型_，就是让我们化简，看公式是重言式还是矛盾式还是可满足公式···</p>
+<h6 id="命题公式的基本等价定律"><a href="#命题公式的基本等价定律" class="headerlink" title="命题公式的基本等价定律"></a>命题公式的基本等价定律</h6><p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230511181436055.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230511181447825.png"></p>
+<hr>
+<h5 id="范式"><a href="#范式" class="headerlink" title="范式"></a>范式</h5><p>对于任意的命题公式，是否有一个唯一的，标准的表示形式呢？这就是范式要解决的问题。</p>
+<h6 id="联结词的完备集"><a href="#联结词的完备集" class="headerlink" title="联结词的完备集"></a>联结词的完备集</h6><p>括号组成的有限长度的符号串， 又可以知道“→”和“↔”可用“¬ ” “∧”和“∨”等价表示。因此，可以 说任何命题公式都可以由“¬ ”“∧”和“∨”这 ３ 个联结词来等价表示。称这 ３ 个联结词构成的集合{¬ ， ∧， ∨}为<strong>联结词的完备集</strong>。</p>
+<p>给出定义：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> 设S,T是任意联结词集合。</span><br><span class="line"> (1)如果任意一个命题公式都可以用S中的联结词进行等价表示，则称S是联结词的完备集</span><br><span class="line"> (2)设S是一个联结词的完备集且 Ｔ⊂Ｓ。如果至少存在一个命题公式不能用T中的联结词进行等价表示，则称S为#极小联结词的完备集#</span><br><span class="line">     补：极小联结词的完备集还有&#123;¬ ，∨&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="析取范式和和取范式"><a href="#析取范式和和取范式" class="headerlink" title="析取范式和和取范式"></a>析取范式和和取范式</h6><p>理论上，选用不同的联结完备词可以更加方便的对命题公式进行研究。但是同一个命题公式用不同的联结完备词就会得到不同的表达式，这给研究带来了不便。</p>
+<p>我们着重研究用联结完备词：{¬ ， ∧， ∨}表示的命题公式的标准形式——<strong>范式</strong>。</p>
+<p>下面先将一些概念：</p>
+<ul>
+<li><strong>文字</strong>：称命题变元或者命题变元的否定为文字</li>
+<li><strong>合取式或短语</strong>：如果一个命题具有形式式 Ａ１∧Ａ２∧…∧Ａｎ(ｎ≥１)。其中 Ａｉ(ｉ ＝ １， ２，…，ｎ)是文字， 则称该命题公式为合取式或短语。</li>
+<li><strong>析取式或字句</strong>：如果一个命题公式具有形式 Ａ１∨Ａ２∨…∨Ａｎ(ｎ≥１)。其中 Ａｉ(ｉ ＝ １， ２，…，ｎ)是文字， 则称该命题公式为析取式或字句。</li>
+<li><strong>合取范式</strong>：如果一个命题具有形式式 Ａ１∧Ａ２∧…∧Ａｎ(ｎ≥１)。其中 Ａｉ(ｉ ＝ １， ２，…，ｎ)是析取式， 则称该命题公式为合取范式。</li>
+<li><strong>析取范式</strong>：如果一个命题公式具有形式 Ａ１∨Ａ２∨…∨Ａｎ(ｎ≥１)。其中 Ａｉ(ｉ ＝ １， ２，…，ｎ)是合取式， 则称该命题公式为析取范式。</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230515110347794.png"></p>
+<p>计算合取范式，析取范式：</p>
+<ul>
+<li>用“¬ ”“∧”和“∨”等价替换掉“→”和“↔”</li>
+<li>利用双重否定律消去多余的否定联结词，德摩根律将否定联结词内移</li>
+<li>利用分配率，结合律，幂等律等整理得到对应的析取范式和合取范式</li>
+</ul>
+<p>有一个小技巧：得到析取范式后可以直接转换得到合取范式  </p>
+<p>        (¬Ｐ∧¬Ｑ)∨(Ｐ∧Ｑ)∨Ｒ<br>                 <br>  (¬ Ｐ∨Ｐ∨Ｒ)∧(¬ Ｐ∨Ｑ∨Ｒ)∧(¬ Ｑ∨Ｐ∨Ｒ)∧(¬ Ｑ∨Ｑ∨Ｒ)</p>
+<h6 id="主合取范式和主析取范式"><a href="#主合取范式和主析取范式" class="headerlink" title="主合取范式和主析取范式"></a>主合取范式和主析取范式</h6><p><strong>极大项和极小项</strong></p>
+<p>定义：在含有n个命题变元的合&#x2F;析取式中，如果每个命题变元与其否定不同时存在，但二者之一恰好出现且仅出现一次，则称这个合&#x2F;析取式为关于这n个命题变元的一个极大&#x2F;小项。</p>
+<p> 极大项    -&gt;     析取式<br> 极小项    -&gt;     合取式</p>
+<p><strong>编码规则</strong></p>
+<p>极大项的编码规则：命题变元极其否定对应 0和 1</p>
+<p>极小项的编码规则：命题变元极其否定对应 1 和 0</p>
+<p><strong>主合取范式和主析取范式</strong></p>
+<ul>
+<li><strong>主合取范式</strong>：一个命题公式具有形式：Ａ1∧Ａ2∧…∧Ａn(ｎ≥１)，其中Ai是极大项，则称改命题公式为主合取范式</li>
+<li><strong>主析取范式</strong>：一个命题公式具有形式：Ａ1∨Ａ2∨…∨Ａ3(ｎ≥１)，其中Ai是极小项，则称该命题公式为主析取范式。</li>
+</ul>
+<p>主合&#x2F;析取范式的计算方法</p>
+<ul>
+<li>先计算出合取范式或析取范式</li>
+<li>将析取&#x2F;合取范式中的每一个式子变成极大项&#x2F;极小项</li>
+<li><strong>小技巧：Ｐ＝Ｐ∧１＝Ｐ∧(¬ Ｑ∨Ｑ)；Ｐ＝Ｐ∨０＝Ｐ∨(¬ Ｑ∧Ｑ)</strong></li>
+<li>利用幂等律将相同的极大&#x2F;极小项合并，同时利用交换律进行顺序调整，从而得到主&#x2F;合取范式。</li>
+</ul>
+<hr>
+<h5 id="命题逻辑的推理理论"><a href="#命题逻辑的推理理论" class="headerlink" title="命题逻辑的推理理论"></a>命题逻辑的推理理论</h5><h6 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h6><p><strong>定义</strong>：设 Ｇ１，Ｇ２，···，Ｇｎ ， Ｈ 是命题公式。对任意解释 I，如果 Ｇ１∧Ｇ２∧···∧Ｇｎ为真， Ｈ 也为真。或者 Ｇ１∧Ｇ２∧，∧Ｇｎ为 假， 则称 Ｈ 是 Ｇ１ ，Ｇ２ ，···，Ｇｎ的逻辑结果(Logic Conclution)。 或者 Ｇ１ ，Ｇ２ ，···，Ｇｎ共同蕴涵 Ｈ。 记为 Ｇ１ ，Ｇ２ ，···，Ｇｎ⇒Ｈ。</p>
+<p><strong>定理2.6</strong>： 公式 Ｈ 是前提集合{Ｇ１，Ｇ２，···，Ｇｎ }的逻辑结果当且仅当 Ｇ１∧Ｇ２∧···∧Ｇｎ→Ｈ 为永真公式。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230607184151184-1024x240.png"></p>
+<h6 id="判别方法"><a href="#判别方法" class="headerlink" title="判别方法"></a>判别方法</h6><p><strong>真值表技术</strong>：构造真值表，配合定理2.6去判断 (<strong>→</strong>)</p>
+<p><strong>等价公式转换法</strong>：</p>
+<ul>
+<li>合取所有前提作为蕴含式的前件，结论作为蕴含式的后件</li>
+<li>化简这个蕴含式</li>
+<li>如果化简结果为1，则推理有效，否则推理无效。</li>
+</ul>
+<p><strong>演绎法</strong>：从前提(假设)出发，依据公认的推理规则和推理定律导出结论的方法。</p>
+<blockquote>
+<p>为了正确地使用演绎法去判定推理的有效性，还需要了解<strong>推理定律</strong>和<strong>推理规则</strong></p>
+</blockquote>
+<p>_推理定律_：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230607185138322-1024x411.png"></p>
+<p>_推理规则_：</p>
+<p>（1）<strong>P规则</strong>(Premise前提引用规则) 在推理过程中，如果引入前提集合中的一个 前提， 则称使用了P规则</p>
+<p>（2）<strong>T 规则</strong>(Transformation， 逻辑结果引用规则) 在推理过程中，如果引入推理过程中产生的某个中间结果，则称使用了T规则。</p>
+<p>（3）)<strong>CP规则</strong>(Conclusion premise，附加前提规则) 在推理过程中，如果逻辑结果为蕴涵式， 并且将该蕴涵式的前件作为前提引入，则称使用了CP规则。</p>
+<p>还有一个消解原理，不太会，有人说不怎么要求，就不整理了。。</p>
+<blockquote>
+<p>事实上，消解原理就是反证法的一种形式</p>
+</blockquote>
+<p>① Ｐ∨¬ Ｒ Ｐ</p>
+<p>② Ｒ Ｐ</p>
+<p>③ Ｐ Ｔ， ①， ②， <strong>消解原理</strong></p>
+<hr>
+<h5 id="命题逻辑的应用"><a href="#命题逻辑的应用" class="headerlink" title="命题逻辑的应用"></a>命题逻辑的应用</h5><h6 id="命题联结词的应用"><a href="#命题联结词的应用" class="headerlink" title="命题联结词的应用"></a>命题联结词的应用</h6><p><strong>计算机中的比特运算</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230614000615736-1024x109.png"></p>
+<p>需要注意的就是XOR指的是异或(不可兼或)。</p>
+<p><strong>web搜索</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230607214719154.png"></p>
+<h6 id="命题公式的应用"><a href="#命题公式的应用" class="headerlink" title="命题公式的应用"></a>命题公式的应用</h6><p>化简电路，化简程序图</p>
+<p>e.g:</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230607214930918.png"></p>
+<p>用命题公式化简其对应的电路：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230607214941287.png"></p>
+<hr>
+<h2 id="第三章-谓词逻辑"><a href="#第三章-谓词逻辑" class="headerlink" title="第三章_谓词逻辑"></a>第三章_谓词逻辑</h2><p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230607215109808-1024x604.png"></p>
+<hr>
+<h5 id="自然语言的谓词符号化"><a href="#自然语言的谓词符号化" class="headerlink" title="自然语言的谓词符号化"></a>自然语言的谓词符号化</h5><h6 id="谓词"><a href="#谓词" class="headerlink" title="谓词"></a>谓词</h6><p>在原子命题中，可以独立存在的客体(句子中的主语、 宾语等)称为<strong>个体词</strong>(Individual)。 用以刻画客体性质或客体之间关系的部分称为<strong>谓词</strong>(Predicate)。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230607215920531-1024x221.png"></p>
+<p><strong>定义</strong>：设 Ｐ(X1，X2 ，···，Xn )是定义在 Ｄｎ上的ｎ元函数。其中Ｄ为非空的个体域，如果Ｐ(X1，X2 ，···，Xn )的值域是{0,1}。则称Ｐ(X1，X2 ，···，Xn )为n元命题函数或n元谓词 (Propositional Function）。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230607220640742-1024x144.png"></p>
+<h6 id="量词"><a href="#量词" class="headerlink" title="量词"></a>量词</h6><p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230614000640593-1024x155.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230607221527437-1024x217.png"></p>
+<hr>
+<h5 id="谓词公式和解释"><a href="#谓词公式和解释" class="headerlink" title="谓词公式和解释"></a>谓词公式和解释</h5><h6 id="自由变元和约束变元"><a href="#自由变元和约束变元" class="headerlink" title="自由变元和约束变元"></a>自由变元和约束变元</h6><p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230614000705497-1024x93.png"></p>
+<h6 id="谓词公式的解释"><a href="#谓词公式的解释" class="headerlink" title="谓词公式的解释"></a>谓词公式的解释</h6><p>在任意给定的解释I下，如果谓词公式G的取值全部为真，则称G为<strong>永真公式</strong>，如果全部为假则为<strong>永假公式</strong>。如果存在有真，就是<strong>可满足公式</strong>。</p>
+<hr>
+<h5 id="谓词公式的标准型——前束范式"><a href="#谓词公式的标准型——前束范式" class="headerlink" title="谓词公式的标准型——前束范式"></a>谓词公式的标准型——前束范式</h5><p>设G,H是谓词公式，如果谓词公式G&lt;-&gt;H是永真公式，那么称G,H是等价的，记作G&#x3D;H</p>
+<hr>
+<h5 id="谓词逻辑的推理理论"><a href="#谓词逻辑的推理理论" class="headerlink" title="谓词逻辑的推理理论"></a>谓词逻辑的推理理论</h5><p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230607235615560.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230607235642026.png"></p>
+<hr>
+<h5 id="谓词公式的标准型——前束范式-1"><a href="#谓词公式的标准型——前束范式-1" class="headerlink" title="谓词公式的标准型——前束范式"></a>谓词公式的标准型——前束范式</h5><p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608000512066-1024x381.png"></p>
+<p>前束范式并不唯一</p>
+<hr>
+<h5 id="谓词逻辑的应用"><a href="#谓词逻辑的应用" class="headerlink" title="谓词逻辑的应用"></a>谓词逻辑的应用</h5><h6 id="推理规则"><a href="#推理规则" class="headerlink" title="推理规则"></a>推理规则</h6><ul>
+<li>消去量词规则<ul>
+<li>UI(全称量词消去)规则任意ｘＧ(ｘ)⇒Ｇ(ｙ) 其中Ｇ(ｘ)对ｙ是自由的。或者 ｘＧ(ｘ)⇒Ｇ(ｃ) 其中 ｃ 为任意个体常量</li>
+<li>EI(存在量词消去)规则存在ｘＧ(ｘ)⇒Ｇ(ｃ) 其中ｃ为使Ｇ(ｃ)为真的特定个体常量</li>
+</ul>
+</li>
+<li>引入量词规则<ul>
+<li>ＵＧ(全称量词引入)规则Ｇ(ｘ)⇒任意ｙＧ(ｙ) 其中 Ｇ(ｘ)对于 ｙ 是自由的</li>
+<li>ＥＧ(存在量词引入)规则Ｇ(ｃ)⇒存在ｘＧ(ｘ) 其中ｃ为特定个体常量或者 Ｇ(ｘ)⇒存在ｙＧ(ｙ) 其中 Ｇ(ｘ)对于ｙ是自由的</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230609172049815-1024x309.png"></p>
+<h6 id="推理定律"><a href="#推理定律" class="headerlink" title="推理定律"></a>推理定律</h6><p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230609172112678-1024x326.png"></p>
+<hr>
+<h2 id="第四章-二元关系"><a href="#第四章-二元关系" class="headerlink" title="第四章_二元关系"></a>第四章_二元关系</h2><p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230609173101772-1024x572.png"></p>
+<hr>
+<h5 id="二元关系及其表示"><a href="#二元关系及其表示" class="headerlink" title="二元关系及其表示"></a>二元关系及其表示</h5><p><strong>二元关系的定义</strong>：由两个元素ｘ，ｙ按照一定的次序组成的二元组被称为有序偶对，简称序偶。 记作‹ｘ，ｙ›， 读作“序 偶 ｘ，ｙ”。其中称ｘ为‹ｘ，ｙ›的第一元素，ｙ为‹ｘ，ｙ›的第二元素。</p>
+<p>推广序偶的思想，可以定义任意ｎ个元素的有序序列：由ｎ个元素a１，ａ２，···，ａｎ按照一定次序组成的ｎ元组被称为<strong>ｎ重有序组</strong>，记作‹ａ１ ，ａ２，···，ａｎ›。</p>
+<p>将序偶与集合联系起来， 可以得到笛卡儿积的定义：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230609173626678-1024x153.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230609173651637-1024x266.png"></p>
+<h6 id="笛卡尔积的运算"><a href="#笛卡尔积的运算" class="headerlink" title="笛卡尔积的运算"></a>笛卡尔积的运算</h6><p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230609174538092.png"></p>
+<p>注意：空集×任何子集&#x3D;&#x3D;空集</p>
+<p><strong>·</strong></p>
+<p><strong>·</strong></p>
+<p><strong>·</strong></p>
+<hr>
+<h2 id="第六章-图"><a href="#第六章-图" class="headerlink" title="第六章_图"></a>第六章_图</h2><p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608184416367-1024x568.png"></p>
+<hr>
+<h5 id="图的基本概念"><a href="#图的基本概念" class="headerlink" title="图的基本概念"></a>图的基本概念</h5><h6 id="图的定义"><a href="#图的定义" class="headerlink" title="图的定义"></a>图的定义</h6><p>一个<strong>图</strong>是一个序偶&lt;V,E&gt;，记为G&#x3D;&lt;V,E&gt;。</p>
+<ul>
+<li>V&#x3D;{v1,v2,v3···,vn}是有限非空集合，vi称为<strong>结点</strong>，简称点，V称为<strong>结点集</strong>。</li>
+<li>E是有限集合，称为<strong>边集</strong>，E中的每个元素都有V中的结点对与之对应，称之为<strong>边</strong>。</li>
+</ul>
+<p>注意上面的结点对可以使有序的也可以是无序的，分别为有向边和无向边。</p>
+<h6 id="图的表示"><a href="#图的表示" class="headerlink" title="图的表示"></a>图的表示</h6><p><strong>集合表示</strong>：将一个图记为G&#x3D;&lt;V,E&gt;，并写出了V和E的集合表示，称为图的集合表示</p>
+<p><strong>图形表示</strong>：为了表示方便，一般往往只需要画出图形。</p>
+<p><strong>矩阵表示</strong>：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608185332879-1024x178.png"></p>
+<p>无向图和有向图的邻接矩阵有些不同，无向图的矩阵一定是对称的。</p>
+<p>对角线的数值为1表示环。</p>
+<h6 id="图的操作"><a href="#图的操作" class="headerlink" title="图的操作"></a>图的操作</h6><p><strong>删除边</strong>：设 e∈Ｅ，用G-e表示从Ｇ中去掉边e得到的图，该操作称为删除边。又设 Ｅ′⊆Ｅ，用G-E′表示从G中删除E′中所有边得到的图，操作称为删除边集。</p>
+<p><strong>删除点</strong>：设 ｖ∈Ｖ，用Ｇ－ｖ表示从Ｇ中去掉结点ｖ及ｖ关联的所有边得到的图，该操作称为删除结点。又设Ｖ′⊂Ｖ，用G-Ｖ′表示从Ｇ中删除Ｖ′中所有结点及关联的所有边得到的图，该操作称为删除结点子集。</p>
+<p><strong>收缩边</strong>：设ｅ＝(ｕ，ｖ)∈Ｅ。用Ｇ＼ｅ表示从Ｇ中删除ｅ，将ｅ的两个端点ｕ、ｖ用一个新的 结点 ｗ 代替， 使ｗ关联除ｅ外的ｕ和ｖ关联的一切边，该操作称为边的收缩。一个图Ｇ可以收缩为图H，是指 Ｈ可以从G 经过若干次边的收缩而得到。</p>
+<p><strong>新加边</strong>：设ｕ，v∈Ｖ(ｕ、ｖ可能相邻，也可能不相邻)。用Ｇ∪(ｕ，ｖ)表示在ｕ，ｖ之间加一条边(ｕ，ｖ)，该操作称为加新边。</p>
+<h6 id="邻接点与邻接边"><a href="#邻接点与邻接边" class="headerlink" title="邻接点与邻接边"></a>邻接点与邻接边</h6><p><strong>邻接点</strong>：一条边的两个端点</p>
+<p><strong>邻接边</strong>：具有公共结点的两条边</p>
+<p><strong>孤立结点</strong>：图中不与任何结点相邻接的结点称为孤立结点</p>
+<blockquote>
+<p><strong>零图</strong>：仅由孤立结点组成的图。</p>
+<p><strong>平凡图</strong>：仅含有一个节点的零图</p>
+</blockquote>
+<p>含有n个结点，m个边的图称为**(n,m)图**</p>
+<h6 id="图的分类"><a href="#图的分类" class="headerlink" title="*图的分类"></a>*图的分类</h6><p><strong>有无方向</strong>：无向图，有向图，混合图</p>
+<p><strong>有无平行边</strong>：多重图，线图，<strong>简单图</strong>。</p>
+<blockquote>
+<ul>
+<li>含有平行边的图称为多重图，平行边的条数称为重数【有向图中始边与终边相同才是平行边，无向图中两结点间的都是平行边】</li>
+<li>非多重图就是线图</li>
+<li><strong>无环的线图就是简单图</strong></li>
+</ul>
+</blockquote>
+<p><strong>是否含权</strong>：赋权图，无权图</p>
+<h6 id="子图与补图"><a href="#子图与补图" class="headerlink" title="子图与补图"></a>子图与补图</h6><p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608191416444-1024x260.png"></p>
+<p>生成子图：结点没变，边只有一部分</p>
+<p>导出子图：一部分结点，但是这部分结点之间的边全部都有【比如全校数据中导出一个年级的数据来】</p>
+<p><strong>完全图</strong>：</p>
+<ul>
+<li>无向简单图中[无环的线图]：G中任意两个结点之间都有边相连，称为<strong>无向完全图</strong>，简称完全图</li>
+<li>有向简单图中：G中任意两个结点都有方向相反的两条边相连，称为有向简单图，也简称完全图</li>
+</ul>
+<p><strong>补图</strong>：结点集相同，边集是完全图边集的补集</p>
+<blockquote>
+<p>注意结点和原图是一样的，就是说有可能有孤立结点的情况，不能漏了</p>
+</blockquote>
+<hr>
+<h5 id="握手定理"><a href="#握手定理" class="headerlink" title="握手定理"></a>握手定理</h5><p><strong>度</strong>：G&#x3D;&lt;V,E&gt;中以结点v∈V为端点的边数（有环的时候计算两次）称为结点v的度数。，简称度，记为deg(v)</p>
+<p>有向图中要区分入度与出度。入度为deg-(v),出度为deg+(v)</p>
+<p><strong>悬挂结点</strong>：度数为1的结点称为悬挂结点</p>
+<p><strong>悬挂边</strong>:以悬挂结点为端点的边称为悬挂边</p>
+<h6 id="定理6-1（握手定理）"><a href="#定理6-1（握手定理）" class="headerlink" title="定理6.1（握手定理）"></a>定理6.1（握手定理）</h6><p>图中结点度数的总和是边数的两倍</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608192457742.png"></p>
+<p>有向图中，入度之和等于出度之和等于边数</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608192559519.png"></p>
+<hr>
+<h5 id="图的同构"><a href="#图的同构" class="headerlink" title="图的同构"></a>图的同构</h5><p>形象的说，若结点可以任意挪动位置，而且边是完全弹性的，只要在不拉断和长度不压缩为0的情况下，一个图可以变成另外一个图，就称这两个图是同构的。</p>
+<p>两个图同构有三个<strong>必要条件</strong>：</p>
+<ul>
+<li>结点数目相同</li>
+<li>边数相同</li>
+<li>度数相同的结点数相同</li>
+</ul>
+<p>也就是说，上述三个条件有一个不满足，就不同构，但他们都满足不能说明图是同构的。</p>
+<hr>
+<h5 id="通路与回路"><a href="#通路与回路" class="headerlink" title="通路与回路"></a>通路与回路</h5><p>给定G&#x3D;&lt;V,E&gt;中结点和边相继交错出现的序列Γ＝v0e0v1e1v2···ekvk</p>
+<p><strong>通路</strong>：若v0和vk不是同一个结点，则Γ 称为v0到vk的一条通路</p>
+<p><strong>回路</strong>：v0&#x3D;vk，则此通路称为回路。</p>
+<blockquote>
+<p><strong>简单通路</strong>：通路中所有的边互不相同，或一条迹</p>
+<p><strong>基本通路</strong>：通路中所有的结点互不相同(从而所有的边互不相同)</p>
+<p><strong>基本回路</strong>：回路中所有的结点互不相同(从而所有的边互不相同)</p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608194012367-1024x171.png"></p>
+<h6 id="通路与回路的计算"><a href="#通路与回路的计算" class="headerlink" title="通路与回路的计算"></a>通路与回路的计算</h6><p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608194023330-1024x203.png"></p>
+<h6 id="可达与距离"><a href="#可达与距离" class="headerlink" title="可达与距离"></a>可达与距离</h6><p><strong>可达</strong>：vi与vj之间存在通路，就称vi和vj是可达的。</p>
+<p><strong>距离</strong>：如果vi与vj是可达的，那么vi带vj的长度最短的通路的长度称为距离。记为d(vi,vj)</p>
+<p><strong>定理</strong>：在一个具有n个结点的图中，如果从结点vi到结点vj存在一条通路，那么从vi到vj存在一条长度不大于n-1的通路。 —–由鸽笼定理可以证得</p>
+<p>定义<strong>可达性矩阵P</strong>：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608194941633-1024x267.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608195040171.png"></p>
+<hr>
+<h5 id="图的连通性"><a href="#图的连通性" class="headerlink" title="图的连通性"></a>图的连通性</h5><h6 id="无向图的连通性"><a href="#无向图的连通性" class="headerlink" title="无向图的连通性"></a>无向图的连通性</h6><p><strong>连通图</strong>：无向图G中任意两个结点都是可达的，则称G为连通图，否则为非连通图，或分离图</p>
+<p><strong>连通分支</strong>：无向图G中结点之间的可达关系R的每个等价类导出的子图都成为G的一个连通分支，用P(G)表示。</p>
+<blockquote>
+<p>显然，无向图G是连通图当且仅当p(G)&#x3D;1；每个结点和每条边都在且仅在一个连通分支中。</p>
+</blockquote>
+<h6 id="有向图的连通性"><a href="#有向图的连通性" class="headerlink" title="有向图的连通性"></a>有向图的连通性</h6><p><strong>弱连通图</strong>：略去方向之后是连通的，就称弱连通图，否则就是非连通图</p>
+<p><strong>单向连通图</strong>：G中任意一对结点之间，至少有一个结点到另一个结点是可达的</p>
+<p><strong>强连通图</strong>：G中任意一对结点都是相互可达的。</p>
+<h6 id="连通性的判断"><a href="#连通性的判断" class="headerlink" title="连通性的判断"></a>连通性的判断</h6><p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608195839525-1024x232.png"></p>
+<p>连通分支：强连通分支&#x2F;单向连通分支&#x2F;弱连通分支 ···</p>
+<hr>
+<h2 id="第七章-特殊图"><a href="#第七章-特殊图" class="headerlink" title="第七章_特殊图"></a>第七章_特殊图</h2><p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608200043478-1024x923.png"></p>
+<hr>
+<h5 id="树"><a href="#树" class="headerlink" title="树"></a>树</h5><ul>
+<li><strong>连通而不含回路</strong>的无向图称为无向树，简称树</li>
+</ul>
+<p>树中度数为1的结点称为<strong>叶</strong>，度数大于1的结点称为<strong>分支点</strong>或者<strong>内部结点</strong>。每个连通分支都是树的无向图称为<strong>森林</strong>，平凡图称为平凡树</p>
+<blockquote>
+<p>树中没有环和平行边，因此一定是简单图，并且任何非平凡树中，都没有度数为0的结点</p>
+</blockquote>
+<h6 id="定理7-1"><a href="#定理7-1" class="headerlink" title="定理7.1"></a>定理7.1</h6><p>以下6个命题等价：G&#x3D;&lt;V,E&gt; V&#x3D;n , E &#x3D; m</p>
+<ul>
+<li>G连通且不含回路，即G是树</li>
+<li>G中无回路，且<strong>m&#x3D;n-1</strong> <strong>【边数是结点数减一】</strong></li>
+<li>G是连通的，且<strong>m&#x3D;n-1</strong></li>
+<li>G中无回路，但在G中任意两个结点之间增加一个新边，就得到唯一的基本回路</li>
+<li>G是连通的，但删除G中任一条边后，便不连通（n≥2）</li>
+<li>G中每一对结点之间有唯一的基本通路（n≥2）</li>
+</ul>
+<p><strong>定理</strong>：任意非平凡树T&#x3D;(n,m)都至少有两片叶[利用握手定理和m&#x3D;n-1证得]</p>
+<h6 id="生成树及算法"><a href="#生成树及算法" class="headerlink" title="生成树及算法"></a>生成树及算法</h6><p><strong>生成树</strong>：给定图G，G的某个生成子图是树，则称为G的生成树，生成树中的边称为树枝，G中不存在生成树中的边称为弦，所有弦的集合称为生成树的补。</p>
+<p><strong>定理</strong>：一个图存在生成数的充分必要条件是G是<strong>连通的</strong>。</p>
+<p>利用以下算法可以求得连通图的生成树</p>
+<p><strong>破圈法</strong></p>
+<p>每次删除回路中的一条边，其删除的边的总数为m-n+1</p>
+<p><strong>避圈法</strong></p>
+<p>每次选取G中的一条与已选取的边不构成回路的边，选取的边的总数为n-1。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608202756936-1024x495.png"></p>
+<p><strong>广度优先搜索算法</strong></p>
+<p>可以从任意结点开始，比如说从a开始，把它标记为０(－)。 与a邻接的结点 是b和c，把它们标记为 １(ａ)。 接下来对邻接于b和c的未标记的结点e和f做标记。把它们分别标记为２(ｂ)和２(ｃ)。按这样的方法继续，直到所有的结点都有标记为止。一组可能的标记如图。连接每个结点到其前驱(在结点的标记中指明)的边就构成了一棵生成树</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608202904939-1024x321.png"></p>
+<h6 id="最小生成树"><a href="#最小生成树" class="headerlink" title="最小生成树"></a>最小生成树</h6><p>G是连通是赋权图，T是G的一颗生成树，T的每个树枝所赋权值之和称为T的权，记为W(T)，G中既有最小权的生成树称为G的最小生成树。</p>
+<p><strong>Kruskal 算法</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608213908630-1024x929.png"></p>
+<p><strong>Prim算法</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608213940614-1024x717.png"></p>
+<hr>
+<h5 id="根数"><a href="#根数" class="headerlink" title="根数"></a>根数</h5><p>一个有向图，若略去所有有向边的方向所得到的无向图是一棵树，则称之为有向树。</p>
+<p>一颗非平凡的有向树，如果恰有一个结点的入度为0，其余所有结点的入度均为1，则称之为根树或外向树。入度为0的结点称为根(root)；出度为0的结点称为叶；入度为1，出度大于0的结点称为内点；内点和跟统称为分支点。在根树中，从根到任一结点v的通路长度，统称为结点v的层数；所有结点的层数中最大的称为根树的高。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608215318864-1024x319.png"></p>
+<h6 id="根树的遍历"><a href="#根树的遍历" class="headerlink" title="根树的遍历"></a>根树的遍历</h6><p>应用最广泛的是二元树的遍历</p>
+<p>先根次序遍历：</p>
+<ul>
+<li>根</li>
+<li>左子树</li>
+<li>右子树</li>
+</ul>
+<p>中根次序遍历：</p>
+<ul>
+<li>左子树</li>
+<li>根</li>
+<li>右子树</li>
+</ul>
+<p>后根次序遍历：</p>
+<ul>
+<li>左子树</li>
+<li>右子树</li>
+<li>根</li>
+</ul>
+<h6 id="最优树与哈夫曼算法"><a href="#最优树与哈夫曼算法" class="headerlink" title="最优树与哈夫曼算法"></a>最优树与哈夫曼算法</h6><p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608215643992-1024x199.png"></p>
+<p><strong>最优树</strong>：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608215716080-1024x203.png"></p>
+<h6 id="哈夫曼算法"><a href="#哈夫曼算法" class="headerlink" title="哈夫曼算法"></a>哈夫曼算法</h6><p>过程：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608215851736.png"></p>
+<hr>
+<h5 id="欧拉图"><a href="#欧拉图" class="headerlink" title="欧拉图"></a>欧拉图</h5><p>定义： 设G是无孤立结点的图， 若存在一条通路(回路，经过图中每<strong>边</strong>一次且仅一次。则称此通路(回路)为该图的一条欧拉通路(回路)。具有<strong>欧拉回路</strong>的图称为欧拉图。</p>
+<h6 id="欧拉图的判定"><a href="#欧拉图的判定" class="headerlink" title="欧拉图的判定"></a>欧拉图的判定</h6><p><strong>无向图</strong>：</p>
+<p>无向图具有一条欧拉通路，当且仅当G是连通的，且仅有零个或两个奇度数结点。</p>
+<p>无向图是欧拉图，当且仅当G是连通的，且仅有零个奇度数结点。</p>
+<p><strong>有向图</strong>：</p>
+<p>有向图G具有一条欧拉通路，当且仅当G是连通的，且除了两个结点 以外，其余结点的入度等于出度。而这两个例外的结点中，一个结点的入度比出度大1，另一个结点的出度比入度大1。</p>
+<p>有向图G是欧拉图，当且仅当G是连通的，且所有结点的入度等于出度。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608220110560-1024x400.png"></p>
+<p>欧拉图中找欧拉回路：可能的情况下，不走桥【割边】</p>
+<hr>
+<h5 id="哈密顿图"><a href="#哈密顿图" class="headerlink" title="哈密顿图"></a>哈密顿图</h5><p>经过图中每个<strong>结点</strong>一次且仅一次的通路 (回路)称为哈密顿通路(回路)。存在<strong>哈密顿回路</strong>的图称为哈密顿图</p>
+<h6 id="哈密顿图的判定"><a href="#哈密顿图的判定" class="headerlink" title="哈密顿图的判定"></a>哈密顿图的判定</h6><p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608220452745-1024x200.png"></p>
+<p>注意这只是判定的额必要条件，一般情况下我们通过找反例，也就是<strong>去掉的结点树小于得到的图的连通分支数</strong>，来证明某图不是哈密顿图。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608220653423-1024x189.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608220713879-1024x143.png"></p>
+<hr>
+<h5 id="偶图"><a href="#偶图" class="headerlink" title="偶图"></a>偶图</h5><h6 id="偶图-1"><a href="#偶图-1" class="headerlink" title="偶图"></a>偶图</h6><p>若无向图的结点集Ｖ能够划分为两个子集Ｖ１，Ｖ２，满足Ｖ１∩Ｖ２＝⌀。且Ｖ１∪Ｖ２＝Ｖ。使得Ｇ中任意一条边的两个端点，一个属于Ｖ1，另一个属于Ｖ２.则称Ｇ为偶图或二部图、二分图。Ｖ１ 和 Ｖ２ 称为互补结点子集。</p>
+<p><strong>完全偶图</strong></p>
+<p>在偶图中，若Ｖ１中的每个结点与Ｖ２中的每个结点都有且仅有一条边相关联，则称偶图Ｇ为<strong>完全偶图</strong>或完全二部图、 完全二分图。</p>
+<p><strong>偶图的判定</strong></p>
+<p>无向图为偶图的充分必要条件是G的<strong>所有回路</strong>的长度均为偶数。</p>
+<h6 id="匹配"><a href="#匹配" class="headerlink" title="匹配"></a>匹配</h6><p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608221222771.png"></p>
+<h6 id="匹配存在性问题"><a href="#匹配存在性问题" class="headerlink" title="匹配存在性问题"></a>匹配存在性问题</h6><p><strong>霍尔定理</strong>：偶图中存在从V1到V2的匹配的充分必要条件是V1中任意k个结点至少与V2中的k个结点相邻接。k&#x3D;1,2，···，V1。</p>
+<p><strong>t条件</strong>：设G是一个偶图：</p>
+<ul>
+<li>V1中每个结点至少关联t条边。 （t为正整数）</li>
+<li>V2中每个结点至多关联t条边。</li>
+</ul>
+<blockquote>
+<p>如果存在这个t，则一定是偶图，但是没有t不一定不是偶图。</p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608221753959-1024x154.png"></p>
+<hr>
+<h5 id="平面图"><a href="#平面图" class="headerlink" title="平面图"></a>平面图</h5><p>如果<strong>能够</strong>把一个无向图G的所有结点和边画在一个平面上，使得任何两边除公共结点之外没有其他交叉点，则称G为平面图，否则是非平面图。</p>
+<h6 id="平面图的判断——观察"><a href="#平面图的判断——观察" class="headerlink" title="平面图的判断——观察"></a>平面图的判断——观察</h6><p>找出基本回路，再看有没有端点在其上的可能交叉的通路，将这些通路分别放到回路的内部或者外部，看看能否避免交叉。</p>
+<h6 id="欧拉公式"><a href="#欧拉公式" class="headerlink" title="欧拉公式"></a>欧拉公式</h6><p>在平面图G的一个平面表示中：</p>
+<p><strong>面</strong>：由边所包围的其内部不含图的结点和边的区域，称为G的一个面</p>
+<p><strong>边界</strong>：包含该面的诸边所构成的回路称为这个面的边界</p>
+<p><strong>次数</strong>：面r的边界的长度称为该面的次数，记为D(r)</p>
+<p>区域面积有限的称为有限面，区域面积无限的称为无限面</p>
+<blockquote>
+<p>显然，平面图有且仅有一个无限面！</p>
+<p><strong>平面图所有面的次数之和等于其边数的2倍</strong></p>
+</blockquote>
+<h6 id="欧拉公式-1"><a href="#欧拉公式-1" class="headerlink" title="欧拉公式"></a>欧拉公式</h6><p>一个凸多面体[平面图也适用]：n个顶点[结点]，m个棱[边]，r个面，有</p>
+<p><strong>n-m+r&#x3D;2</strong></p>
+<p>也就是说，<strong>结点数-边数+面数&#x3D;2</strong></p>
+<h6 id="推论1"><a href="#推论1" class="headerlink" title="推论1"></a>推论1</h6><p><strong>ｍ≤３ｎ－６</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608222759452.png"></p>
+<h6 id="推论2"><a href="#推论2" class="headerlink" title="推论2"></a>推论2</h6><p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608222823137.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608222838426-1024x173.png"></p>
+<h6 id="库拉托夫斯基定理"><a href="#库拉托夫斯基定理" class="headerlink" title="库拉托夫斯基定理"></a>库拉托夫斯基定理</h6><p>一个图是平面图的充分必要条件是它的任何子图都不可能收缩为K5或K33</p>
+<p>推论：一个图是非平面图的充分必要条件是它存在一个能收缩为K5或K33的子图，我们将K5和K33称为库拉托夫斯基图</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230608223020462-1024x108.png"></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Article</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-%E9%9B%86%E5%90%88%E8%AE%BA"><span class="toc-number">1.</span> <span class="toc-text">第一章_集合论</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%9B%86%E5%90%88%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">集合的基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%9B%86%E5%90%88%E7%9A%84%E8%A1%A8%E7%A4%BA"><span class="toc-number">1.0.0.1.1.</span> <span class="toc-text">集合的表示</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%9B%86%E5%90%88%E4%B8%8E%E9%9B%86%E5%90%88%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">1.0.0.1.2.</span> <span class="toc-text">集合与集合的关系</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%87%A0%E4%B8%AA%E7%89%B9%E6%AE%8A%E9%9B%86%E5%90%88"><span class="toc-number">1.0.0.1.3.</span> <span class="toc-text">几个特殊集合</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%9B%86%E5%90%88%E7%9A%84%E8%BF%90%E7%AE%97"><span class="toc-number">1.0.0.2.</span> <span class="toc-text">集合的运算</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%97%A0%E9%99%90%E9%9B%86"><span class="toc-number">1.0.0.3.</span> <span class="toc-text">无限集</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%8E%E9%9B%86%E5%90%88%E7%9B%B8%E5%85%B3%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-number">1.0.0.4.</span> <span class="toc-text">与集合相关的应用</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E5%91%BD%E9%A2%98%E9%80%BB%E8%BE%91"><span class="toc-number">2.</span> <span class="toc-text">第二章_命题逻辑</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%91%BD%E9%A2%98%E4%B8%8E%E5%91%BD%E9%A2%98%E8%81%94%E7%BB%93%E8%AF%8D"><span class="toc-number">2.0.0.1.</span> <span class="toc-text">命题与命题联结词</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%91%BD%E9%A2%98"><span class="toc-number">2.0.0.1.1.</span> <span class="toc-text">命题</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%91%BD%E9%A2%98%E8%81%94%E7%BB%93%E8%AF%8D"><span class="toc-number">2.0.0.1.2.</span> <span class="toc-text">命题联结词</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E7%9A%84%E5%91%BD%E9%A2%98%E7%AC%A6%E5%8F%B7%E5%8C%96"><span class="toc-number">2.0.0.1.3.</span> <span class="toc-text">自然语言的命题符号化</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-number">2.0.0.1.4.</span> <span class="toc-text">优先级</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%91%BD%E9%A2%98%E5%85%AC%E5%BC%8F%EF%BC%8C%E8%A7%A3%E9%87%8A%E4%B8%8E%E7%9C%9F%E5%80%BC%E8%A1%A8"><span class="toc-number">2.0.0.2.</span> <span class="toc-text">命题公式，解释与真值表</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%91%BD%E9%A2%98%E5%85%AC%E5%BC%8F"><span class="toc-number">2.0.0.2.1.</span> <span class="toc-text">命题公式</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%91%BD%E9%A2%98%E5%85%AC%E5%BC%8F%E7%9A%84%E8%A7%A3%E9%87%8A%E4%B8%8E%E7%9C%9F%E5%80%BC%E8%A1%A8"><span class="toc-number">2.0.0.2.2.</span> <span class="toc-text">命题公式的解释与真值表</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%91%BD%E9%A2%98%E5%85%AC%E5%BC%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%AD%89%E4%BB%B7%E5%AE%9A%E5%BE%8B"><span class="toc-number">2.0.0.2.3.</span> <span class="toc-text">命题公式的基本等价定律</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%8C%83%E5%BC%8F"><span class="toc-number">2.0.0.3.</span> <span class="toc-text">范式</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%81%94%E7%BB%93%E8%AF%8D%E7%9A%84%E5%AE%8C%E5%A4%87%E9%9B%86"><span class="toc-number">2.0.0.3.1.</span> <span class="toc-text">联结词的完备集</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%9E%90%E5%8F%96%E8%8C%83%E5%BC%8F%E5%92%8C%E5%92%8C%E5%8F%96%E8%8C%83%E5%BC%8F"><span class="toc-number">2.0.0.3.2.</span> <span class="toc-text">析取范式和和取范式</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%B8%BB%E5%90%88%E5%8F%96%E8%8C%83%E5%BC%8F%E5%92%8C%E4%B8%BB%E6%9E%90%E5%8F%96%E8%8C%83%E5%BC%8F"><span class="toc-number">2.0.0.3.3.</span> <span class="toc-text">主合取范式和主析取范式</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%91%BD%E9%A2%98%E9%80%BB%E8%BE%91%E7%9A%84%E6%8E%A8%E7%90%86%E7%90%86%E8%AE%BA"><span class="toc-number">2.0.0.4.</span> <span class="toc-text">命题逻辑的推理理论</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">2.0.0.4.1.</span> <span class="toc-text">基本概念</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%88%A4%E5%88%AB%E6%96%B9%E6%B3%95"><span class="toc-number">2.0.0.4.2.</span> <span class="toc-text">判别方法</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%91%BD%E9%A2%98%E9%80%BB%E8%BE%91%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-number">2.0.0.5.</span> <span class="toc-text">命题逻辑的应用</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%91%BD%E9%A2%98%E8%81%94%E7%BB%93%E8%AF%8D%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-number">2.0.0.5.1.</span> <span class="toc-text">命题联结词的应用</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%91%BD%E9%A2%98%E5%85%AC%E5%BC%8F%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-number">2.0.0.5.2.</span> <span class="toc-text">命题公式的应用</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-%E8%B0%93%E8%AF%8D%E9%80%BB%E8%BE%91"><span class="toc-number">3.</span> <span class="toc-text">第三章_谓词逻辑</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E7%9A%84%E8%B0%93%E8%AF%8D%E7%AC%A6%E5%8F%B7%E5%8C%96"><span class="toc-number">3.0.0.1.</span> <span class="toc-text">自然语言的谓词符号化</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%B0%93%E8%AF%8D"><span class="toc-number">3.0.0.1.1.</span> <span class="toc-text">谓词</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%87%8F%E8%AF%8D"><span class="toc-number">3.0.0.1.2.</span> <span class="toc-text">量词</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%B0%93%E8%AF%8D%E5%85%AC%E5%BC%8F%E5%92%8C%E8%A7%A3%E9%87%8A"><span class="toc-number">3.0.0.2.</span> <span class="toc-text">谓词公式和解释</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%87%AA%E7%94%B1%E5%8F%98%E5%85%83%E5%92%8C%E7%BA%A6%E6%9D%9F%E5%8F%98%E5%85%83"><span class="toc-number">3.0.0.2.1.</span> <span class="toc-text">自由变元和约束变元</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%B0%93%E8%AF%8D%E5%85%AC%E5%BC%8F%E7%9A%84%E8%A7%A3%E9%87%8A"><span class="toc-number">3.0.0.2.2.</span> <span class="toc-text">谓词公式的解释</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%B0%93%E8%AF%8D%E5%85%AC%E5%BC%8F%E7%9A%84%E6%A0%87%E5%87%86%E5%9E%8B%E2%80%94%E2%80%94%E5%89%8D%E6%9D%9F%E8%8C%83%E5%BC%8F"><span class="toc-number">3.0.0.3.</span> <span class="toc-text">谓词公式的标准型——前束范式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%B0%93%E8%AF%8D%E9%80%BB%E8%BE%91%E7%9A%84%E6%8E%A8%E7%90%86%E7%90%86%E8%AE%BA"><span class="toc-number">3.0.0.4.</span> <span class="toc-text">谓词逻辑的推理理论</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%B0%93%E8%AF%8D%E5%85%AC%E5%BC%8F%E7%9A%84%E6%A0%87%E5%87%86%E5%9E%8B%E2%80%94%E2%80%94%E5%89%8D%E6%9D%9F%E8%8C%83%E5%BC%8F-1"><span class="toc-number">3.0.0.5.</span> <span class="toc-text">谓词公式的标准型——前束范式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%B0%93%E8%AF%8D%E9%80%BB%E8%BE%91%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-number">3.0.0.6.</span> <span class="toc-text">谓词逻辑的应用</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%8E%A8%E7%90%86%E8%A7%84%E5%88%99"><span class="toc-number">3.0.0.6.1.</span> <span class="toc-text">推理规则</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%8E%A8%E7%90%86%E5%AE%9A%E5%BE%8B"><span class="toc-number">3.0.0.6.2.</span> <span class="toc-text">推理定律</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E4%BA%8C%E5%85%83%E5%85%B3%E7%B3%BB"><span class="toc-number">4.</span> <span class="toc-text">第四章_二元关系</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BA%8C%E5%85%83%E5%85%B3%E7%B3%BB%E5%8F%8A%E5%85%B6%E8%A1%A8%E7%A4%BA"><span class="toc-number">4.0.0.1.</span> <span class="toc-text">二元关系及其表示</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%AC%9B%E5%8D%A1%E5%B0%94%E7%A7%AF%E7%9A%84%E8%BF%90%E7%AE%97"><span class="toc-number">4.0.0.1.1.</span> <span class="toc-text">笛卡尔积的运算</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E7%AB%A0-%E5%9B%BE"><span class="toc-number">5.</span> <span class="toc-text">第六章_图</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9B%BE%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">5.0.0.1.</span> <span class="toc-text">图的基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%9B%BE%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-number">5.0.0.1.1.</span> <span class="toc-text">图的定义</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%9B%BE%E7%9A%84%E8%A1%A8%E7%A4%BA"><span class="toc-number">5.0.0.1.2.</span> <span class="toc-text">图的表示</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%9B%BE%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="toc-number">5.0.0.1.3.</span> <span class="toc-text">图的操作</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%82%BB%E6%8E%A5%E7%82%B9%E4%B8%8E%E9%82%BB%E6%8E%A5%E8%BE%B9"><span class="toc-number">5.0.0.1.4.</span> <span class="toc-text">邻接点与邻接边</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%9B%BE%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-number">5.0.0.1.5.</span> <span class="toc-text">*图的分类</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%AD%90%E5%9B%BE%E4%B8%8E%E8%A1%A5%E5%9B%BE"><span class="toc-number">5.0.0.1.6.</span> <span class="toc-text">子图与补图</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%8F%A1%E6%89%8B%E5%AE%9A%E7%90%86"><span class="toc-number">5.0.0.2.</span> <span class="toc-text">握手定理</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%AE%9A%E7%90%866-1%EF%BC%88%E6%8F%A1%E6%89%8B%E5%AE%9A%E7%90%86%EF%BC%89"><span class="toc-number">5.0.0.2.1.</span> <span class="toc-text">定理6.1（握手定理）</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9B%BE%E7%9A%84%E5%90%8C%E6%9E%84"><span class="toc-number">5.0.0.3.</span> <span class="toc-text">图的同构</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%80%9A%E8%B7%AF%E4%B8%8E%E5%9B%9E%E8%B7%AF"><span class="toc-number">5.0.0.4.</span> <span class="toc-text">通路与回路</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%80%9A%E8%B7%AF%E4%B8%8E%E5%9B%9E%E8%B7%AF%E7%9A%84%E8%AE%A1%E7%AE%97"><span class="toc-number">5.0.0.4.1.</span> <span class="toc-text">通路与回路的计算</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8F%AF%E8%BE%BE%E4%B8%8E%E8%B7%9D%E7%A6%BB"><span class="toc-number">5.0.0.4.2.</span> <span class="toc-text">可达与距离</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9B%BE%E7%9A%84%E8%BF%9E%E9%80%9A%E6%80%A7"><span class="toc-number">5.0.0.5.</span> <span class="toc-text">图的连通性</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%97%A0%E5%90%91%E5%9B%BE%E7%9A%84%E8%BF%9E%E9%80%9A%E6%80%A7"><span class="toc-number">5.0.0.5.1.</span> <span class="toc-text">无向图的连通性</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%9C%89%E5%90%91%E5%9B%BE%E7%9A%84%E8%BF%9E%E9%80%9A%E6%80%A7"><span class="toc-number">5.0.0.5.2.</span> <span class="toc-text">有向图的连通性</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%BF%9E%E9%80%9A%E6%80%A7%E7%9A%84%E5%88%A4%E6%96%AD"><span class="toc-number">5.0.0.5.3.</span> <span class="toc-text">连通性的判断</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%83%E7%AB%A0-%E7%89%B9%E6%AE%8A%E5%9B%BE"><span class="toc-number">6.</span> <span class="toc-text">第七章_特殊图</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A0%91"><span class="toc-number">6.0.0.1.</span> <span class="toc-text">树</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%AE%9A%E7%90%867-1"><span class="toc-number">6.0.0.1.1.</span> <span class="toc-text">定理7.1</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E6%A0%91%E5%8F%8A%E7%AE%97%E6%B3%95"><span class="toc-number">6.0.0.1.2.</span> <span class="toc-text">生成树及算法</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91"><span class="toc-number">6.0.0.1.3.</span> <span class="toc-text">最小生成树</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A0%B9%E6%95%B0"><span class="toc-number">6.0.0.2.</span> <span class="toc-text">根数</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%A0%B9%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86"><span class="toc-number">6.0.0.2.1.</span> <span class="toc-text">根树的遍历</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%9C%80%E4%BC%98%E6%A0%91%E4%B8%8E%E5%93%88%E5%A4%AB%E6%9B%BC%E7%AE%97%E6%B3%95"><span class="toc-number">6.0.0.2.2.</span> <span class="toc-text">最优树与哈夫曼算法</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%93%88%E5%A4%AB%E6%9B%BC%E7%AE%97%E6%B3%95"><span class="toc-number">6.0.0.2.3.</span> <span class="toc-text">哈夫曼算法</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%AC%A7%E6%8B%89%E5%9B%BE"><span class="toc-number">6.0.0.3.</span> <span class="toc-text">欧拉图</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%AC%A7%E6%8B%89%E5%9B%BE%E7%9A%84%E5%88%A4%E5%AE%9A"><span class="toc-number">6.0.0.3.1.</span> <span class="toc-text">欧拉图的判定</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%93%88%E5%AF%86%E9%A1%BF%E5%9B%BE"><span class="toc-number">6.0.0.4.</span> <span class="toc-text">哈密顿图</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%93%88%E5%AF%86%E9%A1%BF%E5%9B%BE%E7%9A%84%E5%88%A4%E5%AE%9A"><span class="toc-number">6.0.0.4.1.</span> <span class="toc-text">哈密顿图的判定</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%81%B6%E5%9B%BE"><span class="toc-number">6.0.0.5.</span> <span class="toc-text">偶图</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%81%B6%E5%9B%BE-1"><span class="toc-number">6.0.0.5.1.</span> <span class="toc-text">偶图</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8C%B9%E9%85%8D"><span class="toc-number">6.0.0.5.2.</span> <span class="toc-text">匹配</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8C%B9%E9%85%8D%E5%AD%98%E5%9C%A8%E6%80%A7%E9%97%AE%E9%A2%98"><span class="toc-number">6.0.0.5.3.</span> <span class="toc-text">匹配存在性问题</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B9%B3%E9%9D%A2%E5%9B%BE"><span class="toc-number">6.0.0.6.</span> <span class="toc-text">平面图</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%B9%B3%E9%9D%A2%E5%9B%BE%E7%9A%84%E5%88%A4%E6%96%AD%E2%80%94%E2%80%94%E8%A7%82%E5%AF%9F"><span class="toc-number">6.0.0.6.1.</span> <span class="toc-text">平面图的判断——观察</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%AC%A7%E6%8B%89%E5%85%AC%E5%BC%8F"><span class="toc-number">6.0.0.6.2.</span> <span class="toc-text">欧拉公式</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%AC%A7%E6%8B%89%E5%85%AC%E5%BC%8F-1"><span class="toc-number">6.0.0.6.3.</span> <span class="toc-text">欧拉公式</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%8E%A8%E8%AE%BA1"><span class="toc-number">6.0.0.6.4.</span> <span class="toc-text">推论1</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%8E%A8%E8%AE%BA2"><span class="toc-number">6.0.0.6.5.</span> <span class="toc-text">推论2</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%BA%93%E6%8B%89%E6%89%98%E5%A4%AB%E6%96%AF%E5%9F%BA%E5%AE%9A%E7%90%86"><span class="toc-number">6.0.0.6.6.</span> <span class="toc-text">库拉托夫斯基定理</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2023/06/14/%E7%A6%BB%E6%95%A3-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E6%88%98%E6%8D%9F%E7%89%88/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2023/06/14/%E7%A6%BB%E6%95%A3-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E6%88%98%E6%8D%9F%E7%89%88/&text=离散_期末复习[战损版]"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2023/06/14/%E7%A6%BB%E6%95%A3-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E6%88%98%E6%8D%9F%E7%89%88/&title=离散_期末复习[战损版]"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2023/06/14/%E7%A6%BB%E6%95%A3-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E6%88%98%E6%8D%9F%E7%89%88/&is_video=false&description=离散_期末复习[战损版]"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=离散_期末复习[战损版]&body=Check out this article: http://p5ych2022.github.io/2023/06/14/%E7%A6%BB%E6%95%A3-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E6%88%98%E6%8D%9F%E7%89%88/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2023/06/14/%E7%A6%BB%E6%95%A3-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E6%88%98%E6%8D%9F%E7%89%88/&title=离散_期末复习[战损版]"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2023/06/14/%E7%A6%BB%E6%95%A3-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E6%88%98%E6%8D%9F%E7%89%88/&title=离散_期末复习[战损版]"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2023/06/14/%E7%A6%BB%E6%95%A3-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E6%88%98%E6%8D%9F%E7%89%88/&title=离散_期末复习[战损版]"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2023/06/14/%E7%A6%BB%E6%95%A3-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E6%88%98%E6%8D%9F%E7%89%88/&title=离散_期末复习[战损版]"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2023/06/14/%E7%A6%BB%E6%95%A3-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E6%88%98%E6%8D%9F%E7%89%88/&name=离散_期末复习[战损版]&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2023/06/14/%E7%A6%BB%E6%95%A3-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E6%88%98%E6%8D%9F%E7%89%88/&t=离散_期末复习[战损版]"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2022-2024
+    psych
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Article</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

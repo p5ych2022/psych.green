@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="数据库概念数据库是“按照数据结构来组织、存储和管理数据的仓库”。是一个长期存储在计算机内的、有组织的、可共享的、统一管理的大量数据的集合。 定义数据库是存放数据的仓库。它的存储空间很大，可以存放百万条、千万条、上亿条数据。但是数据库并不是随意地将数据进行存放，是有一定的规则的，否则查询的效率会很低。当今世界是一个充满着数据的互联网世界，充斥着大量的数据。即这个互联网世界就是数据世界。数据的来源有很">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql">
+<meta property="og:url" content="http://p5ych2022.github.io/2023/05/14/mysql/index.html">
+<meta property="og:site_name" content="psych&#39;s blog">
+<meta property="og:description" content="数据库概念数据库是“按照数据结构来组织、存储和管理数据的仓库”。是一个长期存储在计算机内的、有组织的、可共享的、统一管理的大量数据的集合。 定义数据库是存放数据的仓库。它的存储空间很大，可以存放百万条、千万条、上亿条数据。但是数据库并不是随意地将数据进行存放，是有一定的规则的，否则查询的效率会很低。当今世界是一个充满着数据的互联网世界，充斥着大量的数据。即这个互联网世界就是数据世界。数据的来源有很">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/5-20041615113A57.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221013183258468-1024x663.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221012214319851-1024x505.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221012214407360-1024x506.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/20190520213752998.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/20190520214432848.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/sql-join.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221013141157644-1024x1005.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221013141403227-1024x560.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221013141604533-1024x682.png">
+<meta property="article:published_time" content="2023-05-14T04:24:31.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:19:29.243Z">
+<meta property="article:author" content="psych">
+<meta property="article:tag" content="web基础">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/5-20041615113A57.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>mysql</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Article</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2023/05/14/php/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2023/05/14/html%E4%B8%8Ecss%E4%B8%8Ejavascript/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2023/05/14/mysql/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2023/05/14/mysql/&text=mysql"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2023/05/14/mysql/&title=mysql"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2023/05/14/mysql/&is_video=false&description=mysql"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=mysql&body=Check out this article: http://p5ych2022.github.io/2023/05/14/mysql/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2023/05/14/mysql/&title=mysql"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2023/05/14/mysql/&title=mysql"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2023/05/14/mysql/&title=mysql"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2023/05/14/mysql/&title=mysql"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2023/05/14/mysql/&name=mysql&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2023/05/14/mysql/&t=mysql"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">1.</span> <span class="toc-text">数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-number">1.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-number">1.2.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-number">1.3.</span> <span class="toc-text">目录结构</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#bin"><span class="toc-number">1.3.1.</span> <span class="toc-text">bin</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#docs"><span class="toc-number">1.3.2.</span> <span class="toc-text">docs</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#Data"><span class="toc-number">1.3.3.</span> <span class="toc-text">Data</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#include"><span class="toc-number">1.3.4.</span> <span class="toc-text">include</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#lib"><span class="toc-number">1.3.5.</span> <span class="toc-text">lib</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#share"><span class="toc-number">1.3.6.</span> <span class="toc-text">share</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#my-ini-%E6%96%87%E4%BB%B6"><span class="toc-number">1.3.7.</span> <span class="toc-text">my.ini 文件</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%99%BB%E5%BD%95%E5%91%BD%E4%BB%A4"><span class="toc-number">1.4.</span> <span class="toc-text">登录命令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%86%E7%B1%BB"><span class="toc-number">1.5.</span> <span class="toc-text">分类</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F-%EF%BC%88dd%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">数据库管理系统 （dd）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SQL"><span class="toc-number">3.</span> <span class="toc-text">SQL</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%86%E7%B1%BB-1"><span class="toc-number">3.1.</span> <span class="toc-text">分类</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#DQL%EF%BC%9A%E6%95%B0%E6%8D%AE%E6%9F%A5%E8%AF%A2%E8%AF%AD%E8%A8%80"><span class="toc-number">3.1.1.</span> <span class="toc-text">DQL：数据查询语言</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#DML%EF%BC%9A%E6%95%B0%E6%8D%AE%E6%93%8D%E7%BA%B5%E8%AF%AD%E8%A8%80"><span class="toc-number">3.1.2.</span> <span class="toc-text">DML：数据操纵语言</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#DDL%EF%BC%9A%E6%95%B0%E6%8D%AE%E5%AE%9A%E4%B9%89%E8%AF%AD%E8%A8%80"><span class="toc-number">3.1.3.</span> <span class="toc-text">DDL：数据定义语言</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#DCL%EF%BC%9A%E6%95%B0%E6%8D%AE%E6%8E%A7%E5%88%B6%E8%AF%AD%E8%A8%80"><span class="toc-number">3.1.4.</span> <span class="toc-text">DCL：数据控制语言</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#SQL%E8%AF%AD%E5%8F%A5"><span class="toc-number">3.2.</span> <span class="toc-text">SQL语句</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%BA%93-%E8%A1%A8%E6%93%8D%E4%BD%9C"><span class="toc-number">3.2.1.</span> <span class="toc-text">库&#x2F;表操作</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5"><span class="toc-number">3.2.2.</span> <span class="toc-text">增删改查</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2"><span class="toc-number">3.2.3.</span> <span class="toc-text">查询</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Information-schema"><span class="toc-number">4.</span> <span class="toc-text">Information_schema</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">4.0.1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E8%AF%B4%E6%98%8E"><span class="toc-number">4.0.2.</span> <span class="toc-text">数据库表说明</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5"><span class="toc-number">4.0.3.</span> <span class="toc-text">查询语句</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%EF%BC%88dd%EF%BC%89"><span class="toc-number">5.</span> <span class="toc-text">数据库体系结构（dd）</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        mysql
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">psych</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-05-14T04:24:31.000Z" class="dt-published" itemprop="datePublished">2023-05-14</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/web/">web</a> › <a class="category-link" href="/categories/web/web%E5%9F%BA%E7%A1%80/">web基础</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/web%E5%9F%BA%E7%A1%80/" rel="tag">web基础</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h4 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h4><h5 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h5><p>数据库是“按照数据结构来组织、存储和管理数据的仓库”。是一个长期存储在计算机内的、有组织的、可共享的、统一管理的大量数据的集合。</p>
+<h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p>数据库是存放数据的仓库。它的存储空间很大，可以存放百万条、千万条、上亿条数据。但是数据库并不是随意地将数据进行存放，是有一定的规则的，否则查询的效率会很低。当今世界是一个充满着数据的互联网世界，充斥着大量的数据。即这个互联网世界就是数据世界。数据的来源有很多，比如出行记录、消费记录、浏览的网页、发送的消息等等。除了文本类型的数据，图像、音乐、声音都是数据。</p>
+<p>数据库是一个按数据结构来存储和管理数据的计算机软件系统。数据库的概念实际包括两层意思：</p>
+<p>（1）数据库是一个实体，它是能够合理保管数据的“仓库”，用户在该“仓库”中存放要管理的事务数据，“数据”和“库”两个概念结合成为数据库。</p>
+<p>（2）数据库是数据管理的新方法和技术，它能更合适的组织数据、更方便的维护数据、更严密的控制数据和更有效的利用数据。</p>
+<p>数据库作为最重要的基础软件，是确保计算机系统稳定运行的基石。</p>
+<h5 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h5><h6 id="bin"><a href="#bin" class="headerlink" title="bin"></a>bin</h6><p>用于放置一些可执行文件，如 mysql.exe、mysqld.exe、mysqlshow.exe 等。</p>
+<h6 id="docs"><a href="#docs" class="headerlink" title="docs"></a>docs</h6><p>存放一些文档</p>
+<h6 id="Data"><a href="#Data" class="headerlink" title="Data"></a>Data</h6><p>登录数据库后，可使用 <code>SHOW GLOBAL VARIABLES LIKE &quot;%Datadir%&quot;;</code> 命令查看 Data 目录位置。</p>
+<p>Data 目录中用于放置一些<strong>日志文件</strong>以及<strong>数据库</strong>。我们创建和保存的数据都存在这个目录里。打开 Data 目录，结构如下图所示：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/5-20041615113A57.png"></p>
+<h6 id="include"><a href="#include" class="headerlink" title="include"></a>include</h6><p>用于放置一些头文件，如：mysql.h、mysql_ername.h 等。</p>
+<h6 id="lib"><a href="#lib" class="headerlink" title="lib"></a>lib</h6><p>用于放置一系列库文件</p>
+<h6 id="share"><a href="#share" class="headerlink" title="share"></a>share</h6><p>用于存放字符集、语言等信息</p>
+<h6 id="my-ini-文件"><a href="#my-ini-文件" class="headerlink" title="my.ini 文件"></a>my.ini 文件</h6><p>my.ini 是 MySQL 默认使用的配置文件，一般情况下，只要修改 my.ini 配置文件中的内容就可以对 MySQL 进行配置。</p>
+<p>（在linux&#x2F;unix系统中名称是my.cnf）</p>
+<p>除了上述介绍的目录，MySQL 安装目录下可能还有几个后缀名为<code>.ini</code>的配置文件，不同的配置文件代表不同的含义。</p>
+<p>my.ini 是 MySQL 默认使用的配置文件，其它的配置文件都是适合不同数据库的配置文件的模板，在文件名中就说明了适合的数据库类型，下面对这几个配置文件进行详细讲解。</p>
+<ul>
+<li>my-huge.ini：适合超大型数据库的配置文件。</li>
+<li>my-large.ini：适合大型数据库的配置文件。</li>
+<li>my-medium.ini：适合中型数据库的配置文件。</li>
+<li>my-small.ini：适合小型数据库的配置文件。</li>
+<li>my-template.ini：是配置文件的模板，MySQL 配置向导将该配置文件中选择项写入到 my.ini 文件。</li>
+<li>my-innodb-heavy-4G.ini：表示该配置文件只对于 InnoDB 存储引擎有效，而且服务器的内存不能小于 4GB。</li>
+</ul>
+<h5 id="登录命令"><a href="#登录命令" class="headerlink" title="登录命令"></a>登录命令</h5><p> mysql -h ip -u username -p password -p port  &#x2F;&#x2F;h指主机默认localhost可以省略，port默认3306可以省略</p>
+<h5 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h5><p><strong>关系型数据库</strong></p>
+<p>关系型数据库，存储的格式可以直观地反映实体间的关系。关系型数据库和常见的表格比较相似，关系型数据库中表与表之间是有很多复杂的关联关系的</p>
+<p>常见的有：mysql，Oracle，mssql，pgsql，sqlite</p>
+<p>虽然关系型数据库有很多，但是大多数都遵循SQL（结构化查询语言，Structured Query Language）标准。</p>
+<p><strong>非关系型数据库</strong></p>
+<p>随着近些年技术方向的不断拓展，大量的NoSql数据库如MongoDB、Redis、Memcache出于简化数据库结构、避免冗余、影响性能的表连接、摒弃复杂分布式的目的被设计。</p>
+<p>常见的有：MongoDB、Redis、Memcache</p>
+<h4 id="数据库管理系统-（dd）"><a href="#数据库管理系统-（dd）" class="headerlink" title="数据库管理系统 （dd）"></a>数据库管理系统 （dd）</h4><p>Database ManagementSystem (DBMS)</p>
+<p>mysql是一种关系型数据库管理系统</p>
+<p><strong>关系数据库管理系统</strong>（Relational Database Management System：RDBMS）是指包括相互联系的逻辑组织和存取这些数据的一套程序 (数据库管理系统软件)。关系数据库管理系统就是管理关系数据库，并将数据逻辑组织的系统。</p>
+<p>每个数据库都有一个或多个不同的 API 用于创建，访问，管理，搜索和复制所保存的数据。</p>
+<p>我们也可以将数据存储在文件中，但是在文件中读写数据速度相对较慢。</p>
+<p>所以，现在我们使用关系型数据库管理系统（RDBMS）来存储和管理大数据量。所谓的关系型数据库，是建立在关系模型基础上的数据库，借助于集合代数等数学概念和方法来处理数据库中的数据。</p>
+<p>RDBMS 是 SQL 的基础，同样也是所有现代数据库系统的基础</p>
+<p>RDBMS 即关系数据库管理系统(Relational Database Management System)的特点：</p>
+<ul>
+<li>1.数据以表格的形式出现</li>
+<li>2.每行为各种记录名称</li>
+<li>3.每列为记录名称所对应的数据域</li>
+<li>4.许多的行和列组成一张表单</li>
+<li>5.若干的表单组成database</li>
+</ul>
+<h4 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h4><p><strong>SQL</strong> (Structured Query Language:<strong>结构化查询语言</strong>) 用于管理<strong>关系数据库管理系统（RDBMS）</strong>。</p>
+<h5 id="分类-1"><a href="#分类-1" class="headerlink" title="分类"></a>分类</h5><p>SQL语言共分为四大类：</p>
+<h6 id="DQL：数据查询语言"><a href="#DQL：数据查询语言" class="headerlink" title="DQL：数据查询语言"></a>DQL：数据查询语言</h6><p>（<strong>Data QueryLanguage</strong>）</p>
+<p>数据查询语言DQL基本结构是由SELECT子句，FROM子句，WHERE 子句组成的查询块： <strong>select</strong>&lt;字段名表&gt; <strong>from</strong> &lt;表或视图名&gt; <strong>where</strong> &lt;查询条件&gt;</p>
+<h6 id="DML：数据操纵语言"><a href="#DML：数据操纵语言" class="headerlink" title="DML：数据操纵语言"></a>DML：数据操纵语言</h6><p>（<strong>Data Manipulation Language</strong>）</p>
+<p>数据操纵语言DML主要有三种形式： 1) 插入：<strong>insert</strong> 2) 更新：<strong>update</strong> 3) 删除：<strong>delete</strong></p>
+<h6 id="DDL：数据定义语言"><a href="#DDL：数据定义语言" class="headerlink" title="DDL：数据定义语言"></a>DDL：数据定义语言</h6><p>(<strong>Data Definition Language</strong>)</p>
+<p>是用于描述数据库中要[存储]的现实世界实体的语言。</p>
+<p>数据定义语言DDL用来创建数据库中的各种对象—–表、视图、 索引、同义词、聚簇等如： <strong>create&#x2F;alter</strong> table&#x2F;view&#x2F;index&#x2F;syn&#x2F;cluster</p>
+<img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221013183258468-1024x663.png" style="zoom:50%;" />
+
+<h6 id="DCL：数据控制语言"><a href="#DCL：数据控制语言" class="headerlink" title="DCL：数据控制语言"></a>DCL：数据控制语言</h6><p>(<strong>Data Control Language</strong>)</p>
+<p>是一种可对数据访问权进行控制的指令，它可以控制特定用户账户对数据表、查看表、存储程序、用户自定义函数等数据库对象的控制权。如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"> grant: 授权。</span><br><span class="line"> grant 权限1,权限2,...,权限n on 指定数据库名.* to 用户名@IP;  -&gt;设置权限特定数据库特定权限</span><br><span class="line"> grant all on 指定数据库名.* to 用户名@IP;                   -&gt;设置权限特定数据库全部权限</span><br><span class="line"> grant 权限1,权限2,...,权限n on *.* to 用户名@IP;            -&gt;设置权限全部数据库特定权限</span><br><span class="line"> show grants for 用户名@IP;                                 -&gt; 查询权限</span><br><span class="line"> ​</span><br><span class="line"> revoke:撤销授权        -&gt;语法同上</span><br><span class="line"> ​</span><br><span class="line"> TCL（Transaction Control Language）事务控制语言</span><br><span class="line"> ​</span><br><span class="line"> rollback：事务处理回退</span><br><span class="line"> savepoint：设置保存点</span><br><span class="line"> lock：对数据库的特定部分进行锁定</span><br></pre></td></tr></table></figure>
+
+<h5 id="SQL语句"><a href="#SQL语句" class="headerlink" title="SQL语句"></a>SQL语句</h5><p>SQL 的范围包括数据插入、查询、更新和删除，数据库模式创建和修改，以及数据访问控制。—》增删改查</p>
+<p>先看一些重要语句：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">     SELECT - 从数据库中提取数据</span><br><span class="line">     UPDATE - 更新数据库中的数据</span><br><span class="line">     DELETE - 从数据库中删除数据</span><br><span class="line">     INSERT INTO - 向数据库中插入新数据</span><br><span class="line">     CREATE DATABASE - 创建新数据库</span><br><span class="line">     ALTER DATABASE - 修改数据库</span><br><span class="line">     CREATE TABLE - 创建新表</span><br><span class="line">     ALTER TABLE - 变更（改变）数据库表</span><br><span class="line">     DROP TABLE - 删除表</span><br><span class="line">     CREATE INDEX - 创建索引（搜索键）</span><br><span class="line">     DROP INDEX - 删除索引</span><br></pre></td></tr></table></figure>
+
+<h6 id="库-表操作"><a href="#库-表操作" class="headerlink" title="库&#x2F;表操作"></a>库&#x2F;表操作</h6><p>RDBMS-&gt;database -&gt;table -&gt;column -&gt;information</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> create database a01;   -&gt;创建名为a01的数据库（实际上是在data目录下创建了一个文件夹）</span><br><span class="line"> show databases;   -&gt;显示当前所有数据库</span><br><span class="line"> drop database a01;   -&gt;删除a01数据库</span><br></pre></td></tr></table></figure>
+
+<p>先创建一个数据库表</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> create table employee</span><br><span class="line"> (</span><br><span class="line"> id int,</span><br><span class="line"> name varchar(40),</span><br><span class="line"> sex varchar(4),</span><br><span class="line"> birthday date,</span><br><span class="line"> entry_date date,</span><br><span class="line"> salary decimal(8,2),</span><br><span class="line"> resume text</span><br><span class="line"> );</span><br></pre></td></tr></table></figure>
+
+<p><strong>约束</strong>：主要有六种</p>
+<p>1.<strong>外键约束</strong>（Foreign key）</p>
+<p>通常用于两张表的关联</p>
+<p>2.<strong>唯一约束</strong>（Unique key）</p>
+<p>主要用于：手机号，身份证号这种有唯一性的</p>
+<p>3.<strong>检查约束</strong>（check）</p>
+<p>4.<strong>主键约束</strong>（Primary key）</p>
+<p>一条数据的唯一标识，通常和（auto_increment）自增结合使用。例如：id</p>
+<p>5.<strong>非空约束</strong>（Not Null）</p>
+<p>一条数据不能为空</p>
+<p>6.<strong>默认值约束</strong>（default constant）</p>
+<p>例如：性别默认为女</p>
+<h6 id="增删改查"><a href="#增删改查" class="headerlink" title="增删改查"></a>增删改查</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> 增：insert</span><br><span class="line"> 删：delete</span><br><span class="line"> 改：update</span><br><span class="line"> 查：SELECT或者show</span><br></pre></td></tr></table></figure>
+
+<p><strong>增</strong> insert into 表名（列名1，列名2） values（值1，值2）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> 指定某些列插入数据：insert into employee(id) values(6);</span><br><span class="line"> 插入汉字：insert into employee(id,name) values(6,&#x27;张三&#x27;);</span><br></pre></td></tr></table></figure>
+
+<p><strong>删</strong> delete from 表 where ···</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> 删除表中job=ccc的所有记录：delete from employee where job=&#x27;ccc&#x27;;</span><br><span class="line"> 删除表中所有记录：delete from employee;</span><br></pre></td></tr></table></figure>
+
+<p><strong>改</strong> update 表 set ···where ···；</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">将所有员工薪水修改为5000元：update employee set salary=5000;</span><br><span class="line"> </span><br><span class="line">将姓名为’zs’的员工薪水修改为3000元：update employee set salary = 3000 where name=&#x27;zhangsan&#x27;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>查</strong> select ··· from ···where ···</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">查询表中所有学生的信息：select id,name,chinese,english,math from student;</span><br><span class="line">查询表中所有学生的姓名和对应的英语成绩：select name,english from student;</span><br><span class="line">查询姓名为wu的学生成绩：select * from student where name=&#x27;张三&#x27;;</span><br><span class="line">查询英语成绩大于90分的同学：select * from student where english&gt;&#x27;90&#x27;;</span><br></pre></td></tr></table></figure>
+
+<p>查询是最重要的一项，掌握了查询，才能在找到sql注入点之后利用合适的语句拿到后端数据库数据</p>
+<h6 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h6><p><strong>【简单查询】</strong></p>
+<p>select * from 表名 where 条件 ；<br>e.g:select *from student_information where ID&#x3D;3；</p>
+<p><strong>【投影查询】</strong></p>
+<p>指定字段查询（更适用于生产环境）</p>
+<p>select 字段名1，字段名2 from 表名 where 条件 ；<br>e.g:select stu_age stu_address from student_information where ID&#x3D;3；</p>
+<p><strong>【限制查询】</strong></p>
+<p>关键字：limit -》主要用于筛选数据</p>
+<p>注：limit只能放到sql语句最后！!</p>
+<p>limit n ;(n为查询的数据的条数（从前往后）)</p>
+<p>limit start，lenth； start为开始的下标（从1开始的），lenth为限制的长度；</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select 字段名1，字段名2 from 表名 where 条件 limit start，lenth；</span><br><span class="line">e.g:select * from student limit 1,3;   - &gt;查询前三条数据</span><br></pre></td></tr></table></figure>
+
+<p><strong>【条件查询】</strong></p>
+<p>关键字：where</p>
+<p>where 查询条件</p>
+<p>逻辑运算符 and &#x2F;or (not)</p>
+<p>范围关键字 &gt;;&gt;&#x3D;;&lt;;&lt;&#x3D;; &lt;&gt;(!&#x3D;) ;between··· and···；in ···</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from 表名 where 条件 ；</span><br></pre></td></tr></table></figure>
+
+<p><strong>【模糊查询】</strong> （可以造成模糊查询注入）</p>
+<p>主要用于搜索</p>
+<p>关键字：like</p>
+<p><strong>占位符</strong>：</p>
+<p>1.**%**：表示零个或多个字符。在某些情况下需要中文查询，一般用两个%来查询，即%%；</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select * from user where name like %数据%;  -&gt;全模糊查询</span><br><span class="line">select * from user where name like 数据%;  -&gt;半模糊查询</span><br><span class="line">select * from user where name like %数据;  -&gt;半模糊查询</span><br></pre></td></tr></table></figure>
+
+<p>2._(下划线)：表示一个字符，类似于占位符的作用。常用来限定符合查询条件结果的长度；</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from user where name like _数据_;</span><br></pre></td></tr></table></figure>
+
+<p>3.还有类似正则表达式的占位符</p>
+<p>[ ]：表示括号内所列字符中的一个(类似正则表达式)。指定一个字符、字符串或范围，要求所匹配对象为它们中的任一个。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM [user] WHERE u_name LIKE &#x27;[张李王]三&#x27; 将找出“张三”、“李三”、“王三”(而不是“张李王三”)；</span><br><span class="line"></span><br><span class="line">SELECT * FROM [user] WHERE u_name LIKE &#x27;老[1-9]&#x27; 将找出“老1”、“老2”、……、“老9”；</span><br></pre></td></tr></table></figure>
+
+<p>[^ ]：表示不在括号所列之内的单个字符。其取值和 [] 相反，但它要求所匹配对象为指定字符以外的任一个字符。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM [user] WHERE u_name LIKE [ ^ 张李王]三&#x27; 将找出不姓“张”、“李”、“王”的“赵三”、“孙三”</span><br></pre></td></tr></table></figure>
+
+<p><strong>【排序查询】</strong> （可以造成报错注入）</p>
+<p>关键字：order by&lt;字段名&gt;[ASC&#x2F;DESC] ACI-&gt;升序 ；DESC -&gt;降序 （多字段查询也可以）</p>
+<p>order by &lt;数字(指列名)&gt; (DESC) -&gt;如果超过了列数，就会报错</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select *from student_information order by stu_age ASC；  -&gt;按照年龄升序</span><br><span class="line">select *from student_information order by 3 ASC；  -&gt;按照第三列数据升序</span><br></pre></td></tr></table></figure>
+
+<p><strong>【分组查询】</strong></p>
+<p>关键字：group by 字段名</p>
+<p>使用 group by 按某个字段，或者多个字段中的值，进行分组，字段中值相同的为一组</p>
+<img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221012214319851-1024x505.png" style="zoom: 67%;" />
+
+<img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221012214407360-1024x506.png" style="zoom: 67%;" />
+
+<p>分组相关的<strong>聚合函数</strong>:</p>
+<p>cont(*) -&gt;统计数量</p>
+<p>sum（对象） -&gt;求对象的和</p>
+<p>arg（对象） -&gt;求对象的平均数</p>
+<p>min&#x2F;max(对象) -&gt;求对象中的最大&#x2F;小值</p>
+<p><strong>Having</strong>：主要作用与<strong>where</strong>一样，都是对数据进行过滤</p>
+<p>不同点：</p>
+<p>having的过滤是在查询之后，对内存中的数据过滤，<strong>可以跟聚合函数，用在group_by 之后</strong></p>
+<p>where的过滤是在查询之前，对硬盘上的数据过滤，<strong>不能跟聚合函数，用在group_by 之前</strong></p>
+<p>有一个特殊的函数，<strong>group_contact</strong>，把一个分组的结果集的内容连接（需要和group by 结合使用）</p>
+<p>正常查询：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/20190520213752998.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select ID ,group_contact(score) from testgroup group by ID  -&gt;查询ID和分数，分数里面将所有数据汇总显示到一栏中</span><br></pre></td></tr></table></figure>
+
+<p>显示结果</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/20190520214432848.png"></p>
+<p><strong>【多表查询】</strong></p>
+<p>表与表的<strong>关系</strong>：</p>
+<p>一对一：两张表有一个字段是关联的，比如stu_id在各个表中都有且一样</p>
+<p>多对多：多个用户买多个商品</p>
+<p>一对多：班级表与学生表，班级表中一个班对应学生表中多个学生</p>
+<p><strong>join</strong></p>
+<p>SQL join 用于把来自两个或多个表的行结合起来。</p>
+<p>下图展示了 LEFT JOIN、RIGHT JOIN、INNER JOIN、OUTER JOIN 相关的 7 种用法。</p>
+<img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/sql-join.png" style="zoom:67%;" />
+
+<p>SQL JOIN 类型：</p>
+<ul>
+<li><strong>INNER JOIN&#x2F;JOIN</strong>：如果表中有至少一个匹配，则返回行</li>
+<li><strong>LEFT JOIN</strong>：即使右表中没有匹配，也从左表返回所有的行</li>
+<li><strong>RIGHT JOIN</strong>：即使左表中没有匹配，也从右表返回所有的行</li>
+<li><strong>FULL JOIN</strong>：只要其中一个表中存在匹配，则返回行</li>
+</ul>
+<p>语法如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">select··· from table1</span><br><span class="line">inner/left/right/full join table2</span><br><span class="line">on table1.column1=table2.column2</span><br><span class="line">order by ···</span><br></pre></td></tr></table></figure>
+
+<p><strong>【关联查询】</strong></p>
+<p>关键字：<strong>union</strong></p>
+<p>UNION操作符用于合并两个或多个select语句的结果集。</p>
+<p>请注意，UNION 内部的每个 SELECT 语句必须拥有<strong>相同数量的列</strong>。<strong>列也必须拥有相似的数据类型</strong>。同时，每个 SELECT 语句中的列的顺序必须相同。（关键是要有相同列，这在sql注入中很重要）</p>
+<p><strong>SQL UNION 语法</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select column_name(s) from table1</span><br><span class="line">union //有重复的只显示一次</span><br><span class="line">select column_name(s) from table2;</span><br></pre></td></tr></table></figure>
+
+<p><strong>SQL UNION ALL 语法</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select column_name(s) from table1</span><br><span class="line">union all  //重复也会显示</span><br><span class="line">select column_name(s) from table2;   //UNION 结果集中的列名总是等于 UNION 中第一个 SELECT 语句中的列名。</span><br></pre></td></tr></table></figure>
+
+<p>其实就是把union前后的两个表，过滤查到的数据都显示出来</p>
+<p><strong>【子查询】</strong></p>
+<p>有时候，查询时需要的<strong>条件</strong>是另外一个select语句的<strong>结果</strong>，就会使用到子查询。</p>
+<p>本质就是<strong>结果</strong>作为<strong>过滤条件</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">e.g:</span><br><span class="line">                    使用子查询进行基于集合的查询             关键字   in   /   not in</span><br><span class="line">//查询与小杨同学在同一个系的同学</span><br><span class="line">//第一步先查询小杨同学所在的系</span><br><span class="line">//然后把系作为已知条件查找同学信息</span><br><span class="line">SELECT * FROM Student</span><br><span class="line">WHERE Sdept IN(SELECT Sdept FROM Student Where Sname =&#x27;小杨&#x27;);</span><br><span class="line">-------------------------------------------------------------------------------------------------</span><br><span class="line">                      使用子查询进行比较查询                  关键字    and</span><br><span class="line">//查询选修了C04课程且课程成绩高于此课程平均成绩的的学生学号和该门课成绩</span><br><span class="line">//先查出C04课程的平均成绩</span><br><span class="line">//然后把平均成绩作为已知条件查找同学学号和成绩</span><br><span class="line">SELECT Sno, Grade FROM SC</span><br><span class="line">WHERE Cno=&#x27;C04&#x27; AND Grade &gt; (SELECT AVG(Grade) FROM SC Where Cno =&#x27;C04&#x27;);</span><br><span class="line">---------------------------------------------------------------------------------------------------</span><br><span class="line">                     带有ANY和ALL的子查询                   关键字   any /  all</span><br><span class="line">//查询比C03课程成绩都高的选了C04课程的学生的学号和成绩</span><br><span class="line">SELECT Sno, Grade FROM SC</span><br><span class="line">WHERE Cno=&#x27;C04&#x27; AND Grade &gt; ALL(SELECT  Grade  FROM SC Where Cno =&#x27;C03&#x27;);</span><br><span class="line">---------------------------------------------------------------------------------------------------</span><br><span class="line">                       使用带EXSITS谓词的子查询             关键字     exits</span><br><span class="line">//查询选修了C04课程的学生姓名</span><br><span class="line">SELECT Sname FROM SC</span><br><span class="line">WHERE EXISTS(SELECT * FROM SC Where SC.Sno = Student.Sno  AND  Cno =&#x27;C04&#x27;);</span><br><span class="line">注意，带exists谓词的子查询是先执行外层，再执行内层查询，根据内存查询返回的true和false来判断外层数据是否满足条件。</span><br><span class="line">该语法可以理解为：将主查询的数据，放到子查询中做条件验证，根据验证结果（TRUE 或 FALSE）来决定主查询的数据结果是否得以保留。</span><br></pre></td></tr></table></figure>
+
+<h4 id="Information-schema"><a href="#Information-schema" class="headerlink" title="Information_schema"></a>Information_schema</h4><h6 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h6><p>Information_schema数据库是<strong>MySQL自带</strong>的，它提供了访问数据库<strong>元数据</strong>的方式。什么是元数据呢？元数据是关于数据的数据，如数据库名或表名，列的数据类型，或访问权限等。有些时候用于表述该信息的其他术语包括“数据词典”和“系统目录”。 在MySQL中，把 information_schema 看作是一个数据库，确切说是<strong>信息数据库</strong>。其中保存着关于MySQL服务器所维护的所有其他数据库的信息。如数据库名，数据库的表，表栏的数据类型与访问权限等。在INFORMATION_SCHEMA中，有数个只读表。它们实际上是视图，而不是基本表，因此，你将无法看到与之相关的任何文件。</p>
+<h6 id="数据库表说明"><a href="#数据库表说明" class="headerlink" title="数据库表说明"></a><strong>数据库表说明</strong></h6><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221013141157644-1024x1005.png" style="zoom:67%;" />
+
+<ul>
+<li><strong>SCHEMATA</strong>表：（重要）提供了当前mysql实例中所有数据库的信息。是show databases的结果取之此表。</li>
+<li><strong>TABLES</strong>表： （重要）提供了关于数据库中的表的信息（包括视图）。详细表述了某个表属于哪个schema，表类型，表引擎，创建时间等信息。是show tables from schemaname的结果取之此表。关注字段：table_schema -&gt;数据库名，table_name -&gt;表名</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221013141403227-1024x560.png" style="zoom:67%;" />
+
+<ul>
+<li><strong>COLUMNS</strong>表： （重要）提供了表中的列信息。详细表述了某张表的所有列以及每个列的信息。是show columns from schemaname.tablename的结果取之此表。关注字段：table_schama -&gt;数据库名column_name -&gt;列名table_name -&gt;表名</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221013141604533-1024x682.png" style="zoom:67%;" />
+
+<ul>
+<li>STATISTICS表：提供了关于表索引的信息。是show index from schemaname.tablename的结果取之此表。</li>
+<li>USER_PRIVILEGES（用户权限）表：给出了关于全程权限的信息。该信息源自mysql.user授权表。是非标准表。</li>
+<li>SCHEMA_PRIVILEGES（方案权限）表：给出了关于方案（数据库）权限的信息。该信息来自mysql.db授权表。是非标准表。</li>
+<li>TABLE_PRIVILEGES（表权限）表：给出了关于表权限的信息。该信息源自mysql.tables_priv授权表。是非标准表。</li>
+<li>COLUMN_PRIVILEGES（列权限）表：给出了关于列权限的信息。该信息源自mysql.columns_priv授权表。是非标准表。</li>
+<li>CHARACTER_SETS（字符集）表：提供了mysql实例可用字符集的信息。是SHOW CHARACTER SET结果集取之此表。</li>
+<li>COLLATIONS表：提供了关于各字符集的对照信息。</li>
+<li>COLLATION_CHARACTER_SET_APPLICABILITY表：指明了可用于校对的字符集。这些列等效于SHOW COLLATION的前两个显示字段。</li>
+<li>TABLE_CONSTRAINTS表：描述了存在约束的表。以及表的约束类型。</li>
+<li>KEY_COLUMN_USAGE表：描述了具有约束的键列。</li>
+<li>ROUTINES表：提供了关于存储子程序（存储程序和函数）的信息。此时，ROUTINES表不包含自定义函数（UDF）。名为“mysql.proc name”的列指明了对应于INFORMATION_SCHEMA.ROUTINES表的mysql.proc表列。</li>
+<li>VIEWS表：给出了关于数据库中的视图的信息。需要有show views权限，否则无法查看视图信息。</li>
+<li>TRIGGERS表：提供了关于触发程序的信息。必须有super权限才能查看该表。</li>
+</ul>
+<h6 id="查询语句"><a href="#查询语句" class="headerlink" title="查询语句"></a>查询语句</h6><p>（sql注入底层语言）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">select table_name from information_schema.tables where table_schema =&#x27;database()&#x27;-&gt;已知数据库名字求表名</span><br><span class="line">select column_name from information_schema.columns where table_schema=&#x27;database()&#x27; </span><br><span class="line">and table_name=&#x27;表名&#x27;  -&gt;已知数据库名字和表名求列名</span><br><span class="line">select 列名 from database().表名 -&gt;已知数据库，表名，列名，拿数据</span><br><span class="line">//如果有特殊要求可以加一个group_contact(table_name/column_name)</span><br></pre></td></tr></table></figure>
+
+<h4 id="数据库体系结构（dd）"><a href="#数据库体系结构（dd）" class="headerlink" title="数据库体系结构（dd）"></a>数据库体系结构（dd）</h4>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Article</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">1.</span> <span class="toc-text">数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-number">1.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-number">1.2.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-number">1.3.</span> <span class="toc-text">目录结构</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#bin"><span class="toc-number">1.3.1.</span> <span class="toc-text">bin</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#docs"><span class="toc-number">1.3.2.</span> <span class="toc-text">docs</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#Data"><span class="toc-number">1.3.3.</span> <span class="toc-text">Data</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#include"><span class="toc-number">1.3.4.</span> <span class="toc-text">include</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#lib"><span class="toc-number">1.3.5.</span> <span class="toc-text">lib</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#share"><span class="toc-number">1.3.6.</span> <span class="toc-text">share</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#my-ini-%E6%96%87%E4%BB%B6"><span class="toc-number">1.3.7.</span> <span class="toc-text">my.ini 文件</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%99%BB%E5%BD%95%E5%91%BD%E4%BB%A4"><span class="toc-number">1.4.</span> <span class="toc-text">登录命令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%86%E7%B1%BB"><span class="toc-number">1.5.</span> <span class="toc-text">分类</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F-%EF%BC%88dd%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">数据库管理系统 （dd）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SQL"><span class="toc-number">3.</span> <span class="toc-text">SQL</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%86%E7%B1%BB-1"><span class="toc-number">3.1.</span> <span class="toc-text">分类</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#DQL%EF%BC%9A%E6%95%B0%E6%8D%AE%E6%9F%A5%E8%AF%A2%E8%AF%AD%E8%A8%80"><span class="toc-number">3.1.1.</span> <span class="toc-text">DQL：数据查询语言</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#DML%EF%BC%9A%E6%95%B0%E6%8D%AE%E6%93%8D%E7%BA%B5%E8%AF%AD%E8%A8%80"><span class="toc-number">3.1.2.</span> <span class="toc-text">DML：数据操纵语言</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#DDL%EF%BC%9A%E6%95%B0%E6%8D%AE%E5%AE%9A%E4%B9%89%E8%AF%AD%E8%A8%80"><span class="toc-number">3.1.3.</span> <span class="toc-text">DDL：数据定义语言</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#DCL%EF%BC%9A%E6%95%B0%E6%8D%AE%E6%8E%A7%E5%88%B6%E8%AF%AD%E8%A8%80"><span class="toc-number">3.1.4.</span> <span class="toc-text">DCL：数据控制语言</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#SQL%E8%AF%AD%E5%8F%A5"><span class="toc-number">3.2.</span> <span class="toc-text">SQL语句</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%BA%93-%E8%A1%A8%E6%93%8D%E4%BD%9C"><span class="toc-number">3.2.1.</span> <span class="toc-text">库&#x2F;表操作</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5"><span class="toc-number">3.2.2.</span> <span class="toc-text">增删改查</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2"><span class="toc-number">3.2.3.</span> <span class="toc-text">查询</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Information-schema"><span class="toc-number">4.</span> <span class="toc-text">Information_schema</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">4.0.1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E8%AF%B4%E6%98%8E"><span class="toc-number">4.0.2.</span> <span class="toc-text">数据库表说明</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5"><span class="toc-number">4.0.3.</span> <span class="toc-text">查询语句</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%EF%BC%88dd%EF%BC%89"><span class="toc-number">5.</span> <span class="toc-text">数据库体系结构（dd）</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2023/05/14/mysql/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2023/05/14/mysql/&text=mysql"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2023/05/14/mysql/&title=mysql"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2023/05/14/mysql/&is_video=false&description=mysql"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=mysql&body=Check out this article: http://p5ych2022.github.io/2023/05/14/mysql/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2023/05/14/mysql/&title=mysql"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2023/05/14/mysql/&title=mysql"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2023/05/14/mysql/&title=mysql"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2023/05/14/mysql/&title=mysql"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2023/05/14/mysql/&name=mysql&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2023/05/14/mysql/&t=mysql"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2022-2024
+    psych
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Article</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

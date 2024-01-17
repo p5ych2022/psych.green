@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="使用华为云 关于安全组安全组是一种虚拟防火墙，具备状态检测和包过滤功能，你可以直接将其理解为防火墙。安全组是一个逻辑上的分组，该分组由一个Region内具有相同安全保护需求，并且互相信任的实例组成。每个实例至少属于一个安全组，在创建时需指定，也可创建后修改。 在该实验中，为了使我们的ECS服务能顺利对外提供服务，我们建立安全组并在创建ECS时指定使用该安全组规则。 参考： https:&#x2F;&#x2F;blog">
+<meta property="og:type" content="article">
+<meta property="og:title" content="搭建博客">
+<meta property="og:url" content="http://p5ych2022.github.io/2023/07/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/index.html">
+<meta property="og:site_name" content="psych&#39;s blog">
+<meta property="og:description" content="使用华为云 关于安全组安全组是一种虚拟防火墙，具备状态检测和包过滤功能，你可以直接将其理解为防火墙。安全组是一个逻辑上的分组，该分组由一个Region内具有相同安全保护需求，并且互相信任的实例组成。每个实例至少属于一个安全组，在创建时需指定，也可创建后修改。 在该实验中，为了使我们的ECS服务能顺利对外提供服务，我们建立安全组并在创建ECS时指定使用该安全组规则。 参考： https:&#x2F;&#x2F;blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://psych.green/wp-content/uploads/2023/07/image-20230713081329988.png">
+<meta property="og:image" content="http://psych.green/wp-content/uploads/2023/07/06f23ef6c8db46e59049279a0ce9cd20-1024x545.png">
+<meta property="og:image" content="http://psych.green/wp-content/uploads/2023/07/image-20230301215933118.png">
+<meta property="article:published_time" content="2023-07-13T00:16:02.000Z">
+<meta property="article:modified_time" content="2023-12-23T18:43:04.538Z">
+<meta property="article:author" content="psych">
+<meta property="article:tag" content="web基础">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://psych.green/wp-content/uploads/2023/07/image-20230713081329988.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>搭建博客</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Article</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2023/07/24/%E5%B7%85%E5%B3%B0%E6%9E%81%E5%AE%A22023-web-hellosql-wp/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2023/07/11/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2023/07/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2023/07/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/&text=搭建博客"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2023/07/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/&title=搭建博客"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2023/07/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/&is_video=false&description=搭建博客"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=搭建博客&body=Check out this article: http://p5ych2022.github.io/2023/07/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2023/07/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/&title=搭建博客"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2023/07/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/&title=搭建博客"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2023/07/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/&title=搭建博客"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2023/07/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/&title=搭建博客"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2023/07/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/&name=搭建博客&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2023/07/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/&t=搭建博客"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E5%AE%89%E5%85%A8%E7%BB%84"><span class="toc-number">1.</span> <span class="toc-text">关于安全组</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AB%AF%E5%8F%A3"><span class="toc-number">1.1.</span> <span class="toc-text">端口</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%98%B2%E7%81%AB%E5%A2%99"><span class="toc-number">1.2.</span> <span class="toc-text">防火墙</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ssh%E7%99%BB%E5%BD%95%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number"></span> <span class="toc-text">ssh登录服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AELAMP"><span class="toc-number"></span> <span class="toc-text">配置LAMP</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEPHP"><span class="toc-number">1.</span> <span class="toc-text">配置PHP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85apache"><span class="toc-number">2.</span> <span class="toc-text">安装apache</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E4%BA%86%EF%BC%8C%E7%94%A8%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF"><span class="toc-number">3.</span> <span class="toc-text">算了，用宝塔面板</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85WordPress"><span class="toc-number"></span> <span class="toc-text">安装WordPress</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%98"><span class="toc-number"></span> <span class="toc-text">问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90"><span class="toc-number">1.</span> <span class="toc-text">域名解析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%AA%E9%9D%99%E6%80%81"><span class="toc-number">2.</span> <span class="toc-text">伪静态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">3.</span> <span class="toc-text">数据库</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A1%A5%E5%85%85%E7%9F%A5%E8%AF%86"><span class="toc-number"></span> <span class="toc-text">补充知识</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%AA%E9%9D%99%E6%80%81-1"><span class="toc-number">1.</span> <span class="toc-text">伪静态</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%BC%AA%E9%9D%99%E6%80%81"><span class="toc-number">1.1.</span> <span class="toc-text">什么是伪静态</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#apache%E4%BC%AA%E9%9D%99%E6%80%81%E8%AE%BE%E7%BD%AE"><span class="toc-number">1.2.</span> <span class="toc-text">apache伪静态设置</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90-1"><span class="toc-number">2.</span> <span class="toc-text">域名解析</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFDNS%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90%EF%BC%9F"><span class="toc-number">2.1.</span> <span class="toc-text">什么是DNS域名解析？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90%E5%88%86%E7%B1%BB"><span class="toc-number">2.2.</span> <span class="toc-text">域名解析分类</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        搭建博客
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">psych</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-07-13T00:16:02.000Z" class="dt-published" itemprop="datePublished">2023-07-13</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/web/">web</a> › <a class="category-link" href="/categories/web/web%E5%9F%BA%E7%A1%80/">web基础</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/web%E5%9F%BA%E7%A1%80/" rel="tag">web基础</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>使用华为云</p>
+<h4 id="关于安全组"><a href="#关于安全组" class="headerlink" title="关于安全组"></a>关于安全组</h4><p>安全组是一种<strong>虚拟防火墙</strong>，具备状态检测和包过滤功能，你可以直接将其理解为防火墙。安全组是一个逻辑上的分组，该分组由一个Region内具有相同安全保护需求，并且互相信任的实例组成。每个实例至少属于一个安全组，在创建时需指定，也可创建后修改。 在该实验中，为了使我们的ECS服务能顺利对外提供服务，我们建立安全组并在创建ECS时指定使用该安全组规则。</p>
+<p>参考： <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38998213/article/details/118526550">https://blog.csdn.net/qq_38998213&#x2F;article&#x2F;details&#x2F;118526550</a></p>
+<h5 id="端口"><a href="#端口" class="headerlink" title="端口"></a>端口</h5><p>端口分为两种，一种是TCP端口，一种是UDP端口。计算机之间相互通信的时候，分为两种方式：一种是发送信息以后，可以确认信息是否到达，也就是有应答的方式，这种方式大多采用TCP协议；一种是发送以后就不管了，不去确认信息是否到达，这种方式大多采用UDP协议。对应这两种协议的服务提供的端口，也就分为TCP端口和UDP端口。</p>
+<p>端口的分类：</p>
+<ul>
+<li>公认端口(Well-KnownPorts): 0-1023 它们紧密绑定（binding）于一些服务</li>
+<li>动态端口(Dynamic Ports): 1024-65535 不固定分配某种服务,当进程关闭时，就释放所占用端口</li>
+</ul>
+<h5 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h5><p>功能和作用：</p>
+<ul>
+<li>设置内网和外网</li>
+<li>控制端口的开放</li>
+<li>控制端口的单独进或者出数据</li>
+<li>ip过滤，控制哪些ip可以访问</li>
+<li>控制访问的频率和时间段</li>
+<li>控制访问者的上传或者下载流量</li>
+</ul>
+<h3 id="ssh登录服务器"><a href="#ssh登录服务器" class="headerlink" title="ssh登录服务器"></a>ssh登录服务器</h3><p>直接在cmd或者xshell中输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> ssh root@公网ip      //root指代的是username，一般默认设置为root</span><br></pre></td></tr></table></figure>
+
+<p>然后输入密码就可以登录</p>
+<h3 id="配置LAMP"><a href="#配置LAMP" class="headerlink" title="配置LAMP"></a>配置LAMP</h3><p>Debian系统没有安装sudo，所以还要先安装一下sudo</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> apt-get install sudo</span><br></pre></td></tr></table></figure>
+
+<p>安装完成之后配置</p>
+<h4 id="配置PHP"><a href="#配置PHP" class="headerlink" title="配置PHP"></a>配置PHP</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> sudo apt update</span><br><span class="line"> sudo apt install php libapache2-mod-php php-mysql</span><br></pre></td></tr></table></figure>
+
+<h4 id="安装apache"><a href="#安装apache" class="headerlink" title="安装apache"></a>安装apache</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> sudo apt update</span><br><span class="line"> sudo apt install apache2</span><br></pre></td></tr></table></figure>
+
+<p>安装完成之后用如下命令检查是否安装成功</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> sudo systemctl status apache2</span><br></pre></td></tr></table></figure>
+
+<p>如果Debian 10上默认ufw开启了防火墙，你需要将HTTP (<code>80</code>) 和 HTTPS (<code>443</code>)端口放开，以便外部能访问apache的web服务。</p>
+<p>可以通过以下命令配置防火墙允许Apache服务：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> apt-get install ufw     //先下载ufw</span><br><span class="line"> sudo ufw allow &#x27;Apache Full&#x27;     //再配置防火墙   我失败了，但应该可以弄</span><br></pre></td></tr></table></figure>
+
+<p>浏览器登录查看是否配置成功</p>
+<p><img src="http://psych.green/wp-content/uploads/2023/07/image-20230713081329988.png"></p>
+<p>再随便写一个PHP文件测试一下PHP配置起没有</p>
+<h4 id="算了，用宝塔面板"><a href="#算了，用宝塔面板" class="headerlink" title="算了，用宝塔面板"></a>算了，用宝塔面板</h4><p>Debian默认没有yum命令，输入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> wget -O install.sh http://download.bt.cn/install/install-ubuntu.sh &amp;&amp; bash install.sh</span><br></pre></td></tr></table></figure>
+
+<p>下载宝塔面板，记得如果端口限制了就在华为云控制台安全组设置一下</p>
+<p>进入面板一键安装lamp</p>
+<h3 id="安装WordPress"><a href="#安装WordPress" class="headerlink" title="安装WordPress"></a>安装WordPress</h3><p>在宝塔上一键安装，傻瓜式部署。。</p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>加了域名之后就打不开WordPress了，之前是WordPress的博客打不开现在是出了宝塔的端口开着其他端口都不能访问。初步怀疑问题有伪静态，域名解析，端口号，PHP配置</p>
+<h4 id="域名解析"><a href="#域名解析" class="headerlink" title="域名解析"></a>域名解析</h4><p>域名解析需要在购买域名的控制台上，添加解析，注意www和不加www 的都要添加备案</p>
+<p>至于dns解析，估计就是域名解析的稳定性或者效率之类的</p>
+<p>然后再云服务器的控制台也需要添加域名，宝塔建站的时候也需要将两个域名都添加上否则会没法跳转而导致404。。</p>
+<h4 id="伪静态"><a href="#伪静态" class="headerlink" title="伪静态"></a>伪静态</h4><p>宝塔上面很好设置伪静态，直接加一个.htaccess文件，里面填好设计好的代码</p>
+<p>如果不是宝塔，就是手动在根目录下创建.htaccess文件，然后把代码加进去</p>
+<p>注意apache和nginx两个服务器对应的代码和配置方法不同要注意区分；</p>
+<h4 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h4><p>数据库手动更改，需要在wp-config-sample.php文件中的账号密码和数据库名字改了，然后文件名改成wp-config.php。注意这个时候打开wordpress会提示数据库损坏或者出错，解决办法是在宝塔中重启mysql。如果是已经创建好的wordpress出现数据库损坏的情况首先把数据库备份再重启或者其他操作</p>
+<h1 id="补充知识"><a href="#补充知识" class="headerlink" title="补充知识"></a>补充知识</h1><h4 id="伪静态-1"><a href="#伪静态-1" class="headerlink" title="伪静态"></a>伪静态</h4><p>前置知识：</p>
+<blockquote>
+<p>thinkPHP -&gt; 一个轻量级PHP框架</p>
+<p>CMS -&gt; 内容管理系统（帮助使用者以“系统化”的方式“管理”网站的内容）</p>
+<p>apache，Nginx -&gt; web服务器软件</p>
+</blockquote>
+<h5 id="什么是伪静态"><a href="#什么是伪静态" class="headerlink" title="什么是伪静态"></a>什么是伪静态</h5><p>伪静态是介于动态和静态之间的一种处理方式。因为动态是现实的需求，而动态又对搜索的抓取不利（因为会产生大量不同URL对应一个页面），所以在技术上采用了一种方法就是把动态URL按照<strong>正则关系进行映射</strong>，映射成类似静态的地址，因此被称之伪静态。（伪静态实质还是动态的）</p>
+<h5 id="apache伪静态设置"><a href="#apache伪静态设置" class="headerlink" title="apache伪静态设置"></a>apache伪静态设置</h5><ul>
+<li>mod_rewrite</li>
+</ul>
+<p>1、mod_rewrite 简介和配置 Rewirte主要的功能就是实现URL的跳转和隐藏真实地址，基于Perl语言的正则表达式规范。平时帮助我们实现拟静态，拟目录，域名跳转，防止盗链等</p>
+<p>2、mod_rewrite 规则的使用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> RewriteEngine on </span><br><span class="line"> RewriteCond %&#123;HTTP_HOST&#125; !^www.php100.com [NC] </span><br><span class="line"> ​</span><br><span class="line"> RewriteRule ^/(.*) http://www.php100.com/ [L]</span><br><span class="line"> ​</span><br><span class="line"> RewriteEngine on </span><br><span class="line"> RewriteRule ^/test([0-9]*).html$ /test.php?id=$1 </span><br><span class="line"> RewriteRule ^/new([0-9]*)/$ /new.php?id=$1 [R]</span><br></pre></td></tr></table></figure>
+
+<p>3、mod_rewrite 规则修正符</p>
+<ol>
+<li>R 强制外部重定向 2) F 禁用URL,返回403HTTP状态码。 3) G 强制URL为GONE，返回410HTTP状态码。 4) P 强制使用代理转发。 5) L 表明当前规则是最后一条规则，停止分析以后规则的重写。 6) N 重新从第一条规则开始运行重写过程。 7) C 与下一条规则关联8) T&#x3D;MIME-type(force MIME type) 强制MIME类型 9) NS 只用于不是内部子请求 10) NC 不区分大小写 11) QSA 追加请求字符串 12) NE 不在输出转义特殊字符 \%3d$1 等价于 &#x3D;$1</li>
+</ol>
+<ul>
+<li>.htaccess</li>
+</ul>
+<p>(2) .htaccess 版本伪静态规则(运行环境是Apache，或者是IIS ,ISAPI Rewrite 版本为3.0或者以上)</p>
+<p>apache只能用.htaccess来做伪静态，而为什么IIS 的环境也要用到.htaccess呢？这是因为ISAPI Rewrite 版本为3.0或者以上只支持.htaccess的格式。</p>
+<p>如果是老手，可以直接用ISAPI Rewrite 版本为3.0把httpd.ini转换成.htaccess格式的。</p>
+<p>在网站根目录新建立一个.htaccess的文件，把以下代码放进去即可。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">RewriteEngine On</span><br><span class="line"></span><br><span class="line">RewriteBase /</span><br><span class="line"></span><br><span class="line">RewriteRule ^book/([0-9]+)\.html$ modules/article/articleinfo.php?id=$1</span><br><span class="line"></span><br><span class="line">RewriteRule ^list/([0-9]+)_([0-9]+)/$ modules/article/index.php?page=$2&amp;class=$1</span><br><span class="line"></span><br><span class="line">RewriteRule ^top/([a-z]+)_([0-9]+)/$ modules/article/toplist.php?page=$2&amp;sort=$1</span><br></pre></td></tr></table></figure>
+
+<h4 id="域名解析-1"><a href="#域名解析-1" class="headerlink" title="域名解析"></a>域名解析</h4><h5 id="什么是DNS域名解析？"><a href="#什么是DNS域名解析？" class="headerlink" title="什么是DNS域名解析？"></a>什么是DNS域名解析？</h5><blockquote>
+<p>IP地址是互联网上计算机唯一的逻辑地址，通过IP地址实现不同计算机之间的相互通信，每台联网计算机都需要通过IP地址来互相联系和分别。</p>
+<p>但由于IP地址是由一串容易混淆的数字串构成，人们很难记忆所有计算机的IP地址，这样对于我们日常工作生活访问不同网站是很困难的。基于这种背景，人们在IP地址的基础上又发展出了一种更易识别的符号化标识，这种标识由人们自行选择的字母和数字构成，相比IP地址更易被识别和记忆，逐渐代替IP地址成为互联网用户进行访问互联的主要入口。这种符号化标识就是域名。</p>
+</blockquote>
+<p><img src="http://psych.green/wp-content/uploads/2023/07/06f23ef6c8db46e59049279a0ce9cd20-1024x545.png"></p>
+<p>其中前两个过程是在电脑主机完成，后面八个利用<strong>域名解析服务器</strong></p>
+<p><img src="http://psych.green/wp-content/uploads/2023/07/image-20230301215933118.png"></p>
+<p>我们购买域名之后域名服务商一般都会<strong>送DNS解析服务</strong>，在解析域名之前我们要知道自己的服务器的地址。我们购买的主机&#x2F;服务器都会有IP地址或者CANME地址。</p>
+<p>本地解析服务器解析不出来就一步一步向上申请直到解析出来为止</p>
+<h5 id="域名解析分类"><a href="#域名解析分类" class="headerlink" title="域名解析分类"></a>域名解析分类</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">主要分为A记录、MX记录、CNAME记录、NS记录和TXT记录：</span><br></pre></td></tr></table></figure>
+
+<p>1、A记录</p>
+<p>A代表Address，用来指定域名对应的IP地址，如将item.taobao.com指定到115.238.23.xxx，将switch.taobao.com指定到121.14.24.xxx。A记录可以将多个域名解析到一个IP地址，但是不能将一个域名解析到多个IP地址</p>
+<p>2、MX记录</p>
+<p>Mail Exchange，就是可以将某个域名下的邮件服务器指向自己的Mail Server，如taobao.com域名的A记录IP地址是115.238.25.xxx，如果将MX记录设置为115.238.25.xxx，即<a href="mailto:xxx@taobao.com">xxx@taobao.com</a>的邮件路由，DNS会将邮件发送到115.238.25.xxx所在的服务器，而正常通过Web请求的话仍然解析到A记录的IP地址</p>
+<p>3、CNAME记录</p>
+<p>Canonical Name，即别名解析。所谓别名解析就是可以为一个域名设置一个或者多个别名，如将aaa.com解析到bbb.net、将ccc.com也解析到bbb.net，其中bbb.net分别是aaa.com和ccc.com的别名</p>
+<p>4、NS记录</p>
+<p>为某个域名指定DNS解析服务器，也就是这个域名由指定的IP地址的DNS服务器取解析</p>
+<p>5、TXT记录</p>
+<p>为某个主机名或域名设置说明，如可以为ddd.net设置TXT记录为”这是XXX的博客”这样的说明</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Article</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E5%AE%89%E5%85%A8%E7%BB%84"><span class="toc-number">1.</span> <span class="toc-text">关于安全组</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AB%AF%E5%8F%A3"><span class="toc-number">1.1.</span> <span class="toc-text">端口</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%98%B2%E7%81%AB%E5%A2%99"><span class="toc-number">1.2.</span> <span class="toc-text">防火墙</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ssh%E7%99%BB%E5%BD%95%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number"></span> <span class="toc-text">ssh登录服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AELAMP"><span class="toc-number"></span> <span class="toc-text">配置LAMP</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEPHP"><span class="toc-number">1.</span> <span class="toc-text">配置PHP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85apache"><span class="toc-number">2.</span> <span class="toc-text">安装apache</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E4%BA%86%EF%BC%8C%E7%94%A8%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF"><span class="toc-number">3.</span> <span class="toc-text">算了，用宝塔面板</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85WordPress"><span class="toc-number"></span> <span class="toc-text">安装WordPress</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%98"><span class="toc-number"></span> <span class="toc-text">问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90"><span class="toc-number">1.</span> <span class="toc-text">域名解析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%AA%E9%9D%99%E6%80%81"><span class="toc-number">2.</span> <span class="toc-text">伪静态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">3.</span> <span class="toc-text">数据库</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A1%A5%E5%85%85%E7%9F%A5%E8%AF%86"><span class="toc-number"></span> <span class="toc-text">补充知识</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%AA%E9%9D%99%E6%80%81-1"><span class="toc-number">1.</span> <span class="toc-text">伪静态</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%BC%AA%E9%9D%99%E6%80%81"><span class="toc-number">1.1.</span> <span class="toc-text">什么是伪静态</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#apache%E4%BC%AA%E9%9D%99%E6%80%81%E8%AE%BE%E7%BD%AE"><span class="toc-number">1.2.</span> <span class="toc-text">apache伪静态设置</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90-1"><span class="toc-number">2.</span> <span class="toc-text">域名解析</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFDNS%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90%EF%BC%9F"><span class="toc-number">2.1.</span> <span class="toc-text">什么是DNS域名解析？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90%E5%88%86%E7%B1%BB"><span class="toc-number">2.2.</span> <span class="toc-text">域名解析分类</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2023/07/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2023/07/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/&text=搭建博客"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2023/07/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/&title=搭建博客"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2023/07/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/&is_video=false&description=搭建博客"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=搭建博客&body=Check out this article: http://p5ych2022.github.io/2023/07/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2023/07/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/&title=搭建博客"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2023/07/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/&title=搭建博客"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2023/07/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/&title=搭建博客"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2023/07/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/&title=搭建博客"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2023/07/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/&name=搭建博客&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2023/07/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/&t=搭建博客"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2022-2024
+    psych
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Article</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

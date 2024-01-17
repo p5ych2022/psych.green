@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="ezus 题目内容index.php 点进去是源码123456789101112131415161718 &lt;?php include &amp;#x27;tm.php&amp;#x27;; &#x2F;&#x2F; Next step in tm.php  if (preg_match(&amp;#x27;&#x2F;tm\.php\&#x2F;*$&#x2F;i&amp;#x27;, $_SERVER[&amp;#x27;PHP_SELF&amp;#x27;])) &amp;#123;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="强网拟态-2022-web-部分wp(未完待续)">
+<meta property="og:url" content="http://p5ych2022.github.io/2023/07/01/%E5%BC%BA%E7%BD%91%E6%8B%9F%E6%80%81-2022-web-%E9%83%A8%E5%88%86wp%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD/index.html">
+<meta property="og:site_name" content="psych&#39;s blog">
+<meta property="og:description" content="ezus 题目内容index.php 点进去是源码123456789101112131415161718 &lt;?php include &amp;#x27;tm.php&amp;#x27;; &#x2F;&#x2F; Next step in tm.php  if (preg_match(&amp;#x27;&#x2F;tm\.php\&#x2F;*$&#x2F;i&amp;#x27;, $_SERVER[&amp;#x27;PHP_SELF&amp;#x27;])) &amp;#123;">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-07-01T09:50:09.000Z">
+<meta property="article:modified_time" content="2023-08-16T11:57:09.824Z">
+<meta property="article:author" content="psych">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="web">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>强网拟态-2022-web-部分wp(未完待续)</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Article</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2023/06/15/%E8%AF%8D%E4%B8%8D%E8%BE%BE%E6%84%8F/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2023/07/01/%E5%BC%BA%E7%BD%91%E6%8B%9F%E6%80%81-2022-web-%E9%83%A8%E5%88%86wp%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2023/07/01/%E5%BC%BA%E7%BD%91%E6%8B%9F%E6%80%81-2022-web-%E9%83%A8%E5%88%86wp%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD/&text=强网拟态-2022-web-部分wp(未完待续)"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2023/07/01/%E5%BC%BA%E7%BD%91%E6%8B%9F%E6%80%81-2022-web-%E9%83%A8%E5%88%86wp%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD/&title=强网拟态-2022-web-部分wp(未完待续)"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2023/07/01/%E5%BC%BA%E7%BD%91%E6%8B%9F%E6%80%81-2022-web-%E9%83%A8%E5%88%86wp%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD/&is_video=false&description=强网拟态-2022-web-部分wp(未完待续)"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=强网拟态-2022-web-部分wp(未完待续)&body=Check out this article: http://p5ych2022.github.io/2023/07/01/%E5%BC%BA%E7%BD%91%E6%8B%9F%E6%80%81-2022-web-%E9%83%A8%E5%88%86wp%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2023/07/01/%E5%BC%BA%E7%BD%91%E6%8B%9F%E6%80%81-2022-web-%E9%83%A8%E5%88%86wp%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD/&title=强网拟态-2022-web-部分wp(未完待续)"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2023/07/01/%E5%BC%BA%E7%BD%91%E6%8B%9F%E6%80%81-2022-web-%E9%83%A8%E5%88%86wp%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD/&title=强网拟态-2022-web-部分wp(未完待续)"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2023/07/01/%E5%BC%BA%E7%BD%91%E6%8B%9F%E6%80%81-2022-web-%E9%83%A8%E5%88%86wp%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD/&title=强网拟态-2022-web-部分wp(未完待续)"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2023/07/01/%E5%BC%BA%E7%BD%91%E6%8B%9F%E6%80%81-2022-web-%E9%83%A8%E5%88%86wp%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD/&title=强网拟态-2022-web-部分wp(未完待续)"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2023/07/01/%E5%BC%BA%E7%BD%91%E6%8B%9F%E6%80%81-2022-web-%E9%83%A8%E5%88%86wp%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD/&name=强网拟态-2022-web-部分wp(未完待续)&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2023/07/01/%E5%BC%BA%E7%BD%91%E6%8B%9F%E6%80%81-2022-web-%E9%83%A8%E5%88%86wp%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD/&t=强网拟态-2022-web-部分wp(未完待续)"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ezus"><span class="toc-number">1.</span> <span class="toc-text">ezus</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E5%86%85%E5%AE%B9"><span class="toc-number">1.1.</span> <span class="toc-text">题目内容</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#index-php-%E7%82%B9%E8%BF%9B%E5%8E%BB%E6%98%AF%E6%BA%90%E7%A0%81"><span class="toc-number">1.1.1.</span> <span class="toc-text">index.php 点进去是源码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tm-php-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-number">1.1.2.</span> <span class="toc-text">tm.php 反序列化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E6%9E%90"><span class="toc-number">1.2.</span> <span class="toc-text">分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#index-php"><span class="toc-number">1.2.1.</span> <span class="toc-text">index.php</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tm-php"><span class="toc-number">1.2.2.</span> <span class="toc-text">tm.php</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.3.</span> <span class="toc-text">总结</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        强网拟态-2022-web-部分wp(未完待续)
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">psych</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-07-01T09:50:09.000Z" class="dt-published" itemprop="datePublished">2023-07-01</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/web/">web</a> › <a class="category-link" href="/categories/web/CTF/">CTF</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/CTF/" rel="tag">CTF</a>, <a class="p-category" href="/tags/web/" rel="tag">web</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1 id="ezus"><a href="#ezus" class="headerlink" title="ezus"></a>ezus</h1><hr>
+<h2 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a>题目内容</h2><h3 id="index-php-点进去是源码"><a href="#index-php-点进去是源码" class="headerlink" title="index.php 点进去是源码"></a>index.php 点进去是源码</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line"> include &#x27;tm.php&#x27;; // Next step in tm.php </span><br><span class="line"> if (preg_match(&#x27;/tm\.php\/*$/i&#x27;, $_SERVER[&#x27;PHP_SELF&#x27;]))</span><br><span class="line"> &#123;</span><br><span class="line">     exit(&quot;no way!&quot;);</span><br><span class="line"> &#125;</span><br><span class="line"> if (isset($_GET[&#x27;source&#x27;]))</span><br><span class="line"> &#123;</span><br><span class="line">     $path = basename($_SERVER[&#x27;PHP_SELF&#x27;]);</span><br><span class="line">     if (!preg_match(&#x27;/tm.php$/&#x27;, $path) &amp;&amp; !preg_match(&#x27;/index.php$/&#x27;, $path))</span><br><span class="line">     &#123;</span><br><span class="line">         exit(&quot;nonono!&quot;);</span><br><span class="line">     &#125;</span><br><span class="line">     highlight_file($path);</span><br><span class="line">     exit();</span><br><span class="line"> &#125;</span><br><span class="line"> ?&gt;</span><br><span class="line"> &lt;a href=&quot;index.php?source&quot;&gt;Source&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="tm-php-反序列化"><a href="#tm-php-反序列化" class="headerlink" title="tm.php 反序列化"></a>tm.php 反序列化</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line"> class UserAccount</span><br><span class="line"> &#123;</span><br><span class="line">     protected $username;</span><br><span class="line">     protected $password;</span><br><span class="line"> ​</span><br><span class="line">     public function __construct($username, $password)</span><br><span class="line">     &#123;</span><br><span class="line">         $this-&gt;username = $username;</span><br><span class="line">         $this-&gt;password = $password;</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> ​</span><br><span class="line"> function object_sleep($str)</span><br><span class="line"> &#123;</span><br><span class="line">     $ob = str_replace(chr(0).&#x27;*&#x27;.chr(0), &#x27;@0@0@0@&#x27;, $str);</span><br><span class="line">     return $ob;</span><br><span class="line"> &#125;</span><br><span class="line"> ​</span><br><span class="line"> function object_weakup($ob)</span><br><span class="line"> &#123;</span><br><span class="line">     $r = str_replace(&#x27;@0@0@0@&#x27;, chr(0).&#x27;*&#x27;.chr(0), $ob);</span><br><span class="line">     return $r;</span><br><span class="line"> &#125;</span><br><span class="line"> ​</span><br><span class="line"> class order</span><br><span class="line"> &#123;</span><br><span class="line">     public $f;</span><br><span class="line">     public $hint;</span><br><span class="line"> ​</span><br><span class="line">     public function __construct($hint, $f)</span><br><span class="line">     &#123;</span><br><span class="line">         $this-&gt;f = $f;</span><br><span class="line">         $this-&gt;hint = $hint;</span><br><span class="line">     &#125;</span><br><span class="line"> ​</span><br><span class="line">     public function __wakeup()</span><br><span class="line">     &#123;</span><br><span class="line">         //something in hint.php</span><br><span class="line">         if ($this-&gt;hint != &quot;pass&quot;  $this-&gt;f != &quot;pass&quot;) &#123;</span><br><span class="line">             $this-&gt;hint = &quot;pass&quot;;</span><br><span class="line">             $this-&gt;f = &quot;pass&quot;;</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line"> ​</span><br><span class="line">     public function __destruct()</span><br><span class="line">     &#123;</span><br><span class="line">         if (filter_var($this-&gt;hint, FILTER_VALIDATE_URL))</span><br><span class="line">         &#123;</span><br><span class="line">             $r = parse_url($this-&gt;hint);</span><br><span class="line">             if (!empty($this-&gt;f)) &#123;</span><br><span class="line">                 if (strpos($this-&gt;f, &quot;try&quot;) !==  false &amp;&amp; strpos($this-&gt;f, &quot;pass&quot;) !== false) &#123;</span><br><span class="line">                     @include($this-&gt;f . &#x27;.php&#x27;);</span><br><span class="line">                 &#125; else &#123;</span><br><span class="line">                     die(&quot;try again!&quot;);</span><br><span class="line">                 &#125;</span><br><span class="line">                 if (preg_match(&#x27;/prankhub$/&#x27;, $r[&#x27;host&#x27;])) &#123;</span><br><span class="line">                     @$out = file_get_contents($this-&gt;hint);</span><br><span class="line">                     echo &quot;&lt;br/&gt;&quot;.$out;</span><br><span class="line">                 &#125; else &#123;</span><br><span class="line">                     die(&quot;&lt;br/&gt;error&quot;);</span><br><span class="line">                 &#125;</span><br><span class="line">             &#125; else &#123;</span><br><span class="line">                 die(&quot;try it!&quot;);</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;</span><br><span class="line">         else</span><br><span class="line">         &#123;</span><br><span class="line">             echo &quot;Invalid URL&quot;;</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> ​</span><br><span class="line"> $username = $_POST[&#x27;username&#x27;];</span><br><span class="line"> $password = $_POST[&#x27;password&#x27;];</span><br><span class="line"> ​</span><br><span class="line"> $user = serialize(new UserAccount($username, $password));</span><br><span class="line"> unserialize(object_weakup(object_sleep($user)))</span><br><span class="line"> ?&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><h3 id="index-php"><a href="#index-php" class="headerlink" title="index.php"></a>index.php</h3><ul>
+<li>题目暗示我们访问 &#x2F;tm.php</li>
+<li>第一个if，百度发现<code>$_SERVER[&#39;PHP_SELF&#39;] 获取当前页面地址</code> 也就是地址不能以tm.php结尾，就是我们不能直接访问&#x2F;tm.php</li>
+<li>下面就是判断路径最后一个文件名是不是tm.php，如果是就返回no way,说明不能直接访问</li>
+<li>出现了一个<code>source</code> 变量， 里面的关键是<code>highlight_file($path);</code> 中间if没啥用，也就是说目的只是让<code>path=tm.php</code></li>
+<li>网上wp说：<code>basename()</code>在<code>Linux</code>下，如果取得的文件名开头是非ASCII码范围的字符，则<code>basename()</code>会抛弃这个文件名，继续往上一层走，把上一层的文件名取出来，直到获取到正常可显示ASCII字符开头的文件名(<code>Windows下直接获取</code>)。<ul>
+<li>参考链接：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/yesec/p/15429527.html">basename()绕过总结</a>在使用默认语言环境设置时，basename() 会删除文件名开头的非 ASCII 字符。</li>
+</ul>
+</li>
+<li>我们的目的是从<code>highlight_file($path);</code> 中把tm.php的源码搞到，就需要path是tm.php，并且要有<code>source</code></li>
+<li>绕过wp：<code>//index.php/tm.php/%88?source=tm.php</code></li>
+<li>这样正则匹配的时候返回的是<code>%88</code> 故可以染过正则匹配 ，但是<code>basename()</code>函数运行的时候忽略<code>%88</code>，直接匹配到<code>tm.php</code> ，只要有<code>source</code>就会进入if从而<code>highlight_file($path);</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$file = $_GET[&#x27;file&#x27;];</span><br><span class="line">echo basename($file);</span><br><span class="line">//实例</span><br><span class="line">http://localhost/?file=%ffindex.php/%ff</span><br><span class="line">//index.php</span><br><span class="line">http://localhost/?file=%ffindex.php</span><br><span class="line">//index.php</span><br><span class="line">http://localhost/?file=index.php%ff</span><br><span class="line">//index.php</span><br><span class="line">http://localhost/?file=index.php/%2b</span><br><span class="line">//+</span><br></pre></td></tr></table></figure>
+
+<p>进入之后是反序列化的源码</p>
+<h3 id="tm-php"><a href="#tm-php" class="headerlink" title="tm.php"></a>tm.php</h3><ul>
+<li>关键是<code>unserialize(object_weakup(object_sleep($user)))</code> ，考点显然是反序列化字符串逃逸，注意<code>chr(0)</code> 是空字符，但是也算一个字节。</li>
+<li>我们自己肯定不会写入不可见字符，所以只利用<ul>
+<li><code>function object_weakup($ob) &#123; $r = str_replace(&#39;@0@0@0@&#39;, chr(0).&#39;*&#39;.chr(0), $ob); return $r; &#125;</code></li>
+<li>一开始短路了想当然的以为以为两个函数都利用，相当于没逃逸，想了半天。。</li>
+</ul>
+</li>
+<li>username传入<code>@0@0@0@</code> ,每传一组就可以逃逸3个字节[字符串减少的情况]，password就传入我们构造好的<code>order</code>类</li>
+<li>其中order类首先是常规方法桡绕过wakeup</li>
+<li>提示hint.php，入口是：<code>@$out = file_get_contents($this-&gt;hint); echo &quot;&lt;br/&gt;&quot;.$out;</code> 进入条件是<code>if (preg_match(&#39;/prankhub$/&#39;, $r[&#39;host&#39;]))</code> 思路就是<code>hint = p5ych://prankhub/</code></li>
+<li>hint.php里面提示flag在<code>f1111444449999.txt</code></li>
+<li>后缀是txt，题目本来有两个地方可以利用，<code>include</code>和 <code>file_get_contents</code> ，但是include后面加了后缀PHP，所以思路是利用<code>file_get_contents</code>。</li>
+<li>因为要求host是<code>prankhub</code> 所以考虑使用伪协议目录穿透到根目录得到flag</li>
+<li>order里面f&#x3D;trypass,hint&#x3D;<code>p5ych://prankhub/../../../../../../../f1111444449999.txt</code></li>
+<li>构造出order：<code>O:5:&quot;order&quot;:2:&#123;s:1:&quot;f&quot;;s:7:&quot;trypass&quot;;s:4:&quot;hint&quot;;s:56:&quot;p5ych://prankhub/../../../../../../../f1111444449999.txt&quot;;&#125;</code></li>
+<li>现在考虑字符串逃逸，username传<code>@0@0@0@</code> ,每传一组就可以逃逸4个字节，我们需要的password是<code>&quot;;s:8:&quot;password&quot;;&quot;O:5:&quot;order&quot;:2:&#123;s:1:&quot;f&quot;;s:7:&quot;trypass&quot;;s:4:&quot;hint&quot;;s:56:&quot;p5ych://prankhub/../../../../../../../f1111444449999.txt&quot;;&#125;&quot;;</code></li>
+<li><code>username=&#39;@0@0@0@@0@0@0@@0@0@0@@0@0@0@@0@0@0@@0@0@0@@0@0@0@&#39;</code></li>
+<li><code>password=&#39;&quot;;s:11:&quot;%00*%00password&quot;;O:5:&quot;order&quot;:3:&#123;s:1:&quot;f&quot;;s:7:&quot;trypass&quot;;s:4:&quot;hint&quot;;s:56:&quot;p5ych://prankhub/../../../../../../../f1111444449999.txt&quot;;&#125;&quot;;&#39;</code></li>
+<li>这里需要注意的是order需要绕过wakeup，<code>&quot;order&quot;:3:&#123;</code> 这里是3.</li>
+<li>password就直接用那个类了，不要前面那个<code>s:122</code>啥的，这个时候我们的password本来传入的string，最后变成Object</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本题考点是：</p>
+<ul>
+<li>basename()函数绕过</li>
+<li>反序列化的字符逃逸</li>
+<li>目录穿越读取flag</li>
+</ul>
+<p>当然重要考点是字符逃逸，主要是需要精心构造还有本地调试，让password是order类，逃逸字符个数要数清楚。</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Article</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ezus"><span class="toc-number">1.</span> <span class="toc-text">ezus</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E5%86%85%E5%AE%B9"><span class="toc-number">1.1.</span> <span class="toc-text">题目内容</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#index-php-%E7%82%B9%E8%BF%9B%E5%8E%BB%E6%98%AF%E6%BA%90%E7%A0%81"><span class="toc-number">1.1.1.</span> <span class="toc-text">index.php 点进去是源码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tm-php-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-number">1.1.2.</span> <span class="toc-text">tm.php 反序列化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E6%9E%90"><span class="toc-number">1.2.</span> <span class="toc-text">分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#index-php"><span class="toc-number">1.2.1.</span> <span class="toc-text">index.php</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tm-php"><span class="toc-number">1.2.2.</span> <span class="toc-text">tm.php</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.3.</span> <span class="toc-text">总结</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2023/07/01/%E5%BC%BA%E7%BD%91%E6%8B%9F%E6%80%81-2022-web-%E9%83%A8%E5%88%86wp%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2023/07/01/%E5%BC%BA%E7%BD%91%E6%8B%9F%E6%80%81-2022-web-%E9%83%A8%E5%88%86wp%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD/&text=强网拟态-2022-web-部分wp(未完待续)"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2023/07/01/%E5%BC%BA%E7%BD%91%E6%8B%9F%E6%80%81-2022-web-%E9%83%A8%E5%88%86wp%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD/&title=强网拟态-2022-web-部分wp(未完待续)"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2023/07/01/%E5%BC%BA%E7%BD%91%E6%8B%9F%E6%80%81-2022-web-%E9%83%A8%E5%88%86wp%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD/&is_video=false&description=强网拟态-2022-web-部分wp(未完待续)"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=强网拟态-2022-web-部分wp(未完待续)&body=Check out this article: http://p5ych2022.github.io/2023/07/01/%E5%BC%BA%E7%BD%91%E6%8B%9F%E6%80%81-2022-web-%E9%83%A8%E5%88%86wp%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2023/07/01/%E5%BC%BA%E7%BD%91%E6%8B%9F%E6%80%81-2022-web-%E9%83%A8%E5%88%86wp%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD/&title=强网拟态-2022-web-部分wp(未完待续)"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2023/07/01/%E5%BC%BA%E7%BD%91%E6%8B%9F%E6%80%81-2022-web-%E9%83%A8%E5%88%86wp%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD/&title=强网拟态-2022-web-部分wp(未完待续)"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2023/07/01/%E5%BC%BA%E7%BD%91%E6%8B%9F%E6%80%81-2022-web-%E9%83%A8%E5%88%86wp%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD/&title=强网拟态-2022-web-部分wp(未完待续)"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2023/07/01/%E5%BC%BA%E7%BD%91%E6%8B%9F%E6%80%81-2022-web-%E9%83%A8%E5%88%86wp%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD/&title=强网拟态-2022-web-部分wp(未完待续)"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2023/07/01/%E5%BC%BA%E7%BD%91%E6%8B%9F%E6%80%81-2022-web-%E9%83%A8%E5%88%86wp%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD/&name=强网拟态-2022-web-部分wp(未完待续)&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2023/07/01/%E5%BC%BA%E7%BD%91%E6%8B%9F%E6%80%81-2022-web-%E9%83%A8%E5%88%86wp%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD/&t=强网拟态-2022-web-部分wp(未完待续)"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2022-2024
+    psych
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Article</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

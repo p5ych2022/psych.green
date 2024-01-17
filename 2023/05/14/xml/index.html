@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="可扩展标记语言（英语：Extensible Markup Language，简称：XML），是一种标记语言（类似于HTML）。XML是从标准通用标记语言（SGML）中简化修改出来的。 XML没有使用预定义的标记，因此使用者可以根据自己的设计需求定义专属个人的标记。这是一种十分有用的可存储、可搜索和可共享的格式存储数据的方法。最重要的是，因为 XML 的基本格式是标准化的，所以如果您跨系统或平台共享">
+<meta property="og:type" content="article">
+<meta property="og:title" content="XML">
+<meta property="og:url" content="http://p5ych2022.github.io/2023/05/14/xml/index.html">
+<meta property="og:site_name" content="psych&#39;s blog">
+<meta property="og:description" content="可扩展标记语言（英语：Extensible Markup Language，简称：XML），是一种标记语言（类似于HTML）。XML是从标准通用标记语言（SGML）中简化修改出来的。 XML没有使用预定义的标记，因此使用者可以根据自己的设计需求定义专属个人的标记。这是一种十分有用的可存储、可搜索和可共享的格式存储数据的方法。最重要的是，因为 XML 的基本格式是标准化的，所以如果您跨系统或平台共享">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221202011016718-1024x351.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221202011125396-1024x136.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221202012243236-1024x283.png">
+<meta property="article:published_time" content="2023-05-14T04:44:05.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:12:05.988Z">
+<meta property="article:author" content="psych">
+<meta property="article:tag" content="web">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221202011016718-1024x351.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>XML</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Article</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2023/05/14/python/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2023/05/14/linux/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2023/05/14/xml/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2023/05/14/xml/&text=XML"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2023/05/14/xml/&title=XML"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2023/05/14/xml/&is_video=false&description=XML"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=XML&body=Check out this article: http://p5ych2022.github.io/2023/05/14/xml/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2023/05/14/xml/&title=XML"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2023/05/14/xml/&title=XML"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2023/05/14/xml/&title=XML"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2023/05/14/xml/&title=XML"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2023/05/14/xml/&name=XML&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2023/05/14/xml/&t=XML"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#XML%E7%94%A8%E9%80%94"><span class="toc-number">1.</span> <span class="toc-text">XML用途</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XML%E5%AE%9E%E4%BE%8B"><span class="toc-number">2.</span> <span class="toc-text">XML实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XML%E6%A0%91%E7%BB%93%E6%9E%84"><span class="toc-number">3.</span> <span class="toc-text">XML树结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XML%E8%AF%AD%E6%B3%95"><span class="toc-number">4.</span> <span class="toc-text">XML语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#xml%E5%85%83%E7%B4%A0"><span class="toc-number">5.</span> <span class="toc-text">xml元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XML%E5%B1%9E%E6%80%A7"><span class="toc-number">6.</span> <span class="toc-text">XML属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XML%E4%B8%8Ecss"><span class="toc-number">7.</span> <span class="toc-text">XML与css</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XML%E4%B8%8EXSLT"><span class="toc-number">8.</span> <span class="toc-text">XML与XSLT</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8XSLT%E6%98%BE%E7%A4%BAXML"><span class="toc-number">8.0.0.1.</span> <span class="toc-text">使用XSLT显示XML</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E9%80%9A%E8%BF%87-XSLT-%E8%BD%AC%E6%8D%A2-XML"><span class="toc-number">8.0.0.2.</span> <span class="toc-text">在服务器上通过 XSLT 转换 XML</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XMLHttpRequest"><span class="toc-number">9.</span> <span class="toc-text">XMLHttpRequest</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%91%E9%80%81%E8%AF%B7%E6%B1%82"><span class="toc-number">9.0.0.1.</span> <span class="toc-text">发送请求</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%8E%E6%9C%8D%E5%8A%A1%E7%AB%AF%E8%8E%B7%E5%8F%96%E5%93%8D%E5%BA%94"><span class="toc-number">9.0.0.2.</span> <span class="toc-text">从服务端获取响应</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XML%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="toc-number">10.</span> <span class="toc-text">XML应用程序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XML%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4"><span class="toc-number">11.</span> <span class="toc-text">XML命名空间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CDATA"><span class="toc-number">12.</span> <span class="toc-text">CDATA</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#PCDATA"><span class="toc-number">12.0.1.</span> <span class="toc-text">PCDATA</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CDATA-1"><span class="toc-number">12.0.2.</span> <span class="toc-text">CDATA</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95"><span class="toc-number">12.0.2.0.1.</span> <span class="toc-text">语法</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        XML
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">psych</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-05-14T04:44:05.000Z" class="dt-published" itemprop="datePublished">2023-05-14</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/web/">web</a> › <a class="category-link" href="/categories/web/web%E5%9F%BA%E7%A1%80/">web基础</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/web/" rel="tag">web</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p><strong>可扩展标记语言</strong>（英语：E<strong>x</strong>tensible <strong>M</strong>arkup <strong>L</strong>anguage，简称：<strong>XML</strong>），是一种标记语言（类似于HTML）。XML是从标准通用标记语言（SGML）中简化修改出来的。</p>
+<p>XML<strong>没有使用预定义的标记</strong>，因此使用者可以根据自己的设计需求定义专属个人的标记。这是一种十分有用的可存储、可搜索和可共享的格式存储数据的方法。最重要的是，因为 XML 的基本格式是<strong>标准化</strong>的，所以如果您跨系统或平台共享或传输 XML，无论是在本地还是在互联网上，接收方仍然可以根据标准化的 XML 语法解析数据。</p>
+<p>XML被设计用来<strong>传输和存储数据</strong>，不用于表现和展示数据，HTML则用来表现数据</p>
+<h2 id="XML用途"><a href="#XML用途" class="headerlink" title="XML用途"></a>XML用途</h2><ul>
+<li>XML把主句从HTML中分离 （数据存储在独立的XML文件中，通过js读取）</li>
+<li>XML简化数据共享（纯文本格式存储方式）</li>
+<li>XML简化数据传输 （XML可以通过各种不兼容的应用程序来读取数据）</li>
+<li>XML 简化平台变更</li>
+<li>XML 使您的数据更有用</li>
+<li>XML 用于创建新的互联网语言（很多新的互联网语言都是XML实现的）</li>
+</ul>
+<h2 id="XML实例"><a href="#XML实例" class="headerlink" title="XML实例"></a>XML实例</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;        //第一行以XML声明开始，用来表述文档里的一些信息</span><br><span class="line"> &lt;site&gt;</span><br><span class="line">   &lt;name&gt;psych&lt;/name&gt;</span><br><span class="line">   &lt;url&gt;https://www.psych.com&lt;/url&gt;</span><br><span class="line">   &lt;logo&gt;psych-logo.png&lt;/logo&gt;</span><br><span class="line">   &lt;desc&gt;hacker&lt;/desc&gt;</span><br><span class="line"> &lt;/site&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>&lt;NAME&gt;,&lt;URL&gt;,&lt;LOGO&gt;,&lt;DESC&gt;</code>分别为标签，标签内包含了<strong>要传递</strong>的信息。。</p>
+<p>标签<strong>必须</strong>成对出现，有开始标签就需要有结束标签（# 注意这一点和HTML不同），例如：</p>
+<ul>
+<li>开始标签：<name></li>
+<li>结束标签：</name></li>
+</ul>
+<h2 id="XML树结构"><a href="#XML树结构" class="headerlink" title="XML树结构"></a>XML树结构</h2><p>XML 文档形成了一种树结构，它**从”根部”开始，然后扩展到”枝叶”**。</p>
+<p>对于上面的这个实例：</p>
+<p>第一行是XML <strong>声明</strong>。它定义 XML 的版本（1.0）和所使用的编码（UTF-8 : 万国码, 可显示各种语言）；</p>
+<p>下一行描述文档的<strong>根元素</strong>，<code>&lt;site&gt;</code>说明这个文本档是一个网站；</p>
+<p>接下来四行描述根的 4 个<strong>子元素</strong>：<code>&lt;name&gt;&lt;url&gt;&lt;logo&gt;&lt;desc&gt;</code></p>
+<p>最后一行定义根元素的结尾</p>
+<p><strong>模板</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> # 所有的元素都可以有子元素</span><br><span class="line"> &lt;root&gt;</span><br><span class="line"> &lt;child&gt;</span><br><span class="line"> &lt;subchild&gt;.....&lt;/subchild&gt;</span><br><span class="line"> &lt;/child&gt;</span><br><span class="line"> &lt;/root&gt;</span><br></pre></td></tr></table></figure>
+
+<p>用XML表示一些书：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"> # 所有的元素都可以有文本内容和属性（类似 HTML 中）。</span><br><span class="line"> &lt;bookstore&gt;</span><br><span class="line">     &lt;book category=&quot;COOKING&quot;&gt;</span><br><span class="line">         &lt;title lang=&quot;en&quot;&gt;Everyday Italian&lt;/title&gt;</span><br><span class="line">         &lt;author&gt;Giada De Laurentiis&lt;/author&gt;</span><br><span class="line">         &lt;year&gt;2005&lt;/year&gt;</span><br><span class="line">         &lt;price&gt;30.00&lt;/price&gt;</span><br><span class="line">     &lt;/book&gt;</span><br><span class="line">     &lt;book category=&quot;CHILDREN&quot;&gt;</span><br><span class="line">         &lt;title lang=&quot;en&quot;&gt;Harry Potter&lt;/title&gt;</span><br><span class="line">         &lt;author&gt;J K. Rowling&lt;/author&gt;</span><br><span class="line">         &lt;year&gt;2005&lt;/year&gt;</span><br><span class="line">         &lt;price&gt;29.99&lt;/price&gt;</span><br><span class="line">     &lt;/book&gt;</span><br><span class="line">     &lt;book category=&quot;WEB&quot;&gt;</span><br><span class="line">         &lt;title lang=&quot;en&quot;&gt;Learning XML&lt;/title&gt;</span><br><span class="line">         &lt;author&gt;Erik T. Ray&lt;/author&gt;</span><br><span class="line">         &lt;year&gt;2003&lt;/year&gt;</span><br><span class="line">         &lt;price&gt;39.95&lt;/price&gt;</span><br><span class="line">     &lt;/book&gt;</span><br><span class="line"> &lt;/bookstore&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="XML语法"><a href="#XML语法" class="headerlink" title="XML语法"></a>XML语法</h2><ul>
+<li>XML文档必须有根元素，声明</li>
+<li>XML都是双标签，都必须正确嵌套</li>
+<li><strong>XML对大小写敏感</strong></li>
+<li>XML属性值必须加引号  <note date="12/11/2007">     &#x2F;&#x2F;data后面的属性值必须引号包围<br> <to>Tove</to><br> <from>Jani</from><br> </note></li>
+<li>XML中一些特殊字符例如 ‘&lt;’ 如果要放到XML元素中会发生错误【甚至产生漏洞】，使用时必须实体引用</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> &lt;message&gt;if salary &lt; 1000 then&lt;/message&gt;     //错误</span><br><span class="line"> &lt;message&gt;if salary &amp;lt; 1000 then&lt;/message&gt;   //正确  [实体符号和html相同]    </span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>XML中括号会被保留【而HTML中多个连续括号会被裁剪为一个】</li>
+<li>注释 <!-- This is a comment --></li>
+<li><strong>XML 以 LF 存储换行</strong>在 Windows 应用程序中，换行通常以一对字符来存储：回车符（CR）和换行符（LF）。在 Unix 和 Mac OSX 中，使用 LF 来存储新行。在旧的 Mac 系统中，使用 CR 来存储新行。XML 以 LF 存储换行。</li>
+</ul>
+<h2 id="xml元素"><a href="#xml元素" class="headerlink" title="xml元素"></a>xml元素</h2><p>XML 元素指的是从（且包括）开始标签直到（且包括）结束标签的部分。</p>
+<p>一个元素可以包含：</p>
+<ul>
+<li>其他元素</li>
+<li>文本</li>
+<li>属性</li>
+<li>或混合以上所有…</li>
+</ul>
+<p>借用上面一些书的实例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"> # 所有的元素都可以有文本内容和属性（类似 HTML 中）。</span><br><span class="line"> &lt;bookstore&gt;                          &lt;!-- （根元素中间包含的） -》 其他元素--&gt;</span><br><span class="line">     &lt;book category=&quot;CHILDREN&quot;&gt;       &lt;!--（category=&quot;CHILDREN&quot;）-》属性 --&gt;       </span><br><span class="line">         &lt;title lang=&quot;en&quot;&gt;Harry Potter&lt;/title&gt;       &lt;!-- （Harry Potter） -&gt; 文本 --&gt;</span><br><span class="line">         &lt;author&gt;J K. Rowling&lt;/author&gt;</span><br><span class="line">         &lt;year&gt;2005&lt;/year&gt;</span><br><span class="line">         &lt;price&gt;29.99&lt;/price&gt;</span><br><span class="line">     &lt;/book&gt;</span><br><span class="line">     &lt;book category=&quot;WEB&quot;&gt;</span><br><span class="line">         &lt;title lang=&quot;en&quot;&gt;Learning XML&lt;/title&gt;</span><br><span class="line">         &lt;author&gt;Erik T. Ray&lt;/author&gt;</span><br><span class="line">         &lt;year&gt;2003&lt;/year&gt;</span><br><span class="line">         &lt;price&gt;39.95&lt;/price&gt;</span><br><span class="line">     &lt;/book&gt;</span><br><span class="line"> &lt;/bookstore&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在这个实例中，<code>&lt;bookstore&gt;</code> 和 <code>&lt;book&gt;</code>都有 <strong>元素内容</strong>，因为他们包含其他元素。<code>&lt;book&gt;</code>元素也有<strong>属性</strong>（category&#x3D;”CHILDREN”）。<code>&lt;title&gt;</code>、<code>&lt;author&gt;</code>、<code>&lt;year&gt;</code> 和 <code>&lt;price&gt;</code> 有<strong>文本内容</strong>，因为他们包含文本。</p>
+<h2 id="XML属性"><a href="#XML属性" class="headerlink" title="XML属性"></a>XML属性</h2><p>先回顾HTML中的属性：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> &lt;img src=&quot;computer.gif&quot;&gt;</span><br><span class="line"> &lt;a href=&quot;demo.html&quot;&gt;  </span><br><span class="line"> &lt;!--属性提供了元素的额外信息--&gt;</span><br></pre></td></tr></table></figure>
+
+<p>XML中属性的作用与其类似，不过XML属性必须用<strong>引号包裹</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> &lt;person sex=&quot;female&quot;&gt;   //单引号双引号都可以</span><br><span class="line">  &lt;!--如果属性本身有引号可以采用</span><br><span class="line"> &#123;</span><br><span class="line"> 1.单引号里面套双引号： &lt;gangster name=&#x27;George &quot;Shotgun&quot; Ziegler&#x27;&gt;</span><br><span class="line"> 2.使用实体字体：       &lt;gangster name=&quot;George &amp;quot;Shotgun&amp;quot; Ziegler&quot;&gt;</span><br><span class="line"> &#125;--&gt;</span><br></pre></td></tr></table></figure>
+
+<p>由于XML可以自定义任何标记，属性有时候也可以成为元素。不过在XML中建议能变成元素的信息都设置成元素。而有一些例如id等元数据【有关数据的数据】，还是建议定义成属性。</p>
+<h2 id="XML与css"><a href="#XML与css" class="headerlink" title="XML与css"></a>XML与css</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> &lt;?xml-stylesheet type=&quot;text/css&quot; href=&quot;a01.css&quot;?&gt;</span><br><span class="line"> &lt;!--写在声明的下面，把 XML 文件链接到 CSS 文件--&gt;</span><br></pre></td></tr></table></figure>
+
+<p>不过这不是被推荐的做法。使用XSLT是更被推荐的做法</p>
+<h2 id="XML与XSLT"><a href="#XML与XSLT" class="headerlink" title="XML与XSLT"></a>XML与XSLT</h2><h5 id="使用XSLT显示XML"><a href="#使用XSLT显示XML" class="headerlink" title="使用XSLT显示XML"></a>使用XSLT显示XML</h5><p>XSLT 是首选的 <strong>XML 样式表语言</strong>。</p>
+<p>XSLT（eXtensible Stylesheet Language Transformations）远比 CSS 更加完善。</p>
+<p>XSLT 是在浏览器显示 XML 文件之前，先把它转换为 HTML：</p>
+<h5 id="在服务器上通过-XSLT-转换-XML"><a href="#在服务器上通过-XSLT-转换-XML" class="headerlink" title="在服务器上通过 XSLT 转换 XML"></a>在服务器上通过 XSLT 转换 XML</h5><p>当浏览器读取 XML 文件时，XSLT 转换是由浏览器完成的。</p>
+<p>在使用 XSLT 来转换 XML 时，不同的浏览器可能会产生不同结果。为了减少这种问题，可以在服务器上进行 XSLT 转换。</p>
+<h2 id="XMLHttpRequest"><a href="#XMLHttpRequest" class="headerlink" title="XMLHttpRequest"></a>XMLHttpRequest</h2><p><strong><code>XMLHttpRequest</code>（XHR）对象用于与服务器交互</strong>。通过 XMLHttpRequest 可以在不刷新页面的情况下请求特定 URL，获取数据。这允许网页在不影响用户操作的情况下，更新页面的局部内容。<code>XMLHttpRequest</code> 在 AJAX 编程中被大量使用。</p>
+<p>XHR就是一个浏览器的<strong>接口</strong>。而XHR对象用于幕后与服务器交互数据。通俗一点就是一种<strong>拿取数据的规则</strong></p>
+<h5 id="发送请求"><a href="#发送请求" class="headerlink" title="发送请求"></a>发送请求</h5><p>XHR对象中有很多方法：</p>
+<blockquote>
+<p>为了发送一个请求到服务器，我们使用 XMLHttpRequest 对象的 open() 和 send() 方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> xmlhttp.open(&quot;GET&quot;,&quot;xmlhttp_info.txt&quot;,true);</span><br><span class="line"> xmlhttp.send();</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221202011016718-1024x351.png"></p>
+<p>XHR对象中还有很多属性：</p>
+<h5 id="从服务端获取响应"><a href="#从服务端获取响应" class="headerlink" title="从服务端获取响应"></a>从服务端获取响应</h5><blockquote>
+<p>如需从服务器获取响应，请使用 XMLHttpRequest 对象的 responseText 或 responseXML 属性。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221202011125396-1024x136.png"></p>
+<p> document.getElementById(“myDiv”).innerHTML&#x3D;xmlhttp.responseText;</p>
+</blockquote>
+<p>参考链接：</p>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest">https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/dom/dom-httprequest.html">https://www.runoob.com/dom/dom-httprequest.html</a></p>
+<h2 id="XML应用程序"><a href="#XML应用程序" class="headerlink" title="XML应用程序"></a>XML应用程序</h2><p>粘一个简单的程序，实现从元素中提取子元素的数据并显示</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> x=xmlDoc.getElementsByTagName(&quot;CD&quot;);</span><br><span class="line"> i=0;</span><br><span class="line"> ​</span><br><span class="line"> function displayCD()</span><br><span class="line"> &#123;</span><br><span class="line"> artist=(x[i].getElementsByTagName(&quot;ARTIST&quot;)[0].childNodes[0].nodeValue);</span><br><span class="line"> title=(x[i].getElementsByTagName(&quot;TITLE&quot;)[0].childNodes[0].nodeValue);</span><br><span class="line"> year=(x[i].getElementsByTagName(&quot;YEAR&quot;)[0].childNodes[0].nodeValue);</span><br><span class="line"> txt=&quot;Artist: &quot; + artist + &quot;&lt;br /&gt;Title: &quot; + title + &quot;&lt;br /&gt;Year: &quot;+ year;</span><br><span class="line"> document.getElementById(&quot;showCD&quot;).innerHTML=txt;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20221202012243236-1024x283.png"></p>
+<h2 id="XML命名空间"><a href="#XML命名空间" class="headerlink" title="XML命名空间"></a>XML命名空间</h2><p>同时使用多个XML文档的时候，有可能出现不同文档中的元素重名的情况，使用前缀可以很好的解决这个问题。使用前缀的语法 <code>&lt;前缀:元素名&gt;</code></p>
+<blockquote>
+<p>当在 XML 中使用前缀时，一个所谓的用于前缀的<strong>命名空间</strong>必须被定义。</p>
+<p>命名空间是在元素的开始标签的 <strong>xmlns 属性</strong>中定义的。</p>
+<p>命名空间声明的语法如下。xmlns:_前缀_=“<em>URI</em>“。</p>
+<p>命名空间，可以在他们<strong>被使用的元素中</strong>或者在 <strong>XML 根元素</strong>中声明</p>
+</blockquote>
+<p>例如：(下面的实例实在被使用的元素中声明的命名空间，也可以在根元素)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"> &lt;root&gt;</span><br><span class="line"> ​</span><br><span class="line"> &lt;h:table xmlns:h=&quot;http://www.w3.org/TR/html4/&quot;&gt;</span><br><span class="line"> &lt;h:tr&gt;</span><br><span class="line"> &lt;h:td&gt;Apples&lt;/h:td&gt;</span><br><span class="line"> &lt;h:td&gt;Bananas&lt;/h:td&gt;</span><br><span class="line"> &lt;/h:tr&gt;</span><br><span class="line"> &lt;/h:table&gt;</span><br><span class="line"> ​</span><br><span class="line"> &lt;f:table xmlns:f=&quot;http://www.w3cschool.cc/furniture&quot;&gt;</span><br><span class="line"> &lt;f:name&gt;African Coffee Table&lt;/f:name&gt;</span><br><span class="line"> &lt;f:width&gt;80&lt;/f:width&gt;</span><br><span class="line"> &lt;f:length&gt;120&lt;/f:length&gt;</span><br><span class="line"> &lt;/f:table&gt;</span><br><span class="line"> ​</span><br><span class="line"> &lt;/root&gt; </span><br></pre></td></tr></table></figure>
+
+<h2 id="CDATA"><a href="#CDATA" class="headerlink" title="CDATA"></a>CDATA</h2><h4 id="PCDATA"><a href="#PCDATA" class="headerlink" title="PCDATA"></a>PCDATA</h4><blockquote>
+<p>被解析的字符数据</p>
+</blockquote>
+<p>XML 文档中的所有文本均会被解析器解析。</p>
+<p>(当某个元素被解析时，它里面的文本一起被解析【可能有子元素在里面】)</p>
+<p>只有 CDATA 区段中的文本会被解析器忽略。</p>
+<h4 id="CDATA-1"><a href="#CDATA-1" class="headerlink" title="CDATA"></a>CDATA</h4><blockquote>
+<p>（未解析）字符数据</p>
+</blockquote>
+<p>为什么设置CDATA?因为有一些特殊字符【&lt; &gt; &amp;】被解析之后可能破坏xml的格式,发生错误。而某些文本，比如 JavaScript 代码，包含大量 “&lt;” 或 “&amp;” 字符。为了避免错误，可以将脚本代码定义为 CDATA。</p>
+<h6 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h6><p>CDATA 部分由 “<strong>&lt;![CDATA[**” 开始，由 “**]]&gt;</strong>“ 结束</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"> &lt;script&gt;</span><br><span class="line"> &lt;![CDATA[</span><br><span class="line"> function matchwo(a,b)</span><br><span class="line"> &#123;</span><br><span class="line"> if (a &lt; b &amp;&amp; a &lt; 0) then</span><br><span class="line"> &#123;</span><br><span class="line"> return 1;</span><br><span class="line"> &#125;</span><br><span class="line"> else</span><br><span class="line"> &#123;</span><br><span class="line"> return 0;</span><br><span class="line"> &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> ]]&gt;</span><br><span class="line"> &lt;/script&gt;</span><br></pre></td></tr></table></figure>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Article</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#XML%E7%94%A8%E9%80%94"><span class="toc-number">1.</span> <span class="toc-text">XML用途</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XML%E5%AE%9E%E4%BE%8B"><span class="toc-number">2.</span> <span class="toc-text">XML实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XML%E6%A0%91%E7%BB%93%E6%9E%84"><span class="toc-number">3.</span> <span class="toc-text">XML树结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XML%E8%AF%AD%E6%B3%95"><span class="toc-number">4.</span> <span class="toc-text">XML语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#xml%E5%85%83%E7%B4%A0"><span class="toc-number">5.</span> <span class="toc-text">xml元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XML%E5%B1%9E%E6%80%A7"><span class="toc-number">6.</span> <span class="toc-text">XML属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XML%E4%B8%8Ecss"><span class="toc-number">7.</span> <span class="toc-text">XML与css</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XML%E4%B8%8EXSLT"><span class="toc-number">8.</span> <span class="toc-text">XML与XSLT</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8XSLT%E6%98%BE%E7%A4%BAXML"><span class="toc-number">8.0.0.1.</span> <span class="toc-text">使用XSLT显示XML</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E9%80%9A%E8%BF%87-XSLT-%E8%BD%AC%E6%8D%A2-XML"><span class="toc-number">8.0.0.2.</span> <span class="toc-text">在服务器上通过 XSLT 转换 XML</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XMLHttpRequest"><span class="toc-number">9.</span> <span class="toc-text">XMLHttpRequest</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%91%E9%80%81%E8%AF%B7%E6%B1%82"><span class="toc-number">9.0.0.1.</span> <span class="toc-text">发送请求</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%8E%E6%9C%8D%E5%8A%A1%E7%AB%AF%E8%8E%B7%E5%8F%96%E5%93%8D%E5%BA%94"><span class="toc-number">9.0.0.2.</span> <span class="toc-text">从服务端获取响应</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XML%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="toc-number">10.</span> <span class="toc-text">XML应用程序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XML%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4"><span class="toc-number">11.</span> <span class="toc-text">XML命名空间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CDATA"><span class="toc-number">12.</span> <span class="toc-text">CDATA</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#PCDATA"><span class="toc-number">12.0.1.</span> <span class="toc-text">PCDATA</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CDATA-1"><span class="toc-number">12.0.2.</span> <span class="toc-text">CDATA</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95"><span class="toc-number">12.0.2.0.1.</span> <span class="toc-text">语法</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2023/05/14/xml/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2023/05/14/xml/&text=XML"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2023/05/14/xml/&title=XML"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2023/05/14/xml/&is_video=false&description=XML"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=XML&body=Check out this article: http://p5ych2022.github.io/2023/05/14/xml/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2023/05/14/xml/&title=XML"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2023/05/14/xml/&title=XML"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2023/05/14/xml/&title=XML"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2023/05/14/xml/&title=XML"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2023/05/14/xml/&name=XML&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2023/05/14/xml/&t=XML"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2022-2024
+    psych
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Article</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

