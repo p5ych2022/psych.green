@@ -6,15 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="游戏安全开发基础(PC)软件开发与调试指令架构 X86指令架构(PC端)  X86架构(The X8 architecture)是微处理器执行的计算机语言指令集，指一个Intel通用计算机系统的标准编号缩写，也表示一套通用的计算机指令集合。  ARM指令架构(移动端)  ARM架构(过去称作进阶精简指令集机器(Advanced RISC Machine)，更早称作Acorn RISC Machin">
+    <meta name="description" content="第一次作业1.分析并调试程序，找到flag使用技术：IDA动态调试crackme.exe 前置知识点  步骤  1.找到文件夹IDA目录下的dbgsrv文件夹，找到对应版本的win_32或者64remote.exe，点击运行。 2.打开ida，将exe拖入，Debugger → Select a debugger → Remote windows debugger 3.Debugger → pro">
 <meta property="og:type" content="article">
-<meta property="og:title" content="tx菁英班游戏安全">
+<meta property="og:title" content="菁英班游戏安全第一次作业">
 <meta property="og:url" content="http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/index.html">
 <meta property="og:site_name" content="psych&#39;s blog">
-<meta property="og:description" content="游戏安全开发基础(PC)软件开发与调试指令架构 X86指令架构(PC端)  X86架构(The X8 architecture)是微处理器执行的计算机语言指令集，指一个Intel通用计算机系统的标准编号缩写，也表示一套通用的计算机指令集合。  ARM指令架构(移动端)  ARM架构(过去称作进阶精简指令集机器(Advanced RISC Machine)，更早称作Acorn RISC Machin">
+<meta property="og:description" content="第一次作业1.分析并调试程序，找到flag使用技术：IDA动态调试crackme.exe 前置知识点  步骤  1.找到文件夹IDA目录下的dbgsrv文件夹，找到对应版本的win_32或者64remote.exe，点击运行。 2.打开ida，将exe拖入，Debugger → Select a debugger → Remote windows debugger 3.Debugger → pro">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20231204020406336.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20231204020525845.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20231215213439983.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20231215214312875.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20231215214839633.png">
@@ -26,12 +24,11 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20231219050607270.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20231219053305127.png">
 <meta property="article:published_time" content="2023-12-21T13:49:13.000Z">
-<meta property="article:modified_time" content="2024-03-02T12:59:55.813Z">
+<meta property="article:modified_time" content="2024-03-03T11:53:29.210Z">
 <meta property="article:author" content="psych">
 <meta property="article:tag" content="re">
-<meta property="article:tag" content="游戏安全">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20231204020406336.png">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20231215213439983.png">
     
     
       
@@ -51,7 +48,7 @@
       
     
     <!-- title -->
-    <title>tx菁英班游戏安全</title>
+    <title>菁英班游戏安全第一次作业</title>
     <!-- async scripts -->
     <!-- Google Analytics -->
 
@@ -117,23 +114,23 @@
     <div id="share" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/&text=tx菁英班游戏安全"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/&title=tx菁英班游戏安全"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/&is_video=false&description=tx菁英班游戏安全"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=tx菁英班游戏安全&body=Check out this article: http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/&title=tx菁英班游戏安全"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/&title=tx菁英班游戏安全"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/&title=tx菁英班游戏安全"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/&title=tx菁英班游戏安全"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/&name=tx菁英班游戏安全&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/&t=tx菁英班游戏安全"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/&text=菁英班游戏安全第一次作业"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/&title=菁英班游戏安全第一次作业"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/&is_video=false&description=菁英班游戏安全第一次作业"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=菁英班游戏安全第一次作业&body=Check out this article: http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/&title=菁英班游戏安全第一次作业"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/&title=菁英班游戏安全第一次作业"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/&title=菁英班游戏安全第一次作业"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/&title=菁英班游戏安全第一次作业"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/&name=菁英班游戏安全第一次作业&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/&t=菁英班游戏安全第一次作业"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-PC"><span class="toc-number">1.</span> <span class="toc-text">游戏安全开发基础(PC)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%8E%E8%B0%83%E8%AF%95"><span class="toc-number">1.1.</span> <span class="toc-text">软件开发与调试</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E6%9E%B6%E6%9E%84"><span class="toc-number">1.1.1.</span> <span class="toc-text">指令架构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%BC%96%E8%AF%91%E5%99%A8"><span class="toc-number">1.1.2.</span> <span class="toc-text">常见编译器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E7%BC%96%E8%AF%91%E4%B8%8E%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%E7%BC%96%E8%AF%91"><span class="toc-number">1.1.3.</span> <span class="toc-text">静态编译与动态链接库编译</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E5%8A%A0%E5%A3%B3%E4%B8%8E%E7%A0%B4%E8%A7%A3"><span class="toc-number">1.1.4.</span> <span class="toc-text">软件加壳与破解</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%E5%AE%89%E5%85%A8%E7%9F%A5%E8%AF%86%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.2.</span> <span class="toc-text">游戏引擎安全知识介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#UE4%E5%BC%95%E6%93%8E%E5%AE%89%E5%85%A8%E7%9F%A5%E8%AF%86%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.2.1.</span> <span class="toc-text">UE4引擎安全知识介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Unity%E5%BC%95%E6%93%8E%E5%AE%89%E5%85%A8%E7%9F%A5%E8%AF%86%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.2.2.</span> <span class="toc-text">Unity引擎安全知识介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Mono"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">Mono</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#IL2CPP"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">IL2CPP</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E4%B8%8E%E4%BB%A3%E7%A0%81Hook%E7%9A%84%E5%8E%9F%E7%90%86"><span class="toc-number">1.3.</span> <span class="toc-text">进程注入与代码Hook的原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-number">1.3.1.</span> <span class="toc-text">进程注入的分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%9D%99%E6%80%81%E6%B3%A8%E5%85%A5"><span class="toc-number">1.3.2.</span> <span class="toc-text">常见静态注入</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5%E8%A1%A8%E6%B3%A8%E5%85%A5"><span class="toc-number">1.3.2.1.</span> <span class="toc-text">导入表注入</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#DLL%E5%8A%AB%E6%8C%81%E6%B3%A8%E5%85%A5"><span class="toc-number">1.3.2.2.</span> <span class="toc-text">DLL劫持注入</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B3%A8%E5%86%8C%E8%A1%A8%E6%B3%A8%E5%85%A5"><span class="toc-number">1.3.2.3.</span> <span class="toc-text">注册表注入</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E5%8A%A8%E6%80%81%E6%B3%A8%E5%85%A5"><span class="toc-number">1.3.3.</span> <span class="toc-text">常见动态注入</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B%E7%BA%BF%E7%A8%8B%E6%B3%A8%E5%85%A5"><span class="toc-number">1.3.3.1.</span> <span class="toc-text">远程线程注入</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84Hook%E6%96%B9%E5%BC%8F"><span class="toc-number">1.3.4.</span> <span class="toc-text">常见的Hook方式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E8%AF%BB%E5%86%99%E4%B8%8E%E7%9B%91%E6%8E%A7"><span class="toc-number">1.4.</span> <span class="toc-text">内存读写与监控</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E8%B7%A8%E8%BF%9B%E7%A8%8B%E5%86%85%E5%AD%98%E8%AF%BB%E5%86%99%E6%96%B9%E5%BC%8F"><span class="toc-number">1.4.1.</span> <span class="toc-text">常见跨进程内存读写方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E8%B7%A8%E8%BF%9B%E7%A8%8B%E5%86%85%E5%AD%98%E8%AF%BB%E5%86%99%E7%9B%91%E6%8E%A7%E6%96%B9%E5%BC%8F"><span class="toc-number">1.4.2.</span> <span class="toc-text">常见跨进程内存读写监控方式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E7%A7%BB%E5%8A%A8"><span class="toc-number">2.</span> <span class="toc-text">游戏安全开发基础(移动)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E5%88%B6%E5%8C%96%E5%A4%96%E6%8C%82%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B"><span class="toc-number">2.1.</span> <span class="toc-text">定制化外挂开发流程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%86%E5%90%91%E5%88%86%E6%9E%90%E6%B8%B8%E6%88%8F%E9%80%BB%E8%BE%91"><span class="toc-number">2.1.1.</span> <span class="toc-text">逆向分析游戏逻辑</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E5%A4%96%E6%8C%82%E5%8A%9F%E8%83%BD%E6%98%AF%E5%90%A6%E5%8F%AF%E8%A1%8C"><span class="toc-number">2.1.2.</span> <span class="toc-text">验证外挂功能是否可行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%A8%E5%85%A5%E6%B8%B8%E6%88%8F%E8%BF%9B%E7%A8%8B"><span class="toc-number">2.1.3.</span> <span class="toc-text">注入游戏进程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%9A%E4%B8%BE%E6%B8%B8%E6%88%8F%E8%BF%9B%E7%A8%8B%E6%A8%A1%E5%9D%97"><span class="toc-number">2.1.4.</span> <span class="toc-text">枚举游戏进程模块</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Hook%E5%85%B3%E9%94%AE%E5%87%BD%E6%95%B0"><span class="toc-number">2.1.5.</span> <span class="toc-text">Hook关键函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B8%B8%E6%88%8F%E5%86%85%E5%AD%98%E6%95%B0%E6%8D%AE%E4%BF%AE%E6%94%B9"><span class="toc-number">2.1.6.</span> <span class="toc-text">游戏内存数据修改</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="toc-number">2.2.</span> <span class="toc-text">注入技术的实现原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5"><span class="toc-number">2.2.1.</span> <span class="toc-text">进程注入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ptrace%E6%B3%A8%E5%85%A5%E6%B5%81%E7%A8%8B"><span class="toc-number">2.2.2.</span> <span class="toc-text">ptrace注入流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ptrace%E5%AE%9E%E7%8E%B0%E6%B5%81%E7%A8%8B"><span class="toc-number">2.2.3.</span> <span class="toc-text">ptrace实现流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ELF%E6%96%87%E4%BB%B6%E9%9D%99%E6%80%81%E6%B3%A8%E5%85%A5"><span class="toc-number">2.2.4.</span> <span class="toc-text">ELF文件静态注入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ELF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F"><span class="toc-number">2.2.5.</span> <span class="toc-text">ELF文件格式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%84%9F%E6%9F%93ELF%E6%96%87%E4%BB%B6%E7%9A%84%E6%B3%A8%E5%85%A5%E5%AE%9E%E7%8E%B0%E8%BF%87%E7%A8%8B"><span class="toc-number">2.2.6.</span> <span class="toc-text">感染ELF文件的注入实现过程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hook%E6%8A%80%E6%9C%AF%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="toc-number">2.3.</span> <span class="toc-text">Hook技术的实现原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9B%BF%E6%8D%A2%E6%B1%87%E7%BC%96%E7%BC%96%E7%A0%81%E2%80%93Inline-Hook%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.3.1.</span> <span class="toc-text">替换汇编编码–Inline Hook的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Inline-Hook%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="toc-number">2.3.1.1.</span> <span class="toc-text">Inline Hook的实现原理</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9B%BF%E6%8D%A2%E6%B1%87%E7%BC%96%E7%BC%96%E7%A0%81%E2%80%93%E5%AF%BC%E5%85%A5%E8%A1%A8-Hook%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.3.2.</span> <span class="toc-text">替换汇编编码–导入表 Hook的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="toc-number">2.3.2.1.</span> <span class="toc-text">实现原理</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E6%AC%A1%E4%BD%9C%E4%B8%9A"><span class="toc-number">3.</span> <span class="toc-text">第一次作业</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%88%86%E6%9E%90%E5%B9%B6%E8%B0%83%E8%AF%95%E7%A8%8B%E5%BA%8F%EF%BC%8C%E6%89%BE%E5%88%B0flag"><span class="toc-number">3.1.</span> <span class="toc-text">1.分析并调试程序，找到flag</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="toc-number">3.1.1.</span> <span class="toc-text">前置知识点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E6%9C%AC%E9%A2%98"><span class="toc-number">3.1.2.</span> <span class="toc-text">关于本题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%BF%9C%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%A8%A1%E5%9D%97"><span class="toc-number">3.2.</span> <span class="toc-text">2.远程注入模块</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A6%81%E6%B1%82"><span class="toc-number">3.2.1.</span> <span class="toc-text">要求</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">3.2.2.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E6%9C%AC%E9%A2%98-1"><span class="toc-number">3.2.3.</span> <span class="toc-text">关于本题</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B3%A8%E5%85%A5%E6%96%87%E4%BB%B6%EF%BC%9Aevil-cpp-%E7%94%9F%E6%88%90evil-exe"><span class="toc-number">3.2.3.1.</span> <span class="toc-text">注入文件：evil.cpp(生成evil.exe)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#dll%E6%96%87%E4%BB%B6%EF%BC%9Adllmain-cpp-%E7%94%9F%E6%88%90dllmain-exe"><span class="toc-number">3.2.3.2.</span> <span class="toc-text">dll文件：dllmain.cpp(生成dllmain.exe)</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%9C%E4%B8%9A%E7%BB%93%E6%9E%9C"><span class="toc-number">3.2.4.</span> <span class="toc-text">作业结果</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Hook%E7%A8%8B%E5%BA%8F"><span class="toc-number">3.3.</span> <span class="toc-text">3.Hook程序</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-1"><span class="toc-number">3.3.1.</span> <span class="toc-text">原理</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#DLL%E6%B3%A8%E5%85%A5"><span class="toc-number">3.3.1.1.</span> <span class="toc-text">DLL注入</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Hook%E6%8A%80%E6%9C%AF"><span class="toc-number">3.3.1.2.</span> <span class="toc-text">Hook技术</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%AC%E9%A2%98"><span class="toc-number">3.3.2.</span> <span class="toc-text">本题</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C"><span class="toc-number">3.3.2.1.</span> <span class="toc-text">最终效果</span></a></li></ol></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E6%AC%A1%E4%BD%9C%E4%B8%9A"><span class="toc-number">1.</span> <span class="toc-text">第一次作业</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%88%86%E6%9E%90%E5%B9%B6%E8%B0%83%E8%AF%95%E7%A8%8B%E5%BA%8F%EF%BC%8C%E6%89%BE%E5%88%B0flag"><span class="toc-number">1.1.</span> <span class="toc-text">1.分析并调试程序，找到flag</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="toc-number">1.1.1.</span> <span class="toc-text">前置知识点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E6%9C%AC%E9%A2%98"><span class="toc-number">1.1.2.</span> <span class="toc-text">关于本题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%BF%9C%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%A8%A1%E5%9D%97"><span class="toc-number">1.2.</span> <span class="toc-text">2.远程注入模块</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A6%81%E6%B1%82"><span class="toc-number">1.2.1.</span> <span class="toc-text">要求</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">1.2.2.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E6%9C%AC%E9%A2%98-1"><span class="toc-number">1.2.3.</span> <span class="toc-text">关于本题</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B3%A8%E5%85%A5%E6%96%87%E4%BB%B6%EF%BC%9Aevil-cpp-%E7%94%9F%E6%88%90evil-exe"><span class="toc-number">1.2.3.1.</span> <span class="toc-text">注入文件：evil.cpp(生成evil.exe)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#dll%E6%96%87%E4%BB%B6%EF%BC%9Adllmain-cpp-%E7%94%9F%E6%88%90dllmain-exe"><span class="toc-number">1.2.3.2.</span> <span class="toc-text">dll文件：dllmain.cpp(生成dllmain.exe)</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%9C%E4%B8%9A%E7%BB%93%E6%9E%9C"><span class="toc-number">1.2.4.</span> <span class="toc-text">作业结果</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Hook%E7%A8%8B%E5%BA%8F"><span class="toc-number">1.3.</span> <span class="toc-text">3.Hook程序</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-1"><span class="toc-number">1.3.1.</span> <span class="toc-text">原理</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#DLL%E6%B3%A8%E5%85%A5"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">DLL注入</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Hook%E6%8A%80%E6%9C%AF"><span class="toc-number">1.3.1.2.</span> <span class="toc-text">Hook技术</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%AC%E9%A2%98"><span class="toc-number">1.3.2.</span> <span class="toc-text">本题</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C"><span class="toc-number">1.3.2.1.</span> <span class="toc-text">最终效果</span></a></li></ol></li></ol></li></ol></li></ol>
       </div>
     
   </span>
@@ -146,7 +143,7 @@
   <header>
     
     <h1 class="posttitle p-name" itemprop="name headline">
-        tx菁英班游戏安全
+        菁英班游戏安全第一次作业
     </h1>
 
 
@@ -174,7 +171,7 @@
       
     <div class="article-tag">
         <i class="fa-solid fa-tag"></i>
-        <a class="p-category" href="/tags/re/" rel="tag">re</a>, <a class="p-category" href="/tags/%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8/" rel="tag">游戏安全</a>
+        <a class="p-category" href="/tags/re/" rel="tag">re</a>
     </div>
 
 
@@ -183,252 +180,7 @@
   
 
   <div class="content e-content" itemprop="articleBody">
-    <h2 id="游戏安全开发基础-PC"><a href="#游戏安全开发基础-PC" class="headerlink" title="游戏安全开发基础(PC)"></a>游戏安全开发基础(PC)</h2><h3 id="软件开发与调试"><a href="#软件开发与调试" class="headerlink" title="软件开发与调试"></a>软件开发与调试</h3><h4 id="指令架构"><a href="#指令架构" class="headerlink" title="指令架构"></a>指令架构</h4><ul>
-<li>X86指令架构(PC端)</li>
-</ul>
-<p>X86架构(The X8 architecture)是微处理器执行的计算机语言指令集，指一个Intel通用计算机系统的标准编号缩写，也表示一套通用的计算机指令集合。</p>
-<ul>
-<li>ARM指令架构(移动端)</li>
-</ul>
-<p>ARM架构(过去称作进阶精简指令集机器(Advanced RISC Machine)，更早称作Acorn RISC Machine)是一个32位元精简指令集(RISC)，中央处理器(Processor)架构，其广泛地使用在许多嵌入式系统(embedded)设计。由于节能的特点，ARM处理器非常适用于移动通讯领域，符合其主要设计目的为低耗电的特性。</p>
-<h4 id="常见编译器"><a href="#常见编译器" class="headerlink" title="常见编译器"></a>常见编译器</h4><ul>
-<li>MSVC</li>
-</ul>
-<p>Microsoft Visual C&#x2F;C++</p>
-<ul>
-<li>LLVM</li>
-</ul>
-<p>Low Level Virtual Machine</p>
-<h4 id="静态编译与动态链接库编译"><a href="#静态编译与动态链接库编译" class="headerlink" title="静态编译与动态链接库编译"></a>静态编译与动态链接库编译</h4><p>在vs的project属性页里面有一行运行库可以选择，常见的就是MT(静态)编译和MD(动态)编译。就分别是静态编译和动态编译。这两种编译方式编译出来的exe文件大小有很大区别，动态编译出来的文件很小。</p>
-<ul>
-<li>使用反汇编工具(IDA pro)查看不同编译选项编译的C++程序的汇编代码。</li>
-<li>使用Visual Studio调试自己开发的C++程序(就是debug)</li>
-<li>使用Cheat Engine调试自开发的C++程序</li>
-</ul>
-<h4 id="软件加壳与破解"><a href="#软件加壳与破解" class="headerlink" title="软件加壳与破解"></a>软件加壳与破解</h4><blockquote>
-<p>常见的软件加密壳</p>
-</blockquote>
-<ul>
-<li>VMProject</li>
-<li>UPX压缩壳</li>
-<li>SafeEngine</li>
-<li>Themida</li>
-</ul>
-<blockquote>
-<p>使用Cheat Engine破解控制台程序</p>
-</blockquote>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;windows.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    std:Lsount&lt;&lt;<span class="string">&quot;Hello World\n&quot;</span>;</span><br><span class="line">    <span class="type">int</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">        count++;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d\r\n&quot;</span>,count);</span><br><span class="line">        <span class="built_in">sleep</span>(<span class="number">500</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>使用控制台不在输出Count数据</li>
-</ul>
-<p>使用CE打开程序，然后把print哪一行命令改成nop。程序就停止打印</p>
-<ul>
-<li>使得控制台输出count的时间更长。</li>
-</ul>
-<p>汇编代码里面<code>mov exc,000001F4</code>就是指传递给sleep函数的参数是500毫秒(000001F4)、我们直接改成5000的十六进制的值<code>mov exc,00001388</code></p>
-<h3 id="游戏引擎安全知识介绍"><a href="#游戏引擎安全知识介绍" class="headerlink" title="游戏引擎安全知识介绍"></a>游戏引擎安全知识介绍</h3><h4 id="UE4引擎安全知识介绍"><a href="#UE4引擎安全知识介绍" class="headerlink" title="UE4引擎安全知识介绍"></a>UE4引擎安全知识介绍</h4><ul>
-<li>ULevel：UE的场景划分模式是基于子关卡来做的，UE4和其他支持大世界的引擎一样支持游戏场景中的物体动态加载与卸载，UE4中的动态加载卸载的子关卡叫做流关卡(StreamingLevel、ULevelStreaming类)，一开始就加载的子关卡叫持久关卡(PersistentLevel)</li>
-<li>UWorld：游戏主场景，游戏过程中，一般只存在一个UWorld实例</li>
-<li>GNames：包含游戏中所有对象的命名字符串信息</li>
-<li>GObjets：包含所有游戏对象的链表</li>
-<li>Gamelnstance：顾名思义，游戏实例，保存着当前的World和其他整个游戏的信息，官方解释是一个正在运行的游戏的高级别管理对象，在游戏创建时生成，游戏关闭时销毁，一个游戏中可以有多个Gamelnstance。在游戏中切换关卡，Gamelnstance不会销毁，切换关卡时可用Gamelnstance携带信息</li>
-<li>GameMode：负责指定游戏的规则，也就是应该如何玩游戏、遵守哪些规则</li>
-<li>GameState：游戏状态，记录游戏的数据，比如当前游戏的进度，世界人物的完成状态等，可同步到各个客户端</li>
-<li>UObject：引擎对象的最小单位</li>
-<li>Actor： 在UE离不是某种具象化的3D世界对象，而是世界里面的种种元素，用更泛化抽象的概念来看，小到一个个地上的石头，大到整个世界的运行规则，更像是一个容器</li>
-<li>RootComponent：对象根组件，包含对象的位置信息(坐标、朝向)</li>
-<li>Pawn 是作为世界中的一个“代理”的Actor。Pawn可以由控制器处理，它们可以轻松地接受输入，并且可以执行各种各样的类似于玩家的动作。</li>
-<li>Character是类人的Pawn。它默认包含一个用于碰撞的CapsuleComponent (胶囊体组件)和CharacterMovementComponent (角色运动组件) 它可以进行基本的拟人运动它可以平滑地在网格上复制运动，并且它具有一些动画相关的功能。</li>
-<li>Controller是负责管理Pawn的Actor，分为AIController和PlaverController。其中PlayerController (玩家控制器) 是Pawn和控制它的人类玩家间的接口。PlayerController本质上代表了人类玩家的意愿。</li>
-</ul>
-<h4 id="Unity引擎安全知识介绍"><a href="#Unity引擎安全知识介绍" class="headerlink" title="Unity引擎安全知识介绍"></a>Unity引擎安全知识介绍</h4><p>Unity脚本后处理(Scripting Backend)的两种方式Mono和IL2CPP。</p>
-<h5 id="Mono"><a href="#Mono" class="headerlink" title="Mono"></a>Mono</h5><p>Mono是一个由Xamarin公司所主持的自由开放源码项目Mono的目标是在尽可能多的台上使net标准的东西能正常运行的一套工具，核心在于”跨平台的让net代码能运行起来“库。Mono组成组件: C# 编译器CLI虚拟机，以及核心类别程序共中间语言 (CommonMono的编译器负责生成符合公共语言规范的映射代码，即公不同解析。我的理解就是工厂方法实现Intermediate Language，CIL)</p>
-<blockquote>
-<p>IL</p>
-</blockquote>
-<p>IL的全称是Intermediate Language，很多时候还会看到CIL (特指在Net平台下的IL标准)。翻译过来就是中间语言。它是一种属于通用语言架构和.NET框架的低阶的人类可读的编程语言。CIL类似一个面向对象的汇编语言，并且它是完全基于堆栈的，它运行在虚拟机上 (.NetFramework,Mono VM) 的语言。</p>
-<img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20231204020406336.png" alt="image-20231204020406336" style="zoom:33%;" />
-
-<h5 id="IL2CPP"><a href="#IL2CPP" class="headerlink" title="IL2CPP"></a>IL2CPP</h5><img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20231204020525845.png" alt="image-20231204020525845" style="zoom: 33%;" />
-
-<h3 id="进程注入与代码Hook的原理"><a href="#进程注入与代码Hook的原理" class="headerlink" title="进程注入与代码Hook的原理"></a>进程注入与代码Hook的原理</h3><h4 id="进程注入的分类"><a href="#进程注入的分类" class="headerlink" title="进程注入的分类"></a>进程注入的分类</h4><ul>
-<li>静态注入——进程创建前完成注入<ul>
-<li>导入表注入</li>
-<li>DLL挟持注入</li>
-<li>注册表注入</li>
-</ul>
-</li>
-<li>动态注入——进程运行过程中进行注入<ul>
-<li>远程线程注入</li>
-<li>消息钩子注入</li>
-<li>APC注入</li>
-<li>IAT(导入表函数)挟持注入</li>
-</ul>
-</li>
-</ul>
-<h4 id="常见静态注入"><a href="#常见静态注入" class="headerlink" title="常见静态注入"></a>常见静态注入</h4><h5 id="导入表注入"><a href="#导入表注入" class="headerlink" title="导入表注入"></a>导入表注入</h5><p>在PE的文件格式中，IMAGE_NT_HEADER的OptionalHeader存储着数据用户表，第二个表项就是导入表，指向着一个IMAGE_IMPORT_DESCRIPTOR(IID)结构体数组。</p>
-<p>而每一个IMAGE_IMPORT_DESCRIPTOR的结构，对应一个DLL信息。进程启动时系统会遍历这个数组，加载所依赖的dll到内存。新词修改导入表结构，增加一个导入表项，就可以实现让程序加载我们的dll，从而实现注入。</p>
-<h5 id="DLL劫持注入"><a href="#DLL劫持注入" class="headerlink" title="DLL劫持注入"></a>DLL劫持注入</h5><ul>
-<li>DLL劫持技术：当一个可执行文件运行时，Windows加载器将可执行模块映射到进程的地址空间中，加载器分析可执行模块的输入表，并设法找出任何需要的DLL，并将它们映射到进程的地址空间中。</li>
-<li>由于输入表中只包含DLL名而没有它的路径名，因此加载程序必须在磁盘上搜索DLL文件。</li>
-<li>首先会尝试从当前程序所在的目录加载DLL，如果没找到，则在Windows系统目录中查找，最后是在环境变量中列出的各个目录下查找。</li>
-<li>利用这个特点，先伪造一个系统同名的DLL，提供同样的输出表，每个输出函数转向真正的系统DLL。程序调用系统DLL时会先调用当前目录下伪造的DLL，完成相关功能后，再跳到系统DLL同名函数里执行。这个过程用个形象的词来描述就是系统DLL被劫持了。</li>
-<li>如果想办法把应用程序所依赖的在搜索路径的DLL，放置一个同名DLL到比这个路径更优先的目录去，则这个刻意放置的同名DLL会被加载</li>
-</ul>
-<h5 id="注册表注入"><a href="#注册表注入" class="headerlink" title="注册表注入"></a>注册表注入</h5><p>Window的每个GUI程序，在启动的时候，都会扫描注册表的<code>Applnit_DLLs</code>项，看看其中有没有指定的目标库，如果有，那就再程序运行时，主动加载。</p>
-<p>利用这一特性，就可以完成注入但是仅限于加载了user32.dll的目标(windows游戏都会加载<code>user32.dll</code>)</p>
-<p><code>HKEY_LOCALMACHINE\SOFTWARE\Microsoft\WindowsNT\CurrentVersionlWindows</code>下找到<code>Applnit_DLLs</code>和<code>LoadApplnit_DLLs</code>项<br>将<code>Applnit_DLLs</code>值修改为目标DII完整路径<br>修改<code>LoadApplnit DLLs</code>值为1(意思是允许默认加载动态库</p>
-<h4 id="常见动态注入"><a href="#常见动态注入" class="headerlink" title="常见动态注入"></a>常见动态注入</h4><h5 id="远程线程注入"><a href="#远程线程注入" class="headerlink" title="远程线程注入"></a>远程线程注入</h5><p>Windows提供了<code>CreateRemoteThread</code>函数允许一个进程在另一个进程上创建线程。通过巧妙地使用该函数可以把指定的DLL加载到其它进程。</p>
-<p>常见的利用CreateRemoteThread来实现远程线程注入的方式有两种:</p>
-<ul>
-<li><p>定义远程线程入口地址为LoadLibraryW并将需要加载的模块路径作为参数传入</p>
-</li>
-<li><p>编写ShellCode并将远程线程入口地址定义为ShellCode的执行地址，在ShellCode中调用Map到目标进程中的DLL入口函数</p>
-</li>
-</ul>
-<h4 id="常见的Hook方式"><a href="#常见的Hook方式" class="headerlink" title="常见的Hook方式"></a>常见的Hook方式</h4><ul>
-<li>Inline Hook</li>
-<li>虚表 Hook</li>
-<li>IAT(导入表) Hook</li>
-<li>内核APIHook(SSDT SSSDT)</li>
-<li>···</li>
-</ul>
-<h3 id="内存读写与监控"><a href="#内存读写与监控" class="headerlink" title="内存读写与监控"></a>内存读写与监控</h3><h4 id="常见跨进程内存读写方式"><a href="#常见跨进程内存读写方式" class="headerlink" title="常见跨进程内存读写方式"></a>常见跨进程内存读写方式</h4><ul>
-<li>用户层内存读写方式<ul>
-<li>OpenProcess+ReadProcessMemory</li>
-<li>劫持句柄+ReadProcessMemory</li>
-<li>映射物理内存到自进程</li>
-</ul>
-</li>
-<li>内核层内存读写方式<ul>
-<li>ZwReadVirtualMemory&#x2F;NtReadVirtualMemory</li>
-<li>MmCopyVirtualMemory</li>
-<li>MmCopyMemory</li>
-<li>RtlCopyMemory</li>
-</ul>
-</li>
-</ul>
-<h4 id="常见跨进程内存读写监控方式"><a href="#常见跨进程内存读写监控方式" class="headerlink" title="常见跨进程内存读写监控方式"></a>常见跨进程内存读写监控方式</h4><ul>
-<li>用户层内存读写监控方式<ul>
-<li>硬件断点</li>
-<li>INET3断点</li>
-<li>页面异常断点</li>
-<li>ProcessWorkingSet</li>
-</ul>
-</li>
-<li>内核层内存读写监控方式<ul>
-<li>VT EPT断点监控</li>
-</ul>
-</li>
-</ul>
-<h2 id="游戏安全开发基础-移动"><a href="#游戏安全开发基础-移动" class="headerlink" title="游戏安全开发基础(移动)"></a>游戏安全开发基础(移动)</h2><h3 id="定制化外挂开发流程"><a href="#定制化外挂开发流程" class="headerlink" title="定制化外挂开发流程"></a>定制化外挂开发流程</h3><h4 id="逆向分析游戏逻辑"><a href="#逆向分析游戏逻辑" class="headerlink" title="逆向分析游戏逻辑"></a>逆向分析游戏逻辑</h4><p>进入游戏外挂开发阶段之前，需要对作弊功能涉及的游戏逻辑展开逆向分析。只有分析清楚相关游戏逻辑的实现方式，才能针对特定的游戏逻辑实现外挂。以大飞机为例，要实现战机无敌的功能，则需要分析游戏的伤害逻辑；要实现秒杀功能，则需要分析游戏的攻击逻辑</p>
-<h4 id="验证外挂功能是否可行"><a href="#验证外挂功能是否可行" class="headerlink" title="验证外挂功能是否可行"></a>验证外挂功能是否可行</h4><p>验证外挂功能的可行性是外挂功能实现阶段的前置条件。如果某个游戏逻辑的安全性较好，那么游戏的后台服务器会校验大部分游戏的逻辑安全性，该游戏可实现的外挂功能非常有限。</p>
-<h4 id="注入游戏进程"><a href="#注入游戏进程" class="headerlink" title="注入游戏进程"></a>注入游戏进程</h4><p>如果外挂需要修改游戏进程的代码，则必须确保已注入游戏进程。注入游戏进程的方法丰富多样，在Android平台上可以通过ptrace方式将共享链接库注入游戏进程中，并执行共享链接库的代码。</p>
-<h4 id="枚举游戏进程模块"><a href="#枚举游戏进程模块" class="headerlink" title="枚举游戏进程模块"></a>枚举游戏进程模块</h4><p>游戏进程在运行过程中会加载很多内部和外部的模块，定制化外挂必须获取游戏主要逻辑块的基址，才能修改实现作弊功能。在Android平台上，可通过”&#x2F;proc&#x2F;$pid&#x2F;maps”文件获取游戏进程中当前加载的所有模块名称、基址、权限等信息。</p>
-<h4 id="Hook关键函数"><a href="#Hook关键函数" class="headerlink" title="Hook关键函数"></a>Hook关键函数</h4><p>外挂成功注入游戏进程后，可以通过对游戏主逻辑模块的代码进行修改，一般会对游戏的关键函数进行Hook操作，在游戏调用挂件函数时获得执行权限，从而实现外挂功能。Hook的本质是劫持函数调用，在Android平台上可通过导入表HOOK，Inline Hook实现Hook功能</p>
-<h4 id="游戏内存数据修改"><a href="#游戏内存数据修改" class="headerlink" title="游戏内存数据修改"></a>游戏内存数据修改</h4><p>除了对代码的修改，定制化外挂也经常对游戏内存数据进行修改，实现作弊功能。定制化外挂通常采用注入式篡改游戏内容，包括内存中的代码和数据。</p>
-<h3 id="注入技术的实现原理"><a href="#注入技术的实现原理" class="headerlink" title="注入技术的实现原理"></a>注入技术的实现原理</h3><h4 id="进程注入"><a href="#进程注入" class="headerlink" title="进程注入"></a>进程注入</h4><p>处于对进程安全性的保护，操作系统会将进程之间的空间进行隔离，防止跨进程访问其他进程空间的信息。游戏黑客们需要通过注入，将特定模块注入游戏进程中，访问和篡改游戏进程的信息，包括数据、代码等，从而实现外挂功能，所以进程注入式实现外挂功能的基础。进程注入可以分为动态注入和静态注入。</p>
-<h4 id="ptrace注入流程"><a href="#ptrace注入流程" class="headerlink" title="ptrace注入流程"></a>ptrace注入流程</h4><p>ptrace注入技术的核心是对ptrace函数的使用，ptrace函数为一个进程提供了近视和控制其他进程的方法，注入进程后，父进程可以读取和修改子进程的内存空间数据及寄存器值。</p>
-<blockquote>
-<p>函数定义</p>
-</blockquote>
-<p><code>ptrace()</code>系统调用的函数签名如下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/ptrace.h&gt;</span>       </span></span><br><span class="line"><span class="type">long</span> <span class="title function_">ptrace</span><span class="params">(<span class="keyword">enum</span> __ptrace_request request, <span class="type">pid_t</span> pid, <span class="type">void</span> *addr, <span class="type">void</span> *data)</span>;</span><br></pre></td></tr></table></figure>
-
-<p>对函数签名中的四个参数做如下说明：</p>
-<ul>
-<li>request：要执行的操作类型；&#x2F;&#x2F;反调试会用到<code>PT_DENY_ATTACH</code>，调试会用到<code>PTRACE_ATTACH</code></li>
-<li>pid：被追踪的目标进程ID；</li>
-<li>addr：被监控的目标内存地址；</li>
-<li>data：保存读取出或者要写入的数据。</li>
-</ul>
-<blockquote>
-<p>相关request(部分)</p>
-</blockquote>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">PTRACE_ATTACH: 表示附加到指定远程进程</span><br><span class="line">PTRACE_GETREGS: 表示读取远程进程当前的寄存器环境</span><br><span class="line">PTRACE_SETREGS: 表示设置远程进程的寄存器环境</span><br><span class="line">PTRACE_PEEKTEXT: 从远程进程指定内存地址写入一个word大小的数据</span><br><span class="line">PTRACE_POKETTEXT: 往远程进程指定内存地址写入一个word大小的数据</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p> 进程状态</p>
-</blockquote>
-<p>在Linux系统中，进程常见的状态有下面一些：</p>
-<ul>
-<li>S：Interruptible Sleeping，即可中断睡眠；</li>
-<li>D：Uninterruptible Sleeping，即不可中断睡眠；</li>
-<li>R：Running or Runnable，即运行状态；</li>
-<li>Z：Zombie，即僵尸状态；</li>
-<li>T：Stopped or Traced，即中止状态（注意是“中止”而非“终止”）。</li>
-</ul>
-<p>这里，我们关注点放在<code>T：Stopped or Traced</code>这个类型上。因为<code>Traced</code>类型是由<code>ptrace</code>系统调用提供的一个进程状态。实际上，在某些Linux发行版中，这个类型的进程状态标识符是<code>t</code>而非<code>T</code>。</p>
-<p><code>通过ptrace系统调用可以让一个进程进入Traced状态</code></p>
-<h4 id="ptrace实现流程"><a href="#ptrace实现流程" class="headerlink" title="ptrace实现流程"></a>ptrace实现流程</h4><blockquote>
-<p>流程</p>
-</blockquote>
-<ul>
-<li>attach到远程进程</li>
-<li>保存寄存器环境</li>
-<li>远程调用mmap函数分配内存空间</li>
-<li>向远程进程内存空间写入加载模块名和调用函数</li>
-<li>远程调用dlopen函数打开注入模块</li>
-<li>远程调用dlsym函数获取需要调用函数地址</li>
-<li>远程调用被注入模块的函数</li>
-<li>恢复寄存器环境</li>
-<li>从远程进程detach</li>
-</ul>
-<blockquote>
-<p>附加到远程进程上</p>
-</blockquote>
-<p>第一步是附加到远程进程上，调用方式如下：</p>
-<p><code>ptrace(PTRACE_ATTACH,pid,NULL,NULL);</code></p>
-<p>在附加到远程进程中，远程进程的执行会被中断，此时父进程可以通过调用<code>waitpid</code>函数来判断子进程是否进入暂停状态；</p>
-<p><code>waitpid(pid,status,options);</code></p>
-<blockquote>
-<p>保存寄存器环境</p>
-</blockquote>
-<p>通过ptrace改变远程进程的执行流程之前，需要先读取和保护远程进程的所有寄存器的值，当detach操作发生时，用于恢复远程进程原有的执行环境。</p>
-<p>读取和写入寄存器，调用ptrace函数的request函数分别为PTRACE_GETREGS和PTRACE_SETREGS。对应调用的代码如下：</p>
-<p><code>ptrace(PTRACE_GETREGS,pid,NULL,regs);</code></p>
-<p><code>ptrace(PTRACE_SETREGS,pid,NULL,regs);</code></p>
-<blockquote>
-<p>远程进程的内存读取和写入数据</p>
-</blockquote>
-<p>读取和写入内存数据，调用ptrace函数的request参数分别为PTRACE_PEEKTEXT和PTRACE_POKETEXT。对应调用的代码如下</p>
-<p><code>ptrace(PTRACE_PEEKTEXT,pid,addr,pBuf);</code></p>
-<p><code>ptrace(PTRACE_POKETEXT,pid,addr,data);</code></p>
-<p>读取和写入内存，都是以word为单位进行的。写入数据时需要特别注意，若写入的数据长度不是word大小的倍数，则在写入最后一个不足word大小的数据时，要先保存原地址处的高位数据。</p>
-<blockquote>
-<p>远程调用函数</p>
-</blockquote>
-<p>首先判断函数调用的参数个数，前4个按顺序分别写入R0-R3寄存器中，后面从右至左压入栈中。</p>
-<p>然后修改进程的PC寄存器为需要执行的函数地址，若为Thumb指令，则需要将最低位重新设置为0，并且将CPSR寄存器的T标志位置位；若为ARM指令，则将CPSR寄存器的T标志位复位。</p>
-<p>最后设置远程进程的LR寄存器的值为0，远程进程的函数调用结束后，程序会跳转到LR寄存器存储的地址，但由于LR寄存器被设置为0，所以会导致远程进程执行出错，此时进程会进入暂停状态，被Tracer进程接管，通过读取远程进程的R0寄存器可以获取远程函数调用的返回结果。</p>
-<blockquote>
-<p>恢复寄存器值</p>
-</blockquote>
-<blockquote>
-<p>Detach进程</p>
-</blockquote>
-<p><code>ptrace(PTRACE_DETACH,pid,NULL,0);</code></p>
-<h4 id="ELF文件静态注入"><a href="#ELF文件静态注入" class="headerlink" title="ELF文件静态注入"></a>ELF文件静态注入</h4><p>Android平台下Native层的可执行文件属于ELF文件格式，通过感染ELF文件可以实现Android平台的注入功能。可执行文件感染是通过修改可执行文件，并添加自己的代码，是的可执行文件在运行时先执行添加的代码，在执行原逻辑。</p>
-<h4 id="ELF文件格式"><a href="#ELF文件格式" class="headerlink" title="ELF文件格式"></a>ELF文件格式</h4><ul>
-<li>ELF Header</li>
-</ul>
-<p>它是ELF文件中唯一一个固定位置的文件结构，在其中保存了Program Header Table和Section Header Table的位置和大小信息。</p>
-<ul>
-<li>Program Header Table</li>
-</ul>
-<p>它保存了ELF文件的加载过程中各Section的内存映射、依赖库等信息，是实现ELF感染最重要的结构之一。</p>
-<h4 id="感染ELF文件的注入实现过程"><a href="#感染ELF文件的注入实现过程" class="headerlink" title="感染ELF文件的注入实现过程"></a>感染ELF文件的注入实现过程</h4><ul>
-<li>在DT_STRTAB指向的字符串表中添加自定义的so模块名。由于直接在原字符表中添加一项数据，会导致字符串表后面的所有数据的文件偏移发生变化，所以通常会将字符串表移至文件末尾。</li>
-<li>由于字符表会被映射到内存中，所以需要在Program Header Table中添加PT_Load表项，新添加的PT_Load表项可将文件尾添加的字符串表数据映射到内存中，同时需要将Program Header Table移动到文件尾。</li>
-<li>修改DT_STRTAB、DT_STRSZ，使其指向新字符串表，然后在dynamic array的结尾加上DT_NEEDED表项，并指向自定义的so模块名</li>
-<li>修改ELF Header 结构中Program Header Table的位置信息，并指向新的Program Header Table</li>
-</ul>
-<h3 id="Hook技术的实现原理"><a href="#Hook技术的实现原理" class="headerlink" title="Hook技术的实现原理"></a>Hook技术的实现原理</h3><h4 id="替换汇编编码–Inline-Hook的实现"><a href="#替换汇编编码–Inline-Hook的实现" class="headerlink" title="替换汇编编码–Inline Hook的实现"></a>替换汇编编码–Inline Hook的实现</h4><p>Inline Hook是基于二进制汇编代码替换方式而实现的Hook。Inline Hook属于底层的HooK方式，与系统平台可执行文件的汇编指令集息息相关，所以实现Inline Hook的难度较大。Inline Hook的优势非常明显：功能强大，执行效率高</p>
-<h5 id="Inline-Hook的实现原理"><a href="#Inline-Hook的实现原理" class="headerlink" title="Inline Hook的实现原理"></a>Inline Hook的实现原理</h5><p>Inline Hook直接修改需要Hook位置的指令代码，并让其跳转到桩函数中。在桩函数中调用自定义的桩函数。处理完自定义的桩函数后再跳转执行原指令。</p>
-<h4 id="替换汇编编码–导入表-Hook的实现"><a href="#替换汇编编码–导入表-Hook的实现" class="headerlink" title="替换汇编编码–导入表 Hook的实现"></a>替换汇编编码–导入表 Hook的实现</h4><p>在Android平台下导入表Hook属于API Hook的函数地址替换类型。相对于Inline Hook的实现方式，导入表Hook的实现较为简单，原理为：替换需要Hook的导入函数地址，当导入函数调用时Hook函数先获得执行时机。</p>
-<h5 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h5><p>导入表Hook通常以so文件的导入函数作为目标，进行函数指针替换。首先打开so问阿金，并解析elf格式，定位到so文件静态的.got表位置，并在内存中找到响应的.got表位置，此时内存中.got表中保存着导入的函数地址，找到目标函数后替换为新的函数地址，于是便实现了导入表的Hook操作。</p>
-<h2 id="第一次作业"><a href="#第一次作业" class="headerlink" title="第一次作业"></a>第一次作业</h2><h3 id="1-分析并调试程序，找到flag"><a href="#1-分析并调试程序，找到flag" class="headerlink" title="1.分析并调试程序，找到flag"></a>1.分析并调试程序，找到flag</h3><p>使用技术：IDA动态调试crackme.exe</p>
+    <h2 id="第一次作业"><a href="#第一次作业" class="headerlink" title="第一次作业"></a>第一次作业</h2><h3 id="1-分析并调试程序，找到flag"><a href="#1-分析并调试程序，找到flag" class="headerlink" title="1.分析并调试程序，找到flag"></a>1.分析并调试程序，找到flag</h3><p>使用技术：IDA动态调试crackme.exe</p>
 <h4 id="前置知识点"><a href="#前置知识点" class="headerlink" title="前置知识点"></a>前置知识点</h4><blockquote>
 <p> 步骤</p>
 </blockquote>
@@ -640,23 +392,23 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-PC"><span class="toc-number">1.</span> <span class="toc-text">游戏安全开发基础(PC)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%8E%E8%B0%83%E8%AF%95"><span class="toc-number">1.1.</span> <span class="toc-text">软件开发与调试</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E6%9E%B6%E6%9E%84"><span class="toc-number">1.1.1.</span> <span class="toc-text">指令架构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%BC%96%E8%AF%91%E5%99%A8"><span class="toc-number">1.1.2.</span> <span class="toc-text">常见编译器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E7%BC%96%E8%AF%91%E4%B8%8E%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%E7%BC%96%E8%AF%91"><span class="toc-number">1.1.3.</span> <span class="toc-text">静态编译与动态链接库编译</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E5%8A%A0%E5%A3%B3%E4%B8%8E%E7%A0%B4%E8%A7%A3"><span class="toc-number">1.1.4.</span> <span class="toc-text">软件加壳与破解</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%E5%AE%89%E5%85%A8%E7%9F%A5%E8%AF%86%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.2.</span> <span class="toc-text">游戏引擎安全知识介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#UE4%E5%BC%95%E6%93%8E%E5%AE%89%E5%85%A8%E7%9F%A5%E8%AF%86%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.2.1.</span> <span class="toc-text">UE4引擎安全知识介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Unity%E5%BC%95%E6%93%8E%E5%AE%89%E5%85%A8%E7%9F%A5%E8%AF%86%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.2.2.</span> <span class="toc-text">Unity引擎安全知识介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Mono"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">Mono</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#IL2CPP"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">IL2CPP</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E4%B8%8E%E4%BB%A3%E7%A0%81Hook%E7%9A%84%E5%8E%9F%E7%90%86"><span class="toc-number">1.3.</span> <span class="toc-text">进程注入与代码Hook的原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-number">1.3.1.</span> <span class="toc-text">进程注入的分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%9D%99%E6%80%81%E6%B3%A8%E5%85%A5"><span class="toc-number">1.3.2.</span> <span class="toc-text">常见静态注入</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5%E8%A1%A8%E6%B3%A8%E5%85%A5"><span class="toc-number">1.3.2.1.</span> <span class="toc-text">导入表注入</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#DLL%E5%8A%AB%E6%8C%81%E6%B3%A8%E5%85%A5"><span class="toc-number">1.3.2.2.</span> <span class="toc-text">DLL劫持注入</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B3%A8%E5%86%8C%E8%A1%A8%E6%B3%A8%E5%85%A5"><span class="toc-number">1.3.2.3.</span> <span class="toc-text">注册表注入</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E5%8A%A8%E6%80%81%E6%B3%A8%E5%85%A5"><span class="toc-number">1.3.3.</span> <span class="toc-text">常见动态注入</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B%E7%BA%BF%E7%A8%8B%E6%B3%A8%E5%85%A5"><span class="toc-number">1.3.3.1.</span> <span class="toc-text">远程线程注入</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84Hook%E6%96%B9%E5%BC%8F"><span class="toc-number">1.3.4.</span> <span class="toc-text">常见的Hook方式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E8%AF%BB%E5%86%99%E4%B8%8E%E7%9B%91%E6%8E%A7"><span class="toc-number">1.4.</span> <span class="toc-text">内存读写与监控</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E8%B7%A8%E8%BF%9B%E7%A8%8B%E5%86%85%E5%AD%98%E8%AF%BB%E5%86%99%E6%96%B9%E5%BC%8F"><span class="toc-number">1.4.1.</span> <span class="toc-text">常见跨进程内存读写方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E8%B7%A8%E8%BF%9B%E7%A8%8B%E5%86%85%E5%AD%98%E8%AF%BB%E5%86%99%E7%9B%91%E6%8E%A7%E6%96%B9%E5%BC%8F"><span class="toc-number">1.4.2.</span> <span class="toc-text">常见跨进程内存读写监控方式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E7%A7%BB%E5%8A%A8"><span class="toc-number">2.</span> <span class="toc-text">游戏安全开发基础(移动)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E5%88%B6%E5%8C%96%E5%A4%96%E6%8C%82%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B"><span class="toc-number">2.1.</span> <span class="toc-text">定制化外挂开发流程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%86%E5%90%91%E5%88%86%E6%9E%90%E6%B8%B8%E6%88%8F%E9%80%BB%E8%BE%91"><span class="toc-number">2.1.1.</span> <span class="toc-text">逆向分析游戏逻辑</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E5%A4%96%E6%8C%82%E5%8A%9F%E8%83%BD%E6%98%AF%E5%90%A6%E5%8F%AF%E8%A1%8C"><span class="toc-number">2.1.2.</span> <span class="toc-text">验证外挂功能是否可行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%A8%E5%85%A5%E6%B8%B8%E6%88%8F%E8%BF%9B%E7%A8%8B"><span class="toc-number">2.1.3.</span> <span class="toc-text">注入游戏进程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%9A%E4%B8%BE%E6%B8%B8%E6%88%8F%E8%BF%9B%E7%A8%8B%E6%A8%A1%E5%9D%97"><span class="toc-number">2.1.4.</span> <span class="toc-text">枚举游戏进程模块</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Hook%E5%85%B3%E9%94%AE%E5%87%BD%E6%95%B0"><span class="toc-number">2.1.5.</span> <span class="toc-text">Hook关键函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B8%B8%E6%88%8F%E5%86%85%E5%AD%98%E6%95%B0%E6%8D%AE%E4%BF%AE%E6%94%B9"><span class="toc-number">2.1.6.</span> <span class="toc-text">游戏内存数据修改</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="toc-number">2.2.</span> <span class="toc-text">注入技术的实现原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5"><span class="toc-number">2.2.1.</span> <span class="toc-text">进程注入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ptrace%E6%B3%A8%E5%85%A5%E6%B5%81%E7%A8%8B"><span class="toc-number">2.2.2.</span> <span class="toc-text">ptrace注入流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ptrace%E5%AE%9E%E7%8E%B0%E6%B5%81%E7%A8%8B"><span class="toc-number">2.2.3.</span> <span class="toc-text">ptrace实现流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ELF%E6%96%87%E4%BB%B6%E9%9D%99%E6%80%81%E6%B3%A8%E5%85%A5"><span class="toc-number">2.2.4.</span> <span class="toc-text">ELF文件静态注入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ELF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F"><span class="toc-number">2.2.5.</span> <span class="toc-text">ELF文件格式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%84%9F%E6%9F%93ELF%E6%96%87%E4%BB%B6%E7%9A%84%E6%B3%A8%E5%85%A5%E5%AE%9E%E7%8E%B0%E8%BF%87%E7%A8%8B"><span class="toc-number">2.2.6.</span> <span class="toc-text">感染ELF文件的注入实现过程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hook%E6%8A%80%E6%9C%AF%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="toc-number">2.3.</span> <span class="toc-text">Hook技术的实现原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9B%BF%E6%8D%A2%E6%B1%87%E7%BC%96%E7%BC%96%E7%A0%81%E2%80%93Inline-Hook%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.3.1.</span> <span class="toc-text">替换汇编编码–Inline Hook的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Inline-Hook%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="toc-number">2.3.1.1.</span> <span class="toc-text">Inline Hook的实现原理</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9B%BF%E6%8D%A2%E6%B1%87%E7%BC%96%E7%BC%96%E7%A0%81%E2%80%93%E5%AF%BC%E5%85%A5%E8%A1%A8-Hook%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.3.2.</span> <span class="toc-text">替换汇编编码–导入表 Hook的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="toc-number">2.3.2.1.</span> <span class="toc-text">实现原理</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E6%AC%A1%E4%BD%9C%E4%B8%9A"><span class="toc-number">3.</span> <span class="toc-text">第一次作业</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%88%86%E6%9E%90%E5%B9%B6%E8%B0%83%E8%AF%95%E7%A8%8B%E5%BA%8F%EF%BC%8C%E6%89%BE%E5%88%B0flag"><span class="toc-number">3.1.</span> <span class="toc-text">1.分析并调试程序，找到flag</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="toc-number">3.1.1.</span> <span class="toc-text">前置知识点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E6%9C%AC%E9%A2%98"><span class="toc-number">3.1.2.</span> <span class="toc-text">关于本题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%BF%9C%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%A8%A1%E5%9D%97"><span class="toc-number">3.2.</span> <span class="toc-text">2.远程注入模块</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A6%81%E6%B1%82"><span class="toc-number">3.2.1.</span> <span class="toc-text">要求</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">3.2.2.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E6%9C%AC%E9%A2%98-1"><span class="toc-number">3.2.3.</span> <span class="toc-text">关于本题</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B3%A8%E5%85%A5%E6%96%87%E4%BB%B6%EF%BC%9Aevil-cpp-%E7%94%9F%E6%88%90evil-exe"><span class="toc-number">3.2.3.1.</span> <span class="toc-text">注入文件：evil.cpp(生成evil.exe)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#dll%E6%96%87%E4%BB%B6%EF%BC%9Adllmain-cpp-%E7%94%9F%E6%88%90dllmain-exe"><span class="toc-number">3.2.3.2.</span> <span class="toc-text">dll文件：dllmain.cpp(生成dllmain.exe)</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%9C%E4%B8%9A%E7%BB%93%E6%9E%9C"><span class="toc-number">3.2.4.</span> <span class="toc-text">作业结果</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Hook%E7%A8%8B%E5%BA%8F"><span class="toc-number">3.3.</span> <span class="toc-text">3.Hook程序</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-1"><span class="toc-number">3.3.1.</span> <span class="toc-text">原理</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#DLL%E6%B3%A8%E5%85%A5"><span class="toc-number">3.3.1.1.</span> <span class="toc-text">DLL注入</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Hook%E6%8A%80%E6%9C%AF"><span class="toc-number">3.3.1.2.</span> <span class="toc-text">Hook技术</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%AC%E9%A2%98"><span class="toc-number">3.3.2.</span> <span class="toc-text">本题</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C"><span class="toc-number">3.3.2.1.</span> <span class="toc-text">最终效果</span></a></li></ol></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E6%AC%A1%E4%BD%9C%E4%B8%9A"><span class="toc-number">1.</span> <span class="toc-text">第一次作业</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%88%86%E6%9E%90%E5%B9%B6%E8%B0%83%E8%AF%95%E7%A8%8B%E5%BA%8F%EF%BC%8C%E6%89%BE%E5%88%B0flag"><span class="toc-number">1.1.</span> <span class="toc-text">1.分析并调试程序，找到flag</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="toc-number">1.1.1.</span> <span class="toc-text">前置知识点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E6%9C%AC%E9%A2%98"><span class="toc-number">1.1.2.</span> <span class="toc-text">关于本题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%BF%9C%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%A8%A1%E5%9D%97"><span class="toc-number">1.2.</span> <span class="toc-text">2.远程注入模块</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A6%81%E6%B1%82"><span class="toc-number">1.2.1.</span> <span class="toc-text">要求</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">1.2.2.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E6%9C%AC%E9%A2%98-1"><span class="toc-number">1.2.3.</span> <span class="toc-text">关于本题</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B3%A8%E5%85%A5%E6%96%87%E4%BB%B6%EF%BC%9Aevil-cpp-%E7%94%9F%E6%88%90evil-exe"><span class="toc-number">1.2.3.1.</span> <span class="toc-text">注入文件：evil.cpp(生成evil.exe)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#dll%E6%96%87%E4%BB%B6%EF%BC%9Adllmain-cpp-%E7%94%9F%E6%88%90dllmain-exe"><span class="toc-number">1.2.3.2.</span> <span class="toc-text">dll文件：dllmain.cpp(生成dllmain.exe)</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%9C%E4%B8%9A%E7%BB%93%E6%9E%9C"><span class="toc-number">1.2.4.</span> <span class="toc-text">作业结果</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Hook%E7%A8%8B%E5%BA%8F"><span class="toc-number">1.3.</span> <span class="toc-text">3.Hook程序</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-1"><span class="toc-number">1.3.1.</span> <span class="toc-text">原理</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#DLL%E6%B3%A8%E5%85%A5"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">DLL注入</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Hook%E6%8A%80%E6%9C%AF"><span class="toc-number">1.3.1.2.</span> <span class="toc-text">Hook技术</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%AC%E9%A2%98"><span class="toc-number">1.3.2.</span> <span class="toc-text">本题</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C"><span class="toc-number">1.3.2.1.</span> <span class="toc-text">最终效果</span></a></li></ol></li></ol></li></ol></li></ol>
       </div>
     
 
     <div id="share-footer" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/&text=tx菁英班游戏安全"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/&title=tx菁英班游戏安全"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/&is_video=false&description=tx菁英班游戏安全"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=tx菁英班游戏安全&body=Check out this article: http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/&title=tx菁英班游戏安全"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/&title=tx菁英班游戏安全"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/&title=tx菁英班游戏安全"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/&title=tx菁英班游戏安全"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/&name=tx菁英班游戏安全&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/&t=tx菁英班游戏安全"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/&text=菁英班游戏安全第一次作业"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/&title=菁英班游戏安全第一次作业"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/&is_video=false&description=菁英班游戏安全第一次作业"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=菁英班游戏安全第一次作业&body=Check out this article: http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/&title=菁英班游戏安全第一次作业"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/&title=菁英班游戏安全第一次作业"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/&title=菁英班游戏安全第一次作业"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/&title=菁英班游戏安全第一次作业"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/&name=菁英班游戏安全第一次作业&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2023/12/21/tx%E8%8F%81%E8%8B%B1%E7%8F%AD%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/&t=菁英班游戏安全第一次作业"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
