@@ -32,7 +32,7 @@ $(document).ready(function() {
     /**
      * Display the menu on hi-res laptops and desktops.
      */
-    if ($(document).width() >= 1440) {
+    if ($(document).width() >= 777) {
       menu.show();
       menuIcon.addClass("active");
     }
@@ -41,12 +41,16 @@ $(document).ready(function() {
      * Display the menu if the menu icon is clicked.
      */
     menuIcon.click(function() {
-      if (menu.is(":hidden")) {
-        menu.show();
-        menuIcon.addClass("active");
+      if (nav.is(":hidden")) {
+        //menu.show();
+        nav.show();
+        // menuIcon.addClass("active");
       } else {
-        menu.hide();
-        menuIcon.removeClass("active");
+        // menu.show();
+        nav.hide();
+  
+        // menuIcon.removeClass("active");
+        //menuIcon.addClass("active");
       }
       return false;
     });
@@ -62,7 +66,7 @@ $(document).ready(function() {
         if (!nav.is(":visible") && topDistance < 50) {
           nav.show();
         } else if (nav.is(":visible") && topDistance > 100) {
-          nav.hide();
+           nav.hide();
         }
 
         // on tablet, hide the navigation icon as well and show a "scroll to top
@@ -99,6 +103,7 @@ $(document).ready(function() {
         $("#nav-footer").hide();
         $("#toc-footer").hide();
         $("#share-footer").hide();
+ 
 
         // show a "navigation" icon when close to the top of the page, 
         // otherwise show a "scroll to the top" icon
