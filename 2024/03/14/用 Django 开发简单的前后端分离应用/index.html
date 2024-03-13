@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="教学资源https:&#x2F;&#x2F;docs.djangoproject.com&#x2F; 使用 Django 开发简单前后端分离应用课程要求【Part 1】SaaS 后台框架搭建  结合需求创建model模型 通过DRF提供restful接口，其中标准运维相关接口以mock的形式提供 以装饰器的方式mock权限相关代码  【Part 2】前端页面开发  使用 lesscode 完成任务列表页面 新增部署按钮，刷新按">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用 Django 开发简单的前后端分离应用">
+<meta property="og:url" content="http://p5ych2022.github.io/2024/03/14/%E7%94%A8%20Django%20%E5%BC%80%E5%8F%91%E7%AE%80%E5%8D%95%E7%9A%84%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BA%94%E7%94%A8/index.html">
+<meta property="og:site_name" content="psych&#39;s blog">
+<meta property="og:description" content="教学资源https:&#x2F;&#x2F;docs.djangoproject.com&#x2F; 使用 Django 开发简单前后端分离应用课程要求【Part 1】SaaS 后台框架搭建  结合需求创建model模型 通过DRF提供restful接口，其中标准运维相关接口以mock的形式提供 以装饰器的方式mock权限相关代码  【Part 2】前端页面开发  使用 lesscode 完成任务列表页面 新增部署按钮，刷新按">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20240314002627250.png">
+<meta property="article:published_time" content="2024-03-13T16:34:54.000Z">
+<meta property="article:modified_time" content="2024-03-13T16:37:41.090Z">
+<meta property="article:author" content="psych">
+<meta property="article:tag" content="开发">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20240314002627250.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>用 Django 开发简单的前后端分离应用</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Article</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2024/03/02/Docker%E5%AE%B9%E5%99%A8%E9%80%83%E9%80%B8/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2024/03/14/%E7%94%A8%20Django%20%E5%BC%80%E5%8F%91%E7%AE%80%E5%8D%95%E7%9A%84%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BA%94%E7%94%A8/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2024/03/14/%E7%94%A8%20Django%20%E5%BC%80%E5%8F%91%E7%AE%80%E5%8D%95%E7%9A%84%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BA%94%E7%94%A8/&text=用 Django 开发简单的前后端分离应用"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2024/03/14/%E7%94%A8%20Django%20%E5%BC%80%E5%8F%91%E7%AE%80%E5%8D%95%E7%9A%84%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BA%94%E7%94%A8/&title=用 Django 开发简单的前后端分离应用"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2024/03/14/%E7%94%A8%20Django%20%E5%BC%80%E5%8F%91%E7%AE%80%E5%8D%95%E7%9A%84%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BA%94%E7%94%A8/&is_video=false&description=用 Django 开发简单的前后端分离应用"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=用 Django 开发简单的前后端分离应用&body=Check out this article: http://p5ych2022.github.io/2024/03/14/%E7%94%A8%20Django%20%E5%BC%80%E5%8F%91%E7%AE%80%E5%8D%95%E7%9A%84%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BA%94%E7%94%A8/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2024/03/14/%E7%94%A8%20Django%20%E5%BC%80%E5%8F%91%E7%AE%80%E5%8D%95%E7%9A%84%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BA%94%E7%94%A8/&title=用 Django 开发简单的前后端分离应用"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2024/03/14/%E7%94%A8%20Django%20%E5%BC%80%E5%8F%91%E7%AE%80%E5%8D%95%E7%9A%84%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BA%94%E7%94%A8/&title=用 Django 开发简单的前后端分离应用"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2024/03/14/%E7%94%A8%20Django%20%E5%BC%80%E5%8F%91%E7%AE%80%E5%8D%95%E7%9A%84%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BA%94%E7%94%A8/&title=用 Django 开发简单的前后端分离应用"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2024/03/14/%E7%94%A8%20Django%20%E5%BC%80%E5%8F%91%E7%AE%80%E5%8D%95%E7%9A%84%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BA%94%E7%94%A8/&title=用 Django 开发简单的前后端分离应用"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2024/03/14/%E7%94%A8%20Django%20%E5%BC%80%E5%8F%91%E7%AE%80%E5%8D%95%E7%9A%84%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BA%94%E7%94%A8/&name=用 Django 开发简单的前后端分离应用&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2024/03/14/%E7%94%A8%20Django%20%E5%BC%80%E5%8F%91%E7%AE%80%E5%8D%95%E7%9A%84%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BA%94%E7%94%A8/&t=用 Django 开发简单的前后端分离应用"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%99%E5%AD%A6%E8%B5%84%E6%BA%90"><span class="toc-number">1.</span> <span class="toc-text">教学资源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-Django-%E5%BC%80%E5%8F%91%E7%AE%80%E5%8D%95%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BA%94%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text">使用 Django 开发简单前后端分离应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%BE%E7%A8%8B%E8%A6%81%E6%B1%82"><span class="toc-number">2.1.</span> <span class="toc-text">课程要求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8E%E5%8F%B0%E6%A1%86%E6%9E%B6%E6%90%AD%E5%BB%BA"><span class="toc-number">2.2.</span> <span class="toc-text">后台框架搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA-App%EF%BC%9Ahost-query"><span class="toc-number">2.2.1.</span> <span class="toc-text">创建 App：host_query</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-Models%EF%BC%9ABusiness%E3%80%81Host"><span class="toc-number">2.2.2.</span> <span class="toc-text">定义 Models：Business、Host</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA-Tasks%EF%BC%9A"><span class="toc-number">2.2.3.</span> <span class="toc-text">创建 Tasks：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%96%E5%86%99-VIews%EF%BC%8C%E6%8F%90%E4%BE%9B%E5%89%8D%E7%AB%AF%E8%B0%83%E7%94%A8%E6%89%80%E9%9C%80-api"><span class="toc-number">2.2.4.</span> <span class="toc-text">编写 VIews，提供前端调用所需 api</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E7%AB%AF-API-%E8%B0%83%E7%94%A8"><span class="toc-number">2.3.</span> <span class="toc-text">前端 API 调用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86"><span class="toc-number">3.</span> <span class="toc-text">前置知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Django-%E5%85%A5%E9%97%A8"><span class="toc-number">3.1.</span> <span class="toc-text">Django 入门</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B"><span class="toc-number">3.1.1.</span> <span class="toc-text">安装过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%8A%95%E7%A5%A8%E5%BA%94%E7%94%A8"><span class="toc-number">3.1.2.</span> <span class="toc-text">创建投票应用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%9B%E5%BB%BA%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.1.3.</span> <span class="toc-text">设置数据库创建模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.1.4.</span> <span class="toc-text">创建模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BF%80%E6%B4%BB%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.1.5.</span> <span class="toc-text">激活模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9D%E8%AF%95API"><span class="toc-number">3.1.6.</span> <span class="toc-text">初试API</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Django%E7%AE%A1%E7%90%86%E9%A1%B5%E9%9D%A2"><span class="toc-number">3.1.7.</span> <span class="toc-text">Django管理页面</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%A7%86%E5%9B%BE"><span class="toc-number">3.1.8.</span> <span class="toc-text">创建视图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF%E6%96%87%E4%BB%B6"><span class="toc-number">3.1.9.</span> <span class="toc-text">模板文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BB%93%E5%88%9B%E5%BB%BA%E5%BA%94%E7%94%A8%E5%92%8C%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E6%B5%81%E7%A8%8B"><span class="toc-number">3.1.10.</span> <span class="toc-text">总结创建应用和数据模型流程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DRF%E5%BC%80%E5%8F%91"><span class="toc-number">3.2.</span> <span class="toc-text">DRF开发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#API"><span class="toc-number">3.3.</span> <span class="toc-text">API</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        用 Django 开发简单的前后端分离应用
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">psych</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2024-03-13T16:34:54.000Z" class="dt-published" itemprop="datePublished">2024-03-14</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/%E5%BC%80%E5%8F%91/">开发</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/%E5%BC%80%E5%8F%91/" rel="tag">开发</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="教学资源"><a href="#教学资源" class="headerlink" title="教学资源"></a>教学资源</h2><p><a target="_blank" rel="noopener" href="https://docs.djangoproject.com/">https://docs.djangoproject.com/</a></p>
+<h2 id="使用-Django-开发简单前后端分离应用"><a href="#使用-Django-开发简单前后端分离应用" class="headerlink" title="使用 Django 开发简单前后端分离应用"></a>使用 Django 开发简单前后端分离应用</h2><h3 id="课程要求"><a href="#课程要求" class="headerlink" title="课程要求"></a>课程要求</h3><p><strong>【Part 1】SaaS 后台框架搭建</strong></p>
+<ul>
+<li>结合需求创建model模型</li>
+<li>通过DRF提供restful接口，其中标准运维相关接口以mock的形式提供</li>
+<li>以装饰器的方式mock权限相关代码</li>
+</ul>
+<p><strong>【Part 2】前端页面开发</strong></p>
+<ul>
+<li>使用 lesscode 完成任务列表页面</li>
+<li>新增部署按钮，刷新按钮，查看任务按钮</li>
+<li>新建部署弹框（下拉框，文本输入框）</li>
+<li>事件绑定、计算属性、侦听器等</li>
+<li>进阶完成 lesscode 暂时无法实现的功能</li>
+<li>把所有接口对接至后台接口</li>
+</ul>
+<p><strong>【Part 3】APIGateway 接入</strong></p>
+<ul>
+<li>讲解APIGateway对应文档查询</li>
+<li>把Part3中mock掉的标准运维接口，调整为Gateway调用</li>
+</ul>
+<p><strong>【Part 4】异步任务支持</strong></p>
+<ul>
+<li>把查询标准运维任务状态的功能，通过celery周期任务实现</li>
+<li>完成任务的消息通知，通过celery异步执行</li>
+</ul>
+<p><strong>【Part 5】权限中心接入</strong></p>
+<ul>
+<li>注册本项目的权限模型到权限中心（任务创建，执行记录查看）</li>
+<li>对后台提供的接口结合iam sdk进行鉴权</li>
+</ul>
+<hr>
+<h3 id="后台框架搭建"><a href="#后台框架搭建" class="headerlink" title="后台框架搭建"></a><strong>后台框架搭建</strong></h3><blockquote>
+<p><strong>流程：创建项目和应用、定义模型、调用 API 存储数据、创建视图(编写 API 并处理数据)、暴露接口</strong></p>
+</blockquote>
+<h4 id="创建-App：host-query"><a href="#创建-App：host-query" class="headerlink" title="创建 App：host_query"></a>创建 App：host_query</h4><ul>
+<li>在manage.py统计目录下创建host-query目录：<code>python manage.py startapp host_query</code></li>
+<li>在<code>host_query</code>中创建 <code>urls.py</code></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path</span><br><span class="line"><span class="keyword">from</span> host_query <span class="keyword">import</span> views</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">&quot;&quot;</span>, views.index, name=<span class="string">&quot;index&quot;</span>),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>下一步在根URLconf文件中指定我们创建 的 <code>host_query.urls</code> 模块.在 <code>/urls.py</code> 文件的 <code>urlpatterns</code> 列表里插入一个 <code>include()</code> 。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url(r&#x27;^host_query/&#x27;, include(&#x27;host_query.urls&#x27;))</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="定义-Models：Business、Host"><a href="#定义-Models：Business、Host" class="headerlink" title="定义 Models：Business、Host"></a>定义 Models：Business、Host</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.db <span class="keyword">import</span> models</span><br><span class="line"><span class="comment"># Create your models here.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#Business</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Business</span>(models.Model):</span><br><span class="line">    bk_biz_id =  models.CharField(verbose_name=<span class="string">&quot;业务id&quot;</span>, primary_key=<span class="literal">True</span>, max_length=<span class="number">255</span>)</span><br><span class="line">    bk_biz_name = models.CharField(max_length=<span class="number">255</span>, verbose_name=<span class="string">&quot;业务名&quot;</span>, blank=<span class="literal">True</span>, null=<span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__str__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> self.bk_biz_name</span><br><span class="line"></span><br><span class="line"><span class="comment"># Host model</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Host</span>(models.Model):</span><br><span class="line">    bk_host_id = models.CharField(verbose_name=<span class="string">&quot;主机id&quot;</span>, primary_key=<span class="literal">True</span>, max_length=<span class="number">255</span>)</span><br><span class="line">    bk_cloud_id = models.CharField(verbose_name=<span class="string">&quot;云区域&quot;</span>, blank=<span class="literal">True</span>, max_length=<span class="number">255</span>,null=<span class="literal">True</span>)</span><br><span class="line">    bk_biz_id = models.CharField(verbose_name=<span class="string">&quot;业务id&quot;</span>, blank=<span class="literal">True</span>, max_length=<span class="number">255</span>,null=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    bk_os_type = models.CharField(verbose_name=<span class="string">&quot;操作系统类型&quot;</span>, max_length=<span class="number">255</span>, blank=<span class="literal">True</span>, null=<span class="literal">True</span>)</span><br><span class="line">    bk_host_innerip = models.GenericIPAddressField(verbose_name=<span class="string">&quot;内网IP&quot;</span>, blank=<span class="literal">True</span>, null=<span class="literal">True</span>)</span><br><span class="line">    bk_mac = models.GenericIPAddressField(verbose_name=<span class="string">&quot;内网MAC地址&quot;</span>, blank=<span class="literal">True</span>, null=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    bk_set_id = models.CharField(verbose_name=<span class="string">&quot;集群ID&quot;</span>, max_length=<span class="number">255</span>, blank=<span class="literal">True</span>, null=<span class="literal">True</span>)</span><br><span class="line">    bk_set_name = models.CharField(verbose_name=<span class="string">&quot;集群名&quot;</span>, max_length=<span class="number">2500</span>, blank=<span class="literal">True</span>, null=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    bk_module_id = models.CharField(verbose_name=<span class="string">&quot;模块ID&quot;</span>, max_length=<span class="number">255</span>, blank=<span class="literal">True</span>, null=<span class="literal">True</span>)</span><br><span class="line">    bk_module_name = models.CharField(verbose_name=<span class="string">&quot;模块名&quot;</span>, max_length=<span class="number">255</span>, blank=<span class="literal">True</span>, null=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__str__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> self.bk_host_innerip</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="创建-Tasks："><a href="#创建-Tasks：" class="headerlink" title="创建 Tasks："></a>创建 Tasks：</h4><p>这部分主要是调用各个 api 进行数据读取，之后接入前端进行渲染</p>
+<ul>
+<li><p>封装 api 请求</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">api_request</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, base_url, bk_app_code, bk_app_secret, access_token</span>):</span><br><span class="line">        self.base_url = base_url</span><br><span class="line">        self.bk_app_code = bk_app_code</span><br><span class="line">        self.bk_app_secret = bk_app_secret</span><br><span class="line">        self.access_token = access_token</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_headers</span>(<span class="params">self</span>):</span><br><span class="line">        auth_dict = &#123;</span><br><span class="line">            <span class="string">&quot;bk_app_code&quot;</span>: self.bk_app_code,</span><br><span class="line">            <span class="string">&quot;bk_app_secret&quot;</span>: self.bk_app_secret,</span><br><span class="line">            <span class="string">&quot;access_token&quot;</span>: self.access_token,</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="string">&quot;X-Bkapi-Authorization&quot;</span>: json.dumps(auth_dict)&#125;</span><br><span class="line"></span><br><span class="line">api_request_instance = api_request(</span><br><span class="line">            base_url=<span class="string">&quot;&lt;http://api/xxx&gt;&quot;</span>,</span><br><span class="line">            bk_app_code=os.environ.get(<span class="string">&#x27;BKPAAS_APP_ID&#x27;</span>),</span><br><span class="line">            bk_app_secret=os.environ.get(<span class="string">&#x27;BKPAAS_APP_SECRET&#x27;</span>),</span><br><span class="line">            access_token=<span class="string">&#x27;xxx&#x27;</span>,</span><br><span class="line"> )</span><br><span class="line"></span><br><span class="line">header = api_request_instance.get_headers</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>调用业务查询接口查询业务并写入数据库</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Business model</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Business</span>(models.Model):</span><br><span class="line">    bk_biz_id =  models.CharField(verbose_name=<span class="string">&quot;业务id&quot;</span>, primary_key=<span class="literal">True</span>, max_length=<span class="number">255</span>)</span><br><span class="line">    bk_biz_name = models.CharField(max_length=<span class="number">255</span>, verbose_name=<span class="string">&quot;业务名&quot;</span>, blank=<span class="literal">True</span>, null=<span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__str__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> self.bk_biz_name</span><br><span class="line"></span><br><span class="line"><span class="comment"># search all business</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_business_info</span>() -&gt; <span class="built_in">list</span>:</span><br><span class="line">    plus_url = <span class="string">&quot;api/xxx/search_business/&quot;</span></span><br><span class="line">    url = api_request_instance.base_url + plus_url</span><br><span class="line">    response = requests.post(url=url, json=&#123;<span class="string">&quot;fields&quot;</span>: [<span class="string">&quot;bk_biz_id&quot;</span>, <span class="string">&quot;bk_biz_name&quot;</span>]&#125;, headers=header).content</span><br><span class="line">    json_data = json.loads(response.decode(<span class="string">&quot;utf-8&quot;</span>))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (json_data[<span class="string">&#x27;data&#x27;</span>][<span class="string">&#x27;info&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># add business to database</span></span><br><span class="line"><span class="meta">@periodic_task(<span class="params">run_every=crontab(<span class="params"></span>)</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">add_business_to_database</span>():</span><br><span class="line">    all_business = get_business_info()</span><br><span class="line">    create_businesses = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> business <span class="keyword">in</span> all_business:</span><br><span class="line">        create_businesses.append(</span><br><span class="line">            Business(bk_biz_id=business.get(<span class="string">&quot;bk_biz_id&quot;</span>), bk_biz_name=business.get(<span class="string">&quot;bk_biz_name&quot;</span>))</span><br><span class="line">        )</span><br><span class="line">    <span class="comment"># print(create_businesses)</span></span><br><span class="line">    <span class="keyword">with</span> transaction.atomic():</span><br><span class="line">        Business.objects.bulk_create(create_businesses)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>按照业务将对应的主机写入数据库</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Host model</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Host</span>(models.Model):</span><br><span class="line">    bk_host_id = models.CharField(verbose_name=<span class="string">&quot;主机id&quot;</span>, primary_key=<span class="literal">True</span>, max_length=<span class="number">255</span>)</span><br><span class="line">    bk_cloud_id = models.CharField(verbose_name=<span class="string">&quot;云区域&quot;</span>, blank=<span class="literal">True</span>, max_length=<span class="number">255</span>,null=<span class="literal">True</span>)</span><br><span class="line">    bk_biz_id = models.CharField(verbose_name=<span class="string">&quot;业务id&quot;</span>, blank=<span class="literal">True</span>, max_length=<span class="number">255</span>,null=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    bk_os_type = models.CharField(verbose_name=<span class="string">&quot;操作系统类型&quot;</span>, max_length=<span class="number">255</span>, blank=<span class="literal">True</span>, null=<span class="literal">True</span>)</span><br><span class="line">    bk_host_innerip = models.GenericIPAddressField(verbose_name=<span class="string">&quot;内网IP&quot;</span>, blank=<span class="literal">True</span>, null=<span class="literal">True</span>)</span><br><span class="line">    bk_mac = models.GenericIPAddressField(verbose_name=<span class="string">&quot;内网MAC地址&quot;</span>, blank=<span class="literal">True</span>, null=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    bk_set_id = models.CharField(verbose_name=<span class="string">&quot;集群ID&quot;</span>, max_length=<span class="number">255</span>, blank=<span class="literal">True</span>, null=<span class="literal">True</span>)</span><br><span class="line">    bk_set_name = models.CharField(verbose_name=<span class="string">&quot;集群名&quot;</span>, max_length=<span class="number">2500</span>, blank=<span class="literal">True</span>, null=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    bk_module_id = models.CharField(verbose_name=<span class="string">&quot;模块ID&quot;</span>, max_length=<span class="number">255</span>, blank=<span class="literal">True</span>, null=<span class="literal">True</span>)</span><br><span class="line">    bk_module_name = models.CharField(verbose_name=<span class="string">&quot;模块名&quot;</span>, max_length=<span class="number">255</span>, blank=<span class="literal">True</span>, null=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__str__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> self.bk_host_innerip</span><br><span class="line"></span><br><span class="line"><span class="comment"># get host from business</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_host_from_business</span>(<span class="params">business_id, start, limit</span>):</span><br><span class="line">    plus_url = <span class="string">&quot;api/xxx/list_biz_hosts_topo&quot;</span></span><br><span class="line">    url = api_request_instance.base_url + plus_url</span><br><span class="line">    response = requests.post(</span><br><span class="line">        url=url,</span><br><span class="line">        json=&#123;</span><br><span class="line">            <span class="string">&quot;page&quot;</span>: &#123;<span class="string">&quot;start&quot;</span>: start, <span class="string">&quot;limit&quot;</span>: limit&#125;,</span><br><span class="line">            <span class="string">&quot;bk_biz_id&quot;</span>: <span class="string">f&quot;<span class="subst">&#123;business_id&#125;</span>&quot;</span>,</span><br><span class="line">            <span class="string">&quot;fields&quot;</span>: [</span><br><span class="line">                <span class="string">&quot;bk_host_id&quot;</span>,</span><br><span class="line">                <span class="string">&quot;bk_cloud_id&quot;</span>,</span><br><span class="line">                <span class="string">&quot;bk_os_type&quot;</span>,</span><br><span class="line">                <span class="string">&quot;bk_host_innerip&quot;</span>,</span><br><span class="line">                <span class="string">&quot;bk_mac&quot;</span>,</span><br><span class="line">                <span class="string">&quot;bk_set_id&quot;</span>,</span><br><span class="line">                <span class="string">&quot;bk_set_name&quot;</span>,</span><br><span class="line">                <span class="string">&quot;bk_module_id&quot;</span>,</span><br><span class="line">                <span class="string">&quot;bk_module_name&quot;</span>,</span><br><span class="line">            ],</span><br><span class="line">        &#125;,</span><br><span class="line">        headers=header,</span><br><span class="line">    ).content</span><br><span class="line">    json_data = json.loads(response.decode(<span class="string">&quot;utf-8&quot;</span>))</span><br><span class="line">    <span class="keyword">return</span> json_data[<span class="string">&quot;data&quot;</span>][<span class="string">&quot;info&quot;</span>], json_data[<span class="string">&quot;data&quot;</span>][<span class="string">&quot;count&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># add host to database</span></span><br><span class="line"><span class="meta">@periodic_task(<span class="params">run_every=crontab(<span class="params"></span>)</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">add_host_to_database</span>():</span><br><span class="line">    all_business_info = get_business_info()</span><br><span class="line">    <span class="keyword">for</span> business_info <span class="keyword">in</span> all_business_info:</span><br><span class="line">        start = <span class="number">0</span></span><br><span class="line">        limit = <span class="number">300</span></span><br><span class="line">        all_host_info, count = get_host_from_business(business_info.get(<span class="string">&#x27;bk_biz_id&#x27;</span>), start, limit)</span><br><span class="line"></span><br><span class="line">        start += limit</span><br><span class="line">        <span class="keyword">while</span> count &gt; start:</span><br><span class="line">            next_page, count = get_host_from_business(business_info.get(<span class="string">&#x27;bk_biz_id&#x27;</span>), start, limit)</span><br><span class="line">            all_host_info.extend(next_page)</span><br><span class="line">            start += <span class="number">300</span></span><br><span class="line"></span><br><span class="line">        creating_hosts = []</span><br><span class="line">        bk_host_ids = [host[<span class="string">&quot;host&quot;</span>][<span class="string">&quot;bk_host_id&quot;</span>] <span class="keyword">for</span> host <span class="keyword">in</span> all_host_info]</span><br><span class="line"></span><br><span class="line">        existing_host_ids = <span class="built_in">set</span>(Host.objects.<span class="built_in">filter</span>(bk_host_id__in=bk_host_ids).values_list(<span class="string">&quot;bk_host_id&quot;</span>, flat=<span class="literal">True</span>))</span><br><span class="line">        <span class="keyword">for</span> host_info <span class="keyword">in</span> all_host_info:</span><br><span class="line"></span><br><span class="line">            bk_set_id = host_info[<span class="string">&quot;topo&quot;</span>][<span class="number">0</span>][<span class="string">&quot;bk_set_id&quot;</span>]</span><br><span class="line">            bk_set_name = host_info[<span class="string">&quot;topo&quot;</span>][<span class="number">0</span>][<span class="string">&quot;bk_set_name&quot;</span>]</span><br><span class="line"></span><br><span class="line">            bk_module_id = host_info[<span class="string">&quot;topo&quot;</span>][<span class="number">0</span>][<span class="string">&quot;module&quot;</span>][<span class="number">0</span>][<span class="string">&quot;bk_module_id&quot;</span>]</span><br><span class="line">            bk_module_name = host_info[<span class="string">&quot;topo&quot;</span>][<span class="number">0</span>][<span class="string">&quot;module&quot;</span>][<span class="number">0</span>][<span class="string">&quot;bk_module_name&quot;</span>]</span><br><span class="line"></span><br><span class="line">            host_info_host = host_info[<span class="string">&quot;host&quot;</span>]</span><br><span class="line">            creating_hosts_before = Host(</span><br><span class="line">                bk_host_id=host_info_host[<span class="string">&quot;bk_host_id&quot;</span>],</span><br><span class="line">                bk_cloud_id=host_info_host[<span class="string">&quot;bk_cloud_id&quot;</span>],</span><br><span class="line">                bk_biz_id=business_info[<span class="string">&quot;bk_biz_id&quot;</span>],</span><br><span class="line">                bk_os_type=host_info_host[<span class="string">&quot;bk_os_type&quot;</span>],</span><br><span class="line">                bk_host_innerip=host_info_host[<span class="string">&quot;bk_host_innerip&quot;</span>],</span><br><span class="line">                bk_mac=host_info_host[<span class="string">&quot;bk_mac&quot;</span>],</span><br><span class="line"></span><br><span class="line">                bk_set_id=bk_set_id,</span><br><span class="line">                bk_set_name=bk_set_name,</span><br><span class="line"></span><br><span class="line">                bk_module_id=bk_module_id,</span><br><span class="line">                bk_module_name=bk_module_name,</span><br><span class="line">            )</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> host_info_host[<span class="string">&quot;bk_host_id&quot;</span>] <span class="keyword">not</span> <span class="keyword">in</span> existing_host_ids:</span><br><span class="line">                creating_hosts.append(creating_hosts_before)</span><br><span class="line"></span><br><span class="line">        Host.objects.bulk_create(creating_hosts)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h4 id="编写-VIews，提供前端调用所需-api"><a href="#编写-VIews，提供前端调用所需-api" class="headerlink" title="编写 VIews，提供前端调用所需 api"></a>编写 VIews，提供前端调用所需 api</h4><ul>
+<li><p>需求</p>
+<ul>
+<li>获取所有 Business</li>
+<li>根据所选业务的 <code>bk_biz_id</code> 返回集群 <code>Set</code> 列表</li>
+<li>根据所选集群的 <code>bk_set_id</code> 返回模块 <code>Module</code> 列表</li>
+<li>并在下面显示满足三者条件的所有主机的所有字段信息，也许还需要调用一个 API 获得主机详细信息。</li>
+</ul>
+</li>
+<li><p>获取所有 Business：<code>/search_business</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># search business</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">search_business</span>(<span class="params">request</span>):</span><br><span class="line">    business_objects = Business.objects.<span class="built_in">all</span>()</span><br><span class="line"></span><br><span class="line">    business_list = [</span><br><span class="line">        &#123;<span class="string">&quot;bk_biz_id&quot;</span>: business.bk_biz_id, <span class="string">&quot;bk_biz_name&quot;</span>: business.bk_biz_name&#125; <span class="keyword">for</span> business <span class="keyword">in</span> business_objects</span><br><span class="line">    ]</span><br><span class="line">    <span class="keyword">return</span>(JsonResponse(&#123;<span class="string">&quot;business&quot;</span>: business_list&#125;))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取对应 Set：<code>/search_set?bk_biz_id=xxx</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#search set</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">search_set</span>(<span class="params">request</span>):</span><br><span class="line">    host_objects = Host.objects.<span class="built_in">all</span>()</span><br><span class="line">    bk_biz_id = request.GET.get(<span class="string">&quot;bk_biz_id&quot;</span>)</span><br><span class="line"></span><br><span class="line">    set_in_business = host_objects.<span class="built_in">filter</span>(bk_biz_id=bk_biz_id).values_list(<span class="string">&quot;bk_set_name&quot;</span>).distinct()</span><br><span class="line">    set_list = [</span><br><span class="line">        &#123;<span class="string">&quot;bk_set_name&quot;</span>: <span class="built_in">set</span>[<span class="number">0</span>]&#125; <span class="keyword">for</span> <span class="built_in">set</span> <span class="keyword">in</span> set_in_business</span><br><span class="line">    ]</span><br><span class="line">    <span class="keyword">return</span>(JsonResponse(&#123;<span class="string">&quot;set&quot;</span>: set_list&#125;))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>注意：最终return的格式是JSON，然后JSON里面蓄意嵌套 list，需要格式转换。</li>
+</ul>
+</li>
+<li><p>获取对应 Module：<code>/search_Module?bk_biz_id=xxx&amp;bk_biz_id=xxx</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#search module</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">search_module</span>(<span class="params">request</span>):</span><br><span class="line">    host_objects = Host.objects.<span class="built_in">all</span>()</span><br><span class="line">    bk_biz_id = request.GET.get(<span class="string">&quot;bk_biz_id&quot;</span>)</span><br><span class="line">    bk_set_id = request.GET.get(<span class="string">&quot;bk_set_id&quot;</span>)</span><br><span class="line"></span><br><span class="line">    module_in_set = host_objects.<span class="built_in">filter</span>(bk_biz_id = bk_biz_id, bk_set_id = bk_set_id).values_list(<span class="string">&quot;bk_module_name&quot;</span>,<span class="string">&quot;bk_module_id&quot;</span>).distinct()</span><br><span class="line">    module_list = [</span><br><span class="line">        &#123;<span class="string">&quot;bk_module_name&quot;</span>: <span class="built_in">set</span>[<span class="number">0</span>],<span class="string">&quot;bk_module_id&quot;</span>: <span class="built_in">set</span>[<span class="number">1</span>] &#125; <span class="keyword">for</span> <span class="built_in">set</span> <span class="keyword">in</span> module_in_set</span><br><span class="line">    ]</span><br><span class="line">    <span class="keyword">return</span>(JsonResponse(&#123;<span class="string">&quot;module&quot;</span>: module_list&#125;))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>显示对应主机：<code>/search_host</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">search_host</span>(<span class="params">request</span>):</span><br><span class="line">    host_object = Host.<span class="built_in">object</span>.<span class="built_in">all</span>()</span><br><span class="line">    bk_biz_id = request.GET.get(<span class="string">&quot;bk_biz_id&quot;</span>)</span><br><span class="line">    bk_set_id = request.GET.get(<span class="string">&quot;bk_set_id&quot;</span>)</span><br><span class="line">    bk_module_id = request.GET.get(<span class="string">&quot;bk_module_id&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span>(bk_biz_id):</span><br><span class="line">        host_object = host_object.<span class="built_in">filter</span>(bk_biz_id = bk_biz_id)</span><br><span class="line">	<span class="keyword">if</span>(bk_set_id):</span><br><span class="line">        host_object = host_object.<span class="built_in">filter</span>(bk_set_id = bk_set_id)</span><br><span class="line">    <span class="keyword">if</span>(bk_module_id):</span><br><span class="line">        host_object = host_object.<span class="built_in">filter</span>(bk_module_id = bk_module_id)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="前端-API-调用"><a href="#前端-API-调用" class="headerlink" title="前端 API 调用"></a>前端 API 调用</h3><p>使用bk提供的 lesscode 进行前端开发</p>
+<p>调用接口实例：调用 api 地址获取 JSON 数据，并赋值给对应 select，代码很简单，注意赋值给对应变量不要单纯只是return就行。</p>
+<h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><h3 id="Django-入门"><a href="#Django-入门" class="headerlink" title="Django 入门"></a>Django 入门</h3><h4 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a>安装过程</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;pip install djangop</span><br><span class="line">&gt;django-admin startproject django_demo01   <span class="comment">#我用不了这个命令不知道为啥</span></span><br><span class="line">&gt;python -m django startproject demo01      <span class="comment">#改用这个</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>安装好Django并创建脚手架</p>
+</li>
+<li><p>跑起来</p>
+<p><code>python manage.py runserver</code></p>
+</li>
+<li><p>文件目录</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">demo01/</span><br><span class="line">    manage.py    <span class="comment">#管理 Django 项目的命令行工具</span></span><br><span class="line">    demo01/        </span><br><span class="line">        __init__.py    <span class="comment">#空文件，告诉 Python 这个目录应该被认为是一个 Python 包</span></span><br><span class="line">        settings.py    <span class="comment">#配置文件</span></span><br><span class="line">        urls.py        <span class="comment">#URL 声明</span></span><br><span class="line">        asgi.py        <span class="comment">#运行在 ASGI 兼容的 Web 服务器上的入口</span></span><br><span class="line">        wsgi.py        <span class="comment">#运行在 WSGI 兼容的Web服务器上的入口</span></span><br></pre></td></tr></table></figure>
+
+<p>Django 中，每一个应用都是一个 Python 包，并且遵循着相同的约定。Django 自带一个工具，可以帮你生成应用的基础目录结构，这样你就能专心写代码，而不是创建目录了。</p>
+<hr>
+<h4 id="创建投票应用"><a href="#创建投票应用" class="headerlink" title="创建投票应用"></a>创建投票应用</h4><ul>
+<li><p>在manage.py统计目录下创建polls目录</p>
+<p><code>python manage.py startapp polls</code></p>
+</li>
+<li><p>出现文件结构</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">polls                    // polls 应用目录</span><br><span class="line">├── __init__.py          // 初始化模块</span><br><span class="line">├── admin.py             // 后台管理配置</span><br><span class="line">├── apps.py              // 应用配置</span><br><span class="line">├── migrations           // 数据库迁移文件目录</span><br><span class="line">│   └── __init__.py      // 数据库迁移初始化模块</span><br><span class="line">├── models.py            // 数据模型</span><br><span class="line">├── tests.py             // 单元测试</span><br><span class="line">└── views.py             // 视图</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在polls&#x2F;views.py中添加代码</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>(<span class="params">request</span>):</span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">&quot;Hello, world. You&#x27;re at the polls index.&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>接下来需要一个URL映射——URLconf</li>
+<li><a target="_blank" rel="noopener" href="http://在polls中创建urls.py/">在polls中创建urls.py</a></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> . <span class="keyword">import</span> views</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">&quot;&quot;</span>, views.index, name=<span class="string">&quot;index&quot;</span>),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>下一步在根URLconf文件中指定我们创建 的polls.urls模块.在demo01&#x2F;urls.py 文件的urlpatterns列表里插入一个include()。使用include()是为了即插即用</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">path(&quot;polls/&quot;, include(&quot;polls.urls&quot;)),</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>启动，结束。</li>
+</ul>
+<h4 id="设置数据库创建模型"><a href="#设置数据库创建模型" class="headerlink" title="设置数据库创建模型"></a>设置数据库创建模型</h4><ul>
+<li>打开 <code>deemo01/settings.py</code> 。这是个包含了 Django 项目设置的 Python 模块。</li>
+</ul>
+<p>有关数据库代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">DATABASES = &#123;</span><br><span class="line">    <span class="string">&#x27;default&#x27;</span>: &#123;</span><br><span class="line">        <span class="string">&#x27;ENGINE&#x27;</span>: <span class="string">&#x27;django.db.backends.sqlite3&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;NAME&#x27;</span>: BASE_DIR / <span class="string">&#x27;db.sqlite3&#x27;</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>如果需要修改成MySQL等，需要安装合适的 database bindings ，然后改变设置文件中 <code>[DATABASES](&lt;https://docs.djangoproject.com/zh-hans/5.0/ref/settings/#std-setting-DATABASES&gt;)</code> <code>&#39;default&#39;</code>  项目中的一些键值</p>
+</li>
+<li><p><code>[migrate](&lt;https://docs.djangoproject.com/zh-hans/5.0/ref/django-admin/#django-admin-migrate&gt;)</code> 命令查看 <code>[INSTALLED_APPS](&lt;https://docs.djangoproject.com/zh-hans/5.0/ref/settings/#std-setting-INSTALLED_APPS&gt;)</code> 配置，并根据 <code>mysite/settings.py</code> 文件中的数据库配置和随应用提供的数据库迁移文件，创建任何必要的数据库表</p>
+<p><code>python manage.py migrate</code></p>
+</li>
+</ul>
+<h4 id="创建模型"><a href="#创建模型" class="headerlink" title="创建模型"></a>创建模型</h4><ul>
+<li><p>投票系统中需要创建两个模型：问题(描述、发布时间)和选项(选项描述、当前票数)</p>
+</li>
+<li><p>在polls&#x2F;models.py中：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.db <span class="keyword">import</span> models</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Question</span>(models.Model):</span><br><span class="line">    question_text = models.CharField(max_length=<span class="number">200</span>)</span><br><span class="line">    pub_date = models.DateTimeField(<span class="string">&quot;date published&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Choice</span>(models.Model):</span><br><span class="line">    question = models.ForeignKey(Question,om_delete=models.CASCADE)</span><br><span class="line">    choice_text = models.CharField(max_length=<span class="number">200</span>)</span><br><span class="line">    votes = models.IntegerField(default=<span class="number">0</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="激活模型"><a href="#激活模型" class="headerlink" title="激活模型"></a>激活模型</h4><ul>
+<li>在setting.py中加上polls的pollsconfig</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">INSTALLED_APPS = [</span><br><span class="line">    ···</span><br><span class="line">    <span class="string">&quot;polls.apps.PollsConfig&quot;</span>,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>执行：<code>python manage.py makemigrations polls</code></li>
+<li>通过运行 <code>makemigrations</code> 命令，Django 会检测你对模型文件的修改（在这种情况下，你已经取得了新的），并且把修改的部分储存为一次 <em>迁移</em>。</li>
+<li>使用：<code>python manage.py sqlmigrate polls 0001</code> 查看具体sql语句</li>
+<li>使用：<code>python manage.py migrate</code>  在数据库里创建新定义的模型的数据表</li>
+</ul>
+<h4 id="初试API"><a href="#初试API" class="headerlink" title="初试API"></a>初试API</h4><ul>
+<li><p><code>python manage.py shell</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> polls.models <span class="keyword">import</span> Choice, Question  <span class="comment"># Import the model classes we just wrote.</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Question.objects.<span class="built_in">all</span>()</span><br><span class="line">&lt;QuerySet []&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> django.utils <span class="keyword">import</span> timezone</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>q = Question(question_text=<span class="string">&quot;What&#x27;s new?&quot;</span>, pub_date=timezone.now())</span><br><span class="line"><span class="comment"># Save the object into the database. You have to call save() explicitly.</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>q.save()</span><br><span class="line"><span class="comment"># Now it has an ID.</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>q.<span class="built_in">id</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="comment"># Access model field values via Python attributes.</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>q.question_text</span><br><span class="line"><span class="string">&quot;What&#x27;s new?&quot;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>q.pub_date</span><br><span class="line">datetime.datetime(<span class="number">2012</span>, <span class="number">2</span>, <span class="number">26</span>, <span class="number">13</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">775217</span>, tzinfo=datetime.timezone.utc)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="Django管理页面"><a href="#Django管理页面" class="headerlink" title="Django管理页面"></a>Django管理页面</h4><ul>
+<li>创建一个管理员账号(能登陆管理页面的账号)：<code>python manage.py createsuperuser</code> 按照流程设置账密</li>
+<li>启动开发服务器：<code>python manage.py runserver</code></li>
+<li>访问：<code>http://127.0.0.1:8000/admin/</code> 直接看到后台，使用刚才用的账密登录</li>
+<li>为问题<code>Question</code> 设置一个后台接口。打开polls&#x2F;admin.py</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> Question</span><br><span class="line">admin.site.register(Question)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后就可以在web端进行操作了！</li>
+</ul>
+<h4 id="创建视图"><a href="#创建视图" class="headerlink" title="创建视图"></a>创建视图</h4><ul>
+<li>在我们的投票应用中，我们需要下列几个视图：<ul>
+<li>问题索引页——展示最近的几个投票问题。</li>
+<li>问题详情页——展示某个投票的问题和不带结果的选项列表。</li>
+<li>问题结果页——展示某个投票的结果。</li>
+<li>投票处理器——用于响应用户为某个问题的特定选项投票的操作。</li>
+</ul>
+</li>
+<li>向polls&#x2F;views.py 中添加更多视图，这些视图都要接收参数</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def <span class="title function_">detail</span><span class="params">(request, question_id)</span>:</span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">&quot;You&#x27;re looking at question %s.&quot;</span> % question_id)</span><br><span class="line"></span><br><span class="line">def <span class="title function_">results</span><span class="params">(request, question_id)</span>:</span><br><span class="line">    response = <span class="string">&quot;You&#x27;re looking at the results of question %s.&quot;</span></span><br><span class="line">    <span class="keyword">return</span> HttpResponse(response % question_id)</span><br><span class="line"></span><br><span class="line">def <span class="title function_">vote</span><span class="params">(request, question_id)</span>:</span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">&quot;You&#x27;re voting on question %s.&quot;</span> % question_id)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>把这些新视图添加进<code>polls.urls</code> 模块里</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">path(<span class="string">&quot;&lt;int:question_id&gt;/&quot;</span>, views.detail, name=<span class="string">&quot;detail&quot;</span>),</span><br><span class="line">path(<span class="string">&quot;&lt;int:question_id&gt;/results/&quot;</span>, views.results, name=<span class="string">&quot;results&quot;</span>),</span><br><span class="line">path(<span class="string">&quot;&lt;int:question_id&gt;/vote/&quot;</span>, views.vote, name=<span class="string">&quot;vote&quot;</span>),</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>对于视图的要求：Django 只要求返回的是一个 <code>HttpResponse</code> ，或者抛出一个异常。至于这个<code>HttpResponse</code> 可以是模板引擎，可以生成PDF、zip、XML等任何东西。</li>
+</ul>
+<h4 id="模板文件"><a href="#模板文件" class="headerlink" title="模板文件"></a>模板文件</h4><ul>
+<li>创建如下路径：<code>polls/templates/polls/index.html</code> 并写入数据</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;% <span class="keyword">if</span> latest_question_list %&#125;</span><br><span class="line">    &lt;ul&gt;</span><br><span class="line">    &#123;% <span class="keyword">for</span> question <span class="keyword">in</span> latest_question_list %&#125;</span><br><span class="line">        &lt;li&gt;&lt;a href=<span class="string">&quot;/polls/&#123;&#123; question.id &#125;&#125;/&quot;</span>&gt;&#123;&#123; question.question_text &#125;&#125;&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">    &#123;% endfor %&#125;</span><br><span class="line">    &lt;/ul&gt;</span><br><span class="line">&#123;% <span class="keyword">else</span> %&#125;</span><br><span class="line">    &lt;p&gt;No polls are available.&lt;/p&gt;</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后，更新一下 <code>polls/views.py</code> 里的 <code>index</code> 视图来使用模板：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.template <span class="keyword">import</span> loader</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>(<span class="params">request</span>):</span><br><span class="line">    latest_question_list = Question.objects.order_by(<span class="string">&quot;-pub_date&quot;</span>)[:<span class="number">5</span>]</span><br><span class="line">    template = loader.get_template(<span class="string">&quot;polls/index.html&quot;</span>)</span><br><span class="line">    context = &#123;</span><br><span class="line">        <span class="string">&quot;latest_question_list&quot;</span>: latest_question_list,</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> HttpResponse(template.render(context, request))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>作用：载入 <code>polls/index.html</code>  模板文件，并且向它传递一个上下文(context)。这个上下文是一个字典，它将模板内的变量映射为 Python 对象</li>
+</ul>
+<hr>
+<h4 id="总结创建应用和数据模型流程"><a href="#总结创建应用和数据模型流程" class="headerlink" title="总结创建应用和数据模型流程"></a>总结创建应用和数据模型流程</h4><ul>
+<li>创建poll应用<ul>
+<li><code>python manage.py startapp polls</code></li>
+</ul>
+</li>
+<li>配置URLconf (路由)</li>
+<li>定义数据 <code>model</code><ul>
+<li>如 <code>class Question(models.Model)</code></li>
+</ul>
+</li>
+<li>创建迁移文件<ul>
+<li><code>python manage.py makemigrations</code></li>
+<li>执行后就成功创建 <strong>迁移脚本</strong></li>
+</ul>
+</li>
+<li>进行数据库迁移<ul>
+<li><code>python manage.py migrate</code></li>
+</ul>
+</li>
+<li>创建用于登录后台管理的超级用户<ul>
+<li><code>python manage.py createsuperuser</code></li>
+</ul>
+</li>
+<li>配置后台管理接口<ul>
+<li>在<code>admin.py</code> 中<code>import</code>并<code>regitser</code></li>
+</ul>
+</li>
+<li>在视图中渲染数据 (添加数据查询)<ul>
+<li>在视图(index)中添加：<code>context =&#123; &quot;latest_question_list&quot;: latest_question_list,&#125;</code></li>
+<li><code>return HttpResponse(template.render(context, request))</code></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="DRF开发"><a href="#DRF开发" class="headerlink" title="DRF开发"></a>DRF开发</h3><ul>
+<li>Django 视图 - FBV 与 CBV<ul>
+<li><strong>FBV（function base views）</strong> 基于函数的视图，就是在视图里使用函数处理请求。</li>
+<li><strong>CBV（class base views）</strong> 基于类的视图，就是在视图里使用类处理请求。</li>
+</ul>
+</li>
+<li>开发逻辑—DRF</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/p5ych2022/IHS@master/img/image-20240314002627250.png" alt="image-20240314002627250" style="zoom:33%;" />
+
+<ul>
+<li>安装：DRF是以<strong>Django子应用</strong>的方式提供的，需要注册到<strong>settings.py中</strong>，所以我们可以使用已有的Django环境而无需重新创建。<code>pip install djangorestframework</code></li>
+</ul>
+<hr>
+<h3 id="API"><a href="#API" class="headerlink" title="API"></a>API</h3><p>调用 API</p>
+<ul>
+<li>应用认证 - 用户认证 - 申请访问组件 API 的权限 - 调用组件 API</li>
+<li>前面都不用管，直接看调用部分</li>
+<li>使用组件SDK：<code>pip install bkapi-component-open</code>，也可以直接写进<code>requirements.txt</code></li>
+</ul>
+<p>生成 API</p>
+<ul>
+<li>在 view 中编写接口页面</li>
+<li>并正确配置路由</li>
+<li>配置用户组和映射</li>
+<li>前端调用封装的 api 获取数据渲染</li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Article</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%99%E5%AD%A6%E8%B5%84%E6%BA%90"><span class="toc-number">1.</span> <span class="toc-text">教学资源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-Django-%E5%BC%80%E5%8F%91%E7%AE%80%E5%8D%95%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BA%94%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text">使用 Django 开发简单前后端分离应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%BE%E7%A8%8B%E8%A6%81%E6%B1%82"><span class="toc-number">2.1.</span> <span class="toc-text">课程要求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8E%E5%8F%B0%E6%A1%86%E6%9E%B6%E6%90%AD%E5%BB%BA"><span class="toc-number">2.2.</span> <span class="toc-text">后台框架搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA-App%EF%BC%9Ahost-query"><span class="toc-number">2.2.1.</span> <span class="toc-text">创建 App：host_query</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-Models%EF%BC%9ABusiness%E3%80%81Host"><span class="toc-number">2.2.2.</span> <span class="toc-text">定义 Models：Business、Host</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA-Tasks%EF%BC%9A"><span class="toc-number">2.2.3.</span> <span class="toc-text">创建 Tasks：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%96%E5%86%99-VIews%EF%BC%8C%E6%8F%90%E4%BE%9B%E5%89%8D%E7%AB%AF%E8%B0%83%E7%94%A8%E6%89%80%E9%9C%80-api"><span class="toc-number">2.2.4.</span> <span class="toc-text">编写 VIews，提供前端调用所需 api</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E7%AB%AF-API-%E8%B0%83%E7%94%A8"><span class="toc-number">2.3.</span> <span class="toc-text">前端 API 调用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86"><span class="toc-number">3.</span> <span class="toc-text">前置知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Django-%E5%85%A5%E9%97%A8"><span class="toc-number">3.1.</span> <span class="toc-text">Django 入门</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B"><span class="toc-number">3.1.1.</span> <span class="toc-text">安装过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%8A%95%E7%A5%A8%E5%BA%94%E7%94%A8"><span class="toc-number">3.1.2.</span> <span class="toc-text">创建投票应用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%9B%E5%BB%BA%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.1.3.</span> <span class="toc-text">设置数据库创建模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.1.4.</span> <span class="toc-text">创建模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BF%80%E6%B4%BB%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.1.5.</span> <span class="toc-text">激活模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9D%E8%AF%95API"><span class="toc-number">3.1.6.</span> <span class="toc-text">初试API</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Django%E7%AE%A1%E7%90%86%E9%A1%B5%E9%9D%A2"><span class="toc-number">3.1.7.</span> <span class="toc-text">Django管理页面</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%A7%86%E5%9B%BE"><span class="toc-number">3.1.8.</span> <span class="toc-text">创建视图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF%E6%96%87%E4%BB%B6"><span class="toc-number">3.1.9.</span> <span class="toc-text">模板文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BB%93%E5%88%9B%E5%BB%BA%E5%BA%94%E7%94%A8%E5%92%8C%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E6%B5%81%E7%A8%8B"><span class="toc-number">3.1.10.</span> <span class="toc-text">总结创建应用和数据模型流程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DRF%E5%BC%80%E5%8F%91"><span class="toc-number">3.2.</span> <span class="toc-text">DRF开发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#API"><span class="toc-number">3.3.</span> <span class="toc-text">API</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2024/03/14/%E7%94%A8%20Django%20%E5%BC%80%E5%8F%91%E7%AE%80%E5%8D%95%E7%9A%84%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BA%94%E7%94%A8/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2024/03/14/%E7%94%A8%20Django%20%E5%BC%80%E5%8F%91%E7%AE%80%E5%8D%95%E7%9A%84%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BA%94%E7%94%A8/&text=用 Django 开发简单的前后端分离应用"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2024/03/14/%E7%94%A8%20Django%20%E5%BC%80%E5%8F%91%E7%AE%80%E5%8D%95%E7%9A%84%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BA%94%E7%94%A8/&title=用 Django 开发简单的前后端分离应用"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2024/03/14/%E7%94%A8%20Django%20%E5%BC%80%E5%8F%91%E7%AE%80%E5%8D%95%E7%9A%84%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BA%94%E7%94%A8/&is_video=false&description=用 Django 开发简单的前后端分离应用"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=用 Django 开发简单的前后端分离应用&body=Check out this article: http://p5ych2022.github.io/2024/03/14/%E7%94%A8%20Django%20%E5%BC%80%E5%8F%91%E7%AE%80%E5%8D%95%E7%9A%84%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BA%94%E7%94%A8/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2024/03/14/%E7%94%A8%20Django%20%E5%BC%80%E5%8F%91%E7%AE%80%E5%8D%95%E7%9A%84%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BA%94%E7%94%A8/&title=用 Django 开发简单的前后端分离应用"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2024/03/14/%E7%94%A8%20Django%20%E5%BC%80%E5%8F%91%E7%AE%80%E5%8D%95%E7%9A%84%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BA%94%E7%94%A8/&title=用 Django 开发简单的前后端分离应用"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2024/03/14/%E7%94%A8%20Django%20%E5%BC%80%E5%8F%91%E7%AE%80%E5%8D%95%E7%9A%84%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BA%94%E7%94%A8/&title=用 Django 开发简单的前后端分离应用"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2024/03/14/%E7%94%A8%20Django%20%E5%BC%80%E5%8F%91%E7%AE%80%E5%8D%95%E7%9A%84%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BA%94%E7%94%A8/&title=用 Django 开发简单的前后端分离应用"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2024/03/14/%E7%94%A8%20Django%20%E5%BC%80%E5%8F%91%E7%AE%80%E5%8D%95%E7%9A%84%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BA%94%E7%94%A8/&name=用 Django 开发简单的前后端分离应用&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2024/03/14/%E7%94%A8%20Django%20%E5%BC%80%E5%8F%91%E7%AE%80%E5%8D%95%E7%9A%84%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BA%94%E7%94%A8/&t=用 Django 开发简单的前后端分离应用"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2022-2024
+    psych
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Article</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

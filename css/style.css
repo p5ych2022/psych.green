@@ -431,7 +431,7 @@ body table {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
-  font-size: 12px;
+  font-size: 16px;
   overflow: auto;
   display: block;
 }
@@ -440,7 +440,7 @@ body th {
   border-bottom: 1px dashed #0f0;
   color: #e90000;
   font-weight: bold;
-  font-size: 13px;
+  font-size: 17px;
 }
 body td {
   padding: 0 8px;
@@ -490,10 +490,10 @@ html {
 body {
   margin: 0;
   height: 100%;
-  background-color: #121212;
+  background-color: #141414;
   color: #fff;
-  font-weight: 400;
-  font-size: 14px;
+  font-weight: 450;
+  font-size: 18px;
   font-family: "Menlo", "Meslo LG", monospace;
   line-height: 1.725;
   text-rendering: geometricPrecision;
@@ -939,7 +939,7 @@ body {
   z-index: 5000000;
   width: 100%;
   border-top: 1px solid #0f0;
-  background: #171717;
+  background: #191919;
   transition: opacity 0.2s;
 }
 #footer-post a {
@@ -956,7 +956,7 @@ body {
 #footer-post #nav-footer {
   padding-right: 1rem;
   padding-left: 1rem;
-  background: #2a2a2a;
+  background: #2c2c2c;
   text-align: center;
 }
 #footer-post #nav-footer a {
@@ -1000,7 +1000,7 @@ body {
 #footer-post #share-footer {
   padding-right: 1rem;
   padding-left: 1rem;
-  background: #2a2a2a;
+  background: #2c2c2c;
   text-align: center;
 }
 #footer-post #share-footer ul {
@@ -1020,7 +1020,7 @@ body {
   clear: both;
   padding-top: 1rem;
   padding-bottom: 1rem;
-  background: #2a2a2a;
+  background: #2c2c2c;
   text-align: left;
 }
 #footer-post #toc-footer ol {
@@ -1100,6 +1100,26 @@ body {
 }
 .project-list .project-item p {
   display: inline;
+}
+.column {
+  display: flex;
+  justify-content: space-between; /* 使两列分布在容器的两侧 */
+  margin: 0 -150px; /* 添加负边距来调整两列的间距 */
+}
+.study-list,
+.life-list {
+  width: 60%; /* 设置每列的宽度，可以根据需要进行调整 */
+  margin: 0 100px;
+}
+.cat {
+  display: block;
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 0rem;
+  color: #ff8c00;
+  letter-spacing: 0.01em;
+  font-weight: 500;
+  font-size: 2.5em;
 }
 article header .posttitle {
   margin-top: 0;
@@ -1365,7 +1385,7 @@ article .content .caption {
   outline: none;
   border: solid 1px #ffc0cb;
   border-radius: 5px;
-  background-color: #121212;
+  background-color: #141414;
   color: #fff;
   font-size: 1.2rem;
   -webkit-border-radius: 5px;
@@ -1425,10 +1445,10 @@ article .content .caption {
   display: none;
   padding: 0.2em 0.5em;
   -webkit-font-smoothing: subpixel-antialiased;
-  color: #121212;
+  color: #141414;
   font-display: swap;
   font-weight: 400;
-  font-size: 11.200000000000001px;
+  font-size: 14.4px;
   font-family: "Menlo", "Meslo LG", monospace;
   line-height: 1.725;
   text-rendering: geometricPrecision;
@@ -1518,7 +1538,7 @@ article .content .caption {
   }
 }
 #categories .category-list-title {
-  color: #ffebcd;
+  color: $color-test;
 }
 #categories .category-list .category-list-item .category-list-count {
   color: #ffebcd;
@@ -1620,7 +1640,7 @@ code {
   margin: 1rem 0;
   padding: 10px 15px;
   border-radius: 4px;
-  background: #2c2c2c;
+  background: #2e2e2e;
   font-family: "Menlo", "Meslo LG", monospace;
   -webkit-border-radius: 4px;
 }
