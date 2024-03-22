@@ -15,7 +15,7 @@
           
           <category> 云原生 </category>
           
-          <category> k8s安全 </category>
+          <category> 容器安全 </category>
           
       </categories>
       
@@ -583,8 +583,6 @@
       
       
       <categories>
-          
-          <category> 开发 </category>
           
           <category> 算法 </category>
           
